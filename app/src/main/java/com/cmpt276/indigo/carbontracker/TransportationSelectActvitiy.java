@@ -18,7 +18,7 @@ public class TransportationSelectActvitiy extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_transportation_select);
+        setContentView(R.layout.toolbar_transportation_select);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         //Allows for backbutton
