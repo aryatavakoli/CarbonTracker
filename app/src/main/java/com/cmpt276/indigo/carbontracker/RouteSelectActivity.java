@@ -31,6 +31,7 @@ public class RouteSelectActivity extends AppCompatActivity {
         createListView();
     }
 
+    //Launch add route activity
     private void launchAddActivity() {
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -42,21 +43,25 @@ public class RouteSelectActivity extends AppCompatActivity {
         });
     }
 
+    //Create a sample list view
     private void createListView() {
+        //Reference to listview
         ListView routeList = (ListView) findViewById(R.id.route_select_list);
         //create a sample array for test
         List<String> sample_route_list = new ArrayList<>();
+        //add elements
         sample_route_list.add("Route 1");
         sample_route_list.add("Route 2");
-
+        //Create array adapter
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
                 this, //context
                 android.R.layout.simple_list_item_1,
                 sample_route_list //array
         );
-
+        //Apply array adapter to listview
         routeList.setAdapter(arrayAdapter);
 
+        //handle callblack for each list element
         routeList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

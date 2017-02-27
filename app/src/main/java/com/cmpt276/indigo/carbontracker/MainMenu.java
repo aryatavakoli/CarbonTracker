@@ -17,6 +17,7 @@ public class MainMenu extends AppCompatActivity {
         journeySelectbtn();
     }
 
+    //Launch Create a jounrney activity
     private void journeySelectbtn() {
         Button btn = (Button) findViewById(R.id.main_menu_create_Journey_btn);
         btn.setOnClickListener(new View.OnClickListener() {
@@ -31,6 +32,7 @@ public class MainMenu extends AppCompatActivity {
 
     }
 
+    //Go to carbon footprint activity
     private void carbonFootprintSelectbtn() {
         Button btn = (Button) findViewById(R.id.main_menu_carbonfootprint_btn);
         btn.setOnClickListener(new View.OnClickListener() {

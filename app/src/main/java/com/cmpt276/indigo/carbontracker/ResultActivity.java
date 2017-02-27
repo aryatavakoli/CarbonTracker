@@ -15,12 +15,15 @@ public class ResultActivity extends AppCompatActivity {
         returntoMainMenu();
     }
 
+    //returns to main menu
     private void returntoMainMenu() {
         Button btn = (Button) findViewById(R.id.result_activity_return_btn);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //create new intent
                 Intent intent = new Intent(getApplicationContext(), MainMenu.class);
+                //wipe stack
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
 

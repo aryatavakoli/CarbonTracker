@@ -29,7 +29,9 @@ public class TransportationSelectActvitiy extends AppCompatActivity {
         createListView();
     }
 
+    // FAB button to launch add activity
     private void startAddActivity() {
+        //set reference to fab
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -43,20 +45,25 @@ public class TransportationSelectActvitiy extends AppCompatActivity {
 
     //sample for demonstartion purposes
     private void createListView() {
+        //set reference to listview
         ListView carList = (ListView) findViewById(R.id.transportation_select_list);
         //create a sample array for test
         List<String> sample_car_list = new ArrayList<>();
+        //Add elements
         sample_car_list.add("Toyota");
         sample_car_list.add("BMW");
 
+        //Create array adapter
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
                 this, //context
                 android.R.layout.simple_list_item_1,
                 sample_car_list //array
         );
 
+        //apply adapter ro listview
         carList.setAdapter(arrayAdapter);
 
+        //handle click for each element in listview
         carList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
