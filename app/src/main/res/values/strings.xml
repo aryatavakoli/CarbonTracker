@@ -6,4 +6,21 @@
     <string name="title_activity_route_select">Select Route</string>
     <string name="title_activity_add_route_actvitiy">Add Route</string>
     <string name="title_activity_result_actvitiy">Your Carbon Footprint</string>
+    <string name="main_menu">Main Menu</string>
+    <string name="create_journey">Create Journey</string>
+    <string name="view_carbon_footprint">View Carbon Footprint</string>
+    <string name="help">Help</string>
+    <string name="total_carbon_footprint">Total Carbon Footprint</string>
+    <string name="return_to_main_menu">Return to Main Menu</string>
+    <string name="route_name">Route Name:</string>
+    <string name="nickname">Nickname</string>
+    <string name="highway_distance">Highway distance:</string>
+    <string name="distance_km">Distance(km)</string>
+    <string name="city_distance">City Distance:</string>
+    <string name="total_distance">Total Distance:</string>
+    <string name="ok">OK</string>
+    <string name="transportation_name">Transportation Name</string>
+    <string name="make">Make:</string>
+    <string name="model">Model:</string>
+    <string name="year">Year:</string>
 </resources>

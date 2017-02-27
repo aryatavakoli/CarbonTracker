@@ -11,7 +11,7 @@
     tools:context="com.cmpt276.indigo.carbontracker.ResultActivity">
 
     <TextView
-        android:text="Total Carbon Footprint"
+        android:text="@string/total_carbon_footprint"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -22,14 +22,13 @@
         android:text="TextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textView4"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="63dp"
         android:id="@+id/result_activity_textview_total_footprint"
         android:textAppearance="@android:style/TextAppearance.Material.Medium" />
 
     <Button
-        android:text="Return to Main Menu"
+        android:text="@string/return_to_main_menu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="41dp"

@@ -19,7 +19,7 @@
             android:layout_height="wrap_content">
 
             <TextView
-                android:text="Nickname: "
+                android:text="@string/transportation_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="@android:style/TextAppearance.Material.Medium" />
@@ -30,7 +30,7 @@
                 android:inputType="textPersonName"
                 android:ems="10"
                 android:id="@+id/add_transport_editText_nickname"
-                android:hint="Car Nickname"
+                android:hint="@string/nickname"
                 style="@style/Widget.AppCompat.EditText" />
 
         </TableRow>
@@ -40,7 +40,7 @@
             android:layout_height="wrap_content" >
 
             <TextView
-                android:text="Make: "
+                android:text="@string/make"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="@android:style/TextAppearance.Material.Medium" />
@@ -56,7 +56,7 @@
             android:layout_height="wrap_content" >
 
             <TextView
-                android:text="Model: "
+                android:text="@string/model"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="@android:style/TextAppearance.Material.Medium" />
@@ -72,7 +72,7 @@
             android:layout_height="wrap_content" >
 
             <TextView
-                android:text="Year: "
+                android:text="@string/year"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="@android:style/TextAppearance.Material.Medium" />
@@ -86,7 +86,7 @@
     </TableLayout>
 
     <Button
-        android:text="Ok"
+        android:text="@string/ok"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
