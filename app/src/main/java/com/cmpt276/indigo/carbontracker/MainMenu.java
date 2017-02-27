@@ -22,7 +22,7 @@ public class MainMenu extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainMenu.this, JourneyMenu.class);
+                Intent intent = new Intent(MainMenu.this, TransportationSelectActvitiy.class);
                 startActivity(intent);
 
             }

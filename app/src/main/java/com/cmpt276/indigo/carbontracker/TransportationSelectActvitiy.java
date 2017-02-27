@@ -6,6 +6,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -39,6 +40,8 @@ public class TransportationSelectActvitiy extends AppCompatActivity {
         });
     }
 
+
+    //sample for demonstartion purposes
     private void createListView() {
         ListView carList = (ListView) findViewById(R.id.transportation_select_list);
         //create a sample array for test
@@ -53,6 +56,15 @@ public class TransportationSelectActvitiy extends AppCompatActivity {
         );
 
         carList.setAdapter(arrayAdapter);
+
+        carList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(TransportationSelectActvitiy.this,RouteSelectActivity.class);
+                //based on item add info to intent
+                startActivity(intent);
+            }
+        });
     }
 
 }
