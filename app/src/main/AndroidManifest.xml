@@ -49,12 +49,18 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.cmpt276.indigo.carbontracker.TransportationSelectActvitiy" />
         </activity>
-        <activity android:name=".RouteAddActivity"
+        <activity
+            android:name=".RouteAddActivity"
             android:label="@string/title_activity_add_route_actvitiy"
             android:parentActivityName=".RouteSelectActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.cmpt276.indigo.carbontracker.RouteSelectActivity" />
+        </activity>
+        <activity
+            android:name=".ResultActivity"
+            android:label="@string/title_activity_result_actvitiy">
+
         </activity>
     </application>
 

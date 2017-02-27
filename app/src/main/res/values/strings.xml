@@ -5,4 +5,5 @@
     <string name="title_activity_transportation_add_actvitiy">Add Transportation Method</string>
     <string name="title_activity_route_select">Select Route</string>
     <string name="title_activity_add_route_actvitiy">Add Route</string>
+    <string name="title_activity_result_actvitiy">Your Carbon Footprint</string>
 </resources>
