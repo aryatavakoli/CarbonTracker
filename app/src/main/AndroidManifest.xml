@@ -64,7 +64,7 @@
 
         <activity
             android:name=".JourneyMenu"
-            android:label="@string/title_activity_route_select"
+            android:label="@string/title_activity_journey_menu"
             android:parentActivityName=".MainMenu">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
