@@ -21,7 +21,7 @@ public class JourneyMenu extends AppCompatActivity {
     }
 
 
-    //Launch Create a Transport Mode activity
+    //Launch Transport select activity
     private void transportSelectbtn() {
         Button btn = (Button) findViewById(R.id.journey_menu_select_transport_btn);
         btn.setOnClickListener(new View.OnClickListener() {
@@ -36,7 +36,7 @@ public class JourneyMenu extends AppCompatActivity {
 
     }
 
-    //Go to carbon footprint activity
+    //Go to go to route selection activity
     private void routeSelectbtn() {
         Button btn = (Button) findViewById(R.id.journey_menu_select_route_btn);
         btn.setOnClickListener(new View.OnClickListener() {
