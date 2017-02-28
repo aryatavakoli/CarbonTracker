@@ -64,9 +64,7 @@ public class RouteSelectActivity extends AppCompatActivity {
         routeList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(RouteSelectActivity.this,ResultActivity.class);
-                //based on item add info to intent
-                startActivity(intent);
+            //TODO: implement on item click
             }
         });
     }

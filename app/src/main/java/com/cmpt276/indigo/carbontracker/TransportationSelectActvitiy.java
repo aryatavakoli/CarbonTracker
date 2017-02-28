@@ -67,9 +67,7 @@ public class TransportationSelectActvitiy extends AppCompatActivity {
         carList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(TransportationSelectActvitiy.this,RouteSelectActivity.class);
-                //based on item add info to intent
-                startActivity(intent);
+            //TODO: Implment on item click
             }
         });
     }
