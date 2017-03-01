@@ -51,7 +51,7 @@ public class MainMenu extends AppCompatActivity {
                 //Log.d("MainMenu", "No Error on SetMake");
                 data.setModel(token[47]);
                 //Log.d("MainMenu", "No Error on SetModel");
-                data.setYear(Integer.parseInt(token[63]));
+                data.setYear(token[63]);
                 //Log.d("MainMenu", "No Error on SetYear");
                 data.setCarbonFootprintGpm(Double.parseDouble(token[14]));
                 //Log.d("MainMenu", "No Error on SetCarbon");

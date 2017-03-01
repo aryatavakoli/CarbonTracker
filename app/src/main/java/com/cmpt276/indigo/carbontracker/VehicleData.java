@@ -7,7 +7,7 @@ package com.cmpt276.indigo.carbontracker;
 public class VehicleData {
     private String make;
     private String model;
-    private int year;
+    private String year;
     private double carbonFootprintGpm;
 
     public String getMake() {
@@ -26,11 +26,11 @@ public class VehicleData {
         this.model = model;
     }
 
-    public int getYear() {
+    public String getYear() {
         return year;
     }
 
-    public void setYear(int year) {
+    public void setYear(String year) {
         this.year = year;
     }
 
