@@ -30,6 +30,7 @@
             android:parentActivityName=".MainMenu">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
+
                 android:value="com.cmpt276.indigo.carbontracker.MainMenu" />
         </activity>
         <activity
