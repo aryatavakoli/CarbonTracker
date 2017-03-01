@@ -1,11 +1,20 @@
 package com.cmpt276.indigo.carbontracker.carbon_tracker_model;
 
 
-public class VehicleModel extends CarbonFootprintComponentCollection{
+public class VehicleModel implements CarbonFootprintComponent{
     private String name;
     private String make;
     private String model;
     private String year;
+    private boolean isDeleted;          // when a Car is deleted, we should hide it instead of removing it
+
+    public VehicleModel(){
+        name = new String();
+        make = new String();
+        model = new String();
+        year = new String();
+        isDeleted = false;
+    }
 
     public String getName() {
         return name;
@@ -37,5 +46,32 @@ public class VehicleModel extends CarbonFootprintComponentCollection{
 
     public void setYear(String year) {
         this.year = year;
+    }
+
+    public boolean getIsDeleted() {
+        return isDeleted;
+    }
+
+    public void setIsDeleted(boolean isDeleted){
+        this.isDeleted = isDeleted;
+    }
+
+    @Override
+    public boolean equals(Object other){
+        if (other == null){
+            return false;
+        }
+        if (this == other){
+            return true;
+        }
+        if (!(other instanceof VehicleModel)){
+            return false;
+        }
+        VehicleModel o = (VehicleModel) other;
+        // a deleted object should never be compared to other components
+        if(o.isDeleted || this.isDeleted){
+            return false;
+        }
+        return o.name == this.name;
     }
 }
