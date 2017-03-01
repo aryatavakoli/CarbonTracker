@@ -6,7 +6,8 @@ public class VehicleModel implements CarbonFootprintComponent{
     private String make;
     private String model;
     private String year;
-    private double carbonFootprintGpm; // Amount of carbonfootprint in grams per mile
+    private double cityMileage; // Gallon per mile mileage city
+    private double highwayMileage; // Gallon per mile milleage Highway
     private boolean isDeleted;          // when a Car is deleted, we should hide it instead of removing it
 
 
@@ -15,7 +16,8 @@ public class VehicleModel implements CarbonFootprintComponent{
         make = new String();
         model = new String();
         year = new String();
-        carbonFootprintGpm = 0;
+        cityMileage = 0;
+        highwayMileage = 0;
         isDeleted = false;
     }
 
@@ -51,13 +53,22 @@ public class VehicleModel implements CarbonFootprintComponent{
         this.year = year;
     }
 
-    public double getCarbonFootprintGpm() {
-        return carbonFootprintGpm;
+    public double getCityMileage() {
+        return cityMileage;
     }
 
-    public void setCarbonFootprintGpm(double carbonFootprintGpm) {
-        this.carbonFootprintGpm = carbonFootprintGpm;
+    public void setCityMileage(double cityMileage) {
+        this.cityMileage = cityMileage;
     }
+
+    public double getHighwayMileage() {
+        return highwayMileage;
+    }
+
+    public void setHighwayMileage(double highwayMileage) {
+        this.highwayMileage = highwayMileage;
+    }
+
     public boolean getIsDeleted() {
         return isDeleted;
     }
@@ -73,7 +84,6 @@ public class VehicleModel implements CarbonFootprintComponent{
                 ", make='" + make + '\'' +
                 ", model='" + model + '\'' +
                 ", year='" + year + '\'' +
-                ", carbonFootprintGpm=" + carbonFootprintGpm +
                 ", isDeleted=" + isDeleted +
                 '}';
     }

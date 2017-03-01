@@ -53,16 +53,17 @@ public class FuelDataInputStream {
                 //Log.d("MainMenu", "No Error on SetModel");
                 data.setYear(token[63]);
                 //Log.d("MainMenu", "No Error on SetYear");
-                data.setCarbonFootprintGpm(Double.parseDouble(token[14]));
+                data.setCityMileage(Double.parseDouble(token[58]));
+                data.setHighwayMileage(Double.parseDouble(token[60]));
                 //Log.d("MainMenu", "No Error on SetCarbon");
                 vehicledata.add(data);
 
-                //Log.d("MainMenu", "Just created: " +
-                //     "make: " + data.getMake() + ", "
-                // + "model:" + data.getModel() + ", "
-                // + "Year: " + data.getYear() +", "
-                // + "CarbonFootPrint: "
-                // + data.getCarbonFootprintGpm());
+                Log.d("MainMenu", "Just created: " +
+                     "make: " + data.getMake() + ", "
+                 + "model:" + data.getModel() + ", "
+                 + "Year: " + data.getYear() +", "
+                 + "Highway Mileage: " + data.getHighwayMileage() + ", "
+                 + "City Mileage: " + data.getCityMileage() );
             }
 
         } catch (IOException e){
