@@ -53,16 +53,24 @@ public class CarbonFootprintComponentCollection {
     //Throw an exception if component cannot be casted to a valid type
     public void remove(CarbonFootprintComponent component){
         if (component instanceof VehicleModel){
-            VehicleModel vehicle = (VehicleModel) component;
-            vehicles.remove(vehicle);
+            int index = vehicles.indexOf((VehicleModel)component);
+            if(index > -1){
+                vehicles.get(index).setIsDeleted(true);
+            }
+            else
+            {
+                throw new IllegalArgumentException("Input component could not be found in the list.");
+            }
         }
         else if (component instanceof RouteModel){
-            RouteModel route = (RouteModel) component;
-            routes.remove(route);
-        }
-        else if (component instanceof JourneyModel){
-            JourneyModel journey = (JourneyModel) component;
-            journies.remove(journey);
+            int index = routes.indexOf((RouteModel)component);
+            if(index > -1){
+                routes.get(index).setIsDeleted(true);
+            }
+            else
+            {
+                throw new IllegalArgumentException("Input component could not be found in the list.");
+            }
         }
         else{
             throw new IllegalArgumentException("Input component is not valid.");
