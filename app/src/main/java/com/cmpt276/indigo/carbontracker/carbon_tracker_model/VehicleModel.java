@@ -6,7 +6,7 @@ public class VehicleModel implements CarbonFootprintComponent{
     private String make;
     private String model;
     private String year;
-    private double carbonFootprintGpm;
+    private double carbonFootprintGpm; // Amount of carbonfoot in grams per mile
     private boolean isDeleted;          // when a Car is deleted, we should hide it instead of removing it
 
 

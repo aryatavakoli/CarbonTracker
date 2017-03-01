@@ -57,7 +57,12 @@ public class FuelDataInputStream {
                 //Log.d("MainMenu", "No Error on SetCarbon");
                 vehicledata.add(data);
 
-                Log.d("MainMenu", "Just created: " + "make: " + data.getMake() + ", " + "model:" + data.getModel() + ", " + "Year: " + data.getYear() +", " + "CarbonFootPrint: " + data.getCarbonFootprintGpm());
+                //Log.d("MainMenu", "Just created: " +
+                //     "make: " + data.getMake() + ", "
+                // + "model:" + data.getModel() + ", "
+                // + "Year: " + data.getYear() +", "
+                // + "CarbonFootPrint: "
+                // + data.getCarbonFootprintGpm());
             }
 
         } catch (IOException e){
