@@ -10,10 +10,21 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.cmpt276.indigo.carbontracker.RouteAddActivity">
 
+    <Button
+        android:text="@string/ok"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/add_route_ok_btn"
+        android:layout_marginTop="28dp"
+        android:layout_below="@+id/route_add_table_layout"
+        android:layout_alignParentEnd="true" />
+
     <TableLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/route_add_table_layout">
+        android:id="@+id/route_add_table_layout"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true">
 
         <TableRow
             android:layout_width="match_parent"
@@ -48,7 +59,7 @@
                 android:ems="10"
                 android:id="@+id/add_route_editText_highway_distance"
                 android:hint="@string/distance_km"
-                android:inputType="number|numberSigned|numberDecimal" />
+                android:inputType="number" />
         </TableRow>
 
         <TableRow
@@ -66,7 +77,7 @@
                 android:ems="10"
                 android:id="@+id/add_route_editText_city_distance"
                 android:hint="@string/distance_km"
-                android:inputType="number|numberSigned|numberDecimal" />
+                android:inputType="number" />
         </TableRow>
 
         <TableRow
@@ -87,14 +98,5 @@
         </TableRow>
 
     </TableLayout>
-
-    <Button
-        android:text="@string/ok"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/add_route_ok_btn"
-        android:layout_marginTop="28dp"
-        android:layout_below="@+id/route_add_table_layout"
-        android:layout_alignParentEnd="true" />
 
 </RelativeLayout>
