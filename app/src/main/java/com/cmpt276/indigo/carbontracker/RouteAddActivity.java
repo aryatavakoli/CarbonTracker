@@ -95,7 +95,6 @@ public class RouteAddActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-
                     // Get values from UI:
                     EditText etName = (EditText) findViewById(R.id.add_route_editText_nickname);
                     String name = etName.getText().toString();
@@ -178,3 +177,10 @@ public class RouteAddActivity extends AppCompatActivity {
 
 
 }
+
+
+
+
+
+
+
