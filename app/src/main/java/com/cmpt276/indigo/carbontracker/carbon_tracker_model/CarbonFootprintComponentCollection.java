@@ -27,9 +27,7 @@ public class CarbonFootprintComponentCollection {
         return routes;
     }
 
-    public ArrayList<JourneyModel> getJournies() {
-        return journies;
-    }
+    public ArrayList<JourneyModel> getJournies() {return journies;}
 
     //Adding component to one of arrayList based on its underlying type
     //Throw an exception if component cannot be casted to a valid type
