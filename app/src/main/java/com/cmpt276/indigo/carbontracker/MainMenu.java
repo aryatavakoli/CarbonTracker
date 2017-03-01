@@ -32,7 +32,7 @@ public class MainMenu extends AppCompatActivity {
 
         carbonFootprintSelectbtn();
         journeySelectbtn();
-        readVehicleData();
+        //readVehicleData();
     }
 
     private List<VehicleModel> vehicledata = new ArrayList<>();
