@@ -24,4 +24,6 @@
     <string name="model">Model:</string>
     <string name="year">Year:</string>
     <string name="title_activity_journey_menu">Create Journey</string>
+    <string name="title_activity_carbon_footprint_Table_actvitiy">Table</string>
+    <string name="title_activity_carbon_foot_print_graph">Graph</string>
 </resources>

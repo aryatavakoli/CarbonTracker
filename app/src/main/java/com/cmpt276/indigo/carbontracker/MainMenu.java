@@ -7,17 +7,22 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
-import java.awt.font.NumericShaper;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.nio.DoubleBuffer;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 
 public class MainMenu extends AppCompatActivity {
+
+    public MainMenu() {
+        // this method fires only once per application start.
+        // getApplicationContext returns null here
+        Log.i("main", "Constructor fired");
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,7 +95,7 @@ public class MainMenu extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainMenu.this, CarboonFootprintActivity.class);
+                Intent intent = new Intent(MainMenu.this, CarbonFootprintMenu.class);
                 startActivity(intent);
 
             }

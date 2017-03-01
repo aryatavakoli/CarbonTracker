@@ -5,17 +5,13 @@ import android.os.Bundle;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.app.Activity;
-import android.graphics.Color;
-import android.os.Bundle;
-import android.view.ViewGroup;
 import android.widget.ListView;
-public class CarboonFootprintActivity extends AppCompatActivity {
+public class CarbonFootprintTable extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_carboon_footprint);
+        setContentView(R.layout.activity_carbon_footprint_table);
         //Allows for backbutton
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);

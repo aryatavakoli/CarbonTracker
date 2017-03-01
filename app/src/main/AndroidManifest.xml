@@ -25,13 +25,12 @@
                 android:value="com.cmpt276.indigo.carbontracker.JourneyMenu" />
         </activity>
         <activity
-            android:name=".CarboonFootprintActivity"
-            android:label="@string/title_activity_carbon_foot_print"
-            android:parentActivityName=".MainMenu">
+            android:name=".CarbonFootprintTable"
+            android:label="@string/title_activity_carbon_footprint_Table_actvitiy"
+            android:parentActivityName=".CarbonFootprintMenu">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-
-                android:value="com.cmpt276.indigo.carbontracker.MainMenu" />
+                android:value="com.cmpt276.indigo.carbontracker.CarbonFootprintMenu" />
         </activity>
         <activity
             android:name=".TransportationAddActivity"
@@ -60,9 +59,7 @@
         </activity>
         <activity
             android:name=".ResultActivity"
-            android:label="@string/title_activity_result_actvitiy">
-        </activity>
-
+            android:label="@string/title_activity_result_actvitiy" />
         <activity
             android:name=".JourneyMenu"
             android:label="@string/title_activity_journey_menu"
@@ -70,12 +67,34 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.cmpt276.indigo.carbontracker.MainMenu" />
-
-        </activity><!-- ATTENTION: This was auto-generated to add Google Play services to your project for
-     App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information. -->
+        </activity>
+        <!--
+ ATTENTION: This was auto-generated to add Google Play services to your project for
+     App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information.
+        -->
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
+
+        <activity
+            android:name=".CarbonFootprintMenu"
+            android:label="@string/title_activity_carbon_foot_print"
+            android:parentActivityName=".MainMenu">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.cmpt276.indigo.carbontracker.MainMenu" />
+        </activity>
+
+        <activity
+            android:name=".CarbonFootprintGraph"
+            android:label="@string/title_activity_carbon_foot_print_graph"
+            android:parentActivityName=".CarbonFootprintMenu">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.cmpt276.indigo.carbontracker.CarbonFootprintMenu"/>
+
+
+        </activity>
     </application>
 
 </manifest>

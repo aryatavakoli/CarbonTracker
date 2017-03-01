@@ -50,7 +50,7 @@ public class TableAdapter extends BaseAdapter {
 
             viewHolder = new ViewHolder();
 
-            convertView = inflater.inflate(R.layout.list_item, null);
+            convertView = inflater.inflate(R.layout.list_item_carbon_footprint_table, null);
             viewHolder.goodId = (TextView) convertView.findViewById(R.id.text_id);
             viewHolder.goodName = (TextView) convertView.findViewById(R.id.text_goods_name);
             viewHolder.goodCodeBar = (TextView) convertView.findViewById(R.id.text_codeBar);
