@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import com.cmpt276.indigo.carbontracker.carbon_tracker_model.FuelDataInputStream;
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.VehicleModel;
 
 import java.io.BufferedReader;
@@ -32,49 +33,16 @@ public class MainMenu extends AppCompatActivity {
 
         carbonFootprintSelectbtn();
         journeySelectbtn();
-        //readVehicleData();
     }
 
-    private List<VehicleModel> vehicledata = new ArrayList<>();
+
 
     //TODO: get this method to run only once on runtime
     //Reads data from CSV not called in onCreate
     private void readVehicleData() {
+        FuelDataInputStream data = new FuelDataInputStream(this);
 
-        InputStream is = getResources().openRawResource(R.raw.vehicles);
-        BufferedReader reader = new BufferedReader(
-                new InputStreamReader(is, Charset.forName("UTF-8"))
-        );
-
-        String line = "";
-        try {
-            reader.readLine();
-            while ((line = reader.readLine()) != null){
-                //Log.d("MainMenu", "Error on Line: " + line);
-                //split by columns
-                String[] token = line.split(",");
-                //read the data
-                VehicleModel data = new VehicleModel();
-                data.setMake(token[46]);
-                //Log.d("MainMenu", "No Error on SetMake");
-                data.setModel(token[47]);
-                //Log.d("MainMenu", "No Error on SetModel");
-                data.setYear(token[63]);
-                //Log.d("MainMenu", "No Error on SetYear");
-                data.setCarbonFootprintGpm(Double.parseDouble(token[14]));
-                //Log.d("MainMenu", "No Error on SetCarbon");
-                vehicledata.add(data);
-
-                Log.d("MainMenu", "Just created: " + "make: " + data.getMake() + ", " + "model:" + data.getModel() + ", " + "Year: " + data.getYear() +", " + "CarbonFootPrint: " + data.getCarbonFootprintGpm());
-            }
-
-        } catch (IOException e){
-            Log.wtf("MainMenu", "Error reading datafile on Line: " + line, e);
-            e.printStackTrace();
-
-        }
-
-
+        data.readDataFile();
     }
 
     //Launch Create a jounrney activity
