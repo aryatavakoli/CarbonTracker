@@ -6,13 +6,16 @@ public class VehicleModel implements CarbonFootprintComponent{
     private String make;
     private String model;
     private String year;
+    private double carbonFootprintGpm;
     private boolean isDeleted;          // when a Car is deleted, we should hide it instead of removing it
+
 
     public VehicleModel(){
         name = new String();
         make = new String();
         model = new String();
         year = new String();
+        carbonFootprintGpm = 0;
         isDeleted = false;
     }
 
@@ -48,12 +51,31 @@ public class VehicleModel implements CarbonFootprintComponent{
         this.year = year;
     }
 
+    public double getCarbonFootprintGpm() {
+        return carbonFootprintGpm;
+    }
+
+    public void setCarbonFootprintGpm(double carbonFootprintGpm) {
+        this.carbonFootprintGpm = carbonFootprintGpm;
+    }
     public boolean getIsDeleted() {
         return isDeleted;
     }
 
     public void setIsDeleted(boolean isDeleted){
         this.isDeleted = isDeleted;
+    }
+
+    @Override
+    public String toString() {
+        return "VehicleModel{" +
+                "name='" + name + '\'' +
+                ", make='" + make + '\'' +
+                ", model='" + model + '\'' +
+                ", year='" + year + '\'' +
+                ", carbonFootprintGpm=" + carbonFootprintGpm +
+                ", isDeleted=" + isDeleted +
+                '}';
     }
 
     @Override

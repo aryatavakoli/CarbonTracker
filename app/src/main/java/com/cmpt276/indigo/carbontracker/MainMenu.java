@@ -7,6 +7,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import com.cmpt276.indigo.carbontracker.carbon_tracker_model.VehicleModel;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -20,9 +22,8 @@ public class MainMenu extends AppCompatActivity {
     public MainMenu() {
         // this method fires only once per application start.
         // getApplicationContext returns null here
-        Log.i("main", "Constructor fired");
+        Log.d("main", "Constructor fired");
     }
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,8 +35,10 @@ public class MainMenu extends AppCompatActivity {
         readVehicleData();
     }
 
-    private List<VehicleData> vehicledata = new ArrayList<>();
+    private List<VehicleModel> vehicledata = new ArrayList<>();
 
+    //TODO: get this method to run only once on runtime
+    //Reads data from CSV not called in onCreate
     private void readVehicleData() {
 
         InputStream is = getResources().openRawResource(R.raw.vehicles);
@@ -51,7 +54,7 @@ public class MainMenu extends AppCompatActivity {
                 //split by columns
                 String[] token = line.split(",");
                 //read the data
-                VehicleData  data = new VehicleData();
+                VehicleModel data = new VehicleModel();
                 data.setMake(token[46]);
                 //Log.d("MainMenu", "No Error on SetMake");
                 data.setModel(token[47]);
