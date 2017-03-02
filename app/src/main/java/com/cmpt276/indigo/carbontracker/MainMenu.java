@@ -33,7 +33,6 @@ public class MainMenu extends AppCompatActivity {
 
         carbonFootprintSelectbtn();
         journeySelectbtn();
-        //readVehicleData();
     }
 
 

@@ -24,6 +24,7 @@ import java.io.InputStreamReader;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class FuelDataInputStream {
     private Context context;
@@ -57,7 +58,7 @@ public class FuelDataInputStream {
         String line = "";
         try {
             reader.readLine();
-            reader.readLine();
+            //int counter = 0;
             while ((line = reader.readLine()) != null){
                 //Log.d("MainMenu", "Error on Line: " + line);
                 //split by columns
@@ -70,17 +71,29 @@ public class FuelDataInputStream {
                 //Log.d("MainMenu", "No Error on SetModel");
                 data.setYear(token[63]);
                 //Log.d("MainMenu", "No Error on SetYear");
+                data.setTransmisson(token[57]);
+                //Log.d("MainMenu", "No Error on setTransmisson");
+                if(token[23].length() > 0 ){
+                    data.setEngineDisplacment(Double.parseDouble(token[23]));
+                }
+                else if (token[23].length() == 0){
+                    data.setEngineDisplacment(0);
+                }
+                //Log.d("MainMenu", "No Error on EngineDisplacment");
                 data.setCityMileage(Double.parseDouble(token[58]));
                 data.setHighwayMileage(Double.parseDouble(token[60]));
                 //Log.d("MainMenu", "No Error on SetCarbon");
                 vehicledata.add(data);
+                //counter++;
 
-                Log.d("MainMenu", "Just created: " +
-                     "make: " + data.getMake() + ", "
-                 + "model:" + data.getModel() + ", "
-                 + "Year: " + data.getYear() +", "
-                 + "Highway Mileage: " + data.getHighwayMileage() + ", "
-                 + "City Mileage: " + data.getCityMileage() );
+//                Log.d("Row Number: " +counter, "Just created: " +
+//                     "make: " + data.getMake() + ", "
+//                 + "model:" + data.getModel() + ", "
+//                 + "Year: " + data.getYear() +", "
+//                 + "Highway Mileage: " + data.getHighwayMileage() + ", "
+//                 + "City Mileage: " + data.getCityMileage() + ", "
+//                 + "Transmission: " + data.getTransmisson() + ", "
+//                 + "Engine Displacement: " + data.getEngineDisplacment() );
             }
 
         } catch (IOException e){

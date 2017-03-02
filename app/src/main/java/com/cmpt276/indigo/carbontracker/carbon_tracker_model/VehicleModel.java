@@ -6,6 +6,8 @@ public class VehicleModel implements CarbonFootprintComponent{
     private String make;
     private String model;
     private String year;
+    private String transmisson; //automatic or manual
+    private double engineDisplacment; // in cubic inches
     private double cityMileage; // Gallon per mile mileage city
     private double highwayMileage; // Gallon per mile milleage Highway
     private boolean isDeleted;          // when a Car is deleted, we should hide it instead of removing it
@@ -16,6 +18,8 @@ public class VehicleModel implements CarbonFootprintComponent{
         make = new String();
         model = new String();
         year = new String();
+        transmisson = new String();
+        engineDisplacment = 0;
         cityMileage = 0;
         highwayMileage = 0;
         isDeleted = false;
@@ -53,6 +57,22 @@ public class VehicleModel implements CarbonFootprintComponent{
         this.year = year;
     }
 
+    public double getEngineDisplacment() {
+        return engineDisplacment;
+    }
+
+    public void setEngineDisplacment(double engineDisplacment) {
+        this.engineDisplacment = engineDisplacment;
+    }
+
+    public String getTransmisson() {
+        return transmisson;
+    }
+
+    public void setTransmisson(String transmisson) {
+        this.transmisson = transmisson;
+    }
+
     public double getCityMileage() {
         return cityMileage;
     }
@@ -80,10 +100,14 @@ public class VehicleModel implements CarbonFootprintComponent{
     @Override
     public String toString() {
         return "VehicleModel{" +
-                "name='" + name + '\'' +
+                "cityMileage=" + cityMileage +
+                ", name='" + name + '\'' +
                 ", make='" + make + '\'' +
                 ", model='" + model + '\'' +
                 ", year='" + year + '\'' +
+                ", transmisson='" + transmisson + '\'' +
+                ", engineDisplacment='" + engineDisplacment + '\'' +
+                ", highwayMileage=" + highwayMileage +
                 ", isDeleted=" + isDeleted +
                 '}';
     }
