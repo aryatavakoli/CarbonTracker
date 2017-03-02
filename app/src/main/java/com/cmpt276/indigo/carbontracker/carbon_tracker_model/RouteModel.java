@@ -82,6 +82,6 @@ public class RouteModel implements CarbonFootprintComponent{
         if(o.isDeleted || this.isDeleted){
             return false;
         }
-        return o.name == this.name;
+        return this.name.equals(o.name);
     }
 }

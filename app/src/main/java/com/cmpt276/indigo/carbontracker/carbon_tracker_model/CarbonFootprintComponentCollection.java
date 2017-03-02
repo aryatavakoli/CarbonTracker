@@ -17,6 +17,16 @@ public class CarbonFootprintComponentCollection {
         vehicles = new ArrayList<>();
         routes = new ArrayList<>();
         journies = new ArrayList<>();
+
+        // FOR TEST, SHOULD BE REMOVED
+        vehicles.add(new VehicleModel("Vehicle1", "Mazda", "3", "2010"));
+        vehicles.add(new VehicleModel("Vehicle2", "Toyota", "Corola", "1998"));
+        vehicles.add(new VehicleModel("Vehicle3", "Hyndai", "Sonata", "2000"));
+        vehicles.add(new VehicleModel("Vehicle4", "Benz", "S240", "2014"));
+        vehicles.add(new VehicleModel("Vehicle5", "BMW", "Class5", "2008"));
+        vehicles.add(new VehicleModel("Vehicle6", "Lexus", "Next", "2002"));
+        vehicles.add(new VehicleModel("Vehicle7", "Ferrari", "Tiger", "2001"));
+        vehicles.add(new VehicleModel("Vehicle8", "Lamborgini", "CL159", "1999"));
     }
 
     public ArrayList<VehicleModel> getVehicles() {
@@ -41,6 +51,34 @@ public class CarbonFootprintComponentCollection {
         }
         else if (component instanceof JourneyModel){
             journies.add((JourneyModel) component);
+        }
+        else{
+            throw new IllegalArgumentException("Input component is not valid.");
+        }
+    }
+
+    //deleting component from one of arrayList based on its underlying type
+    //Throw an exception if component cannot be casted to a valid type
+    public void delete(CarbonFootprintComponent component){
+        if (component instanceof VehicleModel){
+            int index = vehicles.indexOf((VehicleModel)component);
+            if(index > -1){
+                vehicles.remove(index);
+            }
+            else
+            {
+                throw new IllegalArgumentException("Input component could not be found in the list.");
+            }
+        }
+        else if (component instanceof RouteModel){
+            int index = routes.indexOf((RouteModel)component);
+            if(index > -1){
+                routes.remove(index);
+            }
+            else
+            {
+                throw new IllegalArgumentException("Input component could not be found in the list.");
+            }
         }
         else{
             throw new IllegalArgumentException("Input component is not valid.");
@@ -107,7 +145,7 @@ public class CarbonFootprintComponentCollection {
     //Check the arrayList to see if it contains component
     private <E extends CarbonFootprintComponent> void  validateComponentDuplication(ArrayList<E> list, CarbonFootprintComponent component){
         if (list.contains(component)){
-            new DuplicateComponentException();
+            throw new DuplicateComponentException();
         }
     }
 
@@ -126,5 +164,36 @@ public class CarbonFootprintComponentCollection {
         else{
             throw new IllegalArgumentException("Input component is not valid.");
         }
+    }
+
+    // Followings are sample data for testing, need to modified to properly get data from fueldatainputstream class
+    public ArrayList<String> getVehicleMakes(){
+        // FOR TESTING
+        ArrayList<String> makes = new ArrayList<>();
+        makes.add("Mazda");
+        makes.add("Toyota");
+        makes.add("Benz");
+        makes.add("BMW");
+        return makes;
+    }
+
+    public ArrayList<String> getVehicleModel(){
+        // FOR TESTING
+        ArrayList<String> models = new ArrayList<>();
+        models.add("SL150");
+        models.add("TS65");
+        models.add("MG76");
+        models.add("JS76");
+        return models;
+    }
+
+    public ArrayList<String> getVehicleYear(){
+        // FOR TESTING
+        ArrayList<String> years = new ArrayList<>();
+        years.add("1990");
+        years.add("1991");
+        years.add("1992");
+        years.add("1993");
+        return years;
     }
 }

@@ -6,7 +6,7 @@ public class VehicleModel implements CarbonFootprintComponent{
     private String make;
     private String model;
     private String year;
-    private double carbonFootprintGpm; // Amount of carbonfootprint in grams per mile
+    //private double
     private boolean isDeleted;          // when a Car is deleted, we should hide it instead of removing it
 
 
@@ -15,7 +15,15 @@ public class VehicleModel implements CarbonFootprintComponent{
         make = new String();
         model = new String();
         year = new String();
-        carbonFootprintGpm = 0;
+//        carbonFootprintGpm = 0;
+        isDeleted = false;
+    }
+
+    public VehicleModel(String name, String make, String model, String year){
+        this.name = name;
+        this.make = make;
+        this.model = model;
+        this.year = year;
         isDeleted = false;
     }
 
@@ -51,13 +59,13 @@ public class VehicleModel implements CarbonFootprintComponent{
         this.year = year;
     }
 
-    public double getCarbonFootprintGpm() {
-        return carbonFootprintGpm;
-    }
+//    public double getCarbonFootprintGpm() {
+//        return carbonFootprintGpm;
+//    }
 
-    public void setCarbonFootprintGpm(double carbonFootprintGpm) {
-        this.carbonFootprintGpm = carbonFootprintGpm;
-    }
+//    public void setCarbonFootprintGpm(double carbonFootprintGpm) {
+//        this.carbonFootprintGpm = carbonFootprintGpm;
+//    }
     public boolean getIsDeleted() {
         return isDeleted;
     }
@@ -73,7 +81,7 @@ public class VehicleModel implements CarbonFootprintComponent{
                 ", make='" + make + '\'' +
                 ", model='" + model + '\'' +
                 ", year='" + year + '\'' +
-                ", carbonFootprintGpm=" + carbonFootprintGpm +
+         //       ", carbonFootprintGpm=" + carbonFootprintGpm +
                 ", isDeleted=" + isDeleted +
                 '}';
     }
@@ -94,6 +102,6 @@ public class VehicleModel implements CarbonFootprintComponent{
         if(o.isDeleted || this.isDeleted){
             return false;
         }
-        return o.name == this.name;
+        return this.name.equals(o.name);
     }
 }

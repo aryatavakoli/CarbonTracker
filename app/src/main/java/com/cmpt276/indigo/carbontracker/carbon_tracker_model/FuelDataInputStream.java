@@ -53,7 +53,7 @@ public class FuelDataInputStream {
                 //Log.d("MainMenu", "No Error on SetModel");
                 data.setYear(token[63]);
                 //Log.d("MainMenu", "No Error on SetYear");
-                data.setCarbonFootprintGpm(Double.parseDouble(token[14]));
+//                data.setCarbonFootprintGpm(Double.parseDouble(token[14]));
                 //Log.d("MainMenu", "No Error on SetCarbon");
                 vehicledata.add(data);
 
@@ -72,4 +72,6 @@ public class FuelDataInputStream {
         }
 
     }
+
+
 }
