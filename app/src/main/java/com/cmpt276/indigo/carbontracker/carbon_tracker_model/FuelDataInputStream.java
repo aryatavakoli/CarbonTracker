@@ -58,35 +58,27 @@ public class FuelDataInputStream {
         String line = "";
         try {
             reader.readLine();
-            //int counter = 0;
             while ((line = reader.readLine()) != null){
-                //Log.d("MainMenu", "Error on Line: " + line);
                 //split by columns
                 String[] token = line.split(",");
                 //read the data
                 VehicleModel data = new VehicleModel();
                 data.setMake(token[46]);
-                //Log.d("MainMenu", "No Error on SetMake");
                 data.setModel(token[47]);
-                //Log.d("MainMenu", "No Error on SetModel");
                 data.setYear(token[63]);
-                //Log.d("MainMenu", "No Error on SetYear");
                 data.setTransmisson(token[57]);
-                //Log.d("MainMenu", "No Error on setTransmisson");
                 if(token[23].length() > 0 ){
                     data.setEngineDisplacment(Double.parseDouble(token[23]));
                 }
                 else if (token[23].length() == 0){
                     data.setEngineDisplacment(0);
                 }
-                //Log.d("MainMenu", "No Error on EngineDisplacment");
                 data.setCityMileage(Double.parseDouble(token[58]));
                 data.setHighwayMileage(Double.parseDouble(token[60]));
-                //Log.d("MainMenu", "No Error on SetCarbon");
                 vehicledata.add(data);
-                //counter++;
 
-//                Log.d("Row Number: " +counter, "Just created: " +
+                // Scaffolding statments
+//                Log.d("MainMenu: ", "Just created: " +
 //                     "make: " + data.getMake() + ", "
 //                 + "model:" + data.getModel() + ", "
 //                 + "Year: " + data.getYear() +", "

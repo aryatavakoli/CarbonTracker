@@ -20,12 +20,6 @@ import java.util.List;
 
 public class MainMenu extends AppCompatActivity {
 
-    public MainMenu() {
-        // this method fires only once per application start.
-        // getApplicationContext returns null here
-        Log.d("main", "Constructor fired");
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,16 +27,6 @@ public class MainMenu extends AppCompatActivity {
 
         carbonFootprintSelectbtn();
         journeySelectbtn();
-    }
-
-
-
-    //TODO: get this method to run only once on runtime
-    //Reads data from CSV not called in onCreate
-    private void readVehicleData() {
-        FuelDataInputStream data = new FuelDataInputStream(this);
-
-        data.readDataFile();
     }
 
     //Launch Create a jounrney activity
@@ -53,11 +37,8 @@ public class MainMenu extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(MainMenu.this, JourneyMenu.class);
                 startActivity(intent);
-
             }
         });
-
-
     }
 
     //Go to carbon footprint activity
@@ -68,10 +49,7 @@ public class MainMenu extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(MainMenu.this, CarbonFootprintMenu.class);
                 startActivity(intent);
-
             }
         });
-
-
     }
 }
