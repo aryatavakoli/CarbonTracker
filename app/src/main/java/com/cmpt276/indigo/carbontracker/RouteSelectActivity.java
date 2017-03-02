@@ -10,11 +10,13 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.cmpt276.indigo.carbontracker.carbon_tracker_model.CarbonFootprintComponentCollection;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class RouteSelectActivity extends AppCompatActivity {
-
+    private static final int ACTIVITY_ROUTE_ADD = 101;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,8 +38,8 @@ public class RouteSelectActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(RouteSelectActivity.this, RouteAddActivity.class);
-                startActivity(intent);
+                Intent intent = RouteAddActivity.makeIntentForNewPot(RouteSelectActivity.this);
+                startActivityForResult(intent,ACTIVITY_ROUTE_ADD);
             }
         });
     }

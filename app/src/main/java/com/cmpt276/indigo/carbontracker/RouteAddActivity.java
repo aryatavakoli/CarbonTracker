@@ -1,5 +1,8 @@
 package com.cmpt276.indigo.carbontracker;
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -22,7 +25,9 @@ import static java.sql.Types.NULL;
 
 
 public class RouteAddActivity extends AppCompatActivity {
-    RouteModel newRoute = new RouteModel();
+    private static final String EXTRA_NAME = "RouteAddActivity.name";
+    private static final String EXTRA_HIGHWAY = "RouteAddActivity.highway";
+    private static final String EXTRA_CITY = "RouteAddActivity.city";
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -124,19 +129,20 @@ public class RouteAddActivity extends AppCompatActivity {
                 int city = Integer.parseInt(etCity.getText().toString());
 
 
-
-                    newRoute.setName(name);
-                    newRoute.setHighwayDistance(highway);
-                    newRoute.setCityDistance(city);
-
-
-
-
-
-                    finish();
+                Intent intent = new Intent();
+                intent.putExtra(EXTRA_NAME, name);
+                intent.putExtra(EXTRA_HIGHWAY, highway);
+                intent.putExtra(EXTRA_CITY, city);
+                setResult(Activity.RESULT_OK, intent);
+                finish();
 
             }
         });
+    }
+
+
+    public static Intent makeIntentForNewPot(Context packageContext) {
+        return new Intent(packageContext, RouteAddActivity.class);
     }
 
 
