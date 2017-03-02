@@ -14,6 +14,7 @@ This class will be used by following UIs: CarUI, JourneyUI
 import android.content.Context;
 import android.util.Log;
 
+import com.cmpt276.indigo.carbontracker.Goods;
 import com.cmpt276.indigo.carbontracker.R;
 
 import java.io.BufferedReader;
@@ -30,6 +31,21 @@ public class FuelDataInputStream {
 
     public FuelDataInputStream(Context current) {
         this.context = current;
+    }
+
+    public static List<Goods> getSampleData()
+    {
+        List<Goods> list = new ArrayList<Goods>();
+        list.add(new Goods("01", "2010", "982323423232",34,23,23));
+        list.add(new Goods("02", "2011", "31312323223",34,23,23));
+        list.add(new Goods("03", "2012", "12",34,23,23));
+        list.add(new Goods("04", "2013", "12333435445",34,23,23));
+        list.add(new Goods("05", "2014", "34523",34,23,23));
+        list.add(new Goods("06", "2015", "345456",34,23,23));
+        list.add(new Goods("07", "2016", "2344",34,23,23));
+        list.add(new Goods("08", "2017", "23445",34,23,23));
+        list.add(new Goods("09", "2018", "3234345",34,23,23));
+        return list;
     }
 
     public void readDataFile(){
