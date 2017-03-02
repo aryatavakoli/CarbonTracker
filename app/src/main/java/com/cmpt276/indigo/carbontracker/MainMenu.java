@@ -7,17 +7,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
-import com.cmpt276.indigo.carbontracker.carbon_tracker_model.FuelDataInputStream;
-import com.cmpt276.indigo.carbontracker.carbon_tracker_model.VehicleModel;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.nio.charset.Charset;
-import java.util.ArrayList;
-import java.util.List;
-
 public class MainMenu extends AppCompatActivity {
 
     @Override
