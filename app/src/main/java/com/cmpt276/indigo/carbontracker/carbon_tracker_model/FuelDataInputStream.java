@@ -41,6 +41,7 @@ public class FuelDataInputStream {
         String line = "";
         try {
             reader.readLine();
+            reader.readLine();
             while ((line = reader.readLine()) != null){
                 //Log.d("MainMenu", "Error on Line: " + line);
                 //split by columns
