@@ -73,8 +73,8 @@ public class FuelDataInputStream {
                 else if (token[23].length() == 0){
                     data.setEngineDisplacment(0);
                 }
-                data.setCityMileage(Double.parseDouble(token[58]));
-                data.setHighwayMileage(Double.parseDouble(token[60]));
+                data.setCityMileage(Double.parseDouble(token[4]));
+                data.setHighwayMileage(Double.parseDouble(token[34]));
                 vehicledata.add(data);
 
                 // Scaffolding statments
