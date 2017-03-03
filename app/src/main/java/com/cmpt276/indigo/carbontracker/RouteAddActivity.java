@@ -181,7 +181,7 @@ public class RouteAddActivity extends AppCompatActivity {
         }
         catch(DuplicateComponentException e){
             if(!editing) {
-                Toast.makeText(RouteAddActivity.this, "This route already exist.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(RouteAddActivity.this, "This route already exists.", Toast.LENGTH_SHORT).show();
             }
             return false;
         }
