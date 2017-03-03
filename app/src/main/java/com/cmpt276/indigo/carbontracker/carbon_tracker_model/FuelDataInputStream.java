@@ -11,11 +11,9 @@ This class can be potentially be a Singleton class because we have only one CSV 
 This class will be used by following UIs: CarUI, JourneyUI
  */
 
-import android.content.Context;
 import android.util.Log;
 
 import com.cmpt276.indigo.carbontracker.Goods;
-import com.cmpt276.indigo.carbontracker.R;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -24,14 +22,13 @@ import java.io.InputStreamReader;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class FuelDataInputStream {
-    private Context context;
-    private List<VehicleModel> vehicledata = new ArrayList<>();
 
-    public FuelDataInputStream(Context current) {
-        this.context = current;
+    static private FuelDataInputStream instance = new FuelDataInputStream();
+
+    static public FuelDataInputStream getInstance(){
+        return instance;
     }
 
     public static List<Goods> getSampleData()
@@ -49,12 +46,11 @@ public class FuelDataInputStream {
         return list;
     }
 
-    public void readDataFile(){
-        InputStream is = context.getResources().openRawResource(R.raw.vehicles);
+    public ArrayList<VehicleModel> readDataFile(InputStream is){
         BufferedReader reader = new BufferedReader(
                 new InputStreamReader(is, Charset.forName("UTF-8"))
         );
-
+        ArrayList<VehicleModel> vehicleData = new ArrayList<>();
         String line = "";
         try {
             reader.readLine();
@@ -68,14 +64,19 @@ public class FuelDataInputStream {
                 data.setYear(token[63]);
                 data.setTransmisson(token[57]);
                 if(token[23].length() > 0 ){
-                    data.setEngineDisplacment(Double.parseDouble(token[23]));
+                    try{
+                        data.setEngineDisplacment(Double.parseDouble(token[23]));
+                    }
+                    catch(Exception e){
+                        data.setEngineDisplacment(0.0);
+                    }
                 }
                 else if (token[23].length() == 0){
                     data.setEngineDisplacment(0);
                 }
                 data.setCityMileage(Double.parseDouble(token[4]));
                 data.setHighwayMileage(Double.parseDouble(token[34]));
-                vehicledata.add(data);
+                vehicleData.add(data);
 
                 // Scaffolding statments
 //                Log.d("MainMenu: ", "Just created: " +
@@ -87,12 +88,10 @@ public class FuelDataInputStream {
 //                 + "Transmission: " + data.getTransmisson() + ", "
 //                 + "Engine Displacement: " + data.getEngineDisplacment() );
             }
-
         } catch (IOException e){
             Log.wtf("MainMenu", "Error reading datafile on Line: " + line, e);
             e.printStackTrace();
-
         }
-
+        return vehicleData;
     }
 }

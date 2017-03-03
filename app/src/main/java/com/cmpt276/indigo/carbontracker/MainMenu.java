@@ -7,6 +7,11 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import com.cmpt276.indigo.carbontracker.carbon_tracker_model.CarbonFootprintComponent;
+import com.cmpt276.indigo.carbontracker.carbon_tracker_model.CarbonFootprintComponentCollection;
+
+import java.io.InputStream;
+
 public class MainMenu extends AppCompatActivity {
 
     @Override
@@ -16,6 +21,13 @@ public class MainMenu extends AppCompatActivity {
 
         carbonFootprintSelectbtn();
         journeySelectbtn();
+        loadDataFile();
+    }
+
+    private void loadDataFile() {
+        CarbonFootprintComponentCollection carbonFootprint = CarbonFootprintComponentCollection.getInstance();
+        InputStream is = getResources().openRawResource(R.raw.vehicles);
+        carbonFootprint.loadDataFile(is);
     }
 
     //Launch Create a jounrney activity

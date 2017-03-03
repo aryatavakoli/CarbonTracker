@@ -1,5 +1,6 @@
 package com.cmpt276.indigo.carbontracker.carbon_tracker_model;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 
 public class CarbonFootprintComponentCollection {
@@ -223,5 +224,9 @@ public class CarbonFootprintComponentCollection {
             years.add("" + i);
         }
         return years;
+    }
+
+    public void loadDataFile(InputStream is){
+        vehicles = FuelDataInputStream.getInstance().readDataFile(is);
     }
 }
