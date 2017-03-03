@@ -20,7 +20,6 @@ import java.util.List;
 
 public class TransportationSelectActvitiy extends AppCompatActivity {
 
-    private VehicleModel addedVehicle;
     private int indexOfVehicleEditing = -1;
     CarbonFootprintComponentCollection carbonFootprintInterface;
     private static final int ACTIVITY_RESULT_ADD = 50;
@@ -39,7 +38,6 @@ public class TransportationSelectActvitiy extends AppCompatActivity {
         startAddActivity();
         createListView();
         setupEditVehicleLongPress();
-        addedVehicle = null;
     }
 
     // FAB button to launch add activity
@@ -50,11 +48,6 @@ public class TransportationSelectActvitiy extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(TransportationSelectActvitiy.this,TransportationAddActivity.class);
-                // if user has previously added a vehicle, we delete it here before moving to add another one
-                if(addedVehicle != null){
-                    carbonFootprintInterface.delete(addedVehicle);
-                }
-                //intent.putExtra("vehicle", vehicle);
                 startActivityForResult(intent, ACTIVITY_RESULT_ADD);
             }
         });
@@ -73,11 +66,7 @@ public class TransportationSelectActvitiy extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = getIntent();
                 // Passing selected vehicle to the caller activity
-                // if selected vehicle is not the same as the one recently added, we need to delete added vehicle
                 VehicleModel selectedVehicle = carbonFootprintInterface.getVehicles().get(position);
-                if(addedVehicle != null && !addedVehicle.equals(selectedVehicle)){
-                    carbonFootprintInterface.delete(addedVehicle);
-                }
                 intent.putExtra("vehicle", selectedVehicle);
                 setResult(RESULT_OK, intent);
                 finish();
@@ -129,16 +118,16 @@ public class TransportationSelectActvitiy extends AppCompatActivity {
         if(resultCode == RESULT_OK){
             switch (requestCode){
                 case ACTIVITY_RESULT_ADD:
-                    addedVehicle = (VehicleModel) data.getSerializableExtra("vehicle");
                     populateVehiclesList();
                     break;
                 case ACTIVITY_RESULT_EDIT:
-                    addedVehicle = (VehicleModel) data.getSerializableExtra("vehicle");
+                    VehicleModel modifiedVehicle = (VehicleModel) data.getSerializableExtra("vehicle");
                     VehicleModel vehicle = carbonFootprintInterface.getVehicles().get(indexOfVehicleEditing);
-                    vehicle.setName(addedVehicle.getName());
-                    vehicle.setModel(addedVehicle.getModel());
-                    vehicle.setMake(addedVehicle.getMake());
-                    vehicle.setYear(addedVehicle.getYear());
+                    vehicle.setName(modifiedVehicle.getName());
+                    vehicle.setModel(modifiedVehicle.getModel());
+                    vehicle.setMake(modifiedVehicle.getMake());
+                    vehicle.setYear(modifiedVehicle.getYear());
+                    populateVehiclesList();
             }
 
         }

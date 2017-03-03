@@ -23,6 +23,7 @@ import java.util.List;
 public class TransportationAddActivity extends AppCompatActivity {
 
     CarbonFootprintComponentCollection carbonFootprintInterface;
+    private boolean editing = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +42,7 @@ public class TransportationAddActivity extends AppCompatActivity {
         Intent intent = getIntent();
         VehicleModel vehicle = (VehicleModel) intent.getSerializableExtra("vehicle");
         if (vehicle != null){
+            editing = true;
             EditText editName = (EditText) findViewById(R.id.add_transport_editText_nickname);
             editName.setText(vehicle.getName());
 
@@ -91,8 +93,16 @@ public class TransportationAddActivity extends AppCompatActivity {
 
                 //Creating vehicle object to pass it to vehicle activity to be added to the list.
                 VehicleModel vehicle = new VehicleModel(name, make, model, year);
-                // adding vehicle to collection
-                if(!addVehicle(vehicle)){
+                //adding and replacing vehicle when a user is editing
+                if(editing){
+                    Intent intent = getIntent();
+                    //Passing the vehicle object to the TransportationActivity
+                    intent.putExtra("vehicle", vehicle);
+                    setResult(RESULT_OK, intent);
+                    finish();
+                }
+                //adding vehicle to collection if it is not duplicate and user is not editing
+                else if(!addVehicle(vehicle)){
                     return;
                 }
                 Intent intent = getIntent();
@@ -111,10 +121,6 @@ public class TransportationAddActivity extends AppCompatActivity {
     public static Intent makeIntentForEditVehicle(Context packageContext, VehicleModel vehicle) {
         Intent intent = makeIntentForNewVehicle(packageContext);
         intent.putExtra("vehicle", vehicle);
-//        intent.putExtra("name", vehicle.getName());
-//        intent.putExtra("make", vehicle.getMake());
-//        intent.putExtra("model", vehicle.getModel());
-//        intent.putExtra("year", vehicle.getYear());
         return intent;
     }
 
@@ -123,7 +129,9 @@ public class TransportationAddActivity extends AppCompatActivity {
             carbonFootprintInterface.add(vehicle);
         }
         catch(DuplicateComponentException e){
-            Toast.makeText(TransportationAddActivity.this, "This vehicle already exist.", Toast.LENGTH_SHORT).show();
+            if(!editing) {
+                Toast.makeText(TransportationAddActivity.this, "This vehicle already exist.", Toast.LENGTH_SHORT).show();
+            }
             return false;
         }
         return true;
