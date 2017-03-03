@@ -56,8 +56,8 @@ public class RouteAddActivity extends AppCompatActivity {
         // See https://g.co/AppIndexing/AndroidStudio for more information.
        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
-    private void populateUIFromIntent() {
-        Intent intent = getIntent();
+    private void populateUIFromIntent() { //If the user wants to edit the pot this function gets the value from the
+        Intent intent = getIntent();   //selected pot and shows it to the user
         RouteModel route = (RouteModel) intent.getSerializableExtra("route");
         if (route != null){
             editing = true;
@@ -118,7 +118,7 @@ public class RouteAddActivity extends AppCompatActivity {
         }
     }
 
-    private void setupOKButton() {
+    private void setupOKButton() { //
         Button btn = (Button) findViewById(R.id.add_route_ok_btn);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -156,12 +156,12 @@ public class RouteAddActivity extends AppCompatActivity {
                 newRoute.setCityDistance(city);
                 if(editing){
                     Intent intent = getIntent();
-                    //Passing the vehicle object to the TransportationActivity
+                    //Passing the route object to the TransportationActivity
                     intent.putExtra("route", newRoute);
                     setResult(RESULT_OK, intent);
                     finish();
                 }
-                //adding vehicle to collection if it is not duplicate and user is not editing
+                //adding route to collection if it is not duplicate and user is not editing
                 else if(!addRoute(newRoute)){
                     return;
                 }
