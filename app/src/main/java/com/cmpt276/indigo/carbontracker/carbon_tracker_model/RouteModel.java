@@ -38,21 +38,21 @@ public class RouteModel implements CarbonFootprintComponent{
     }
 
     public void setCityDistance(int cityDistance) {
-        if(cityDistance <= 0){
+        if(cityDistance < 0){
             throw new IllegalArgumentException("City distance must be a positive number.");
         }
         this.cityDistance = cityDistance;
     }
 
     public void setHighwayDistance(int highwayDistance) {
-        if(highwayDistance <= 0){
+        if(highwayDistance < 0){
             throw new IllegalArgumentException("Highway distance must be a positive number.");
         }
         this.highwayDistance = highwayDistance;
     }
 
     public void setTotalDistance(int totalDistance) {
-        if(totalDistance <= 0){
+        if(totalDistance < 0){
             throw new IllegalArgumentException("Total distance must be a positive number.");
         }
         this.totalDistance = totalDistance;
