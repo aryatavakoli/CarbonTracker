@@ -15,7 +15,10 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.cmpt276.indigo.carbontracker.carbon_tracker_model.CarbonFootprintComponentCollection;
+import com.cmpt276.indigo.carbontracker.carbon_tracker_model.DuplicateComponentException;
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.RouteModel;
+import com.cmpt276.indigo.carbontracker.carbon_tracker_model.VehicleModel;
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.appindexing.Thing;
@@ -33,13 +36,17 @@ public class RouteAddActivity extends AppCompatActivity {
      * See https://g.co/AppIndexing/AndroidStudio for more information.
      */
     private GoogleApiClient client;
-
+    RouteModel newRoute;
+    CarbonFootprintComponentCollection carbonFootprintInterface;
+    private boolean editing = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_route_add);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+        carbonFootprintInterface = CarbonFootprintComponentCollection.getInstance();
+        populateUIFromIntent();
         calculate();
         recalculateOnChange(R.id.add_route_editText_city_distance);
         recalculateOnChange(R.id.add_route_editText_highway_distance);
@@ -48,6 +55,22 @@ public class RouteAddActivity extends AppCompatActivity {
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
+    }
+    private void populateUIFromIntent() {
+        Intent intent = getIntent();
+        RouteModel route = (RouteModel) intent.getSerializableExtra("route");
+        if (route != null){
+            editing = true;
+            EditText editName = (EditText) findViewById(R.id.add_route_editText_nickname);
+            editName.setText(route.getName());
+            EditText editHighway = (EditText) findViewById(R.id.add_route_editText_highway_distance);
+            editHighway.setText((route.getHighwayDistance()+""));
+            EditText editCity = (EditText) findViewById(R.id.add_route_editText_city_distance);
+            editCity.setText((route.getCityDistance()+""));
+
+
+
+        }
     }
 
 
@@ -127,12 +150,23 @@ public class RouteAddActivity extends AppCompatActivity {
                     return;
                 }
                 int city = Integer.parseInt(etCity.getText().toString());
-
-
+                newRoute = new RouteModel();
+                newRoute.setName(name);
+                newRoute.setHighwayDistance(highway);
+                newRoute.setCityDistance(city);
+                if(editing){
+                    Intent intent = getIntent();
+                    //Passing the vehicle object to the TransportationActivity
+                    intent.putExtra("route", newRoute);
+                    setResult(RESULT_OK, intent);
+                    finish();
+                }
+                //adding vehicle to collection if it is not duplicate and user is not editing
+                else if(!addRoute(newRoute)){
+                    return;
+                }
                 Intent intent = new Intent();
-                intent.putExtra(EXTRA_NAME, name);
-                intent.putExtra(EXTRA_HIGHWAY, highway);
-                intent.putExtra(EXTRA_CITY, city);
+                intent.putExtra("route",newRoute);
                 setResult(Activity.RESULT_OK, intent);
                 finish();
 
@@ -141,10 +175,18 @@ public class RouteAddActivity extends AppCompatActivity {
     }
 
 
-    public static Intent makeIntentForNewPot(Context packageContext) {
-        return new Intent(packageContext, RouteAddActivity.class);
+    boolean addRoute(RouteModel route){
+        try{
+            carbonFootprintInterface.add(route);
+        }
+        catch(DuplicateComponentException e){
+            if(!editing) {
+                Toast.makeText(RouteAddActivity.this, "This route already exist.", Toast.LENGTH_SHORT).show();
+            }
+            return false;
+        }
+        return true;
     }
-
 
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
@@ -182,6 +224,15 @@ public class RouteAddActivity extends AppCompatActivity {
         client.disconnect();
     }
 
+    public static Intent makeIntentForNewRoute(Context packageContext) {
+        return new Intent(packageContext, RouteAddActivity.class);
+    }
+
+    public static Intent makeIntentForEditRoute(Context packageContext, RouteModel route) {
+        Intent intent = makeIntentForNewRoute(packageContext);
+        intent.putExtra("route", route);
+        return intent;
+    }
 
 }
 
