@@ -6,7 +6,10 @@ public class VehicleModel implements CarbonFootprintComponent{
     private String make;
     private String model;
     private String year;
-    //private double
+    private String transmisson; //automatic or manual
+    private double engineDisplacment; // in cubic inches
+    private double cityMileage; // Gallon per mile mileage city
+    private double highwayMileage; // Gallon per mile milleage Highway
     private boolean isDeleted;          // when a Car is deleted, we should hide it instead of removing it
 
 
@@ -15,15 +18,10 @@ public class VehicleModel implements CarbonFootprintComponent{
         make = new String();
         model = new String();
         year = new String();
-//        carbonFootprintGpm = 0;
-        isDeleted = false;
-    }
-
-    public VehicleModel(String name, String make, String model, String year){
-        this.name = name;
-        this.make = make;
-        this.model = model;
-        this.year = year;
+        transmisson = new String();
+        engineDisplacment = 0;
+        cityMileage = 0;
+        highwayMileage = 0;
         isDeleted = false;
     }
 
@@ -59,13 +57,38 @@ public class VehicleModel implements CarbonFootprintComponent{
         this.year = year;
     }
 
-//    public double getCarbonFootprintGpm() {
-//        return carbonFootprintGpm;
-//    }
+    public double getEngineDisplacment() {
+        return engineDisplacment;
+    }
 
-//    public void setCarbonFootprintGpm(double carbonFootprintGpm) {
-//        this.carbonFootprintGpm = carbonFootprintGpm;
-//    }
+    public void setEngineDisplacment(double engineDisplacment) {
+        this.engineDisplacment = engineDisplacment;
+    }
+
+    public String getTransmisson() {
+        return transmisson;
+    }
+
+    public void setTransmisson(String transmisson) {
+        this.transmisson = transmisson;
+    }
+
+    public double getCityMileage() {
+        return cityMileage;
+    }
+
+    public void setCityMileage(double cityMileage) {
+        this.cityMileage = cityMileage;
+    }
+
+    public double getHighwayMileage() {
+        return highwayMileage;
+    }
+
+    public void setHighwayMileage(double highwayMileage) {
+        this.highwayMileage = highwayMileage;
+    }
+
     public boolean getIsDeleted() {
         return isDeleted;
     }
@@ -77,11 +100,14 @@ public class VehicleModel implements CarbonFootprintComponent{
     @Override
     public String toString() {
         return "VehicleModel{" +
-                "name='" + name + '\'' +
+                "cityMileage=" + cityMileage +
+                ", name='" + name + '\'' +
                 ", make='" + make + '\'' +
                 ", model='" + model + '\'' +
                 ", year='" + year + '\'' +
-         //       ", carbonFootprintGpm=" + carbonFootprintGpm +
+                ", transmisson='" + transmisson + '\'' +
+                ", engineDisplacment='" + engineDisplacment + '\'' +
+                ", highwayMileage=" + highwayMileage +
                 ", isDeleted=" + isDeleted +
                 '}';
     }
