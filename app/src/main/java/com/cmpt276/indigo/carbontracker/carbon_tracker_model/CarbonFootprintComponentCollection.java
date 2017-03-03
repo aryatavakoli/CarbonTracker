@@ -14,6 +14,7 @@ public class CarbonFootprintComponentCollection {
     ArrayList<JourneyModel> journies;
     ArrayList<String> vehicleMakes;
     ArrayList<String> vehicleModels;
+    ArrayList<String> vehicleYears;
     private static CarbonFootprintComponentCollection instance = new CarbonFootprintComponentCollection();
 
     public static CarbonFootprintComponentCollection getInstance(){
@@ -197,17 +198,20 @@ public class CarbonFootprintComponentCollection {
 
     public ArrayList<String> getVehicleYear(){
         // FOR TESTING
-        ArrayList<String> years = new ArrayList<>();
-        for(int i = 1980; i < 2017; i++){
-            years.add("" + i);
-        }
-        return years;
+//        ArrayList<String> years = new ArrayList<>();
+//        for(int i = 1980; i < 2017; i++){
+//            years.add("" + i);
+//        }
+//        return years;
+
+        return vehicleYears;
     }
 
     public void loadDataFile(InputStream is){
         ArrayList<VehicleModel> readVehicles = FuelDataInputStream.getInstance().readDataFile(is);
         extractModels(readVehicles);
         extractMakes(readVehicles);
+        extractYears(readVehicles);
     }
 
     private void extractMakes(ArrayList<VehicleModel> readVehicles) {
@@ -226,5 +230,14 @@ public class CarbonFootprintComponentCollection {
         }
         vehicleModels = new ArrayList<>(modelsSet);
         Collections.sort(vehicleModels);
+    }
+
+    private void extractYears(ArrayList<VehicleModel> readVehicles) {
+        Set<String> yearsSet = new HashSet<>();
+        for(VehicleModel v : readVehicles){
+            yearsSet.add(v.getYear());
+        }
+        vehicleYears = new ArrayList<>(yearsSet);
+        Collections.sort(vehicleYears);
     }
 }
