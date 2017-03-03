@@ -1,12 +1,20 @@
 package com.cmpt276.indigo.carbontracker.carbon_tracker_model;
 
+import java.io.InputStream;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 
 public class CarbonFootprintComponentCollection {
 
     ArrayList<VehicleModel> vehicles;
     ArrayList<RouteModel> routes;
     ArrayList<JourneyModel> journies;
+    ArrayList<String> vehicleMakes;
+    ArrayList<String> vehicleModels;
+    ArrayList<String> vehicleYears;
     private static CarbonFootprintComponentCollection instance = new CarbonFootprintComponentCollection();
 
     public static CarbonFootprintComponentCollection getInstance(){
@@ -17,16 +25,8 @@ public class CarbonFootprintComponentCollection {
         vehicles = new ArrayList<>();
         routes = new ArrayList<>();
         journies = new ArrayList<>();
-
-        // FOR TEST, SHOULD BE REMOVED
-        vehicles.add(new VehicleModel("Vehicle1", "Mazda", "3", "2010"));
-        vehicles.add(new VehicleModel("Vehicle2", "Toyota", "Corola", "1998"));
-        vehicles.add(new VehicleModel("Vehicle3", "Hyndai", "Sonata", "2000"));
-        vehicles.add(new VehicleModel("Vehicle4", "Benz", "S240", "2014"));
-        vehicles.add(new VehicleModel("Vehicle5", "BMW", "Class5", "2008"));
-        vehicles.add(new VehicleModel("Vehicle6", "Lexus", "Next", "2002"));
-        vehicles.add(new VehicleModel("Vehicle7", "Ferrari", "Tiger", "2001"));
-        vehicles.add(new VehicleModel("Vehicle8", "Lamborgini", "CL159", "1999"));
+        vehicleMakes = new ArrayList<>();
+        vehicleModels = new ArrayList<>();
     }
 
     public ArrayList<VehicleModel> getVehicles() {
@@ -189,39 +189,55 @@ public class CarbonFootprintComponentCollection {
 
     // Followings are sample data for testing, need to modified to properly get data from fueldatainputstream class
     public ArrayList<String> getVehicleMakes(){
-        // FOR TESTING
-        ArrayList<String> makes = new ArrayList<>();
-        makes.add("Mazda");
-        makes.add("Toyota");
-        makes.add("Benz");
-        makes.add("BMW");
-        makes.add("Hyndai");
-        makes.add("Lexus");
-        makes.add("Ferrari");
-        makes.add("Lamborgini");
-        return makes;
+        return vehicleMakes;
     }
 
     public ArrayList<String> getVehicleModel(){
-        // FOR TESTING
-        ArrayList<String> models = new ArrayList<>();
-        models.add("3");
-        models.add("Corola");
-        models.add("Sonata");
-        models.add("S240");
-        models.add("Class5");
-        models.add("Next");
-        models.add("Tiger");
-        models.add("CL159");
-        return models;
+        return vehicleModels;
     }
 
     public ArrayList<String> getVehicleYear(){
         // FOR TESTING
-        ArrayList<String> years = new ArrayList<>();
-        for(int i = 1990; i < 2020; i++){
-            years.add("" + i);
+//        ArrayList<String> years = new ArrayList<>();
+//        for(int i = 1980; i < 2017; i++){
+//            years.add("" + i);
+//        }
+//        return years;
+
+        return vehicleYears;
+    }
+
+    public void loadDataFile(InputStream is){
+        ArrayList<VehicleModel> readVehicles = FuelDataInputStream.getInstance().readDataFile(is);
+        extractModels(readVehicles);
+        extractMakes(readVehicles);
+        extractYears(readVehicles);
+    }
+
+    private void extractMakes(ArrayList<VehicleModel> readVehicles) {
+        Set<String> makesSet = new HashSet<>();
+        for(VehicleModel v : readVehicles){
+            makesSet.add(v.getMake());
         }
-        return years;
+        vehicleMakes = new ArrayList<>(makesSet);
+        Collections.sort(vehicleMakes);
+    }
+
+    private void extractModels(ArrayList<VehicleModel> readVehicles) {
+        Set<String> modelsSet = new HashSet<>();
+        for(VehicleModel v : readVehicles){
+            modelsSet.add(v.getModel());
+        }
+        vehicleModels = new ArrayList<>(modelsSet);
+        Collections.sort(vehicleModels);
+    }
+
+    private void extractYears(ArrayList<VehicleModel> readVehicles) {
+        Set<String> yearsSet = new HashSet<>();
+        for(VehicleModel v : readVehicles){
+            yearsSet.add(v.getYear());
+        }
+        vehicleYears = new ArrayList<>(yearsSet);
+        Collections.sort(vehicleYears);
     }
 }
