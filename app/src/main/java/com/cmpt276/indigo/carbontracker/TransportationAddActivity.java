@@ -2,19 +2,23 @@ package com.cmpt276.indigo.carbontracker;
 
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.*;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.VehicleModel;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class TransportationAddActivity extends AppCompatActivity {
 
@@ -30,8 +34,27 @@ public class TransportationAddActivity extends AppCompatActivity {
         carbonFootprintInterface = CarbonFootprintComponentCollection.getInstance();
         setupOkButton();
         setupDropdownList();
+        populateUIFromIntent();
     }
 
+    private void populateUIFromIntent() {
+        Intent intent = getIntent();
+        VehicleModel vehicle = (VehicleModel) intent.getSerializableExtra("vehicle");
+        if (vehicle != null){
+            EditText editName = (EditText) findViewById(R.id.add_transport_editText_nickname);
+            editName.setText(vehicle.getName());
+
+            setSpinnerSelection(R.id.add_transport_dropdown_make, carbonFootprintInterface.getVehicleMakes(), vehicle.getMake());
+            setSpinnerSelection(R.id.add_transport_dropdown_model, carbonFootprintInterface.getVehicleModel(), vehicle.getModel());
+            setSpinnerSelection(R.id.add_transport_dropdown_year, carbonFootprintInterface.getVehicleYear(), vehicle.getYear());
+        }
+    }
+
+    private void setSpinnerSelection(int resourceId, ArrayList<String> items, String item){
+        Spinner makeSpinner = (Spinner) findViewById(resourceId);
+        int makePosition = items.indexOf(item);
+        makeSpinner.setSelection(makePosition);
+    }
 
     private void setupOkButton() {
         Button btnOK = (Button) findViewById(R.id.add_transport_ok_btn);
@@ -79,6 +102,20 @@ public class TransportationAddActivity extends AppCompatActivity {
                 finish();
             }
         });
+    }
+
+    public static Intent makeIntentForNewVehicle(Context packageContext) {
+        return new Intent(packageContext, TransportationAddActivity.class);
+    }
+
+    public static Intent makeIntentForEditVehicle(Context packageContext, VehicleModel vehicle) {
+        Intent intent = makeIntentForNewVehicle(packageContext);
+        intent.putExtra("vehicle", vehicle);
+//        intent.putExtra("name", vehicle.getName());
+//        intent.putExtra("make", vehicle.getMake());
+//        intent.putExtra("model", vehicle.getModel());
+//        intent.putExtra("year", vehicle.getYear());
+        return intent;
     }
 
     boolean addVehicle(VehicleModel vehicle){

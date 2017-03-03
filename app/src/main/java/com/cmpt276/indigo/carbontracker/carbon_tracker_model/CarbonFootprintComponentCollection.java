@@ -166,6 +166,27 @@ public class CarbonFootprintComponentCollection {
         }
     }
 
+    public void changeComponent(CarbonFootprintComponent component, int indexOfComponentEditting){
+
+    }
+
+    //Validating index of component
+    private void validateComponentIndexWithException(CarbonFootprintComponent component,int index) {
+        if (component instanceof VehicleModel){
+            if (index < 0 || index >= instance.getVehicles().size()) {
+                throw new IllegalArgumentException();
+            }
+        }
+        else if (component instanceof RouteModel){
+            if (index < 0 || index >= instance.getRoutes().size()) {
+                throw new IllegalArgumentException();
+            }
+        }
+        else{
+            throw new IllegalArgumentException();
+        }
+    }
+
     // Followings are sample data for testing, need to modified to properly get data from fueldatainputstream class
     public ArrayList<String> getVehicleMakes(){
         // FOR TESTING
@@ -174,26 +195,33 @@ public class CarbonFootprintComponentCollection {
         makes.add("Toyota");
         makes.add("Benz");
         makes.add("BMW");
+        makes.add("Hyndai");
+        makes.add("Lexus");
+        makes.add("Ferrari");
+        makes.add("Lamborgini");
         return makes;
     }
 
     public ArrayList<String> getVehicleModel(){
         // FOR TESTING
         ArrayList<String> models = new ArrayList<>();
-        models.add("SL150");
-        models.add("TS65");
-        models.add("MG76");
-        models.add("JS76");
+        models.add("3");
+        models.add("Corola");
+        models.add("Sonata");
+        models.add("S240");
+        models.add("Class5");
+        models.add("Next");
+        models.add("Tiger");
+        models.add("CL159");
         return models;
     }
 
     public ArrayList<String> getVehicleYear(){
         // FOR TESTING
         ArrayList<String> years = new ArrayList<>();
-        years.add("1990");
-        years.add("1991");
-        years.add("1992");
-        years.add("1993");
+        for(int i = 1990; i < 2020; i++){
+            years.add("" + i);
+        }
         return years;
     }
 }
