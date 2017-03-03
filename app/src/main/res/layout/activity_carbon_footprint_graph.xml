@@ -10,4 +10,11 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.cmpt276.indigo.carbontracker.CarbonFootprintGraph">
 
+    <com.github.mikephil.charting.charts.PieChart
+        android:id="@+id/bar_graph"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </com.github.mikephil.charting.charts.PieChart>
+
 </RelativeLayout>
