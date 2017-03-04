@@ -76,6 +76,7 @@ public class FuelDataInputStream {
                 }
                 data.setCityMileage(Double.parseDouble(token[4]));
                 data.setHighwayMileage(Double.parseDouble(token[34]));
+                data.setPrimaryFuelType(token[30]);
                 vehicleData.add(data);
 
                 // Scaffolding statments
@@ -86,7 +87,8 @@ public class FuelDataInputStream {
 //                 + "Highway Mileage: " + data.getHighwayMileage() + ", "
 //                 + "City Mileage: " + data.getCityMileage() + ", "
 //                 + "Transmission: " + data.getTransmisson() + ", "
-//                 + "Engine Displacement: " + data.getEngineDisplacment() );
+//                 + "Engine Displacement: " + data.getEngineDisplacment() + ", "
+//                 + "Primary Fuel Type: " + data.getPrimaryFuelType() );
             }
         } catch (IOException e){
             Log.wtf("MainMenu", "Error reading datafile on Line: " + line, e);
