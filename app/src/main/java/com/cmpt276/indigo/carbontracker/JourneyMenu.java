@@ -4,14 +4,27 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import com.cmpt276.indigo.carbontracker.carbon_tracker_model.CarbonFootprintComponentCollection;
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.JourneyModel;
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.RouteModel;
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.VehicleModel;
 
-public class JourneyMenu extends AppCompatActivity {
+import java.util.ArrayList;
+import java.util.List;
 
+import static java.sql.Types.NULL;
+
+public class JourneyMenu extends AppCompatActivity {
+    JourneyModel newJourney;
+    public static final int TRANSPORTATION_SELECT = 56;
+    public static final int ROUTE_SELECT = 57;
+    boolean isRouteSelected, isVehicleSelected;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,10 +33,25 @@ public class JourneyMenu extends AppCompatActivity {
         //Allows for backbutton
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-
+        newJourney = new JourneyModel(); // The journey the user is creating
         transportSelectbtn();
         routeSelectbtn();
     }
+
+    private void fillJourneyTexts() {
+
+        if (isVehicleSelected) {
+            TextView CarDisplay = (TextView) findViewById(R.id.text_current_vehicle);
+            CarDisplay.setText(newJourney.getVehicleModel().getName() + "");
+        }
+        if (isRouteSelected) {
+            TextView RouteDisplay = (TextView) findViewById(R.id.text_current_route);
+            RouteDisplay.setText(newJourney.getRouteModel().getName() + "");
+        }
+
+    }
+
+
 
 
     //Launch Transport select activity
@@ -33,7 +61,7 @@ public class JourneyMenu extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(JourneyMenu.this, TransportationSelectActvitiy.class);
-                startActivity(intent);
+                startActivityForResult(intent, TRANSPORTATION_SELECT );
 
             }
         });
@@ -48,11 +76,40 @@ public class JourneyMenu extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(JourneyMenu.this, RouteSelectActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent,ROUTE_SELECT);
 
             }
         });
 
 
     }
-}
+
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == RESULT_OK) {
+            switch (requestCode) {
+                case TRANSPORTATION_SELECT:
+                    VehicleModel Vehicle = (VehicleModel) data.getSerializableExtra("vehicle");
+                    newJourney.setVehicleModel(Vehicle);
+                    isVehicleSelected = true;
+                    break;
+                case ROUTE_SELECT:
+                    RouteModel Route = (RouteModel) data.getSerializableExtra("route");
+                    newJourney.setRouteModel(Route);
+                    isRouteSelected = true;
+
+            }
+            fillJourneyTexts();
+
+        }
+    }
+
+
+    }
+
+
+
+
+
+
+
