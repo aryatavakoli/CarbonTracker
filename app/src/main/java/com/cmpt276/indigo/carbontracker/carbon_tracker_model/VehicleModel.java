@@ -10,6 +10,7 @@ public class VehicleModel implements CarbonFootprintComponent{
     private double engineDisplacment; // in cubic inches
     private double cityMileage; // Gallon per mile mileage city
     private double highwayMileage; // Gallon per mile milleage Highway
+    private String primaryFuelType;
     private boolean isDeleted;          // when a Car is deleted, we should hide it instead of removing it
 
 
@@ -22,6 +23,7 @@ public class VehicleModel implements CarbonFootprintComponent{
         engineDisplacment = 0;
         cityMileage = 0;
         highwayMileage = 0;
+        primaryFuelType = new String();
         isDeleted = false;
     }
 
@@ -101,6 +103,14 @@ public class VehicleModel implements CarbonFootprintComponent{
         this.highwayMileage = highwayMileage;
     }
 
+    public String getPrimaryFuelType() {
+        return primaryFuelType;
+    }
+
+    public void setPrimaryFuelType(String primaryFuelType) {
+        this.primaryFuelType = primaryFuelType;
+    }
+
     public boolean getIsDeleted() {
         return isDeleted;
     }
@@ -112,14 +122,15 @@ public class VehicleModel implements CarbonFootprintComponent{
     @Override
     public String toString() {
         return "VehicleModel{" +
-                "cityMileage=" + cityMileage +
-                ", name='" + name + '\'' +
+                "name='" + name + '\'' +
                 ", make='" + make + '\'' +
                 ", model='" + model + '\'' +
                 ", year='" + year + '\'' +
                 ", transmisson='" + transmisson + '\'' +
-                ", engineDisplacment='" + engineDisplacment + '\'' +
+                ", engineDisplacment=" + engineDisplacment +
+                ", cityMileage=" + cityMileage +
                 ", highwayMileage=" + highwayMileage +
+                ", primaryFuelType='" + primaryFuelType + '\'' +
                 ", isDeleted=" + isDeleted +
                 '}';
     }
