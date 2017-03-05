@@ -14,6 +14,7 @@ import android.widget.ListView;
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.CarbonFootprintComponent;
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.CarbonFootprintComponentCollection;
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.RouteModel;
+import com.cmpt276.indigo.carbontracker.carbon_tracker_model.VehicleModel;
 
 
 import java.util.ArrayList;
@@ -25,6 +26,7 @@ public class RouteSelectActivity extends AppCompatActivity {
     CarbonFootprintComponentCollection carbonFootprintInterface;
     private static final int ACTIVITY_RESULT_ADD = 40;
     private static final int ACTIVITY_RESULT_EDIT = 60;
+    List<Integer> route_positionList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,7 +69,8 @@ public class RouteSelectActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = getIntent();
                 // Passing selected route to the caller activity
-                RouteModel selectedRoute = carbonFootprintInterface.getRoutes().get(position);
+                int realPosition = route_positionList.get(position);
+                RouteModel selectedRoute = carbonFootprintInterface.getRoutes().get(realPosition);
                 intent.putExtra("route", selectedRoute);
                 setResult(RESULT_OK, intent);
                 finish();
@@ -81,19 +84,25 @@ public class RouteSelectActivity extends AppCompatActivity {
         ArrayList<RouteModel> routes = carbonFootprintInterface.getRoutes();
         // putting routes in list
         List<String> route_nameList = new ArrayList<>();
+        route_positionList = new ArrayList<>();
         //Add elements
+        int counter = 0;
         for(RouteModel v: routes){
-            route_nameList.add(v.getName());
+            if(!v.getIsDeleted()) {
+                route_nameList.add(v.getName());
+                route_positionList.add(counter);
+            }
+            counter++;
         }
 
         //Create array adapter
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(
                 this, //context
                 android.R.layout.simple_list_item_1,
                 route_nameList //arrayList
         );
 
-        //apply adapter to listview
+        //apply adapter ro listview
         routeList.setAdapter(arrayAdapter);
     }
 
@@ -128,8 +137,12 @@ public class RouteSelectActivity extends AppCompatActivity {
                     route.setHighwayDistance(modifiedRoute.getHighwayDistance());
                     route.setCityDistance(modifiedRoute.getCityDistance());
                     populateRoutesList();
+
             }
 
+        }
+        else if (resultCode == RouteAddActivity.RESULT_DELETE){
+            populateRoutesList();
         }
 
     }

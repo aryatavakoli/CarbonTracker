@@ -25,6 +25,8 @@ public class JourneyMenu extends AppCompatActivity {
     public static final int TRANSPORTATION_SELECT = 56;
     public static final int ROUTE_SELECT = 57;
     boolean isRouteSelected, isVehicleSelected;
+    CarbonFootprintComponentCollection carbonFootprintInterface;
+    List<Integer> journey_positionList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +36,7 @@ public class JourneyMenu extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         newJourney = new JourneyModel(); // The journey the user is creating
+        carbonFootprintInterface = CarbonFootprintComponentCollection.getInstance();
         transportSelectbtn();
         routeSelectbtn();
     }
@@ -49,7 +52,11 @@ public class JourneyMenu extends AppCompatActivity {
             RouteDisplay.setText(newJourney.getRouteModel().getName() + "");
         }
 
-    }
+
+        }
+
+
+
 
 
 
@@ -85,6 +92,8 @@ public class JourneyMenu extends AppCompatActivity {
     }
 
 
+
+
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == RESULT_OK) {
             switch (requestCode) {
@@ -102,8 +111,16 @@ public class JourneyMenu extends AppCompatActivity {
             fillJourneyTexts();
 
         }
-    }
+        if (isRouteSelected && isVehicleSelected) {
+            carbonFootprintInterface.add(newJourney);
+            Intent intent = getIntent();
+            intent.putExtra("journey", newJourney);
+            setResult(RESULT_OK, intent);
+//            finish();
 
+        }
+
+        }
 
     }
 

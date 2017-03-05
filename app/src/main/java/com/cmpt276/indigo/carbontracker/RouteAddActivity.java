@@ -18,27 +18,26 @@ import android.widget.Toast;
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.CarbonFootprintComponentCollection;
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.DuplicateComponentException;
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.RouteModel;
-import com.cmpt276.indigo.carbontracker.carbon_tracker_model.VehicleModel;
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.appindexing.Thing;
 import com.google.android.gms.common.api.GoogleApiClient;
 
+import java.net.NoRouteToHostException;
+
 import static java.sql.Types.NULL;
 
 
 public class RouteAddActivity extends AppCompatActivity {
-    private static final String EXTRA_NAME = "RouteAddActivity.name";
-    private static final String EXTRA_HIGHWAY = "RouteAddActivity.highway";
-    private static final String EXTRA_CITY = "RouteAddActivity.city";
+    public static final int RESULT_DELETE = 12;
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
      */
     private GoogleApiClient client;
-    RouteModel newRoute;
     CarbonFootprintComponentCollection carbonFootprintInterface;
     private boolean editing = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,24 +50,24 @@ public class RouteAddActivity extends AppCompatActivity {
         recalculateOnChange(R.id.add_route_editText_city_distance);
         recalculateOnChange(R.id.add_route_editText_highway_distance);
         setupOKButton();
+        setupDeleteButton();
 
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
-       client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
+        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
+
     private void populateUIFromIntent() { //If the user wants to edit the pot this function gets the value from the
         Intent intent = getIntent();   //selected pot and shows it to the user
-        RouteModel route = (RouteModel) intent.getSerializableExtra("route");
-        if (route != null){
+        RouteModel newRoute = (RouteModel) intent.getSerializableExtra("route");
+        if (newRoute != null) {
             editing = true;
             EditText editName = (EditText) findViewById(R.id.add_route_editText_nickname);
-            editName.setText(route.getName());
+            editName.setText(newRoute.getName());
             EditText editHighway = (EditText) findViewById(R.id.add_route_editText_highway_distance);
-            editHighway.setText((route.getHighwayDistance()+""));
+            editHighway.setText((newRoute.getHighwayDistance() + ""));
             EditText editCity = (EditText) findViewById(R.id.add_route_editText_city_distance);
-            editCity.setText((route.getCityDistance()+""));
-
-
+            editCity.setText((newRoute.getCityDistance() + ""));
 
         }
     }
@@ -80,6 +79,7 @@ public class RouteAddActivity extends AppCompatActivity {
         int total = cityDistance + highwayDistance;
         displayNumberIfPositive(R.id.add_route_textview_total_distance, total);
     }
+
     private void recalculateOnChange(int textFieldID) {
         TextView tv = (TextView) findViewById(textFieldID);
         tv.addTextChangedListener(new TextWatcher() {
@@ -101,7 +101,7 @@ public class RouteAddActivity extends AppCompatActivity {
 
     private void displayNumberIfPositive(int id, int data) {
         TextView tv = (TextView) findViewById(id);
-        if (data >= 0 ) {
+        if (data >= 0) {
             tv.setText("" + data);
         } else {
             tv.setText("");
@@ -118,43 +118,13 @@ public class RouteAddActivity extends AppCompatActivity {
         }
     }
 
-    private void setupOKButton() { //
+    private void setupOKButton() {
         Button btn = (Button) findViewById(R.id.add_route_ok_btn);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                    // Get values from UI:
-                    EditText etName = (EditText) findViewById(R.id.add_route_editText_nickname);
-                    String name = etName.getText().toString();
-
-                    if (name.length() == 0) {
-                        Toast.makeText(RouteAddActivity.this, "Please enter a route name.", Toast.LENGTH_SHORT)
-                                .show();
-                        return;
-                    }
-
-                    EditText etHighway = (EditText) findViewById(R.id.add_route_editText_highway_distance);
-
-                    if (etHighway.getText().toString().length() == 0){
-                        Toast.makeText(RouteAddActivity.this, "Please enter a highway distance.", Toast.LENGTH_SHORT)
-                                .show();
-                        return;
-                    }
-                    int highway = Integer.parseInt(etHighway.getText().toString());
-
-                EditText etCity = (EditText) findViewById(R.id.add_route_editText_city_distance);
-                if (etCity.getText().toString().length() == 0){
-                    Toast.makeText(RouteAddActivity.this, "Please enter a city distance.", Toast.LENGTH_SHORT)
-                            .show();
-                    return;
-                }
-                int city = Integer.parseInt(etCity.getText().toString());
-                newRoute = new RouteModel();
-                newRoute.setName(name);
-                newRoute.setHighwayDistance(highway);
-                newRoute.setCityDistance(city);
-                if(editing){
+                RouteModel newRoute = createRoute();
+                if (editing) {
                     Intent intent = getIntent();
                     //Passing the route object to the TransportationActivity
                     intent.putExtra("route", newRoute);
@@ -162,17 +132,53 @@ public class RouteAddActivity extends AppCompatActivity {
                     finish();
                 }
                 //adding route to collection if it is not duplicate and user is not editing
-                else if(!addRoute(newRoute)){
+                else if (!addRoute(newRoute)) {
                     return;
                 }
                 Intent intent = new Intent();
-                intent.putExtra("route",newRoute);
+                intent.putExtra("route", newRoute);
                 setResult(Activity.RESULT_OK, intent);
                 finish();
 
             }
+
         });
     }
+
+
+    private RouteModel createRoute() { //
+
+        // Get values from UI:
+        EditText etName = (EditText) findViewById(R.id.add_route_editText_nickname);
+        String name = etName.getText().toString();
+
+        if (name.length() == 0) {
+            Toast.makeText(RouteAddActivity.this, "Please enter a route name.", Toast.LENGTH_SHORT)
+                    .show();
+        }
+
+        EditText etHighway = (EditText) findViewById(R.id.add_route_editText_highway_distance);
+
+        if (etHighway.getText().toString().length() == 0) {
+            Toast.makeText(RouteAddActivity.this, "Please enter a highway distance.", Toast.LENGTH_SHORT)
+                    .show();
+        }
+        int highway = Integer.parseInt(etHighway.getText().toString());
+
+        EditText etCity = (EditText) findViewById(R.id.add_route_editText_city_distance);
+        if (etCity.getText().toString().length() == 0) {
+            Toast.makeText(RouteAddActivity.this, "Please enter a city distance.", Toast.LENGTH_SHORT)
+                    .show();
+        }
+        int city = Integer.parseInt(etCity.getText().toString());
+
+        RouteModel newRoute = new RouteModel();
+        newRoute.setName(name);
+        newRoute.setHighwayDistance(highway);
+        newRoute.setCityDistance(city);
+        return  newRoute;
+    }
+
 
 
     boolean addRoute(RouteModel route){
@@ -186,6 +192,33 @@ public class RouteAddActivity extends AppCompatActivity {
             return false;
         }
         return true;
+    }
+
+
+    private void setupDeleteButton(){
+        Button btnDelete = (Button) findViewById(R.id.add_route_delete_btn);
+        btnDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(!editing){
+                    Toast.makeText(RouteAddActivity.this, "This route does not exit in the list", Toast.LENGTH_SHORT)
+                            .show();
+                }
+                else{
+                    //Try to get data from route add UI
+                    //Removing route from collection if it is on the list
+                    RouteModel newRoute = createRoute();
+                    removeRoute(newRoute);
+                    setResult(RESULT_DELETE);
+                    finish();
+                }
+            }
+        });
+    }
+
+    void removeRoute(RouteModel route){
+        carbonFootprintInterface.remove(route);
+        Toast.makeText(RouteAddActivity.this, "deleting completed", Toast.LENGTH_LONG).show();
     }
 
     /**
