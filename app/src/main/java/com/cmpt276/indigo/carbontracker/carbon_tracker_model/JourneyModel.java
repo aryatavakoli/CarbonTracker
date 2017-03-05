@@ -1,14 +1,27 @@
 package com.cmpt276.indigo.carbontracker.carbon_tracker_model;
 
+import java.util.Date;
+
 public class JourneyModel implements CarbonFootprintComponent{
     private VehicleModel vehicleModel;
     private RouteModel routeModel;
     private double co2Emission;
+    private Date creationDate;
+
 
     public JourneyModel(){
         vehicleModel = new VehicleModel();
         routeModel = new RouteModel();
         co2Emission = 0;
+        creationDate = new Date();
+    }
+
+    public Date getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(Date creationDate) {
+        this.creationDate = creationDate;
     }
 
     public VehicleModel getVehicleModel() {
