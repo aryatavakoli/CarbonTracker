@@ -95,8 +95,6 @@ public class JourneyMenu extends AppCompatActivity {
     }
 
 
-
-
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == RESULT_OK) {
             switch (requestCode) {
@@ -120,7 +118,6 @@ public class JourneyMenu extends AppCompatActivity {
         }
 
     }
-
 
 }
 
