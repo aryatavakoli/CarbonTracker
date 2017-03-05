@@ -1,6 +1,7 @@
 package com.cmpt276.indigo.carbontracker;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.CarbonFootprintComponentCollection;
+import com.cmpt276.indigo.carbontracker.carbon_tracker_model.DuplicateComponentException;
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.JourneyModel;
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.RouteModel;
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.VehicleModel;
@@ -40,6 +42,7 @@ public class JourneyMenu extends AppCompatActivity {
         transportSelectbtn();
         routeSelectbtn();
     }
+
 
     private void fillJourneyTexts() {
 
@@ -113,16 +116,13 @@ public class JourneyMenu extends AppCompatActivity {
         }
         if (isRouteSelected && isVehicleSelected) {
             carbonFootprintInterface.add(newJourney);
-            Intent intent = getIntent();
-            intent.putExtra("journey", newJourney);
-            setResult(RESULT_OK, intent);
-//            finish();
-
-        }
 
         }
 
     }
+
+
+}
 
 
 
