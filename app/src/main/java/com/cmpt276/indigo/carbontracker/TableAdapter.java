@@ -65,15 +65,15 @@ public class TableAdapter extends BaseAdapter {
 
         viewHolder.goodId.setText(goods.getId());
         viewHolder.goodId.setTextSize(13);
-        viewHolder.goodName.setText(goods.getGoodsName());
+        viewHolder.goodName.setText(goods.getCarName());
         viewHolder.goodName.setTextSize(13);
-        viewHolder.goodCodeBar.setText(goods.getCodeBar());
+        viewHolder.goodCodeBar.setText(goods.getRouteName());
         viewHolder.goodCodeBar.setTextSize(13);
-        viewHolder.goodNum.setText(goods.getNum()+"");
+        viewHolder.goodNum.setText(goods.getDate()+"");
         viewHolder.goodNum.setTextSize(13);
-        viewHolder.goodCurrPrice.setText(goods.getCurPrice()+"");
+        viewHolder.goodCurrPrice.setText(goods.getCarbon()+"");
         viewHolder.goodCurrPrice.setTextSize(13);
-        viewHolder.goodMoney.setText(goods.getMoney()+"");
+        viewHolder.goodMoney.setText(goods.getTotalDistance()+"");
         viewHolder.goodMoney.setTextSize(13);
 
         return convertView;

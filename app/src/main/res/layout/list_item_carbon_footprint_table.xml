@@ -7,14 +7,14 @@
         android:id="@+id/text_id"
         android:layout_width="0dip"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
+        android:layout_weight="1.19"
         android:gravity="center"
         android:paddingBottom="10dip"
         android:paddingTop="10dip"
         android:textColor="#000000"
-        android:textSize="15sp"
+        android:textSize="12sp"
         android:singleLine="true"
-        android:text="id" />
+        android:text="@string/journey" />
 
     <View
         android:layout_width="1.5dip"
@@ -32,7 +32,7 @@
         android:textSize="15sp"
         android:singleLine="true"
         android:gravity="center"
-        android:text="date" />
+        android:text="@string/car_name" />
 
     <View
         android:layout_width="1.5dip"
@@ -43,14 +43,14 @@
         android:id="@+id/text_codeBar"
         android:layout_width="0dip"
         android:layout_height="wrap_content"
-        android:layout_weight="1.5"
+        android:layout_weight="1.19"
         android:paddingBottom="10dip"
         android:textColor="#000000"
         android:paddingTop="10dip"
         android:singleLine="true"
         android:textSize="15sp"
         android:gravity="center"
-        android:text="routeName" />
+        android:text="@string/route_Nickname" />
 
     <View
         android:layout_width="1.5dip"
@@ -61,14 +61,14 @@
         android:id="@+id/text_num"
         android:layout_width="0dip"
         android:layout_height="wrap_content"
-        android:layout_weight="1.5"
+        android:layout_weight="1.09"
         android:paddingBottom="10dip"
         android:paddingTop="10dip"
         android:textColor="#000000"
         android:singleLine="true"
         android:textSize="15sp"
         android:gravity="center"
-        android:text="distance" />
+        android:text="@string/creation_date" />
 
     <View
         android:layout_width="1.5dip"
@@ -79,14 +79,14 @@
         android:id="@+id/text_curPrice"
         android:layout_width="0dip"
         android:layout_height="wrap_content"
-        android:layout_weight="2"
+        android:layout_weight="1.11"
         android:paddingBottom="10dip"
         android:textColor="#000000"
         android:textSize="15sp"
         android:singleLine="true"
         android:paddingTop="10dip"
         android:gravity="center"
-        android:text="vehicleName" />
+        android:text="@string/co2" />
 
     <View
         android:layout_width="1.5dip"
@@ -97,13 +97,13 @@
         android:id="@+id/text_money"
         android:layout_width="0dip"
         android:layout_height="wrap_content"
-        android:layout_weight="2"
+        android:layout_weight="1.50"
         android:paddingBottom="10dip"
         android:singleLine="true"
-        android:textSize="15sp"
+        android:textSize="12sp"
         android:textColor="#000000"
         android:paddingTop="10dip"
         android:gravity="center"
-        android:text="carbonEmitted" />
+        android:text="@string/total_distance_table" />
 
 </LinearLayout>

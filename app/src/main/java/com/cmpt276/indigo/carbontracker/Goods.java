@@ -6,25 +6,14 @@ package com.cmpt276.indigo.carbontracker;
 
 public class Goods {
     private String id;
-    private String goodsName;
-    private String codeBar;
-    private float num;
-    private float curPrice;
-    private float money;
+    private String carName;
+    private String routeName;
+    private String date;
+    private float carbon;
+    private int totalDistance;
 
     public Goods() {
         super();
-    }
-
-    public Goods(String id, String goodsName, String codeBar, float num,
-                 float curPrice, float money) {
-        super();
-        this.id = id;
-        this.goodsName = goodsName;
-        this.codeBar = codeBar;
-        this.num = num;
-        this.curPrice = curPrice;
-        this.money = money;
     }
 
     public String getId() {
@@ -35,45 +24,57 @@ public class Goods {
         this.id = id;
     }
 
-    public String getGoodsName() {
-        return goodsName;
+    public String getCarName() {
+        return carName;
     }
 
-    public void setGoodsName(String goodsName) {
-        this.goodsName = goodsName;
+    public void setCarName(String carName) {
+        this.carName = carName;
     }
 
-    public String getCodeBar() {
-        return codeBar;
+    public String getRouteName() {
+        return routeName;
     }
 
-    public void setCodeBar(String codeBar) {
-        this.codeBar = codeBar;
+    public void setRouteName(String routeName) {
+        this.routeName = routeName;
     }
 
-    public float getNum() {
-        return num;
+    public String getDate() {
+        return date;
     }
 
-    public void setNum(float num) {
-        this.num = num;
+    public void setDate(String date) {
+        this.date = date;
     }
 
-    public float getCurPrice() {
-        return curPrice;
+    public float getCarbon() {
+        return carbon;
     }
 
-    public void setCurPrice(float curPrice) {
-        this.curPrice = curPrice;
+    public void setCarbon(float carbon) {
+        this.carbon = carbon;
     }
 
-    public float getMoney() {
-        return money;
+    public int getTotalDistance() {
+        return totalDistance;
     }
 
-    public void setMoney(float money) {
-        this.money = money;
+    public void setTotalDistance(int totalDistance) {
+        this.totalDistance = totalDistance;
     }
+
+    public Goods(String id, String goodsName, String codeBar, float num,
+                 float curPrice, float money) {
+        super();
+        this.id = id;
+        this.carName = goodsName;
+        this.routeName = codeBar;
+        this.date = date;
+        this.carbon = carbon;
+        this.totalDistance = totalDistance;
+    }
+
 
 }
 

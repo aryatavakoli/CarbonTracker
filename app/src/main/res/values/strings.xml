@@ -26,4 +26,10 @@
     <string name="title_activity_journey_menu">Create Journey</string>
     <string name="title_activity_carbon_footprint_Table_actvitiy">Table</string>
     <string name="title_activity_carbon_foot_print_graph">Graph</string>
+    <string name="journey">Journey</string>
+    <string name="car_name">Car</string>
+    <string name="route_Nickname">Route</string>
+    <string name="creation_date">Date</string>
+    <string name="co2">CO2</string>
+    <string name="total_distance_table">Total Distance</string>
 </resources>
