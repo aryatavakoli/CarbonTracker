@@ -85,11 +85,11 @@ public class CarbonFootprintComponentCollection {
         }
     }
 
-    //removing component from one of arrayList based on its underlying type
+    //removing(hide) component from one of arrayList based on its underlying type
     //Throw an exception if component cannot be casted to a valid type
     public void remove(CarbonFootprintComponent component){
         if (component instanceof VehicleModel){
-            int index = vehicles.indexOf((VehicleModel)component);
+            int index = vehicles.indexOf(component);
             if(index > -1){
                 vehicles.get(index).setIsDeleted(true);
             }
@@ -99,7 +99,7 @@ public class CarbonFootprintComponentCollection {
             }
         }
         else if (component instanceof RouteModel){
-            int index = routes.indexOf((RouteModel)component);
+            int index = routes.indexOf(component);
             if(index > -1){
                 routes.get(index).setIsDeleted(true);
             }
@@ -197,12 +197,6 @@ public class CarbonFootprintComponentCollection {
     }
 
     public ArrayList<String> getVehicleYear(){
-        // FOR TESTING
-//        ArrayList<String> years = new ArrayList<>();
-//        for(int i = 1980; i < 2017; i++){
-//            years.add("" + i);
-//        }
-//        return years;
 
         return vehicleYears;
     }

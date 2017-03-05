@@ -7,21 +7,19 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.VehicleModel;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class TransportationAddActivity extends AppCompatActivity {
 
+    public static final int RESULT_DELETE = 200;
     CarbonFootprintComponentCollection carbonFootprintInterface;
     private boolean editing = false;
 
@@ -34,6 +32,7 @@ public class TransportationAddActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         carbonFootprintInterface = CarbonFootprintComponentCollection.getInstance();
         setupOkButton();
+        setupDeleteButton();
         setupDropdownList();
         populateUIFromIntent();
     }
@@ -63,36 +62,8 @@ public class TransportationAddActivity extends AppCompatActivity {
         btnOK.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Try to get data from transportation add UI
-                EditText nickName = (EditText) findViewById(R.id.add_transport_editText_nickname);
-                String name = nickName.getText().toString();
-
-                if (name.length() == 0) {
-                    Toast.makeText(TransportationAddActivity.this, "Please enter a vehicle name.", Toast.LENGTH_SHORT)
-                            .show();
-                    return;
-                }
-
-                Spinner vehicleMake = (Spinner) findViewById(R.id.add_transport_dropdown_make);
-                String make = vehicleMake.getSelectedItem().toString();
-                if (make == null){
-                    Toast.makeText(TransportationAddActivity.this, "Vehicle make should be selected", Toast.LENGTH_SHORT).show();
-                }
-
-                Spinner vehicleModel = (Spinner) findViewById(R.id.add_transport_dropdown_model);
-                String model = vehicleModel.getSelectedItem().toString();
-                if (make == null){
-                    Toast.makeText(TransportationAddActivity.this, "Vehicle model should be selected", Toast.LENGTH_SHORT).show();
-                }
-
-                Spinner vehicleYear = (Spinner) findViewById(R.id.add_transport_dropdown_year);
-                String year = vehicleYear.getSelectedItem().toString();
-                if (make == null){
-                    Toast.makeText(TransportationAddActivity.this, "Vehicle year should be selected", Toast.LENGTH_SHORT).show();
-                }
-
-                //Creating vehicle object to pass it to vehicle activity to be added to the list.
-                VehicleModel vehicle = new VehicleModel(name, make, model, year);
+                //Try to get data from transportation add UI and create a vehicle object
+                VehicleModel vehicle = createVehicleObject();
                 //adding and replacing vehicle when a user is editing
                 if(editing){
                     Intent intent = getIntent();
@@ -112,6 +83,60 @@ public class TransportationAddActivity extends AppCompatActivity {
                 finish();
             }
         });
+    }
+
+    private void setupDeleteButton(){
+        Button btnDelete = (Button) findViewById(R.id.add_transport_delete_btn);
+        btnDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(!editing){
+                    Toast.makeText(TransportationAddActivity.this, "This vehicle does not exit in the list", Toast.LENGTH_SHORT)
+                            .show();
+                }
+                else{
+                    //Try to get data from transportation add UI
+                    VehicleModel vehicle = createVehicleObject();
+                    //Removing vehicle from collection if it is on the list
+                    removeVehicle(vehicle);
+                    setResult(RESULT_DELETE);
+                    finish();
+                }
+            }
+        });
+    }
+
+    private VehicleModel createVehicleObject(){
+        //Try to get data from transportation add UI
+        EditText nickName = (EditText) findViewById(R.id.add_transport_editText_nickname);
+        String name = nickName.getText().toString();
+
+        if (name.length() == 0) {
+            Toast.makeText(TransportationAddActivity.this, "Please enter a vehicle name.", Toast.LENGTH_SHORT)
+                    .show();
+        }
+
+        Spinner vehicleMake = (Spinner) findViewById(R.id.add_transport_dropdown_make);
+        String make = vehicleMake.getSelectedItem().toString();
+        if (make == null){
+            Toast.makeText(TransportationAddActivity.this, "Vehicle make should be selected", Toast.LENGTH_SHORT).show();
+        }
+
+        Spinner vehicleModel = (Spinner) findViewById(R.id.add_transport_dropdown_model);
+        String model = vehicleModel.getSelectedItem().toString();
+        if (make == null){
+            Toast.makeText(TransportationAddActivity.this, "Vehicle model should be selected", Toast.LENGTH_SHORT).show();
+        }
+
+        Spinner vehicleYear = (Spinner) findViewById(R.id.add_transport_dropdown_year);
+        String year = vehicleYear.getSelectedItem().toString();
+        if (make == null){
+            Toast.makeText(TransportationAddActivity.this, "Vehicle year should be selected", Toast.LENGTH_SHORT).show();
+        }
+
+        //Creating vehicle object to pass it to vehicle activity to be added to the list.
+        VehicleModel vehicle = new VehicleModel(name, make, model, year);
+        return vehicle;
     }
 
     public static Intent makeIntentForNewVehicle(Context packageContext) {
@@ -135,6 +160,11 @@ public class TransportationAddActivity extends AppCompatActivity {
             return false;
         }
         return true;
+    }
+    //TODO: do we need try and catch?
+    //remove(hide) vehicle from the list
+    void removeVehicle(VehicleModel vehicle){
+        carbonFootprintInterface.remove(vehicle);
     }
 
     //Set all the values for dropdown lists

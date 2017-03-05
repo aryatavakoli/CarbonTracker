@@ -25,6 +25,8 @@ public class TransportationSelectActvitiy extends AppCompatActivity {
     private static final int ACTIVITY_RESULT_ADD = 50;
     private static final int ACTIVITY_RESULT_EDIT = 100;
 
+    List<Integer> vehicle_positionList;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,7 +68,8 @@ public class TransportationSelectActvitiy extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = getIntent();
                 // Passing selected vehicle to the caller activity
-                VehicleModel selectedVehicle = carbonFootprintInterface.getVehicles().get(position);
+                int realPosition = vehicle_positionList.get(position);
+                VehicleModel selectedVehicle = carbonFootprintInterface.getVehicles().get(realPosition);
                 intent.putExtra("vehicle", selectedVehicle);
                 setResult(RESULT_OK, intent);
                 finish();
@@ -80,13 +83,19 @@ public class TransportationSelectActvitiy extends AppCompatActivity {
         ArrayList<VehicleModel> vehicles = carbonFootprintInterface.getVehicles();
         // putting vehicles in list
         List<String> vehicle_nameList = new ArrayList<>();
+        vehicle_positionList = new ArrayList<>();
         //Add elements
+        int counter = 0;
         for(VehicleModel v: vehicles){
-            vehicle_nameList.add(v.getName());
+            if(!v.getIsDeleted()) {
+                vehicle_nameList.add(v.getName());
+                vehicle_positionList.add(counter);
+            }
+            counter++;
         }
 
         //Create array adapter
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(
                 this, //context
                 android.R.layout.simple_list_item_1,
                 vehicle_nameList //arrayList
@@ -102,8 +111,9 @@ public class TransportationSelectActvitiy extends AppCompatActivity {
         list.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                indexOfVehicleEditing = position;
-                VehicleModel vehicle = vehicles.get(position);
+                int realPosition = vehicle_positionList.get(position);
+                indexOfVehicleEditing = realPosition;
+                VehicleModel vehicle = vehicles.get(realPosition);
 
                 Intent intent = TransportationAddActivity.makeIntentForEditVehicle(TransportationSelectActvitiy.this, vehicle);
                 startActivityForResult(intent, ACTIVITY_RESULT_EDIT);
@@ -130,6 +140,9 @@ public class TransportationSelectActvitiy extends AppCompatActivity {
                     populateVehiclesList();
             }
 
+        }
+        else if (resultCode == TransportationAddActivity.RESULT_DELETE){
+            populateVehiclesList();
         }
 
     }
