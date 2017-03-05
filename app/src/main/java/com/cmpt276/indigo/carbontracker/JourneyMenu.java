@@ -47,22 +47,16 @@ public class JourneyMenu extends AppCompatActivity {
     private void fillJourneyTexts() {
 
         if (isVehicleSelected) {
-            TextView CarDisplay = (TextView) findViewById(R.id.text_current_vehicle);
+            TextView CarDisplay = (TextView) findViewById(R.id.journey_menu_text_current_vehicle);
             CarDisplay.setText(newJourney.getVehicleModel().getName() + "");
         }
         if (isRouteSelected) {
-            TextView RouteDisplay = (TextView) findViewById(R.id.text_current_route);
+            TextView RouteDisplay = (TextView) findViewById(R.id.journey_menu_text_current_route);
             RouteDisplay.setText(newJourney.getRouteModel().getName() + "");
         }
 
 
         }
-
-
-
-
-
-
 
     //Launch Transport select activity
     private void transportSelectbtn() {
