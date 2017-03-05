@@ -1,7 +1,11 @@
 package com.cmpt276.indigo.carbontracker.carbon_tracker_model;
 
 
+import java.util.Objects;
+
 public class VehicleModel implements CarbonFootprintComponent{
+    private static final double gasolineFootprint = 2.35; // in kg/L
+    private static final double dieselFootprint = 2.69; // in kg/L
     private String name;
     private String make;
     private String model;
@@ -12,7 +16,7 @@ public class VehicleModel implements CarbonFootprintComponent{
     private double highwayMileage; // Gallon per mile milleage Highway
     private String primaryFuelType;
     private boolean isDeleted;          // when a Car is deleted, we should hide it instead of removing it
-
+    private double carbonFootprint;
 
     public VehicleModel(){
         name = new String();
@@ -25,6 +29,7 @@ public class VehicleModel implements CarbonFootprintComponent{
         highwayMileage = 0;
         primaryFuelType = new String();
         isDeleted = false;
+        carbonFootprint = 0;
     }
 
     public VehicleModel(String name, String make, String model, String year){
@@ -91,16 +96,20 @@ public class VehicleModel implements CarbonFootprintComponent{
         return cityMileage;
     }
 
+    //Convert miles to km
+    //convert to L/km
     public void setCityMileage(double cityMileage) {
-        this.cityMileage = cityMileage;
+        this.cityMileage = cityMileage * 2.35;
     }
 
     public double getHighwayMileage() {
         return highwayMileage;
     }
 
+    //Convert miles to km
+    // 1 km = 1.61 miles
     public void setHighwayMileage(double highwayMileage) {
-        this.highwayMileage = highwayMileage;
+        this.highwayMileage = highwayMileage * 2.35;
     }
 
     public String getPrimaryFuelType() {
@@ -117,6 +126,29 @@ public class VehicleModel implements CarbonFootprintComponent{
 
     public void setIsDeleted(boolean isDeleted){
         this.isDeleted = isDeleted;
+    }
+
+    //paramters/argumnets must be in kilometers
+    public double getCarbonFootprint(double highwayDistance, double cityDistance) {
+        String fuelType = getPrimaryFuelType();
+        double highway_mileage = getHighwayMileage();
+        double city_mileage = getCityMileage();
+
+        //Gasoline
+        if (fuelType.contains("Gasoline") || Objects.equals(fuelType, "Regular") || Objects.equals(fuelType, "Premium"))
+        {
+            carbonFootprint = (gasolineFootprint) * ((city_mileage * cityDistance) + (highway_mileage* highway_mileage));
+        }
+        //Diesel
+        else if (Objects.equals(fuelType, "Diesel"))
+        {
+            carbonFootprint = (dieselFootprint) * ((city_mileage * cityDistance) + (highway_mileage* highway_mileage));
+        }
+        else
+        {
+            carbonFootprint = 0;
+        }
+        return carbonFootprint;
     }
 
     @Override
