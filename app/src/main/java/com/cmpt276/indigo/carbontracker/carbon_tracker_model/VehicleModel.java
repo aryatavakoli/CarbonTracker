@@ -4,8 +4,8 @@ package com.cmpt276.indigo.carbontracker.carbon_tracker_model;
 import java.util.Objects;
 
 public class VehicleModel implements CarbonFootprintComponent{
-    private static final double gasolineFootprint = 2.35; // in kg/L
-    private static final double dieselFootprint = 2.69; // in kg/L
+    private static final double gasolineFootprint = 2.35; // 8.89 kg per gallon in kg/L
+    private static final double dieselFootprint = 2.69; // 10.16 kg per Gallon in kg/L
     private String name;
     private String make;
     private String model;
