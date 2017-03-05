@@ -27,7 +27,6 @@ import java.net.NoRouteToHostException;
 
 import static java.sql.Types.NULL;
 
-
 public class RouteAddActivity extends AppCompatActivity {
     public static final int RESULT_DELETE = 12;
     /**
