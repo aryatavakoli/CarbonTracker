@@ -9,10 +9,13 @@ import android.widget.Button;
 
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.CarbonFootprintComponent;
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.CarbonFootprintComponentCollection;
+import com.cmpt276.indigo.carbontracker.carbon_tracker_model.JourneyModel;
+import com.cmpt276.indigo.carbontracker.carbon_tracker_model.RouteModel;
 
 import java.io.InputStream;
 
 public class MainMenu extends AppCompatActivity {
+    public static final int JOURNEY_SELECT = 300;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +40,7 @@ public class MainMenu extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainMenu.this, JourneyMenu.class);
-                startActivity(intent);
+                startActivityForResult(intent, JOURNEY_SELECT );
             }
         });
     }
@@ -53,4 +56,10 @@ public class MainMenu extends AppCompatActivity {
             }
         });
     }
-}
+
+
+
+            }
+
+
+

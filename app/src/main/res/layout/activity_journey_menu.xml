@@ -10,95 +10,60 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.cmpt276.indigo.carbontracker.JourneyMenu">
 
-
     <Button
         android:text="@string/title_activity_transportation_select_actvitiy"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/journey_menu_select_transport_btn"
-        android:layout_marginTop="150dp"
+        android:layout_marginTop="117dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
+
     <Button
         android:text="@string/title_activity_route_select"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="90dp"
         android:id="@+id/journey_menu_select_route_btn"
         android:layout_below="@+id/journey_menu_select_transport_btn"
         android:layout_centerHorizontal="true" />
 
-    <TableLayout
+    <TextView
+        android:text="Selected Vehicle Name"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:id="@+id/textview120"
+        android:layout_alignBaseline="@+id/text_current_rout"
+        android:layout_alignBottom="@+id/text_current_rout"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="30dp" />
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+    <TextView
+        android:text="Selected Route Name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/text_current_rout"
+        android:layout_marginTop="40dp"
+        android:layout_below="@+id/journey_menu_select_route_btn"
+        android:layout_alignParentStart="true" />
 
-            <TextView
-                android:text="Selected Vehicle Name:"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="25dp"
-                android:layout_marginEnd="15dp"
-                android:gravity="start" />
+    <TextView
+        android:text="................"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/text_current_route"
+        android:layout_alignEnd="@+id/journey_menu_select_transport_btn"
+        android:layout_marginEnd="23dp"
+        android:id="@+id/text_current_vehicle" />
 
-            <TextView
-                android:text="No Vehicle Selected"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/journey_menu_text_current_vehicle"
-                android:layout_marginTop="25dp"
-                android:layout_marginEnd="15dp"
-                android:gravity="start"/>
+    <TextView
+        android:text="...................."
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="18dp"
+        android:layout_marginTop="16dp"
+        android:id="@+id/text_current_route"
+        android:layout_below="@+id/text_current_rout"
+        android:layout_toStartOf="@+id/journey_menu_select_route_btn" />
 
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" >
-
-            <TextView
-                android:text="Selected Route Name:"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="25dp"
-                android:layout_marginEnd="15dp"
-                android:gravity="start"/>
-
-            <TextView
-                android:text="No Route Selected"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/journey_menu_text_current_route"
-                android:layout_marginTop="25dp"
-                android:layout_marginEnd="15dp"
-                android:gravity="start"/>
-
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" >
-
-            <TextView
-                android:text="Carbon Footprint:"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="25dp"
-                android:layout_marginEnd="15dp"
-                android:gravity="start"/>
-
-            <TextView
-                android:text="N/A"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="25dp"
-                android:layout_marginEnd="15dp"
-                android:gravity="start"
-                android:id="@+id/journey_menu_text_current_footprint" />
-        </TableRow>
-
-    </TableLayout>
 </RelativeLayout>
