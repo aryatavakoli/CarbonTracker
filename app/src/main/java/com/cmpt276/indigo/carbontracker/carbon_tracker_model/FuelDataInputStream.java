@@ -13,8 +13,6 @@ This class will be used by following UIs: CarUI, JourneyUI
 
 import android.util.Log;
 
-import com.cmpt276.indigo.carbontracker.Goods;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;

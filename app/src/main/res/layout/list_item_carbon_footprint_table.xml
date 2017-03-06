@@ -4,7 +4,7 @@
     android:layout_width="fill_parent"
     android:layout_height="wrap_content" >
     <TextView
-        android:id="@+id/text_id"
+        android:id="@+id/car"
         android:layout_width="0dip"
         android:layout_height="wrap_content"
         android:layout_weight="1.19"
@@ -22,7 +22,7 @@
         android:background="#B4B3B3"/>
 
     <TextView
-        android:id="@+id/text_goods_name"
+        android:id="@+id/nickName"
         android:layout_width="0dip"
         android:layout_height="wrap_content"
         android:layout_weight="1"
@@ -40,7 +40,7 @@
         android:background="#B4B3B3"/>
 
     <TextView
-        android:id="@+id/text_codeBar"
+        android:id="@+id/date"
         android:layout_width="0dip"
         android:layout_height="wrap_content"
         android:layout_weight="1.19"
@@ -58,7 +58,7 @@
         android:background="#B4B3B3"/>
 
     <TextView
-        android:id="@+id/text_curPrice"
+        android:id="@+id/co2"
         android:layout_width="0dip"
         android:layout_height="wrap_content"
         android:layout_weight="1.11"
