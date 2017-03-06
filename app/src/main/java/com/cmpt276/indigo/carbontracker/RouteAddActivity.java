@@ -122,13 +122,48 @@ public class RouteAddActivity extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String name;
+                int highway , city;
+                EditText etName = (EditText) findViewById(R.id.add_route_editText_nickname);
+
+
+                if (etName.getText().toString().length() == 0) {
+                    Toast.makeText(RouteAddActivity.this, "Please enter a route name.", Toast.LENGTH_SHORT)
+                            .show();
+                    return;
+
+                } else {
+                    name = etName.getText().toString();
+                }
+
+                EditText etHighway = (EditText) findViewById(R.id.add_route_editText_highway_distance);
+
+                if (etHighway.getText().toString().length() == 0) {
+                    Toast.makeText(RouteAddActivity.this, "Please enter a highway distance.", Toast.LENGTH_SHORT)
+                            .show();
+                    return;
+
+                } else {
+                    highway = Integer.parseInt(etHighway.getText().toString());
+                }
+
+                EditText etCity = (EditText) findViewById(R.id.add_route_editText_city_distance);
+                if (etCity.getText().toString().length() == 0) {
+                    Toast.makeText(RouteAddActivity.this, "Please enter a city distance.", Toast.LENGTH_SHORT)
+                            .show();
+                    return;
+                } else {
+                     city = Integer.parseInt(etCity.getText().toString());
+
+                }
                 RouteModel newRoute = createRoute();
+
                 if (editing) {
                     Intent intent = getIntent();
                     //Passing the route object to the TransportationActivity
-                    intent.putExtra("route", newRoute);
-                    setResult(RESULT_OK, intent);
-                    finish();
+                        intent.putExtra("route", newRoute);
+                        setResult(RESULT_OK, intent);
+                        finish();
                 }
                 //adding route to collection if it is not duplicate and user is not editing
                 else if (!addRoute(newRoute)) {
@@ -145,37 +180,22 @@ public class RouteAddActivity extends AppCompatActivity {
     }
 
 
-    private RouteModel createRoute() { //
-
+    private RouteModel createRoute() {
         // Get values from UI:
-        EditText etName = (EditText) findViewById(R.id.add_route_editText_nickname);
-        String name = etName.getText().toString();
+            EditText etName = (EditText) findViewById(R.id.add_route_editText_nickname);
+            String name = etName.getText().toString();
 
-        if (name.length() == 0) {
-            Toast.makeText(RouteAddActivity.this, "Please enter a route name.", Toast.LENGTH_SHORT)
-                    .show();
-        }
+            EditText etHighway = (EditText) findViewById(R.id.add_route_editText_highway_distance);
+            int highway = Integer.parseInt(etHighway.getText().toString());
 
-        EditText etHighway = (EditText) findViewById(R.id.add_route_editText_highway_distance);
-
-        if (etHighway.getText().toString().length() == 0) {
-            Toast.makeText(RouteAddActivity.this, "Please enter a highway distance.", Toast.LENGTH_SHORT)
-                    .show();
-        }
-        int highway = Integer.parseInt(etHighway.getText().toString());
-
-        EditText etCity = (EditText) findViewById(R.id.add_route_editText_city_distance);
-        if (etCity.getText().toString().length() == 0) {
-            Toast.makeText(RouteAddActivity.this, "Please enter a city distance.", Toast.LENGTH_SHORT)
-                    .show();
-        }
-        int city = Integer.parseInt(etCity.getText().toString());
-
-        RouteModel newRoute = new RouteModel();
-        newRoute.setName(name);
-        newRoute.setHighwayDistance(highway);
-        newRoute.setCityDistance(city);
+            EditText etCity = (EditText) findViewById(R.id.add_route_editText_city_distance);
+            int city = Integer.parseInt(etCity.getText().toString());
+            RouteModel newRoute = new RouteModel();
+            newRoute.setName(name);
+            newRoute.setHighwayDistance(highway);
+            newRoute.setCityDistance(city);
         return  newRoute;
+
     }
 
 
