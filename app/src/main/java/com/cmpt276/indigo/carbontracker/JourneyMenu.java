@@ -56,7 +56,7 @@ public class JourneyMenu extends AppCompatActivity {
         }
 
 
-        }
+    }
 
     //Launch Transport select activity
     private void transportSelectbtn() {
