@@ -199,8 +199,10 @@ public class CarbonFootprintComponentCollection {
     }
 
     public void loadDataFile(InputStream is){
-        readVehicles = FuelDataInputStream.getInstance().readDataFile(is);
-        extractMakes();
+        if (readVehicles == null) {
+            readVehicles = FuelDataInputStream.getInstance().readDataFile(is);
+            extractMakes();
+        }
     }
 
     private void extractMakes() {
