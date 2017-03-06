@@ -5,6 +5,7 @@ import com.cmpt276.indigo.carbontracker.ListItem;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 import com.cmpt276.indigo.carbontracker.ListItem;
 
@@ -61,6 +62,43 @@ public class JourneyModel implements CarbonFootprintComponent{
             throw new IllegalArgumentException("CO2 emission cannot be negative.");
         }
         this.co2Emission = co2Emission;
+    }
+
+    //parameters/arguments must be in kilometers
+    //Calcualtes Carbonfootprint
+    public void calculateEmissions() {
+
+        double total_footPrint;
+        float converted_Footprint;
+
+        String fuelType = vehicleModel.getPrimaryFuelType();
+        double highway_mileage = vehicleModel.getHighwayMileage();
+        double city_mileage = vehicleModel.getCityMileage();
+
+        double highwayDistance = routeModel.getHighwayDistance();
+        double cityDistance = routeModel.getCityDistance();
+
+        //Gasoline
+        if (fuelType.contains("Gasoline") || Objects.equals(fuelType, "Regular") || Objects.equals(fuelType, "Premium"))
+        {
+            total_footPrint = (VehicleModel.GASOLINE_FOOTPRINT) * ((city_mileage * cityDistance) + (highway_mileage* highwayDistance));
+        }
+        //Diesel
+        else if (Objects.equals(fuelType, "Diesel"))
+        {
+            total_footPrint = (VehicleModel.DIESEL_FOOTPRINT) * ((city_mileage * cityDistance) + (highway_mileage* highwayDistance));
+        }
+        else
+        {
+            total_footPrint = 0;
+        }
+
+        //Converts double to float for use with graph
+        //Rounds it off
+        converted_Footprint =  Math.round((float)total_footPrint * 100.0f) / 100.0f;
+
+        co2Emission = converted_Footprint;
+
     }
 
     @Override

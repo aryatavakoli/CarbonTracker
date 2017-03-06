@@ -44,49 +44,10 @@ public class JourneyMenu extends AppCompatActivity {
         transportSelectbtn();
         routeSelectbtn();
     }
-    //parameters/arguments must be in kilometers
-    //Calcualtes Carbonfootprint
-    private float calculateEmissions() {
-        VehicleModel vehicle =  newJourney.getVehicleModel();
-        RouteModel route = newJourney.getRouteModel();
-
-        double total_footPrint;
-        float converted_Footprint;
-
-        String fuelType = vehicle.getPrimaryFuelType();
-        double highway_mileage = vehicle.getHighwayMileage();
-        double city_mileage = vehicle.getCityMileage();
-
-        double highwayDistance = route.getHighwayDistance();
-        double cityDistance = route.getCityDistance();
-
-        //Gasoline
-        if (fuelType.contains("Gasoline") || Objects.equals(fuelType, "Regular") || Objects.equals(fuelType, "Premium"))
-        {
-            total_footPrint = (VehicleModel.GASOLINE_FOOTPRINT) * ((city_mileage * cityDistance) + (highway_mileage* highwayDistance));
-        }
-        //Diesel
-        else if (Objects.equals(fuelType, "Diesel"))
-        {
-            total_footPrint = (VehicleModel.DIESEL_FOOTPRINT) * ((city_mileage * cityDistance) + (highway_mileage* highwayDistance));
-        }
-        else
-        {
-            total_footPrint = 0;
-        }
-
-        //Converts double to float for use with graph
-        //Rounds it off
-        converted_Footprint =  Math.round((float)total_footPrint * 100.0f) / 100.0f;
-
-        newJourney.setCo2Emission(converted_Footprint);
-
-        return converted_Footprint;
-
-    }
 
     private void fillCarbonfootprintText() {
-        carbonEmission = calculateEmissions();
+       newJourney.calculateEmissions();
+        carbonEmission = newJourney.getCo2Emission();
         if (isRouteSelected && isVehicleSelected){
             TextView footprintDisplay = (TextView) findViewById(R.id.journey_menu_text_current_footprint);
             footprintDisplay.setText( carbonEmission + " Kg" + "");
