@@ -14,7 +14,7 @@
         android:textColor="#000000"
         android:textSize="12sp"
         android:singleLine="true"
-        android:text="@string/journey" />
+        android:text="journey car" />
 
     <View
         android:layout_width="1.5dip"
@@ -32,7 +32,7 @@
         android:textSize="15sp"
         android:singleLine="true"
         android:gravity="center"
-        android:text="@string/car_name" />
+        android:text="nicknames" />
 
     <View
         android:layout_width="1.5dip"
@@ -50,25 +50,7 @@
         android:singleLine="true"
         android:textSize="15sp"
         android:gravity="center"
-        android:text="@string/route_Nickname" />
-
-    <View
-        android:layout_width="1.5dip"
-        android:layout_height="fill_parent"
-        android:background="#B4B3B3"/>
-
-    <TextView
-        android:id="@+id/text_num"
-        android:layout_width="0dip"
-        android:layout_height="wrap_content"
-        android:layout_weight="1.09"
-        android:paddingBottom="10dip"
-        android:paddingTop="10dip"
-        android:textColor="#000000"
-        android:singleLine="true"
-        android:textSize="15sp"
-        android:gravity="center"
-        android:text="@string/creation_date" />
+        android:text="date" />
 
     <View
         android:layout_width="1.5dip"
@@ -88,22 +70,5 @@
         android:gravity="center"
         android:text="@string/co2" />
 
-    <View
-        android:layout_width="1.5dip"
-        android:layout_height="fill_parent"
-        android:background="#B4B3B3"/>
-
-    <TextView
-        android:id="@+id/text_money"
-        android:layout_width="0dip"
-        android:layout_height="wrap_content"
-        android:layout_weight="1.50"
-        android:paddingBottom="10dip"
-        android:singleLine="true"
-        android:textSize="12sp"
-        android:textColor="#000000"
-        android:paddingTop="10dip"
-        android:gravity="center"
-        android:text="@string/total_distance_table" />
 
 </LinearLayout>
