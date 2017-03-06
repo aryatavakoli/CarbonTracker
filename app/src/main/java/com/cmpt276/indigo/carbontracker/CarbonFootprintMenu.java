@@ -48,6 +48,8 @@ public class CarbonFootprintMenu extends AppCompatActivity {
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
+        tabLayout.getTabAt(0).setIcon(R.drawable.ic_pie_chart_white_24dp);
+        tabLayout.getTabAt(1).setIcon(R.drawable.ic_reorder_white_24dp);
 
     }
 
@@ -110,15 +112,15 @@ public class CarbonFootprintMenu extends AppCompatActivity {
             return 2;
         }
 
-        @Override
-        public CharSequence getPageTitle(int position) {
-            switch (position) {
-                case 0:
-                    return "Graph";
-                case 1:
-                    return "Table";
-            }
-            return null;
-        }
+//        @Override
+//        public CharSequence getPageTitle(int position) {
+//            switch (position) {
+//                case 0:
+//                    return "Graph";
+//                case 1:
+//                    return "Table";
+//            }
+//            return null;
+//        }
     }
 }
