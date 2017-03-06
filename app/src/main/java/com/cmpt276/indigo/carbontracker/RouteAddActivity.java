@@ -122,8 +122,6 @@ public class RouteAddActivity extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String name;
-                int highway , city;
                 EditText etName = (EditText) findViewById(R.id.add_route_editText_nickname);
 
 
@@ -132,8 +130,6 @@ public class RouteAddActivity extends AppCompatActivity {
                             .show();
                     return;
 
-                } else {
-                    name = etName.getText().toString();
                 }
 
                 EditText etHighway = (EditText) findViewById(R.id.add_route_editText_highway_distance);
@@ -143,8 +139,6 @@ public class RouteAddActivity extends AppCompatActivity {
                             .show();
                     return;
 
-                } else {
-                    highway = Integer.parseInt(etHighway.getText().toString());
                 }
 
                 EditText etCity = (EditText) findViewById(R.id.add_route_editText_city_distance);
@@ -152,15 +146,12 @@ public class RouteAddActivity extends AppCompatActivity {
                     Toast.makeText(RouteAddActivity.this, "Please enter a city distance.", Toast.LENGTH_SHORT)
                             .show();
                     return;
-                } else {
-                     city = Integer.parseInt(etCity.getText().toString());
-
                 }
                 RouteModel newRoute = createRoute();
 
                 if (editing) {
                     Intent intent = getIntent();
-                    //Passing the route object to the TransportationActivity
+                    //Passing the route object to the RouteActivity
                         intent.putExtra("route", newRoute);
                         setResult(RESULT_OK, intent);
                         finish();
