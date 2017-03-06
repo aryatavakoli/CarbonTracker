@@ -26,7 +26,7 @@ public class MainMenu extends AppCompatActivity {
 
         // process might be killed off while paused and the app is in the background.
         // In that case, the flag will be false when the activity is recreated by
-        // the system when the user tries to bring the app back to the foreground
+        // the system when the user tries to bring the app back to the foreground/
         //use shared preference to get aroundt his
         if (startupFlag)
         {
