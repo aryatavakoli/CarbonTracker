@@ -68,7 +68,7 @@ public class JourneyModel implements CarbonFootprintComponent{
     //Calcualtes Carbonfootprint
     public void calculateEmissions() {
 
-        double total_footPrint;
+        double total_footPrint = 0;
         float converted_Footprint;
 
         String fuelType = vehicleModel.getPrimaryFuelType();
@@ -88,7 +88,7 @@ public class JourneyModel implements CarbonFootprintComponent{
         {
             total_footPrint = (VehicleModel.DIESEL_FOOTPRINT) * ((city_mileage * cityDistance) + (highway_mileage* highwayDistance));
         }
-        else
+        else if (Objects.equals(fuelType, "Electricity") || Objects.equals(fuelType,"Electric"))
         {
             total_footPrint = 0;
         }

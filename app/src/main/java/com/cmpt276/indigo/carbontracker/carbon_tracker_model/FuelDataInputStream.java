@@ -63,15 +63,15 @@ public class FuelDataInputStream {
                 vehicleData.add(data);
 
                 // Scaffolding statments
-                Log.d("MainMenu: ", "Just created: " +
-                     "make: " + data.getMake() + ", "
-                 + "model:" + data.getModel() + ", "
-                 + "Year: " + data.getYear() +", "
-                 + "Highway Mileage: " + data.getHighwayMileage() + ", "
-                 + "City Mileage: " + data.getCityMileage() + ", "
-                 + "Transmission: " + data.getTransmisson() + ", "
-                 + "Engine Displacement: " + data.getEngineDisplacment() + ", "
-                 + "Primary Fuel Type: " + data.getPrimaryFuelType() );
+//                Log.d("MainMenu: ", "Just created: " +
+//                     "make: " + data.getMake() + ", "
+//                 + "model:" + data.getModel() + ", "
+//                 + "Year: " + data.getYear() +", "
+//                 + "Highway Mileage: " + data.getHighwayMileage() + ", "
+//                 + "City Mileage: " + data.getCityMileage() + ", "
+//                 + "Transmission: " + data.getTransmisson() + ", "
+//                 + "Engine Displacement: " + data.getEngineDisplacment() + ", "
+//                 + "Primary Fuel Type: " + data.getPrimaryFuelType() );
             }
         } catch (IOException e){
             Log.wtf("MainMenu", "Error reading datafile on Line: " + line, e);
