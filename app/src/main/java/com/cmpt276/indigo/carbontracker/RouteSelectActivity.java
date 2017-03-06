@@ -112,8 +112,9 @@ public class RouteSelectActivity extends AppCompatActivity {
         list.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                indexOfRouteEditing = position;
-                RouteModel route = routes.get(position);
+                int realPosition = route_positionList.get(position);
+                indexOfRouteEditing = realPosition;
+                RouteModel route = routes.get(realPosition);
 
                 Intent intent = RouteAddActivity.makeIntentForEditRoute(RouteSelectActivity.this, route);
                 startActivityForResult(intent, ACTIVITY_RESULT_EDIT);
