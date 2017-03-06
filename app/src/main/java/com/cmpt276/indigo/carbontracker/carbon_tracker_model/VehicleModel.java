@@ -97,19 +97,18 @@ public class VehicleModel implements CarbonFootprintComponent{
     }
 
     //Convert miles to km
-    //convert to L/km
+    //Convert miles/gallon to km/L
     public void setCityMileage(double cityMileage) {
-        this.cityMileage = cityMileage * 2.35;
+        this.cityMileage = cityMileage * 0.43;
     }
 
     public double getHighwayMileage() {
         return highwayMileage;
     }
 
-    //Convert miles to km
-    // 1 km = 1.61 miles
+    //Convert miles/gallon to km/L
     public void setHighwayMileage(double highwayMileage) {
-        this.highwayMileage = highwayMileage * 2.35;
+        this.highwayMileage = highwayMileage * 0.43;
     }
 
     public String getPrimaryFuelType() {
