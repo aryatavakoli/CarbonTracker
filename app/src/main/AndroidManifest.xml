@@ -15,7 +15,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".TransportationSelectActvitiy"
             android:label="@string/title_activity_transportation_select_actvitiy"
@@ -25,7 +24,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.cmpt276.indigo.carbontracker.JourneyMenu" />
         </activity>
-
         <activity
             android:name=".TransportationAddActivity"
             android:label="@string/title_activity_transportation_add_actvitiy"
@@ -69,33 +67,14 @@
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
-
         <activity
             android:name=".CarbonFootprintMenu"
-            android:label="@string/title_activity_carbon_foot_print"
+            android:label="@string/title_activity_carbon_footprint_menu"
+            android:theme="@style/AppTheme.NoActionBar"
             android:parentActivityName=".MainMenu">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.cmpt276.indigo.carbontracker.MainMenu" />
-        </activity>
-
-        <activity
-            android:name=".CarbonFootprintGraph"
-            android:label="@string/title_activity_carbon_foot_print_graph"
-            android:parentActivityName=".CarbonFootprintMenu">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.cmpt276.indigo.carbontracker.CarbonFootprintMenu"/>
-
-        </activity>
-
-        <activity
-            android:name=".CarbonFootprintTable"
-            android:label="@string/title_activity_carbon_footprint_Table_actvitiy"
-            android:parentActivityName=".CarbonFootprintMenu">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.cmpt276.indigo.carbontracker.CarbonFootprintMenu" />
         </activity>
     </application>
 
