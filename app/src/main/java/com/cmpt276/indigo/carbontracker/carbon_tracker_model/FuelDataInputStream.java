@@ -29,21 +29,6 @@ public class FuelDataInputStream {
         return instance;
     }
 
-    public static List<Goods> getSampleData()
-    {
-        List<Goods> list = new ArrayList<Goods>();
-        list.add(new Goods("01", "2010", "982323423232",34,23,23));
-        list.add(new Goods("02", "2011", "31312323223",34,23,23));
-        list.add(new Goods("03", "2012", "12",34,23,23));
-        list.add(new Goods("04", "2013", "12333435445",34,23,23));
-        list.add(new Goods("05", "2014", "34523",34,23,23));
-        list.add(new Goods("06", "2015", "345456",34,23,23));
-        list.add(new Goods("07", "2016", "2344",34,23,23));
-        list.add(new Goods("08", "2017", "23445",34,23,23));
-        list.add(new Goods("09", "2018", "3234345",34,23,23));
-        return list;
-    }
-
     public ArrayList<VehicleModel> readDataFile(InputStream is){
         BufferedReader reader = new BufferedReader(
                 new InputStreamReader(is, Charset.forName("UTF-8"))

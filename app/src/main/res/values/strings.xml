@@ -15,7 +15,7 @@
     <string name="route_name">Route Name:</string>
     <string name="nickname">Nickname</string>
     <string name="highway_distance">Highway distance:</string>
-    <string name="distance_km">Distance(miles)</string>
+    <string name="distance_km">Distance(km)</string>
     <string name="city_distance">City Distance:</string>
     <string name="total_distance">Total Distance:</string>
     <string name="ok">OK</string>
