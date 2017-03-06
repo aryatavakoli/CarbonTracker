@@ -77,9 +77,11 @@ public class JourneyMenu extends AppCompatActivity {
 
         //Converts double to float for use with graph
         //Rounds it off
-        converted_Footprint =  Math.round((float)total_footPrint * 100.0f) / 100.0f;;
+        converted_Footprint =  Math.round((float)total_footPrint * 100.0f) / 100.0f;
 
-       return converted_Footprint;
+        newJourney.setCo2Emission(converted_Footprint);
+
+        return converted_Footprint;
 
     }
 
