@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -45,9 +46,12 @@ public class TransportationAddActivity extends AppCompatActivity {
             EditText editName = (EditText) findViewById(R.id.add_transport_editText_nickname);
             editName.setText(vehicle.getName());
 
+            String make = vehicle.getMake();
+            String model = vehicle.getModel();
+
             setSpinnerSelection(R.id.add_transport_dropdown_make, carbonFootprintInterface.getVehicleMakes(), vehicle.getMake());
-            setSpinnerSelection(R.id.add_transport_dropdown_model, carbonFootprintInterface.getVehicleModel(), vehicle.getModel());
-            setSpinnerSelection(R.id.add_transport_dropdown_year, carbonFootprintInterface.getVehicleYear(), vehicle.getYear());
+            setSpinnerSelection(R.id.add_transport_dropdown_model, carbonFootprintInterface.getVehicleModel(make), vehicle.getModel());
+            setSpinnerSelection(R.id.add_transport_dropdown_year, carbonFootprintInterface.getVehicleYear(make, model), vehicle.getYear());
         }
     }
 
@@ -64,6 +68,9 @@ public class TransportationAddActivity extends AppCompatActivity {
             public void onClick(View v) {
                 //Try to get data from transportation add UI and create a vehicle object
                 VehicleModel vehicle = createVehicleObject();
+                if (vehicle == null){
+                    return;
+                }
                 //adding and replacing vehicle when a user is editing
                 if(editing){
                     Intent intent = getIntent();
@@ -90,13 +97,16 @@ public class TransportationAddActivity extends AppCompatActivity {
         btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //Try to get data from transportation add UI
+                VehicleModel vehicle = createVehicleObject();
                 if(!editing){
-                    Toast.makeText(TransportationAddActivity.this, "This vehicle does not exit in the list", Toast.LENGTH_SHORT)
+                    if (vehicle == null){
+                        return;
+                    }
+                    Toast.makeText(TransportationAddActivity.this, "This vehicle does not exit.", Toast.LENGTH_SHORT)
                             .show();
                 }
                 else{
-                    //Try to get data from transportation add UI
-                    VehicleModel vehicle = createVehicleObject();
                     //Removing vehicle from collection if it is on the list
                     removeVehicle(vehicle);
                     setResult(RESULT_DELETE);
@@ -114,6 +124,7 @@ public class TransportationAddActivity extends AppCompatActivity {
         if (name.length() == 0) {
             Toast.makeText(TransportationAddActivity.this, "Please enter a vehicle name.", Toast.LENGTH_SHORT)
                     .show();
+            return null;
         }
 
         Spinner vehicleMake = (Spinner) findViewById(R.id.add_transport_dropdown_make);
@@ -136,6 +147,10 @@ public class TransportationAddActivity extends AppCompatActivity {
 
         //Creating vehicle object to pass it to vehicle activity to be added to the list.
         VehicleModel vehicle = new VehicleModel(name, make, model, year);
+
+        // setting fuel efficiency data
+        carbonFootprintInterface.populateCarFuelData(vehicle);
+
         return vehicle;
     }
 
@@ -161,7 +176,6 @@ public class TransportationAddActivity extends AppCompatActivity {
         }
         return true;
     }
-    //TODO: do we need try and catch?
     //remove(hide) vehicle from the list
     void removeVehicle(VehicleModel vehicle){
         carbonFootprintInterface.remove(vehicle);
@@ -170,29 +184,51 @@ public class TransportationAddActivity extends AppCompatActivity {
     //Set all the values for dropdown lists
     private void setupDropdownList() {
         setupMakeDropdownList();
-        setupModelDropdownList();
-        setupYearDropdownList();
-    }
-
-    private void setupYearDropdownList() {
-        ArrayList<String> years = carbonFootprintInterface.getVehicleYear();
-        Spinner yearSpinner = (Spinner)findViewById(R.id.add_transport_dropdown_year);
-        fillSpinner(yearSpinner, R.id.add_transport_dropdown_year, years);
-    }
-
-    private void setupModelDropdownList() {
-        ArrayList<String> models = carbonFootprintInterface.getVehicleModel();
-        Spinner modelSpinner = (Spinner)findViewById(R.id.add_transport_dropdown_model);
-        fillSpinner(modelSpinner, R.id.add_transport_dropdown_model, models);
     }
 
     private void setupMakeDropdownList() {
         ArrayList<String> makes = carbonFootprintInterface.getVehicleMakes();
-        Spinner makeSpinner = (Spinner)findViewById(R.id.add_transport_dropdown_make);
-        fillSpinner(makeSpinner, R.id.add_transport_dropdown_make, makes);
+        final Spinner makeSpinner = (Spinner)findViewById(R.id.add_transport_dropdown_make);
+        fillSpinner(makeSpinner, makes);
+        makeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String selectedMake = makeSpinner.getSelectedItem().toString();
+                setupModelDropdownList(selectedMake);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
     }
 
-    private void fillSpinner(Spinner spinner, int resourceID, ArrayList<String> items) {
+    private void setupModelDropdownList(final String selectedMake) {
+        ArrayList<String> models = carbonFootprintInterface.getVehicleModel(selectedMake);
+        final Spinner modelSpinner = (Spinner)findViewById(R.id.add_transport_dropdown_model);
+        fillSpinner(modelSpinner, models);
+        modelSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String selectedModel = modelSpinner.getSelectedItem().toString();
+                setupYearDropdownList(selectedMake, selectedModel);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+    }
+
+    private void setupYearDropdownList(String selectedMake, String selectedModel) {
+        ArrayList<String> years = carbonFootprintInterface.getVehicleYear(selectedMake, selectedModel);
+        Spinner yearSpinner = (Spinner)findViewById(R.id.add_transport_dropdown_year);
+        fillSpinner(yearSpinner, years);
+    }
+
+    private void fillSpinner(Spinner spinner, ArrayList<String> items) {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.support_simple_spinner_dropdown_item, items);
         spinner.setAdapter(adapter);
     }

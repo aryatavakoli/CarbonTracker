@@ -13,8 +13,7 @@ public class CarbonFootprintComponentCollection {
     ArrayList<RouteModel> routes;
     ArrayList<JourneyModel> journies;
     ArrayList<String> vehicleMakes;
-    ArrayList<String> vehicleModels;
-    ArrayList<String> vehicleYears;
+    ArrayList<VehicleModel> readVehicles;
     private static CarbonFootprintComponentCollection instance = new CarbonFootprintComponentCollection();
 
     public static CarbonFootprintComponentCollection getInstance(){
@@ -26,7 +25,6 @@ public class CarbonFootprintComponentCollection {
         routes = new ArrayList<>();
         journies = new ArrayList<>();
         vehicleMakes = new ArrayList<>();
-        vehicleModels = new ArrayList<>();
     }
 
     public ArrayList<VehicleModel> getVehicles() {
@@ -192,23 +190,20 @@ public class CarbonFootprintComponentCollection {
         return vehicleMakes;
     }
 
-    public ArrayList<String> getVehicleModel(){
-        return vehicleModels;
+    public ArrayList<String> getVehicleModel(String make){
+        return extractModels(make);
     }
 
-    public ArrayList<String> getVehicleYear(){
-
-        return vehicleYears;
+    public ArrayList<String> getVehicleYear(String make, String model){
+        return extractYears(make, model);
     }
 
     public void loadDataFile(InputStream is){
-        ArrayList<VehicleModel> readVehicles = FuelDataInputStream.getInstance().readDataFile(is);
-        extractModels(readVehicles);
-        extractMakes(readVehicles);
-        extractYears(readVehicles);
+        readVehicles = FuelDataInputStream.getInstance().readDataFile(is);
+        extractMakes();
     }
 
-    private void extractMakes(ArrayList<VehicleModel> readVehicles) {
+    private void extractMakes() {
         Set<String> makesSet = new HashSet<>();
         for(VehicleModel v : readVehicles){
             makesSet.add(v.getMake());
@@ -217,21 +212,37 @@ public class CarbonFootprintComponentCollection {
         Collections.sort(vehicleMakes);
     }
 
-    private void extractModels(ArrayList<VehicleModel> readVehicles) {
+    private ArrayList<String> extractModels(String make) {
         Set<String> modelsSet = new HashSet<>();
         for(VehicleModel v : readVehicles){
-            modelsSet.add(v.getModel());
+            if(v.getMake().equals(make)){
+                modelsSet.add(v.getModel());
+            }
         }
-        vehicleModels = new ArrayList<>(modelsSet);
+        ArrayList<String> vehicleModels = new ArrayList<>(modelsSet);
         Collections.sort(vehicleModels);
+        return vehicleModels;
     }
 
-    private void extractYears(ArrayList<VehicleModel> readVehicles) {
+    private ArrayList<String> extractYears(String make, String model) {
         Set<String> yearsSet = new HashSet<>();
         for(VehicleModel v : readVehicles){
-            yearsSet.add(v.getYear());
+            if(v.getMake().equals(make) && v.getModel().equals(model)){
+                yearsSet.add(v.getYear());
+            }
         }
-        vehicleYears = new ArrayList<>(yearsSet);
+        ArrayList<String> vehicleYears = new ArrayList<>(yearsSet);
         Collections.sort(vehicleYears);
+        return vehicleYears;
+    }
+
+    public void populateCarFuelData(VehicleModel vehicleModel){
+        for(VehicleModel v : readVehicles){
+            if(v.getMake().equals(vehicleModel.getMake()) && v.getModel().equals(vehicleModel.getModel()) &&
+                v.getYear().equals(vehicleModel.getYear())){
+                vehicleModel.copyFuelData(v);
+                return;
+            }
+        }
     }
 }

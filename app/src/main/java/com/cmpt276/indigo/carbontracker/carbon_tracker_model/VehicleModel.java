@@ -128,7 +128,7 @@ public class VehicleModel implements CarbonFootprintComponent{
         this.isDeleted = isDeleted;
     }
 
-    //paramters/argumnets must be in kilometers
+    //parameters/arguments must be in kilometers
     public double getCarbonFootprint(double highwayDistance, double cityDistance) {
         String fuelType = getPrimaryFuelType();
         double highway_mileage = getHighwayMileage();
@@ -184,5 +184,14 @@ public class VehicleModel implements CarbonFootprintComponent{
             return false;
         }
         return this.name.equals(o.name);
+    }
+
+    public void copyFuelData(VehicleModel other){
+        this.transmisson = other.transmisson;
+        this.engineDisplacment = other.engineDisplacment; // in cubic inches
+        this.cityMileage = other.cityMileage; // Gallon per mile mileage city
+        this.highwayMileage = other.highwayMileage; // Gallon per mile milleage Highway
+        this.primaryFuelType = other.primaryFuelType;
+        this.carbonFootprint = other.carbonFootprint;
     }
 }
