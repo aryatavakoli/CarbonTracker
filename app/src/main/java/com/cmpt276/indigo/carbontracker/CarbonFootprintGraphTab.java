@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.cmpt276.indigo.carbontracker.carbon_tracker_model.CarbonFootprintComponentCollection;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
@@ -21,19 +22,19 @@ import java.util.ArrayList;
 public class CarbonFootprintGraphTab extends Fragment {
     float carbonfootprint[] = {10.0f, 20.0f ,30.0f, 40.0f,50.0f,60.0f ,43.0f};
 
-    String journeyName[] = {"Journey 1", "Journey 2" , "Journey 3","Journey 4","Journey 5", "Journey 6","Journey 7"};
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.activity_carbon_footprint_graph, container, false);
+
         PieChart pieChart = (PieChart) rootView.findViewById(R.id.bar_graph);
+
         ArrayList<String> pieEntrieslabels = new ArrayList<>();
         ArrayList<PieEntry> pieEntries = new ArrayList<>();
 
         for (int i = 0; i < carbonfootprint.length; i++) {
-            pieEntrieslabels.add(journeyName[i]);
-            pieEntries.add(new PieEntry(carbonfootprint[i],journeyName[i]));
+            pieEntrieslabels.add("Journey " + i);
+            pieEntries.add(new PieEntry(carbonfootprint[i],"Journey " + i));
         }
 
         PieDataSet dataSets = new PieDataSet(pieEntries,null);

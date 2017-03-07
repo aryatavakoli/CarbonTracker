@@ -12,10 +12,10 @@ import android.widget.TextView;
 
 public class TableAdapter extends BaseAdapter {
 
-    private List<Goods> list;
+    private List<ListItem> list;
     private LayoutInflater inflater;
 
-    public TableAdapter(Context context, List<Goods> list){
+    public TableAdapter(Context context, List<ListItem> list){
         this.list = list;
         inflater = LayoutInflater.from(context);
     }
@@ -42,7 +42,7 @@ public class TableAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        Goods goods = (Goods) this.getItem(position);
+        ListItem items = (ListItem) this.getItem(position);
 
         ViewHolder viewHolder;
 
@@ -51,41 +51,37 @@ public class TableAdapter extends BaseAdapter {
             viewHolder = new ViewHolder();
 
             convertView = inflater.inflate(R.layout.list_item_carbon_footprint_table, null);
-            viewHolder.goodId = (TextView) convertView.findViewById(R.id.text_id);
-            viewHolder.goodName = (TextView) convertView.findViewById(R.id.text_goods_name);
-            viewHolder.goodCodeBar = (TextView) convertView.findViewById(R.id.text_codeBar);
-            viewHolder.goodNum = (TextView) convertView.findViewById(R.id.text_num);
-            viewHolder.goodCurrPrice = (TextView) convertView.findViewById(R.id.text_curPrice);
-            viewHolder.goodMoney = (TextView) convertView.findViewById(R.id.text_money);
+
+            viewHolder.carName = (TextView) convertView.findViewById(R.id.car);
+            viewHolder.routeName = (TextView) convertView.findViewById(R.id.nickName);
+            viewHolder.date = (TextView) convertView.findViewById(R.id.date);
+            viewHolder.col = (TextView) convertView.findViewById(R.id.co2);
+
 
             convertView.setTag(viewHolder);
         }else{
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
-        viewHolder.goodId.setText(goods.getId());
-        viewHolder.goodId.setTextSize(13);
-        viewHolder.goodName.setText(goods.getCarName());
-        viewHolder.goodName.setTextSize(13);
-        viewHolder.goodCodeBar.setText(goods.getRouteName());
-        viewHolder.goodCodeBar.setTextSize(13);
-        viewHolder.goodNum.setText(goods.getDate()+"");
-        viewHolder.goodNum.setTextSize(13);
-        viewHolder.goodCurrPrice.setText(goods.getCarbon()+"");
-        viewHolder.goodCurrPrice.setTextSize(13);
-        viewHolder.goodMoney.setText(goods.getTotalDistance()+"");
-        viewHolder.goodMoney.setTextSize(13);
+
+        viewHolder.carName.setText(items.getCarName());
+        viewHolder.carName.setTextSize(13);
+        viewHolder.routeName.setText(items.getRouteName());
+        viewHolder.routeName.setTextSize(13);
+        viewHolder.date.setText(items.getDate()+"");
+        viewHolder.date.setTextSize(13);
+        viewHolder.col.setText(items.getCol()+"");
+        viewHolder.col.setTextSize(13);
 
         return convertView;
     }
 
     public static class ViewHolder{
-        public TextView goodId;
-        public TextView goodName;
-        public TextView goodCodeBar;
-        public TextView goodNum;
-        public TextView goodCurrPrice;
-        public TextView goodMoney;
+
+        public TextView carName;
+        public TextView routeName;
+        public TextView date;
+        public TextView col;
     }
 
 }

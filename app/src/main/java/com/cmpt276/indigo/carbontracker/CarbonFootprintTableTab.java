@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.FuelDataInputStream;
+import com.cmpt276.indigo.carbontracker.carbon_tracker_model.JourneyModel;
 
 /**
  * Created by arya on 05/03/17.
@@ -22,7 +23,7 @@ public class CarbonFootprintTableTab extends Fragment {
 
         ListView tableListView = (ListView) rootView.findViewById(R.id.list);
 
-        TableAdapter adapter = new TableAdapter(getActivity(), FuelDataInputStream.getSampleData());
+        TableAdapter adapter = new TableAdapter(getActivity(), JourneyModel.getListItems());
 
         tableListView.setAdapter(adapter);
         return rootView;

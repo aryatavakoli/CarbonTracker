@@ -50,9 +50,6 @@
                 android:value="com.cmpt276.indigo.carbontracker.RouteSelectActivity" />
         </activity>
         <activity
-            android:name=".ResultActivity"
-            android:label="@string/title_activity_result_actvitiy" />
-        <activity
             android:name=".JourneyMenu"
             android:label="@string/title_activity_journey_menu"
             android:parentActivityName=".MainMenu">

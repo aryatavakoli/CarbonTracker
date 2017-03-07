@@ -1,11 +1,12 @@
 package com.cmpt276.indigo.carbontracker.carbon_tracker_model;
 
 
+import java.security.PublicKey;
 import java.util.Objects;
 
 public class VehicleModel implements CarbonFootprintComponent{
-    private static final double gasolineFootprint = 2.35; // 8.89 kg per gallon in kg/L
-    private static final double dieselFootprint = 2.69; // 10.16 kg per Gallon in kg/L
+    public static final double GASOLINE_FOOTPRINT = 2.35; // 8.89 kg per gallon in kg/L
+    public static final double DIESEL_FOOTPRINT = 2.69; // 10.16 kg per Gallon in kg/L
     private String name;
     private String make;
     private String model;
@@ -109,19 +110,18 @@ public class VehicleModel implements CarbonFootprintComponent{
     }
 
     //Convert miles to km
-    //convert to L/km
+    //Convert miles/gallon to km/L
     public void setCityMileage(double cityMileage) {
-        this.cityMileage = cityMileage * 2.35;
+        this.cityMileage = cityMileage * 0.43;
     }
 
     public double getHighwayMileage() {
         return highwayMileage;
     }
 
-    //Convert miles to km
-    // 1 km = 1.61 miles
+    //Convert miles/gallon to km/L
     public void setHighwayMileage(double highwayMileage) {
-        this.highwayMileage = highwayMileage * 2.35;
+        this.highwayMileage = highwayMileage * 0.43;
     }
 
     public String getPrimaryFuelType() {
@@ -138,29 +138,6 @@ public class VehicleModel implements CarbonFootprintComponent{
 
     public void setIsDeleted(boolean isDeleted){
         this.isDeleted = isDeleted;
-    }
-
-    //parameters/arguments must be in kilometers
-    public double getCarbonFootprint(double highwayDistance, double cityDistance) {
-        String fuelType = getPrimaryFuelType();
-        double highway_mileage = getHighwayMileage();
-        double city_mileage = getCityMileage();
-
-        //Gasoline
-        if (fuelType.contains("Gasoline") || Objects.equals(fuelType, "Regular") || Objects.equals(fuelType, "Premium"))
-        {
-            carbonFootprint = (gasolineFootprint) * ((city_mileage * cityDistance) + (highway_mileage* highway_mileage));
-        }
-        //Diesel
-        else if (Objects.equals(fuelType, "Diesel"))
-        {
-            carbonFootprint = (dieselFootprint) * ((city_mileage * cityDistance) + (highway_mileage* highway_mileage));
-        }
-        else
-        {
-            carbonFootprint = 0;
-        }
-        return carbonFootprint;
     }
 
     @Override

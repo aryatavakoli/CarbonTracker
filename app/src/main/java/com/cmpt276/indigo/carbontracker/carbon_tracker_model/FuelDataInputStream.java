@@ -13,8 +13,6 @@ This class will be used by following UIs: CarUI, JourneyUI
 
 import android.util.Log;
 
-import com.cmpt276.indigo.carbontracker.Goods;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -29,21 +27,6 @@ public class FuelDataInputStream {
 
     static public FuelDataInputStream getInstance(){
         return instance;
-    }
-
-    public static List<Goods> getSampleData()
-    {
-        List<Goods> list = new ArrayList<Goods>();
-        list.add(new Goods("01", "2010", "982323423232",34,23,23));
-        list.add(new Goods("02", "2011", "31312323223",34,23,23));
-        list.add(new Goods("03", "2012", "12",34,23,23));
-        list.add(new Goods("04", "2013", "12333435445",34,23,23));
-        list.add(new Goods("05", "2014", "34523",34,23,23));
-        list.add(new Goods("06", "2015", "345456",34,23,23));
-        list.add(new Goods("07", "2016", "2344",34,23,23));
-        list.add(new Goods("08", "2017", "23445",34,23,23));
-        list.add(new Goods("09", "2018", "3234345",34,23,23));
-        return list;
     }
 
     public ArrayList<VehicleModel> readDataFile(InputStream is){
@@ -80,15 +63,15 @@ public class FuelDataInputStream {
                 vehicleData.add(data);
 
                 // Scaffolding statments
-//                Log.d("MainMenu: ", "Just created: " +
-//                     "make: " + data.getMake() + ", "
-//                 + "model:" + data.getModel() + ", "
-//                 + "Year: " + data.getYear() +", "
-//                 + "Highway Mileage: " + data.getHighwayMileage() + ", "
-//                 + "City Mileage: " + data.getCityMileage() + ", "
-//                 + "Transmission: " + data.getTransmisson() + ", "
-//                 + "Engine Displacement: " + data.getEngineDisplacment() + ", "
-//                 + "Primary Fuel Type: " + data.getPrimaryFuelType() );
+                Log.d("MainMenu: ", "Just created: " +
+                     "make: " + data.getMake() + ", "
+                 + "model:" + data.getModel() + ", "
+                 + "Year: " + data.getYear() +", "
+                 + "Highway Mileage: " + data.getHighwayMileage() + ", "
+                 + "City Mileage: " + data.getCityMileage() + ", "
+                 + "Transmission: " + data.getTransmisson() + ", "
+                 + "Engine Displacement: " + data.getEngineDisplacment() + ", "
+                 + "Primary Fuel Type: " + data.getPrimaryFuelType() );
             }
         } catch (IOException e){
             Log.wtf("MainMenu", "Error reading datafile on Line: " + line, e);

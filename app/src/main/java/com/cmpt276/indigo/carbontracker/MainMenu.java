@@ -16,21 +16,39 @@ import java.io.InputStream;
 
 public class MainMenu extends AppCompatActivity {
     public static final int JOURNEY_SELECT = 300;
+    static boolean  startupFlag = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
 
+
+        // process might be killed off while paused and the app is in the background.
+        // In that case, the flag will be false when the activity is recreated by
+        // the system when the user tries to bring the app back to the foreground/
+        //use shared preference to get aroundt his
+        if (startupFlag)
+        {
+            loadDataFile();
+        }
         carbonFootprintSelectbtn();
         journeySelectbtn();
-        loadDataFile();
+
     }
 
     private void loadDataFile() {
         CarbonFootprintComponentCollection carbonFootprint = CarbonFootprintComponentCollection.getInstance();
         InputStream is = getResources().openRawResource(R.raw.vehicles);
         carbonFootprint.loadDataFile(is);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (isFinishing()) {
+            startupFlag = false;
+        }
     }
 
     //Launch Create a jounrney activity
