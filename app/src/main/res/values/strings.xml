@@ -44,4 +44,15 @@
     <string name="how_to_edit_delete_a_route">How To Edit/Delete a Route</string>
     <string name="tap_and_hold_the_route_name_in_the_route_list">Tap and hold the Route Name in the Route List</string>
     <string name="help_menu_title">Help Menu</string>
+    <string name="selected_vehicle_name">Selected Vehicle Name:</string>
+    <string name="no_vehicle_selected">No Vehicle Selected</string>
+    <string name="selected_route_name">Selected Route Name:</string>
+    <string name="no_route_selected">No Route Selected</string>
+    <string name="carbon_footprint">Carbon Footprint:</string>
+    <string name="n_a">N/A</string>
+    <string name="delete">Delete</string>
+    <string name="transmission">Transmission:</string>
+    <string name="journey_car">journey car</string>
+    <string name="nicknames">nicknames</string>
+    <string name="date">date</string>
 </resources>

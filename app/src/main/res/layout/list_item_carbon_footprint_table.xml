@@ -14,7 +14,7 @@
         android:textColor="#000000"
         android:textSize="12sp"
         android:singleLine="true"
-        android:text="journey car" />
+        android:text="@string/journey_car" />
 
     <View
         android:layout_width="1.5dip"
@@ -32,7 +32,7 @@
         android:textSize="15sp"
         android:singleLine="true"
         android:gravity="center"
-        android:text="nicknames" />
+        android:text="@string/nicknames" />
 
     <View
         android:layout_width="1.5dip"
@@ -50,7 +50,7 @@
         android:singleLine="true"
         android:textSize="15sp"
         android:gravity="center"
-        android:text="date" />
+        android:text="@string/date" />
 
     <View
         android:layout_width="1.5dip"

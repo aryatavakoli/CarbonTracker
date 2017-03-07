@@ -37,7 +37,7 @@
             android:layout_height="match_parent" >
 
             <TextView
-                android:text="Selected Vehicle Name:"
+                android:text="@string/selected_vehicle_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="25dp"
@@ -45,7 +45,7 @@
                 android:gravity="start" />
 
             <TextView
-                android:text="No Vehicle Selected"
+                android:text="@string/no_vehicle_selected"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/journey_menu_text_current_vehicle"
@@ -60,7 +60,7 @@
             android:layout_height="match_parent" >
 
             <TextView
-                android:text="Selected Route Name:"
+                android:text="@string/selected_route_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="25dp"
@@ -68,7 +68,7 @@
                 android:gravity="start"/>
 
             <TextView
-                android:text="No Route Selected"
+                android:text="@string/no_route_selected"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/journey_menu_text_current_route"
@@ -83,7 +83,7 @@
             android:layout_height="match_parent" >
 
             <TextView
-                android:text="Carbon Footprint:"
+                android:text="@string/carbon_footprint"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="25dp"
@@ -91,7 +91,7 @@
                 android:gravity="start"/>
 
             <TextView
-                android:text="N/A"
+                android:text="@string/n_a"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="25dp"

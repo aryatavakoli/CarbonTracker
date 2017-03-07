@@ -89,7 +89,7 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:text="Transmission:"
+                android:text="@string/transmission"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/tvTransmission"
@@ -104,7 +104,7 @@
     </TableLayout>
 
     <Button
-        android:text="Delete"
+        android:text="@string/delete"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/add_transport_delete_btn"

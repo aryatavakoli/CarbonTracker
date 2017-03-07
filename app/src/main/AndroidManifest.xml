@@ -73,7 +73,7 @@
 
         </activity>
         <activity
-            android:label="@string/title_activity_carbon_footprint_menu"
+            android:label="@string/help_menu_title"
             android:parentActivityName=".MainMenu"
             android:name=".HelpMenu">
             <meta-data

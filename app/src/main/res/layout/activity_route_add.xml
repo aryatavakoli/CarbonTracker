@@ -100,7 +100,7 @@
     </TableLayout>
 
     <Button
-        android:text="Delete"
+        android:text="@string/delete"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/add_route_ok_btn"
