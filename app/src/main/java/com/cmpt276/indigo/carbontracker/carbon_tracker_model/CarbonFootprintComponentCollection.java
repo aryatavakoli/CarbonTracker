@@ -198,6 +198,10 @@ public class CarbonFootprintComponentCollection {
         return extractYears(make, model);
     }
 
+    public ArrayList<String> getVehicleTransmission(String make, String model, String year){
+        return extractTransmission(make, model, year);
+    }
+
     public void loadDataFile(InputStream is){
         if (readVehicles == null) {
             readVehicles = FuelDataInputStream.getInstance().readDataFile(is);
@@ -236,6 +240,18 @@ public class CarbonFootprintComponentCollection {
         ArrayList<String> vehicleYears = new ArrayList<>(yearsSet);
         Collections.sort(vehicleYears);
         return vehicleYears;
+    }
+
+    private ArrayList<String> extractTransmission(String make, String model, String year) {
+        Set<String> transmissionSet = new HashSet<>();
+        for(VehicleModel v : readVehicles){
+            if(v.getMake().equals(make) && v.getModel().equals(model) && v.getYear().equals(year)){
+                transmissionSet.add(v.getTransmisson());
+            }
+        }
+        ArrayList<String> vehicleTransmissions = new ArrayList<>(transmissionSet);
+        Collections.sort(vehicleTransmissions);
+        return vehicleTransmissions;
     }
 
     public void populateCarFuelData(VehicleModel vehicleModel){

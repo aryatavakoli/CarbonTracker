@@ -45,6 +45,18 @@ public class VehicleModel implements CarbonFootprintComponent{
         isDeleted = false;
     }
 
+    public VehicleModel(String name, String make, String model, String year, String transmisson){
+        this.name = name;
+        this.make = make;
+        this.model = model;
+        this.year = year;
+        this.transmisson = transmisson;
+        engineDisplacment = 0;
+        cityMileage = 0;
+        highwayMileage = 0;
+        isDeleted = false;
+    }
+
     public String getName() {
         return name;
     }
