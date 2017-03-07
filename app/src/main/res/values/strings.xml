@@ -35,4 +35,13 @@
     <string name="title_activity_carbon_footprint_menu">Carbon Footprint Data</string>
     <string name="action_settings">Settings</string>
     <string name="section_format">Hello World from section: %1$d</string>
+    <string name="how_to_select_a_vehicle">How to Select A Vehicle</string>
+    <string name="tap_on_vehicle_name_in_the_list_of_vehicles">Tap on Vehicle Name in the List of Vehicles</string>
+    <string name="top_on_route_name_in_the_list_of_rooutes">Top on Route Name in the List of Routes</string>
+    <string name="how_to_select_a_route">How to Select a Route</string>
+    <string name="how_to_edit_delete_a_vehicle">How to Edit/Delete A Vehicle</string>
+    <string name="tap_and_hold_the_vehicle_name_in_the_list_of_vehicles">Tap and Hold the Vehicle Name in the list of vehicles</string>
+    <string name="how_to_edit_delete_a_route">How To Edit/Delete a Route</string>
+    <string name="tap_and_hold_the_route_name_in_the_route_list">Tap and hold the Route Name in the Route List</string>
+    <string name="help_menu_title">Help Menu</string>
 </resources>

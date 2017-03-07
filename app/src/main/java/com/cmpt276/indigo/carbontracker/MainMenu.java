@@ -30,6 +30,7 @@ public class MainMenu extends AppCompatActivity {
         loadDataFile();
         carbonFootprintSelectbtn();
         journeySelectbtn();
+        helpbtn();
 
     }
 
@@ -62,10 +63,20 @@ public class MainMenu extends AppCompatActivity {
             }
         });
     }
-
-
-
+    private void helpbtn() {
+        Button btn = (Button) findViewById(R.id.main_menu_help);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainMenu.this, HelpMenu.class);
+                startActivity(intent);
             }
+        });
+    }
+
+
+
+}
 
 
 

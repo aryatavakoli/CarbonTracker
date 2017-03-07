@@ -64,11 +64,18 @@
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
+
         <activity
             android:name=".CarbonFootprintMenu"
             android:label="@string/title_activity_carbon_footprint_menu"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:parentActivityName=".MainMenu">
+            android:parentActivityName=".MainMenu"
+            android:theme="@style/AppTheme.NoActionBar">
+
+        </activity>
+        <activity
+            android:label="@string/title_activity_carbon_footprint_menu"
+            android:parentActivityName=".MainMenu"
+            android:name=".HelpMenu">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.cmpt276.indigo.carbontracker.MainMenu" />
