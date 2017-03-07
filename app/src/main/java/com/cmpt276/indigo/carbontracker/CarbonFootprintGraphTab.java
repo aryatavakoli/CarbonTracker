@@ -22,26 +22,31 @@ import java.util.List;
  */
 
 public class CarbonFootprintGraphTab extends Fragment {
-    float carbonfootprint[] = {10.0f, 20.0f ,30.0f, 40.0f,50.0f,60.0f ,43.0f};
+    ArrayList<JourneyModel> journies;
+    CarbonFootprintComponentCollection carbonInterface;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.activity_carbon_footprint_graph, container, false);
 
+        carbonInterface = CarbonFootprintComponentCollection.getInstance();
+
+        journies = carbonInterface.getJournies();
+
         PieChart pieChart = (PieChart) rootView.findViewById(R.id.bar_graph);
 
         ArrayList<String> pieEntrieslabels = new ArrayList<>();
         ArrayList<PieEntry> pieEntries = new ArrayList<>();
 
-        for (int i = 0; i < carbonfootprint.length; i++) {
-            pieEntrieslabels.add("Journey " + i);
-            pieEntries.add(new PieEntry(carbonfootprint[i],"Journey " + i));
+        for (int i = 0; i < journies.size(); i++) {
+            pieEntrieslabels.add(journies.get(i).getRouteModel().getName());
+            pieEntries.add(new PieEntry(journies.get(i).getCo2Emission(),journies.get(i).getRouteModel().getName()));
         }
 
         PieDataSet dataSets = new PieDataSet(pieEntries,null);
         PieData data = new PieData(dataSets);
-        dataSets.setColors(ColorTemplate.LIBERTY_COLORS);
+        dataSets.setColors(ColorTemplate.MATERIAL_COLORS);
         pieChart.setDescription(null);
         pieChart.setData(data);
         pieChart.getLegend().setEnabled(false);

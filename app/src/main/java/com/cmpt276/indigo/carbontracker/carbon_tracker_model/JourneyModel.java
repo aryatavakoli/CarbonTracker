@@ -81,12 +81,12 @@ public class JourneyModel implements CarbonFootprintComponent{
         //Gasoline
         if (fuelType.contains("Gasoline") || Objects.equals(fuelType, "Regular") || Objects.equals(fuelType, "Premium"))
         {
-            total_footPrint = (VehicleModel.GASOLINE_FOOTPRINT) * ((city_mileage * cityDistance) + (highway_mileage* highwayDistance));
+            total_footPrint = (VehicleModel.GASOLINE_FOOTPRINT) * ((cityDistance/city_mileage) + (highwayDistance/highway_mileage));
         }
         //Diesel
         else if (Objects.equals(fuelType, "Diesel"))
         {
-            total_footPrint = (VehicleModel.DIESEL_FOOTPRINT) * ((city_mileage * cityDistance) + (highway_mileage* highwayDistance));
+            total_footPrint = (VehicleModel.DIESEL_FOOTPRINT) * ((cityDistance/city_mileage) + (highwayDistance/highway_mileage));
         }
         else if (Objects.equals(fuelType, "Electricity") || Objects.equals(fuelType,"Electric"))
         {

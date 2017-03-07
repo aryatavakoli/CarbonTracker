@@ -34,16 +34,17 @@
         android:layout_height="wrap_content"
         android:id="@+id/main_menu_carbonfootprint_btn"
         style="@android:style/Widget.Material.Button"
-        android:layout_centerVertical="true"
+        android:layout_marginTop="37dp"
+        android:layout_below="@+id/main_menu_create_Journey_btn"
         android:layout_centerHorizontal="true" />
 
     <Button
         android:text="@string/help"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="39dp"
+        android:id="@+id/main_menu_help"
         android:layout_below="@+id/main_menu_carbonfootprint_btn"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="59dp"
-        android:id="@+id/main_menu_help" />
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>
