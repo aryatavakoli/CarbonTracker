@@ -49,8 +49,8 @@ public class TransportationAddActivity extends AppCompatActivity {
             String make = vehicle.getMake();
             String model = vehicle.getModel();
 
-            setSpinnerSelection(R.id.add_transport_dropdown_make, carbonFootprintInterface.getVehicleMakes(), vehicle.getMake());
-            setSpinnerSelection(R.id.add_transport_dropdown_model, carbonFootprintInterface.getVehicleModel(make), vehicle.getModel());
+            setSpinnerSelection(R.id.add_transport_dropdown_make, carbonFootprintInterface.getVehicleMakes(), make);
+            setSpinnerSelection(R.id.add_transport_dropdown_model, carbonFootprintInterface.getVehicleModel(make), model);
             setSpinnerSelection(R.id.add_transport_dropdown_year, carbonFootprintInterface.getVehicleYear(make, model), vehicle.getYear());
         }
     }
@@ -135,18 +135,24 @@ public class TransportationAddActivity extends AppCompatActivity {
 
         Spinner vehicleModel = (Spinner) findViewById(R.id.add_transport_dropdown_model);
         String model = vehicleModel.getSelectedItem().toString();
-        if (make == null){
+        if (model == null){
             Toast.makeText(TransportationAddActivity.this, "Vehicle model should be selected", Toast.LENGTH_SHORT).show();
         }
 
         Spinner vehicleYear = (Spinner) findViewById(R.id.add_transport_dropdown_year);
         String year = vehicleYear.getSelectedItem().toString();
-        if (make == null){
+        if (year == null){
             Toast.makeText(TransportationAddActivity.this, "Vehicle year should be selected", Toast.LENGTH_SHORT).show();
         }
 
+        Spinner vehicleTransmission = (Spinner) findViewById(R.id.add_transport_dropdown_transmission);
+        String transmission = vehicleTransmission.getSelectedItem().toString();
+        if (transmission == null){
+            Toast.makeText(TransportationAddActivity.this, "Vehicle transmission should be selected", Toast.LENGTH_SHORT).show();
+        }
+
         //Creating vehicle object to pass it to vehicle activity to be added to the list.
-        VehicleModel vehicle = new VehicleModel(name, make, model, year);
+        VehicleModel vehicle = new VehicleModel(name, make, model, year, transmission);
 
         // setting fuel efficiency data
         carbonFootprintInterface.populateCarFuelData(vehicle);
@@ -222,10 +228,28 @@ public class TransportationAddActivity extends AppCompatActivity {
         });
     }
 
-    private void setupYearDropdownList(String selectedMake, String selectedModel) {
+    private void setupYearDropdownList(final String selectedMake, final String selectedModel) {
         ArrayList<String> years = carbonFootprintInterface.getVehicleYear(selectedMake, selectedModel);
-        Spinner yearSpinner = (Spinner)findViewById(R.id.add_transport_dropdown_year);
+        final Spinner yearSpinner = (Spinner)findViewById(R.id.add_transport_dropdown_year);
         fillSpinner(yearSpinner, years);
+        yearSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String selectedYear = yearSpinner.getSelectedItem().toString();
+                setupTransmissionDropdownList(selectedMake, selectedModel, selectedYear);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+    }
+
+    private void setupTransmissionDropdownList(String selectedMake, String selectedModel, String selectedYear) {
+        ArrayList<String> transmissions = carbonFootprintInterface.getVehicleTransmission(selectedMake, selectedModel, selectedYear);
+        final Spinner transmissionSpinner = (Spinner)findViewById(R.id.add_transport_dropdown_transmission);
+        fillSpinner(transmissionSpinner, transmissions);
     }
 
     private void fillSpinner(Spinner spinner, ArrayList<String> items) {
