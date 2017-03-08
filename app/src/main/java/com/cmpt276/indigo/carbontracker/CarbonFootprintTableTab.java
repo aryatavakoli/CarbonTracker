@@ -23,7 +23,7 @@ public class CarbonFootprintTableTab extends Fragment {
 
         ListView tableListView = (ListView) rootView.findViewById(R.id.list);
 
-        TableAdapter adapter = new TableAdapter(getActivity(), JourneyModel.getListItems());
+        TableAdapter adapter = new TableAdapter(getActivity());
 
         tableListView.setAdapter(adapter);
         return rootView;

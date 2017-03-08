@@ -1,13 +1,7 @@
 package com.cmpt276.indigo.carbontracker.carbon_tracker_model;
 
-import com.cmpt276.indigo.carbontracker.ListItem;
-
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.util.Objects;
-
-import com.cmpt276.indigo.carbontracker.ListItem;
 
 
 public class JourneyModel implements CarbonFootprintComponent{
@@ -15,12 +9,6 @@ public class JourneyModel implements CarbonFootprintComponent{
     private RouteModel routeModel;
     private float co2Emission;
     private Date creationDate;
-
-    public  static List<ListItem> getListItems(){
-        List<ListItem> items = new ArrayList<>();
-        //there need add listitem into items;
-        return items;
-    }
 
     public JourneyModel(){
         vehicleModel = new VehicleModel();

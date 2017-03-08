@@ -10,28 +10,40 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.cmpt276.indigo.carbontracker.carbon_tracker_model.CarbonFootprintComponentCollection;
+import com.cmpt276.indigo.carbontracker.carbon_tracker_model.JourneyModel;
+import com.cmpt276.indigo.carbontracker.carbon_tracker_model.RouteModel;
+import com.cmpt276.indigo.carbontracker.carbon_tracker_model.VehicleModel;
+
 public class TableAdapter extends BaseAdapter {
 
-    private List<ListItem> list;
+    private List<JourneyModel> journeyList;
     private LayoutInflater inflater;
+    private TextView carName;
+    private TextView routeName;
+    private TextView totalDistance;
+    private TextView date;
+    private TextView co2;
 
-    public TableAdapter(Context context, List<ListItem> list){
-        this.list = list;
+    public TableAdapter(Context context){
+        CarbonFootprintComponentCollection carbonInterface = CarbonFootprintComponentCollection.getInstance();
+        this.journeyList = carbonInterface.getJournies();
         inflater = LayoutInflater.from(context);
     }
+
 
     @Override
     public int getCount() {
         int ret = 0;
-        if(list!=null){
-            ret = list.size();
+        if(journeyList!=null){
+            ret = journeyList.size();
         }
         return ret;
     }
 
     @Override
     public Object getItem(int position) {
-        return list.get(position);
+        return journeyList.get(position);
     }
 
     @Override
@@ -42,46 +54,38 @@ public class TableAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        ListItem items = (ListItem) this.getItem(position);
+        JourneyModel journey = (JourneyModel) this.getItem(position);
 
-        ViewHolder viewHolder;
+        VehicleModel vehicles = journey.getVehicleModel();
+
+        RouteModel route = journey.getRouteModel();
 
         if(convertView == null){
 
-            viewHolder = new ViewHolder();
-
             convertView = inflater.inflate(R.layout.list_item_carbon_footprint_table, null);
 
-            viewHolder.carName = (TextView) convertView.findViewById(R.id.car);
-            viewHolder.routeName = (TextView) convertView.findViewById(R.id.route);
-            viewHolder.date = (TextView) convertView.findViewById(R.id.date);
-            viewHolder.col = (TextView) convertView.findViewById(R.id.co2);
-
-
-            convertView.setTag(viewHolder);
-        }else{
-            viewHolder = (ViewHolder) convertView.getTag();
+            carName = (TextView) convertView.findViewById(R.id.list_item_carbon_footprint_table_vehicle_col);
+            routeName = (TextView) convertView.findViewById(R.id.list_item_carbon_footprint_table_route_col);
+            totalDistance = (TextView) convertView.findViewById(R.id.list_item_carbon_footprint_table_distance_col);
+            date = (TextView) convertView.findViewById(R.id.list_item_carbon_footprint_table_date_col);
+            co2 = (TextView) convertView.findViewById(R.id.list_item_carbon_footprint_table_co2_col);
         }
 
 
-        viewHolder.carName.setText(items.getCarName());
-        viewHolder.carName.setTextSize(13);
-        viewHolder.routeName.setText(items.getRouteName());
-        viewHolder.routeName.setTextSize(13);
-        viewHolder.date.setText(items.getDate()+"");
-        viewHolder.date.setTextSize(13);
-        viewHolder.col.setText(items.getCol()+"");
-        viewHolder.col.setTextSize(13);
+        carName.setText(vehicles.getName());
+        carName.setTextSize(13);
+        routeName.setText(route.getName());
+        routeName.setTextSize(13);
+        totalDistance.setText((route.getCityDistance()+ route.getHighwayDistance()) + " km" + "");
+        routeName.setTextSize(13);
+        date.setText(journey.getCreationDate() + "");
+        date.setTextSize(13);
+        co2.setText(journey.getCo2Emission()+ " Kg" +"");
+        co2.setTextSize(13);
 
         return convertView;
     }
 
-    public static class ViewHolder{
 
-        public TextView carName;
-        public TextView routeName;
-        public TextView date;
-        public TextView col;
-    }
 
 }

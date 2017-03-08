@@ -53,4 +53,7 @@
     <string name="delete">Delete</string>
     <string name="transmission">Transmission:</string>
     <string name="journey_car">journey car</string>
+    <string name="distance">Distance</string>
+    <string name="car">Vehicle</string>
+    <string name="route">Route</string>
 </resources>

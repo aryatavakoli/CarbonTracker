@@ -4,7 +4,7 @@
     android:layout_width="fill_parent"
     android:layout_height="wrap_content" >
     <TextView
-        android:id="@+id/date"
+        android:id="@+id/list_item_carbon_footprint_table_date_col"
         android:layout_width="0dip"
         android:layout_height="wrap_content"
         android:layout_weight="1.19"
@@ -21,7 +21,7 @@
         android:background="#B4B3B3"/>
 
     <TextView
-        android:id="@+id/car"
+        android:id="@+id/list_item_carbon_footprint_table_vehicle_col"
         android:layout_width="0dip"
         android:layout_height="wrap_content"
         android:layout_weight="1"
@@ -30,7 +30,7 @@
         android:textColor="#000000"
         android:textSize="15sp"
         android:gravity="center"
-        android:text="Car" />
+        android:text="@string/car" />
 
     <View
         android:layout_width="1.5dip"
@@ -38,7 +38,7 @@
         android:background="#B4B3B3"/>
 
     <TextView
-        android:id="@+id/route"
+        android:id="@+id/list_item_carbon_footprint_table_route_col"
         android:layout_width="0dip"
         android:layout_height="wrap_content"
         android:layout_weight="1.19"
@@ -48,7 +48,7 @@
         android:singleLine="true"
         android:textSize="15sp"
         android:gravity="center"
-        android:text="Route" />
+        android:text="@string/route" />
 
     <View
         android:layout_width="1.5dip"
@@ -56,7 +56,7 @@
         android:background="#B4B3B3"/>
 
 		<TextView
-        android:id="@+id/distance"
+        android:id="@+id/list_item_carbon_footprint_table_distance_col"
         android:layout_width="0dip"
         android:layout_height="wrap_content"
         android:layout_weight="1.19"
@@ -65,7 +65,7 @@
         android:paddingTop="10dip"
         android:textSize="15sp"
         android:gravity="center"
-        android:text="Distance" />
+        android:text="@string/distance" />
 
     <View
         android:layout_width="1.5dip"
@@ -73,7 +73,7 @@
         android:background="#B4B3B3"/>
 
     <TextView
-        android:id="@+id/co2"
+        android:id="@+id/list_item_carbon_footprint_table_co2_col"
         android:layout_width="0dip"
         android:layout_height="wrap_content"
         android:layout_weight="1.11"
