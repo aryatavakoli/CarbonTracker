@@ -29,16 +29,6 @@
         android:layout_below="@+id/journey_menu_select_transport_btn"
         android:layout_centerHorizontal="true" />
 
-    <Button
-        android:text="@string/view_carbon_footprint"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/journey_menu_carbonfootprint_btn"
-        style="@android:style/Widget.Material.Button"
-        android:layout_marginTop="15dp"
-        android:layout_below="@+id/journey_menu_select_route_btn"
-        android:layout_centerHorizontal="true" />
-
     <TableLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
@@ -112,4 +102,14 @@
         </TableRow>
 
     </TableLayout>
+
+    <Button
+        android:text="Create"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_toEndOf="@+id/journey_menu_select_transport_btn"
+        android:layout_marginBottom="28dp"
+        android:id="@+id/okBtn" />
+
 </RelativeLayout>

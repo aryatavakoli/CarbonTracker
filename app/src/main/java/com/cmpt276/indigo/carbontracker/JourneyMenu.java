@@ -43,9 +43,27 @@ public class JourneyMenu extends AppCompatActivity {
         carbonFootprintInterface = CarbonFootprintComponentCollection.getInstance();
         transportSelectbtn();
         routeSelectbtn();
-        carbonFootprintSelectbtn();
+        selectOK();
     }
 
+    private void selectOK() {
+        Button ok = (Button) findViewById(R.id.okBtn);
+        ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (isRouteSelected && isVehicleSelected) {
+                    carbonFootprintInterface.add(newJourney);
+                    finish();
+                }
+                else{
+
+                    Toast.makeText(JourneyMenu.this,"Please select Route and Vehicle",Toast.LENGTH_SHORT).show();
+                    return;
+                }
+            }
+        });
+
+}
     private void fillCarbonfootprintText() {
        newJourney.calculateEmissions();
         carbonEmission = newJourney.getCo2Emission();
@@ -83,17 +101,6 @@ public class JourneyMenu extends AppCompatActivity {
         });
     }
 
-    //Go to carbon footprint activity
-    private void carbonFootprintSelectbtn() {
-        Button btn = (Button) findViewById(R.id.journey_menu_carbonfootprint_btn);
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(JourneyMenu.this, CarbonFootprintMenu.class);
-                startActivity(intent);
-            }
-        });
-    }
 
     //Go to go to route selection activity
     private void routeSelectbtn() {
@@ -127,15 +134,11 @@ public class JourneyMenu extends AppCompatActivity {
             fillCarbonfootprintText();
 
         }
-        if (isRouteSelected && isVehicleSelected) {
-            carbonFootprintInterface.add(newJourney);
-
-
         }
 
     }
 
-}
+
 
 
 

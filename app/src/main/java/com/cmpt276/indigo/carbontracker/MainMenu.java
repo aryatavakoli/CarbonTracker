@@ -30,7 +30,19 @@ public class MainMenu extends AppCompatActivity {
         loadDataFile();
         journeySelectbtn();
         helpbtn();
+        carbonFootprintSelectbtn();
 
+    }
+    //Go to carbon footprint activity
+    private void carbonFootprintSelectbtn() {
+        Button btn = (Button) findViewById(R.id.journey_menu_carbonfootprint_btn);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainMenu.this, CarbonFootprintMenu.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void loadDataFile() {
