@@ -76,7 +76,7 @@ public class JourneyModel implements CarbonFootprintComponent{
         {
             total_footPrint = (VehicleModel.DIESEL_FOOTPRINT) * ((cityDistance/city_mileage) + (highwayDistance/highway_mileage));
         }
-        else if (Objects.equals(fuelType, "Electricity") || Objects.equals(fuelType,"Electric"))
+        else if (Objects.equals(fuelType, "Electricity") || Objects.equals(fuelType,"Electric") )
         {
             total_footPrint = 0;
         }

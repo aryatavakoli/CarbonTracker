@@ -60,7 +60,10 @@ public class FuelDataInputStream {
                 data.setCityMileage(Double.parseDouble(token[4]));
                 data.setHighwayMileage(Double.parseDouble(token[34]));
                 data.setPrimaryFuelType(token[30]);
-                vehicleData.add(data);
+
+                if(!data.getPrimaryFuelType().equals("Natural Gas") && !data.getPrimaryFuelType().equals("CNG")) {
+                    vehicleData.add(data);
+                }
 
                 // Scaffolding statments
 //                Log.d("MainMenu: ", "Just created: " +
