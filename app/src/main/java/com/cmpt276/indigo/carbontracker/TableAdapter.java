@@ -53,7 +53,7 @@ public class TableAdapter extends BaseAdapter {
             convertView = inflater.inflate(R.layout.list_item_carbon_footprint_table, null);
 
             viewHolder.carName = (TextView) convertView.findViewById(R.id.car);
-            viewHolder.routeName = (TextView) convertView.findViewById(R.id.nickName);
+            viewHolder.routeName = (TextView) convertView.findViewById(R.id.route);
             viewHolder.date = (TextView) convertView.findViewById(R.id.date);
             viewHolder.col = (TextView) convertView.findViewById(R.id.co2);
 
