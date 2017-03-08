@@ -2,7 +2,7 @@
     <string name="app_name">Carbon Tracker</string>
     <string name="title_activity_transportation_select_actvitiy">Select Vehicle</string>
     <string name="title_activity_carbon_foot_print">Carbon Footprint</string>
-    <string name="title_activity_transportation_add_actvitiy">Add Transportation Method</string>
+    <string name="title_activity_transportation_add_actvitiy">Add Vehicle</string>
     <string name="title_activity_route_select">Select Route</string>
     <string name="title_activity_add_route_actvitiy">Add Route</string>
     <string name="title_activity_result_actvitiy">Your Carbon Footprint</string>
