@@ -67,6 +67,7 @@ public class JourneyMenu extends AppCompatActivity {
         }
 
 
+
     }
 
     //Launch Transport select activity
@@ -121,7 +122,6 @@ public class JourneyMenu extends AppCompatActivity {
                     RouteModel Route = (RouteModel) data.getSerializableExtra("route");
                     newJourney.setRouteModel(Route);
                     isRouteSelected = true;
-
             }
             fillJourneyTexts();
             fillCarbonfootprintText();
@@ -129,6 +129,7 @@ public class JourneyMenu extends AppCompatActivity {
         }
         if (isRouteSelected && isVehicleSelected) {
             carbonFootprintInterface.add(newJourney);
+
 
         }
 

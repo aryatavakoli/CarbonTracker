@@ -13,12 +13,15 @@ import android.widget.ListView;
 
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.CarbonFootprintComponent;
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.CarbonFootprintComponentCollection;
+import com.cmpt276.indigo.carbontracker.carbon_tracker_model.JourneyModel;
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.RouteModel;
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.VehicleModel;
 
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.cmpt276.indigo.carbontracker.R.string.route;
 
 public class RouteSelectActivity extends AppCompatActivity {
 
@@ -115,7 +118,6 @@ public class RouteSelectActivity extends AppCompatActivity {
                 int realPosition = route_positionList.get(position);
                 indexOfRouteEditing = realPosition;
                 RouteModel route = routes.get(realPosition);
-
                 Intent intent = RouteAddActivity.makeIntentForEditRoute(RouteSelectActivity.this, route);
                 startActivityForResult(intent, ACTIVITY_RESULT_EDIT);
                 return true;
@@ -134,10 +136,19 @@ public class RouteSelectActivity extends AppCompatActivity {
                 case ACTIVITY_RESULT_EDIT:
                     RouteModel modifiedRoute = (RouteModel) data.getSerializableExtra("route");
                     RouteModel route = carbonFootprintInterface.getRoutes().get(indexOfRouteEditing);
+                    for(JourneyModel v: carbonFootprintInterface.getJournies()){
+                        if(v.getRouteModel().equals(route))
+                        {
+                            v.setRouteModel(modifiedRoute);
+                        }
+
+                    }
                     route.setName(modifiedRoute.getName());
                     route.setHighwayDistance(modifiedRoute.getHighwayDistance());
                     route.setCityDistance(modifiedRoute.getCityDistance());
                     populateRoutesList();
+
+
 
             }
 

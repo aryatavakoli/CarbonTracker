@@ -13,6 +13,7 @@ import android.widget.ListView;
 
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.CarbonFootprintComponent;
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.CarbonFootprintComponentCollection;
+import com.cmpt276.indigo.carbontracker.carbon_tracker_model.JourneyModel;
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.VehicleModel;
 
 import java.util.ArrayList;
@@ -133,6 +134,13 @@ public class TransportationSelectActvitiy extends AppCompatActivity {
                 case ACTIVITY_RESULT_EDIT:
                     VehicleModel modifiedVehicle = (VehicleModel) data.getSerializableExtra("vehicle");
                     VehicleModel vehicle = carbonFootprintInterface.getVehicles().get(indexOfVehicleEditing);
+                    for(JourneyModel v: carbonFootprintInterface.getJournies()){
+                        if(v.getVehicleModel().equals(vehicle))
+                        {
+                            v.setVehicleModel(modifiedVehicle);
+                        }
+
+                    }
                     vehicle.setName(modifiedVehicle.getName());
                     vehicle.setModel(modifiedVehicle.getModel());
                     vehicle.setMake(modifiedVehicle.getMake());
