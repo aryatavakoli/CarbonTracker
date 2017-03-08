@@ -3,14 +3,10 @@ package com.cmpt276.indigo.carbontracker;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
-import com.cmpt276.indigo.carbontracker.carbon_tracker_model.CarbonFootprintComponent;
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.CarbonFootprintComponentCollection;
-import com.cmpt276.indigo.carbontracker.carbon_tracker_model.JourneyModel;
-import com.cmpt276.indigo.carbontracker.carbon_tracker_model.RouteModel;
 
 import java.io.InputStream;
 
@@ -35,7 +31,7 @@ public class MainMenu extends AppCompatActivity {
     }
     //Go to carbon footprint activity
     private void carbonFootprintSelectbtn() {
-        Button btn = (Button) findViewById(R.id.journey_menu_carbonfootprint_btn);
+        Button btn = (Button) findViewById(R.id.main_menu_carbonfootprint_btn);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

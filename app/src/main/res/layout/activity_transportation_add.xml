@@ -85,21 +85,38 @@
 
         </TableRow>
 
-        <TableRow android:layout_width="match_parent"
-            android:layout_height="match_parent">
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
 
             <TextView
-                android:text="@string/transmission"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/tvTransmission"
-                android:textSize="18sp" />
-            <Spinner
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/add_transport_dropdown_transmission"
-                android:layout_marginStart="17dp" />
+                android:text="@string/transmission"
+                android:textAppearance="@android:style/TextAppearance.Material.Medium" />
 
+            <Spinner
+                android:id="@+id/add_transport_dropdown_transmission"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Engine Displacement:"
+                android:textAppearance="@android:style/TextAppearance.Material.Medium" />
+
+            <Spinner
+                android:id="@+id/add_transport_dropdown_engine_displacement"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
         </TableRow>
     </TableLayout>
 

@@ -1,27 +1,19 @@
 package com.cmpt276.indigo.carbontracker;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.CarbonFootprintComponentCollection;
-import com.cmpt276.indigo.carbontracker.carbon_tracker_model.DuplicateComponentException;
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.JourneyModel;
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.RouteModel;
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.VehicleModel;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
-
-import static java.sql.Types.NULL;
 
 public class JourneyMenu extends AppCompatActivity {
     JourneyModel newJourney;
@@ -47,12 +39,13 @@ public class JourneyMenu extends AppCompatActivity {
     }
 
     private void selectOK() {
-        Button ok = (Button) findViewById(R.id.okBtn);
+        Button ok = (Button) findViewById(R.id.journey_menu_create_btn);
         ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (isRouteSelected && isVehicleSelected) {
                     carbonFootprintInterface.add(newJourney);
+                    Toast.makeText(JourneyMenu.this, "Journey Created!", Toast.LENGTH_SHORT).show();
                     finish();
                 }
                 else{

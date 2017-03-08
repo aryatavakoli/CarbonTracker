@@ -163,6 +163,7 @@ public class RouteAddActivity extends AppCompatActivity {
                 Intent intent = new Intent();
                 intent.putExtra("route", newRoute);
                 setResult(Activity.RESULT_OK, intent);
+                Toast.makeText(RouteAddActivity.this, "Route Added!", Toast.LENGTH_SHORT).show();
                 finish();
 
             }
@@ -220,6 +221,7 @@ public class RouteAddActivity extends AppCompatActivity {
                     RouteModel newRoute = createRoute();
                     removeRoute(newRoute);
                     setResult(RESULT_DELETE);
+                    Toast.makeText(RouteAddActivity.this, "Route Deleted!", Toast.LENGTH_SHORT).show();
                     finish();
                 }
             }

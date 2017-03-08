@@ -87,6 +87,7 @@ public class TransportationAddActivity extends AppCompatActivity {
                 //Passing the vehicle object to the TransportationActivity
                 intent.putExtra("vehicle", vehicle);
                 setResult(RESULT_OK, intent);
+                Toast.makeText(TransportationAddActivity.this, "Vehicle Added!", Toast.LENGTH_SHORT).show();
                 finish();
             }
         });
@@ -110,6 +111,7 @@ public class TransportationAddActivity extends AppCompatActivity {
                     //Removing vehicle from collection if it is on the list
                     removeVehicle(vehicle);
                     setResult(RESULT_DELETE);
+                    Toast.makeText(TransportationAddActivity.this, "Vehicle Deleted!", Toast.LENGTH_SHORT).show();
                     finish();
                 }
             }
@@ -246,14 +248,37 @@ public class TransportationAddActivity extends AppCompatActivity {
         });
     }
 
-    private void setupTransmissionDropdownList(String selectedMake, String selectedModel, String selectedYear) {
+    private void setupTransmissionDropdownList(final String selectedMake, final String selectedModel, final String selectedYear) {
         ArrayList<String> transmissions = carbonFootprintInterface.getVehicleTransmission(selectedMake, selectedModel, selectedYear);
         final Spinner transmissionSpinner = (Spinner)findViewById(R.id.add_transport_dropdown_transmission);
         fillSpinner(transmissionSpinner, transmissions);
+        transmissionSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String selectedTransmission = transmissionSpinner.getSelectedItem().toString();
+                setupEngineDisplacmentDropdownList(selectedMake, selectedModel, selectedYear, selectedTransmission);
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+    }
+
+    private void setupEngineDisplacmentDropdownList(String selectedMake, String selectedModel, String selectedYear, String selectedTransmission) {
+        ArrayList<Double> engineDisplacement = carbonFootprintInterface.getVehicleEngineDisplacement(selectedMake, selectedModel, selectedYear, selectedTransmission);
+        final Spinner transmissionSpinner = (Spinner)findViewById(R.id.add_transport_dropdown_engine_displacement);
+        fillSpinnerDigit(transmissionSpinner, engineDisplacement);
     }
 
     private void fillSpinner(Spinner spinner, ArrayList<String> items) {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.support_simple_spinner_dropdown_item, items);
+        spinner.setAdapter(adapter);
+    }
+    private void fillSpinnerDigit(Spinner spinner, ArrayList<Double> items) {
+        ArrayAdapter<Double> adapter = new ArrayAdapter<>(this, R.layout.support_simple_spinner_dropdown_item, items);
         spinner.setAdapter(adapter);
     }
 

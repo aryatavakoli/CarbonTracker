@@ -24,27 +24,27 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/main_menu_create_Journey_btn"
-        android:layout_marginTop="83dp"
-        android:layout_below="@+id/main_menu_header"
-        android:layout_alignEnd="@+id/main_menu_header" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="120dp" />
 
     <Button
         android:text="@string/view_carbon_footprint"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/journey_menu_carbonfootprint_btn"
-        style="@android:style/Widget.Material.Button"
+        android:id="@+id/main_menu_carbonfootprint_btn"
         android:layout_below="@+id/main_menu_create_Journey_btn"
+        style="@android:style/Widget.Material.Button"
+        android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="41dp" />
+        android:layout_marginTop="15dp"/>
 
     <Button
         android:text="@string/help"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/main_menu_help"
-        android:layout_marginTop="43dp"
-        android:layout_below="@+id/journey_menu_carbonfootprint_btn"
-        android:layout_alignStart="@+id/main_menu_header" />
+        android:layout_marginTop="15dp"
+        android:layout_below="@+id/main_menu_carbonfootprint_btn"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>
