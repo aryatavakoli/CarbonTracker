@@ -43,6 +43,7 @@ public class JourneyMenu extends AppCompatActivity {
         carbonFootprintInterface = CarbonFootprintComponentCollection.getInstance();
         transportSelectbtn();
         routeSelectbtn();
+        carbonFootprintSelectbtn();
     }
 
     private void fillCarbonfootprintText() {
@@ -79,8 +80,18 @@ public class JourneyMenu extends AppCompatActivity {
 
             }
         });
+    }
 
-
+    //Go to carbon footprint activity
+    private void carbonFootprintSelectbtn() {
+        Button btn = (Button) findViewById(R.id.journey_menu_carbonfootprint_btn);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(JourneyMenu.this, CarbonFootprintMenu.class);
+                startActivity(intent);
+            }
+        });
     }
 
     //Go to go to route selection activity
@@ -97,7 +108,6 @@ public class JourneyMenu extends AppCompatActivity {
 
 
     }
-
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == RESULT_OK) {

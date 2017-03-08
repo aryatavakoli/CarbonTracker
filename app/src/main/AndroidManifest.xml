@@ -68,8 +68,11 @@
         <activity
             android:name=".CarbonFootprintMenu"
             android:label="@string/title_activity_carbon_footprint_menu"
-            android:parentActivityName=".MainMenu"
+            android:parentActivityName=".JourneyMenu"
             android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.cmpt276.indigo.carbontracker.JourneyMenu" />
 
         </activity>
         <activity

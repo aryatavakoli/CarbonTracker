@@ -31,7 +31,6 @@ public class TableAdapter extends BaseAdapter {
         inflater = LayoutInflater.from(context);
     }
 
-
     @Override
     public int getCount() {
         int ret = 0;

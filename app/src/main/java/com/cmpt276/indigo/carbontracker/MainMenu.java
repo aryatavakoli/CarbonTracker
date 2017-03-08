@@ -28,7 +28,6 @@ public class MainMenu extends AppCompatActivity {
         // the system when the user tries to bring the app back to the foreground/
         //use shared preference to get aroundt his
         loadDataFile();
-        carbonFootprintSelectbtn();
         journeySelectbtn();
         helpbtn();
 
@@ -52,17 +51,6 @@ public class MainMenu extends AppCompatActivity {
         });
     }
 
-    //Go to carbon footprint activity
-    private void carbonFootprintSelectbtn() {
-        Button btn = (Button) findViewById(R.id.main_menu_carbonfootprint_btn);
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainMenu.this, CarbonFootprintMenu.class);
-                startActivity(intent);
-            }
-        });
-    }
     private void helpbtn() {
         Button btn = (Button) findViewById(R.id.main_menu_help);
         btn.setOnClickListener(new View.OnClickListener() {
@@ -73,9 +61,6 @@ public class MainMenu extends AppCompatActivity {
             }
         });
     }
-
-
-
 }
 
 
