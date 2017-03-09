@@ -91,11 +91,13 @@ public class TransportationAddActivity extends AppCompatActivity {
                 else if(!addVehicle(vehicle)){
                     return;
                 }
+                else{
+                    Toast.makeText(TransportationAddActivity.this, "Vehicle Added!", Toast.LENGTH_SHORT).show();
+                }
                 Intent intent = getIntent();
                 //Passing the vehicle object to the TransportationActivity
                 intent.putExtra("vehicle", vehicle);
                 setResult(RESULT_OK, intent);
-                Toast.makeText(TransportationAddActivity.this, "Vehicle Added!", Toast.LENGTH_SHORT).show();
                 finish();
             }
         });

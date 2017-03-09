@@ -157,14 +157,18 @@ public class RouteAddActivity extends AppCompatActivity {
                         setResult(RESULT_OK, intent);
                         finish();
                 }
+
                 //adding route to collection if it is not duplicate and user is not editing
                 else if (!addRoute(newRoute)) {
                     return;
                 }
+                else{
+                    Toast.makeText(RouteAddActivity.this, "Route Added!", Toast.LENGTH_SHORT).show();
+                }
                 Intent intent = new Intent();
                 intent.putExtra("route", newRoute);
                 setResult(Activity.RESULT_OK, intent);
-                Toast.makeText(RouteAddActivity.this, "Route Added!", Toast.LENGTH_SHORT).show();
+
                 finish();
 
             }
