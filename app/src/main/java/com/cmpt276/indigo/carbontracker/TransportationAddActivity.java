@@ -163,7 +163,7 @@ public class TransportationAddActivity extends AppCompatActivity {
 
         Spinner vehicleEngineDisplacementSpinner = (Spinner) findViewById(R.id.add_transport_dropdown_engine_displacement);
         String engineDisplacement = (String) vehicleEngineDisplacementSpinner.getSelectedItem();
-        if (transmission == null){
+        if (engineDisplacement == null){
             Toast.makeText(TransportationAddActivity.this, "Engine Displacement should be selected", Toast.LENGTH_SHORT).show();
         }
 
