@@ -48,14 +48,14 @@ public class FuelDataInputStream {
                 data.setTransmisson(token[57]);
                 if(token[23].length() > 0 ){
                     try{
-                        data.setEngineDisplacment(Double.parseDouble(token[23]));
+                        data.setEngineDisplacment(token[23]);
                     }
                     catch(Exception e){
-                        data.setEngineDisplacment(0.0);
+                        data.setEngineDisplacment("0.0");
                     }
                 }
                 else if (token[23].length() == 0){
-                    data.setEngineDisplacment(0);
+                    data.setEngineDisplacment("0.0");
                 }
                 data.setCityMileage(Double.parseDouble(token[4]));
                 data.setHighwayMileage(Double.parseDouble(token[34]));
