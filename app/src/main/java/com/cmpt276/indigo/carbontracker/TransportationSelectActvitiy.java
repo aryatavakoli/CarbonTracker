@@ -19,6 +19,10 @@ import com.cmpt276.indigo.carbontracker.carbon_tracker_model.VehicleModel;
 import java.util.ArrayList;
 import java.util.List;
 
+/*
+
+ */
+
 public class TransportationSelectActvitiy extends AppCompatActivity {
 
     private int indexOfVehicleEditing = -1;
@@ -55,7 +59,6 @@ public class TransportationSelectActvitiy extends AppCompatActivity {
             }
         });
     }
-
 
     //sample for demonstartion purposes
     private void createListView() {
@@ -139,7 +142,6 @@ public class TransportationSelectActvitiy extends AppCompatActivity {
                         {
                             v.setVehicleModel(modifiedVehicle);
                         }
-
                     }
                     vehicle.setName(modifiedVehicle.getName());
                     vehicle.setModel(modifiedVehicle.getModel());

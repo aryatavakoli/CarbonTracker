@@ -1,6 +1,5 @@
 package com.cmpt276.indigo.carbontracker;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -11,25 +10,24 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import com.cmpt276.indigo.carbontracker.carbon_tracker_model.CarbonFootprintComponent;
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.CarbonFootprintComponentCollection;
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.JourneyModel;
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.RouteModel;
-import com.cmpt276.indigo.carbontracker.carbon_tracker_model.VehicleModel;
 
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.cmpt276.indigo.carbontracker.R.string.route;
+/*
 
+ */
 public class RouteSelectActivity extends AppCompatActivity {
 
     private int indexOfRouteEditing = -1;
     CarbonFootprintComponentCollection carbonFootprintInterface;
     private static final int ACTIVITY_RESULT_ADD = 40;
     private static final int ACTIVITY_RESULT_EDIT = 60;
-    List<Integer> route_positionList;
+    List<Integer> routePositionList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,7 +70,7 @@ public class RouteSelectActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = getIntent();
                 // Passing selected route to the caller activity
-                int realPosition = route_positionList.get(position);
+                int realPosition = routePositionList.get(position);
                 RouteModel selectedRoute = carbonFootprintInterface.getRoutes().get(realPosition);
                 intent.putExtra("route", selectedRoute);
                 setResult(RESULT_OK, intent);
@@ -86,14 +84,14 @@ public class RouteSelectActivity extends AppCompatActivity {
         carbonFootprintInterface = CarbonFootprintComponentCollection.getInstance();
         ArrayList<RouteModel> routes = carbonFootprintInterface.getRoutes();
         // putting routes in list
-        List<String> route_nameList = new ArrayList<>();
-        route_positionList = new ArrayList<>();
+        List<String> routeNameList = new ArrayList<>();
+        routePositionList = new ArrayList<>();
         //Add elements
         int counter = 0;
         for(RouteModel v: routes){
             if(!v.getIsDeleted()) {
-                route_nameList.add(v.getName());
-                route_positionList.add(counter);
+                routeNameList.add(v.getName());
+                routePositionList.add(counter);
             }
             counter++;
         }
@@ -102,7 +100,7 @@ public class RouteSelectActivity extends AppCompatActivity {
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(
                 this, //context
                 android.R.layout.simple_list_item_1,
-                route_nameList //arrayList
+                routeNameList //arrayList
         );
 
         //apply adapter ro listview
@@ -115,7 +113,7 @@ public class RouteSelectActivity extends AppCompatActivity {
         list.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                int realPosition = route_positionList.get(position);
+                int realPosition = routePositionList.get(position);
                 indexOfRouteEditing = realPosition;
                 RouteModel route = routes.get(realPosition);
                 Intent intent = RouteAddActivity.makeIntentForEditRoute(RouteSelectActivity.this, route);
@@ -141,15 +139,11 @@ public class RouteSelectActivity extends AppCompatActivity {
                         {
                             v.setRouteModel(modifiedRoute);
                         }
-
                     }
                     route.setName(modifiedRoute.getName());
                     route.setHighwayDistance(modifiedRoute.getHighwayDistance());
                     route.setCityDistance(modifiedRoute.getCityDistance());
                     populateRoutesList();
-
-
-
             }
 
         }

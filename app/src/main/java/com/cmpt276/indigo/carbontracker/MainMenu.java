@@ -9,7 +9,9 @@ import android.widget.Button;
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.CarbonFootprintComponentCollection;
 
 import java.io.InputStream;
+/*
 
+ */
 public class MainMenu extends AppCompatActivity {
     public static final int JOURNEY_SELECT = 300;
 
@@ -24,13 +26,13 @@ public class MainMenu extends AppCompatActivity {
         // the system when the user tries to bring the app back to the foreground/
         //use shared preference to get aroundt his
         loadDataFile();
-        journeySelectbtn();
-        helpbtn();
-        carbonFootprintSelectbtn();
+        journeySelectBtn();
+        helpBtn();
+        carbonFootprintSelectBtn();
 
     }
     //Go to carbon footprint activity
-    private void carbonFootprintSelectbtn() {
+    private void carbonFootprintSelectBtn() {
         Button btn = (Button) findViewById(R.id.main_menu_carbonfootprint_btn);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -48,7 +50,7 @@ public class MainMenu extends AppCompatActivity {
     }
 
     //Launch Create a jounrney activity
-    private void journeySelectbtn() {
+    private void journeySelectBtn() {
         Button btn = (Button) findViewById(R.id.main_menu_create_Journey_btn);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,7 +61,7 @@ public class MainMenu extends AppCompatActivity {
         });
     }
 
-    private void helpbtn() {
+    private void helpBtn() {
         Button btn = (Button) findViewById(R.id.main_menu_help);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -18,6 +18,10 @@ import com.cmpt276.indigo.carbontracker.carbon_tracker_model.VehicleModel;
 
 import java.util.ArrayList;
 
+/*
+
+ */
+
 public class TransportationAddActivity extends AppCompatActivity {
 
     public static final int RESULT_DELETE = 200;
@@ -48,17 +52,21 @@ public class TransportationAddActivity extends AppCompatActivity {
 
             String make = vehicle.getMake();
             String model = vehicle.getModel();
+            String year =  vehicle.getYear();
+            String transmission = vehicle.getTransmisson();
 
             setSpinnerSelection(R.id.add_transport_dropdown_make, carbonFootprintInterface.getVehicleMakes(), make);
             setSpinnerSelection(R.id.add_transport_dropdown_model, carbonFootprintInterface.getVehicleModel(make), model);
             setSpinnerSelection(R.id.add_transport_dropdown_year, carbonFootprintInterface.getVehicleYear(make, model), vehicle.getYear());
+            setSpinnerSelection(R.id.add_transport_dropdown_transmission, carbonFootprintInterface.getVehicleTransmission(make,model,year), vehicle.getTransmisson());
+            setSpinnerSelection(R.id.add_transport_dropdown_engine_displacement, carbonFootprintInterface.getVehicleEngineDisplacement(make,model,year,transmission),vehicle.getEngineDisplacment());
         }
     }
 
     private void setSpinnerSelection(int resourceId, ArrayList<String> items, String item){
         Spinner makeSpinner = (Spinner) findViewById(resourceId);
-        int makePosition = items.indexOf(item);
-        makeSpinner.setSelection(makePosition);
+        int positionOfMake = items.indexOf(item);
+        makeSpinner.setSelection(positionOfMake);
     }
 
     private void setupOkButton() {
@@ -120,8 +128,8 @@ public class TransportationAddActivity extends AppCompatActivity {
 
     private VehicleModel createVehicleObject(){
         //Try to get data from transportation add UI
-        EditText nickName = (EditText) findViewById(R.id.add_transport_editText_nickname);
-        String name = nickName.getText().toString();
+        EditText nickNameEditText = (EditText) findViewById(R.id.add_transport_editText_nickname);
+        String name = nickNameEditText.getText().toString();
 
         if (name.length() == 0) {
             Toast.makeText(TransportationAddActivity.this, "Please enter a vehicle name.", Toast.LENGTH_SHORT)
@@ -129,32 +137,38 @@ public class TransportationAddActivity extends AppCompatActivity {
             return null;
         }
 
-        Spinner vehicleMake = (Spinner) findViewById(R.id.add_transport_dropdown_make);
-        String make = vehicleMake.getSelectedItem().toString();
+        Spinner vehicleMakeSpinner = (Spinner) findViewById(R.id.add_transport_dropdown_make);
+        String make = vehicleMakeSpinner.getSelectedItem().toString();
         if (make == null){
             Toast.makeText(TransportationAddActivity.this, "Vehicle make should be selected", Toast.LENGTH_SHORT).show();
         }
 
-        Spinner vehicleModel = (Spinner) findViewById(R.id.add_transport_dropdown_model);
-        String model = vehicleModel.getSelectedItem().toString();
+        Spinner vehicleModelSpinner = (Spinner) findViewById(R.id.add_transport_dropdown_model);
+        String model = vehicleModelSpinner.getSelectedItem().toString();
         if (model == null){
             Toast.makeText(TransportationAddActivity.this, "Vehicle model should be selected", Toast.LENGTH_SHORT).show();
         }
 
-        Spinner vehicleYear = (Spinner) findViewById(R.id.add_transport_dropdown_year);
-        String year = vehicleYear.getSelectedItem().toString();
+        Spinner vehicleYearSpinner = (Spinner) findViewById(R.id.add_transport_dropdown_year);
+        String year = vehicleYearSpinner.getSelectedItem().toString();
         if (year == null){
             Toast.makeText(TransportationAddActivity.this, "Vehicle year should be selected", Toast.LENGTH_SHORT).show();
         }
 
-        Spinner vehicleTransmission = (Spinner) findViewById(R.id.add_transport_dropdown_transmission);
-        String transmission = vehicleTransmission.getSelectedItem().toString();
+        Spinner vehicleTransmissionSpinner = (Spinner) findViewById(R.id.add_transport_dropdown_transmission);
+        String transmission = vehicleTransmissionSpinner.getSelectedItem().toString();
         if (transmission == null){
             Toast.makeText(TransportationAddActivity.this, "Vehicle transmission should be selected", Toast.LENGTH_SHORT).show();
         }
 
+        Spinner vehicleEngineDisplacementSpinner = (Spinner) findViewById(R.id.add_transport_dropdown_engine_displacement);
+        String engineDisplacement = (String) vehicleEngineDisplacementSpinner.getSelectedItem();
+        if (transmission == null){
+            Toast.makeText(TransportationAddActivity.this, "Engine Displacement should be selected", Toast.LENGTH_SHORT).show();
+        }
+
         //Creating vehicle object to pass it to vehicle activity to be added to the list.
-        VehicleModel vehicle = new VehicleModel(name, make, model, year, transmission);
+        VehicleModel vehicle = new VehicleModel(name, make, model, year, transmission , engineDisplacement);
 
         // setting fuel efficiency data
         carbonFootprintInterface.populateCarFuelData(vehicle);
@@ -268,17 +282,13 @@ public class TransportationAddActivity extends AppCompatActivity {
     }
 
     private void setupEngineDisplacmentDropdownList(String selectedMake, String selectedModel, String selectedYear, String selectedTransmission) {
-        ArrayList<Double> engineDisplacement = carbonFootprintInterface.getVehicleEngineDisplacement(selectedMake, selectedModel, selectedYear, selectedTransmission);
+        ArrayList<String> engineDisplacement = carbonFootprintInterface.getVehicleEngineDisplacement(selectedMake, selectedModel, selectedYear, selectedTransmission);
         final Spinner transmissionSpinner = (Spinner)findViewById(R.id.add_transport_dropdown_engine_displacement);
-        fillSpinnerDigit(transmissionSpinner, engineDisplacement);
+        fillSpinner(transmissionSpinner, engineDisplacement);
     }
 
     private void fillSpinner(Spinner spinner, ArrayList<String> items) {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.support_simple_spinner_dropdown_item, items);
-        spinner.setAdapter(adapter);
-    }
-    private void fillSpinnerDigit(Spinner spinner, ArrayList<Double> items) {
-        ArrayAdapter<Double> adapter = new ArrayAdapter<>(this, R.layout.support_simple_spinner_dropdown_item, items);
         spinner.setAdapter(adapter);
     }
 

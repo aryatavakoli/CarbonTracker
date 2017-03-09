@@ -2,7 +2,9 @@ package com.cmpt276.indigo.carbontracker.carbon_tracker_model;
 
 import java.util.Date;
 import java.util.Objects;
+/*
 
+ */
 
 public class JourneyModel implements CarbonFootprintComponent{
     private VehicleModel vehicleModel;
@@ -56,36 +58,36 @@ public class JourneyModel implements CarbonFootprintComponent{
     //Calcualtes Carbonfootprint
     public void calculateEmissions() {
 
-        double total_footPrint = 0;
-        float converted_Footprint;
+        double totalFootprint = 0;
+        float convertedFootprint;
 
         String fuelType = vehicleModel.getPrimaryFuelType();
-        double highway_mileage = vehicleModel.getHighwayMileage();
-        double city_mileage = vehicleModel.getCityMileage();
+        double highwayMileageKmPerLitre = vehicleModel.getHighwayMileage();
+        double cityMileageKmPerLitre = vehicleModel.getCityMileage();
 
-        double highwayDistance = routeModel.getHighwayDistance();
-        double cityDistance = routeModel.getCityDistance();
+        double highwayDistanceInKm = routeModel.getHighwayDistance();
+        double cityDistanceInKm = routeModel.getCityDistance();
 
         //Gasoline
         if (fuelType.contains("Gasoline") || Objects.equals(fuelType, "Regular") || Objects.equals(fuelType, "Premium"))
         {
-            total_footPrint = (VehicleModel.GASOLINE_FOOTPRINT) * ((cityDistance/city_mileage) + (highwayDistance/highway_mileage));
+            totalFootprint = (VehicleModel.GASOLINE_FOOTPRINT_KG_PER_LITRE) * ((cityDistanceInKm/cityMileageKmPerLitre) + (highwayDistanceInKm/highwayMileageKmPerLitre));
         }
         //Diesel
         else if (Objects.equals(fuelType, "Diesel"))
         {
-            total_footPrint = (VehicleModel.DIESEL_FOOTPRINT) * ((cityDistance/city_mileage) + (highwayDistance/highway_mileage));
+            totalFootprint = (VehicleModel.DIESEL_FOOTPRINT_KG_PER_LITRE) * ((cityDistanceInKm/cityMileageKmPerLitre) + (highwayDistanceInKm/highwayMileageKmPerLitre));
         }
         else if (Objects.equals(fuelType, "Electricity") || Objects.equals(fuelType,"Electric") )
         {
-            total_footPrint = 0;
+            totalFootprint = 0;
         }
 
         //Converts double to float for use with graph
         //Rounds it off
-        converted_Footprint =  Math.round((float)total_footPrint * 100.0f) / 100.0f;
+        convertedFootprint =  Math.round((float)totalFootprint * 100.0f) / 100.0f;
 
-        co2Emission = converted_Footprint;
+        co2Emission = convertedFootprint;
 
     }
 

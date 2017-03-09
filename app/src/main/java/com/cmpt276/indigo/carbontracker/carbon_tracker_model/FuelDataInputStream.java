@@ -23,13 +23,13 @@ import java.util.List;
 
 public class FuelDataInputStream {
 
-    static private FuelDataInputStream instance = new FuelDataInputStream();
+    private static FuelDataInputStream instance = new FuelDataInputStream();
 
-    static public FuelDataInputStream getInstance(){
+    public static FuelDataInputStream getInstance(){
         return instance;
     }
 
-    public ArrayList<VehicleModel> readDataFile(InputStream is){
+    ArrayList<VehicleModel> readDataFile(InputStream is){
         BufferedReader reader = new BufferedReader(
                 new InputStreamReader(is, Charset.forName("UTF-8"))
         );

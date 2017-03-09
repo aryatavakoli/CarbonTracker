@@ -1,6 +1,5 @@
 package com.cmpt276.indigo.carbontracker;
 
-
 import java.util.List;
 
 import android.content.Context;
@@ -15,7 +14,11 @@ import com.cmpt276.indigo.carbontracker.carbon_tracker_model.JourneyModel;
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.RouteModel;
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.VehicleModel;
 
-public class TableAdapter extends BaseAdapter {
+/*
+
+ */
+
+class TableAdapter extends BaseAdapter {
 
     private List<JourneyModel> journeyList;
     private LayoutInflater inflater;
@@ -25,7 +28,7 @@ public class TableAdapter extends BaseAdapter {
     private TextView date;
     private TextView co2;
 
-    public TableAdapter(Context context){
+    TableAdapter(Context context){
         CarbonFootprintComponentCollection carbonInterface = CarbonFootprintComponentCollection.getInstance();
         this.journeyList = carbonInterface.getJournies();
         inflater = LayoutInflater.from(context);
@@ -70,7 +73,6 @@ public class TableAdapter extends BaseAdapter {
             co2 = (TextView) convertView.findViewById(R.id.list_item_carbon_footprint_table_co2_col);
         }
 
-
         carName.setText(vehicles.getName());
         carName.setTextSize(13);
         routeName.setText(route.getName());
@@ -84,7 +86,5 @@ public class TableAdapter extends BaseAdapter {
 
         return convertView;
     }
-
-
 
 }

@@ -4,15 +4,19 @@ package com.cmpt276.indigo.carbontracker.carbon_tracker_model;
 import java.security.PublicKey;
 import java.util.Objects;
 
+/*
+
+ */
+
 public class VehicleModel implements CarbonFootprintComponent{
-    public static final double GASOLINE_FOOTPRINT = 2.35; // 8.89 kg per gallon in kg/L
-    public static final double DIESEL_FOOTPRINT = 2.69; // 10.16 kg per Gallon in kg/L
+    public static final double GASOLINE_FOOTPRINT_KG_PER_LITRE = 2.35; // 8.89 kg per gallon in kg/L
+    public static final double DIESEL_FOOTPRINT_KG_PER_LITRE = 2.69; // 10.16 kg per Gallon in kg/L
     private String name;
     private String make;
     private String model;
     private String year;
     private String transmisson; //automatic or manual
-    private double engineDisplacment; // in cubic inches
+    private String engineDisplacment; // in cubic inches
     private double cityMileage; // Gallon per mile mileage city
     private double highwayMileage; // Gallon per mile milleage Highway
     private String primaryFuelType;
@@ -25,7 +29,7 @@ public class VehicleModel implements CarbonFootprintComponent{
         model = new String();
         year = new String();
         transmisson = new String();
-        engineDisplacment = 0;
+        engineDisplacment = new String();
         cityMileage = 0;
         highwayMileage = 0;
         primaryFuelType = new String();
@@ -33,25 +37,13 @@ public class VehicleModel implements CarbonFootprintComponent{
         carbonFootprint = 0;
     }
 
-    public VehicleModel(String name, String make, String model, String year){
+    public VehicleModel(String name, String make, String model, String year, String transmission, String engineDisplacment){
         this.name = name;
         this.make = make;
         this.model = model;
         this.year = year;
-        transmisson = new String();
-        engineDisplacment = 0;
-        cityMileage = 0;
-        highwayMileage = 0;
-        isDeleted = false;
-    }
-
-    public VehicleModel(String name, String make, String model, String year, String transmisson){
-        this.name = name;
-        this.make = make;
-        this.model = model;
-        this.year = year;
-        this.transmisson = transmisson;
-        engineDisplacment = 0;
+        this.transmisson = transmission;
+        this.engineDisplacment = new String();
         cityMileage = 0;
         highwayMileage = 0;
         isDeleted = false;
@@ -89,11 +81,11 @@ public class VehicleModel implements CarbonFootprintComponent{
         this.year = year;
     }
 
-    public double getEngineDisplacment() {
+    public String getEngineDisplacment() {
         return engineDisplacment;
     }
 
-    public void setEngineDisplacment(double engineDisplacment) {
+    public void setEngineDisplacment(String engineDisplacment) {
         this.engineDisplacment = engineDisplacment;
     }
 

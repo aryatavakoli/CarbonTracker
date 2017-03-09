@@ -9,11 +9,11 @@ import java.util.Set;
 
 public class CarbonFootprintComponentCollection {
 
-    ArrayList<VehicleModel> vehicles;
-    ArrayList<RouteModel> routes;
-    ArrayList<JourneyModel> journies;
-    ArrayList<String> vehicleMakes;
-    ArrayList<VehicleModel> readVehicles;
+    private ArrayList<VehicleModel> vehicles;
+    private ArrayList<RouteModel> routes;
+    private ArrayList<JourneyModel> journies;
+    private ArrayList<String> vehicleMakes;
+    private ArrayList<VehicleModel> readVehicles;
     private static CarbonFootprintComponentCollection instance = new CarbonFootprintComponentCollection();
 
     public static CarbonFootprintComponentCollection getInstance(){
@@ -201,7 +201,7 @@ public class CarbonFootprintComponentCollection {
     public ArrayList<String> getVehicleTransmission(String make, String model, String year){
         return extractTransmission(make, model, year);
     }
-    public ArrayList<Double> getVehicleEngineDisplacement(String make, String model, String year, String transmission){
+    public ArrayList<String> getVehicleEngineDisplacement(String make, String model, String year, String transmission){
         return extractEngineDisplacement(make, model, year, transmission);
     }
 
@@ -256,14 +256,14 @@ public class CarbonFootprintComponentCollection {
         Collections.sort(vehicleTransmissions);
         return vehicleTransmissions;
     }
-    private ArrayList<Double> extractEngineDisplacement(String make, String model, String year, String Transmission) {
-        Set<Double> engineDisplacementSet = new HashSet<>();
+    private ArrayList<String> extractEngineDisplacement(String make, String model, String year, String Transmission) {
+        Set<String> engineDisplacementSet = new HashSet<>();
         for(VehicleModel v : readVehicles){
             if(v.getMake().equals(make) && v.getModel().equals(model) && v.getYear().equals(year) && v.getTransmisson().equals(Transmission)){
                 engineDisplacementSet.add(v.getEngineDisplacment());
             }
         }
-        ArrayList<Double> vehicleEngineDisplacements = new ArrayList<>(engineDisplacementSet);
+        ArrayList<String> vehicleEngineDisplacements = new ArrayList<>(engineDisplacementSet);
         Collections.sort(vehicleEngineDisplacements);
         return vehicleEngineDisplacements;
     }

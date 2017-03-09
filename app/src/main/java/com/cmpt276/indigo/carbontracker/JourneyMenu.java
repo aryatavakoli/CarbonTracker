@@ -15,6 +15,10 @@ import com.cmpt276.indigo.carbontracker.carbon_tracker_model.VehicleModel;
 
 import java.util.List;
 
+/*
+
+ */
+
 public class JourneyMenu extends AppCompatActivity {
     JourneyModel newJourney;
     public static final int TRANSPORTATION_SELECT = 56;
@@ -33,14 +37,14 @@ public class JourneyMenu extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         newJourney = new JourneyModel(); // The journey the user is creating
         carbonFootprintInterface = CarbonFootprintComponentCollection.getInstance();
-        transportSelectbtn();
-        routeSelectbtn();
+        transportSelectBtn();
+        routeSelectBtn();
         selectOK();
     }
 
     private void selectOK() {
-        Button ok = (Button) findViewById(R.id.journey_menu_create_btn);
-        ok.setOnClickListener(new View.OnClickListener() {
+        Button btn = (Button) findViewById(R.id.journey_menu_create_btn);
+        btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (isRouteSelected && isVehicleSelected) {
@@ -57,7 +61,7 @@ public class JourneyMenu extends AppCompatActivity {
         });
 
 }
-    private void fillCarbonfootprintText() {
+    private void fillCarbonFootprintText() {
        newJourney.calculateEmissions();
         carbonEmission = newJourney.getCo2Emission();
         if (isRouteSelected && isVehicleSelected){
@@ -69,20 +73,17 @@ public class JourneyMenu extends AppCompatActivity {
     private void fillJourneyTexts() {
 
         if (isVehicleSelected) {
-            TextView CarDisplay = (TextView) findViewById(R.id.journey_menu_text_current_vehicle);
-            CarDisplay.setText(newJourney.getVehicleModel().getName() + "");
+            TextView carDisplay = (TextView) findViewById(R.id.journey_menu_text_current_vehicle);
+            carDisplay.setText(newJourney.getVehicleModel().getName() + "");
         }
         if (isRouteSelected) {
-            TextView RouteDisplay = (TextView) findViewById(R.id.journey_menu_text_current_route);
-            RouteDisplay.setText(newJourney.getRouteModel().getName() + "");
+            TextView routeDisplay = (TextView) findViewById(R.id.journey_menu_text_current_route);
+            routeDisplay.setText(newJourney.getRouteModel().getName() + "");
         }
-
-
-
     }
 
     //Launch Transport select activity
-    private void transportSelectbtn() {
+    private void transportSelectBtn() {
         Button btn = (Button) findViewById(R.id.journey_menu_select_transport_btn);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -94,9 +95,8 @@ public class JourneyMenu extends AppCompatActivity {
         });
     }
 
-
     //Go to go to route selection activity
-    private void routeSelectbtn() {
+    private void routeSelectBtn() {
         Button btn = (Button) findViewById(R.id.journey_menu_select_route_btn);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -106,30 +106,27 @@ public class JourneyMenu extends AppCompatActivity {
 
             }
         });
-
-
     }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == RESULT_OK) {
             switch (requestCode) {
                 case TRANSPORTATION_SELECT:
-                    VehicleModel Vehicle = (VehicleModel) data.getSerializableExtra("vehicle");
-                    newJourney.setVehicleModel(Vehicle);
+                    VehicleModel vehicle = (VehicleModel) data.getSerializableExtra("vehicle");
+                    newJourney.setVehicleModel(vehicle);
                     isVehicleSelected = true;
                     break;
                 case ROUTE_SELECT:
-                    RouteModel Route = (RouteModel) data.getSerializableExtra("route");
-                    newJourney.setRouteModel(Route);
+                    RouteModel route = (RouteModel) data.getSerializableExtra("route");
+                    newJourney.setRouteModel(route);
                     isRouteSelected = true;
             }
             fillJourneyTexts();
-            fillCarbonfootprintText();
-
+            fillCarbonFootprintText();
         }
-        }
-
     }
+
+}
 
 
 

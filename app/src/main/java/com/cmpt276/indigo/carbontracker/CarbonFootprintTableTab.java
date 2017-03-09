@@ -12,6 +12,7 @@ import com.cmpt276.indigo.carbontracker.carbon_tracker_model.JourneyModel;
 
 /**
  * Created by arya on 05/03/17.
+ * Implements the Table for each journey
  */
 
 public class CarbonFootprintTableTab extends Fragment {

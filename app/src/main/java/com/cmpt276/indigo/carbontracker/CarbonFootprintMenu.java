@@ -14,21 +14,6 @@ import android.view.MenuItem;
 
 public class CarbonFootprintMenu extends AppCompatActivity {
 
-    /**
-     * The {@link android.support.v4.view.PagerAdapter} that will provide
-     * fragments for each of the sections. We use a
-     * {@link FragmentPagerAdapter} derivative, which will keep every
-     * loaded fragment in memory. If this becomes too memory intensive, it
-     * may be best to switch to a
-     * {@link android.support.v4.app.FragmentStatePagerAdapter}.
-     */
-    private SectionsPagerAdapter mSectionsPagerAdapter;
-
-    /**
-     * The {@link ViewPager} that will host the section contents.
-     */
-    private ViewPager mViewPager;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,10 +25,21 @@ public class CarbonFootprintMenu extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
-        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+        /*
+      The {@link android.support.v4.view.PagerAdapter} that will provide
+      fragments for each of the sections. We use a
+      {@link FragmentPagerAdapter} derivative, which will keep every
+      loaded fragment in memory. If this becomes too memory intensive, it
+      may be best to switch to a
+      {@link android.support.v4.app.FragmentStatePagerAdapter}.
+     */
+        SectionsPagerAdapter mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
         // Set up the ViewPager with the sections adapter.
-        mViewPager = (ViewPager) findViewById(R.id.container);
+        /*
+      The {@link ViewPager} that will host the section contents.
+     */
+        ViewPager mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
@@ -52,7 +48,6 @@ public class CarbonFootprintMenu extends AppCompatActivity {
         tabLayout.getTabAt(1).setIcon(R.drawable.ic_reorder_white_24dp);
 
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -78,15 +73,13 @@ public class CarbonFootprintMenu extends AppCompatActivity {
 //        return super.onOptionsItemSelected(item);
 //    }
 
-
-
     /**
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
      * one of the sections/tabs/pages.
      */
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
-        public SectionsPagerAdapter(FragmentManager fm) {
+        SectionsPagerAdapter(FragmentManager fm) {
             super(fm);
         }
 
@@ -95,11 +88,9 @@ public class CarbonFootprintMenu extends AppCompatActivity {
             switch (position)
             {
                 case 0:
-                    CarbonFootprintGraphTab tab1 = new CarbonFootprintGraphTab();
-                    return tab1;
+                    return new CarbonFootprintGraphTab();
                 case 1:
-                    CarbonFootprintTableTab tab2 = new CarbonFootprintTableTab();
-                    return tab2;
+                    return new CarbonFootprintTableTab();
 
                 default:
                     return null;
@@ -111,16 +102,5 @@ public class CarbonFootprintMenu extends AppCompatActivity {
             // Show 3 total pages.
             return 2;
         }
-
-//        @Override
-//        public CharSequence getPageTitle(int position) {
-//            switch (position) {
-//                case 0:
-//                    return "Graph";
-//                case 1:
-//                    return "Table";
-//            }
-//            return null;
-//        }
     }
 }

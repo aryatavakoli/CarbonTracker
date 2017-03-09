@@ -15,14 +15,14 @@ import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by arya on 05/03/17.
+ * Implements the Graph for each Journey
  */
 
 public class CarbonFootprintGraphTab extends Fragment {
-    ArrayList<JourneyModel> journies;
+    ArrayList<JourneyModel> journeys;
     CarbonFootprintComponentCollection carbonInterface;
 
     @Override
@@ -32,16 +32,16 @@ public class CarbonFootprintGraphTab extends Fragment {
 
         carbonInterface = CarbonFootprintComponentCollection.getInstance();
 
-        journies = carbonInterface.getJournies();
+        journeys = carbonInterface.getJournies();
 
         PieChart pieChart = (PieChart) rootView.findViewById(R.id.bar_graph);
 
-        ArrayList<String> pieEntrieslabels = new ArrayList<>();
+        ArrayList<String> pieEntriesLabels = new ArrayList<>();
         ArrayList<PieEntry> pieEntries = new ArrayList<>();
 
-        for (int i = 0; i < journies.size(); i++) {
-            pieEntrieslabels.add(journies.get(i).getRouteModel().getName());
-            pieEntries.add(new PieEntry(journies.get(i).getCo2Emission(),journies.get(i).getRouteModel().getName()));
+        for (int i = 0; i < journeys.size(); i++) {
+            pieEntriesLabels.add(journeys.get(i).getRouteModel().getName());
+            pieEntries.add(new PieEntry(journeys.get(i).getCo2Emission(), journeys.get(i).getRouteModel().getName()));
         }
 
         PieDataSet dataSets = new PieDataSet(pieEntries,null);

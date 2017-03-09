@@ -2,6 +2,10 @@ package com.cmpt276.indigo.carbontracker.carbon_tracker_model;
 
 import java.util.IllegalFormatCodePointException;
 
+/*
+
+ */
+
 public class RouteModel implements CarbonFootprintComponent{
     private String name;
     private int cityDistance;

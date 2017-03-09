@@ -27,6 +27,10 @@ import java.net.NoRouteToHostException;
 
 import static java.sql.Types.NULL;
 
+/*
+
+ */
+
 public class RouteAddActivity extends AppCompatActivity {
     public static final int RESULT_DELETE = 12;
     /**
@@ -71,17 +75,16 @@ public class RouteAddActivity extends AppCompatActivity {
         }
     }
 
-
     private void calculate() {
-        int cityDistance = getNumberFromEditTextOrZeroForFail(R.id.add_route_editText_city_distance);
-        int highwayDistance = getNumberFromEditTextOrZeroForFail(R.id.add_route_editText_highway_distance);
-        int total = cityDistance + highwayDistance;
+        int cityDistanceInKm = getNumberFromEditTextOrZeroForFail(R.id.add_route_editText_city_distance);
+        int highwayDistanceInKm = getNumberFromEditTextOrZeroForFail(R.id.add_route_editText_highway_distance);
+        int total = cityDistanceInKm + highwayDistanceInKm;
         displayNumberIfPositive(R.id.add_route_textview_total_distance, total);
     }
 
     private void recalculateOnChange(int textFieldID) {
-        TextView tv = (TextView) findViewById(textFieldID);
-        tv.addTextChangedListener(new TextWatcher() {
+        TextView textView = (TextView) findViewById(textFieldID);
+        textView.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
@@ -97,13 +100,12 @@ public class RouteAddActivity extends AppCompatActivity {
         });
     }
 
-
     private void displayNumberIfPositive(int id, int data) {
-        TextView tv = (TextView) findViewById(id);
+        TextView textView = (TextView) findViewById(id);
         if (data >= 0) {
-            tv.setText("" + data);
+            textView.setText("" + data);
         } else {
-            tv.setText("");
+            textView.setText("");
         }
     }
 
@@ -122,27 +124,26 @@ public class RouteAddActivity extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EditText etName = (EditText) findViewById(R.id.add_route_editText_nickname);
+                EditText editTextName = (EditText) findViewById(R.id.add_route_editText_nickname);
 
-
-                if (etName.getText().toString().length() == 0) {
+                if (editTextName.getText().toString().length() == 0) {
                     Toast.makeText(RouteAddActivity.this, "Please enter a route name.", Toast.LENGTH_SHORT)
                             .show();
                     return;
 
                 }
 
-                EditText etHighway = (EditText) findViewById(R.id.add_route_editText_highway_distance);
+                EditText editTextHighway = (EditText) findViewById(R.id.add_route_editText_highway_distance);
 
-                if (etHighway.getText().toString().length() == 0) {
+                if (editTextHighway.getText().toString().length() == 0) {
                     Toast.makeText(RouteAddActivity.this, "Please enter a highway distance.", Toast.LENGTH_SHORT)
                             .show();
                     return;
 
                 }
 
-                EditText etCity = (EditText) findViewById(R.id.add_route_editText_city_distance);
-                if (etCity.getText().toString().length() == 0) {
+                EditText editTextCity = (EditText) findViewById(R.id.add_route_editText_city_distance);
+                if (editTextCity.getText().toString().length() == 0) {
                     Toast.makeText(RouteAddActivity.this, "Please enter a city distance.", Toast.LENGTH_SHORT)
                             .show();
                     return;
@@ -171,17 +172,16 @@ public class RouteAddActivity extends AppCompatActivity {
         });
     }
 
-
     private RouteModel createRoute() {
         // Get values from UI:
-            EditText etName = (EditText) findViewById(R.id.add_route_editText_nickname);
-            String name = etName.getText().toString();
+            EditText editTextName = (EditText) findViewById(R.id.add_route_editText_nickname);
+            String name = editTextName.getText().toString();
 
-            EditText etHighway = (EditText) findViewById(R.id.add_route_editText_highway_distance);
-            int highway = Integer.parseInt(etHighway.getText().toString());
+            EditText editTextHighway = (EditText) findViewById(R.id.add_route_editText_highway_distance);
+            int highway = Integer.parseInt(editTextHighway.getText().toString());
 
-            EditText etCity = (EditText) findViewById(R.id.add_route_editText_city_distance);
-            int city = Integer.parseInt(etCity.getText().toString());
+            EditText editTextCity = (EditText) findViewById(R.id.add_route_editText_city_distance);
+            int city = Integer.parseInt(editTextCity.getText().toString());
             RouteModel newRoute = new RouteModel();
             newRoute.setName(name);
             newRoute.setHighwayDistance(highway);
@@ -189,8 +189,6 @@ public class RouteAddActivity extends AppCompatActivity {
         return  newRoute;
 
     }
-
-
 
     boolean addRoute(RouteModel route){
         try{
