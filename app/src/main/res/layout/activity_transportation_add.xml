@@ -32,7 +32,9 @@
                 android:ems="10"
                 android:id="@+id/add_transport_editText_nickname"
                 android:hint="@string/nickname"
-                style="@style/Widget.AppCompat.EditText" />
+                style="@style/Widget.AppCompat.EditText"
+                android:backgroundTint="@android:color/holo_green_light"
+                android:textCursorDrawable="@drawable/cursor_color"/>
 
         </TableRow>
 
