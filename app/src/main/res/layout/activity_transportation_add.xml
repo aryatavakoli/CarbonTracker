@@ -110,7 +110,7 @@
                 android:id="@+id/textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Engine Displacement:"
+                android:text="@string/engine_displacement"
                 android:textAppearance="@android:style/TextAppearance.Material.Medium" />
 
             <Spinner
@@ -129,7 +129,8 @@
         android:layout_marginEnd="18dp"
         android:layout_alignBaseline="@+id/add_transport_ok_btn"
         android:layout_alignBottom="@+id/add_transport_ok_btn"
-        android:layout_toStartOf="@+id/add_transport_ok_btn" />
+        android:layout_toStartOf="@+id/add_transport_ok_btn"
+        android:theme="@style/GreenButton"/>
 
     <Button
         android:text="@string/ok"
@@ -138,7 +139,8 @@
         android:id="@+id/add_transport_ok_btn"
         android:layout_marginTop="23dp"
         android:layout_below="@+id/tableLayout"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:theme="@style/GreenButton"/>
 
 
 </RelativeLayout>

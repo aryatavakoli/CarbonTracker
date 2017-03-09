@@ -75,14 +75,6 @@
                 android:value="com.cmpt276.indigo.carbontracker.JourneyMenu" />
 
         </activity>
-        <activity
-            android:label="@string/help_menu_title"
-            android:parentActivityName=".MainMenu"
-            android:name=".HelpMenu">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.cmpt276.indigo.carbontracker.MainMenu" />
-        </activity>
     </application>
 
 </manifest>

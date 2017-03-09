@@ -27,7 +27,6 @@ public class MainMenu extends AppCompatActivity {
         //use shared preference to get aroundt his
         loadDataFile();
         journeySelectBtn();
-        helpBtn();
         carbonFootprintSelectBtn();
 
     }
@@ -57,17 +56,6 @@ public class MainMenu extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(MainMenu.this, JourneyMenu.class);
                 startActivityForResult(intent, JOURNEY_SELECT );
-            }
-        });
-    }
-
-    private void helpBtn() {
-        Button btn = (Button) findViewById(R.id.main_menu_help);
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainMenu.this, HelpMenu.class);
-                startActivity(intent);
             }
         });
     }

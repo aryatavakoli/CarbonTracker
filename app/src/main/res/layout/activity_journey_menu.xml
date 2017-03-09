@@ -18,7 +18,8 @@
         android:id="@+id/journey_menu_select_transport_btn"
         android:layout_marginTop="150dp"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:theme="@style/GreenButton"/>
 
     <Button
         android:text="@string/title_activity_route_select"
@@ -27,7 +28,8 @@
         android:layout_marginTop="15dp"
         android:id="@+id/journey_menu_select_route_btn"
         android:layout_below="@+id/journey_menu_select_transport_btn"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:theme="@style/GreenButton"/>
 
     <TableLayout
         android:layout_width="wrap_content"
@@ -110,6 +112,7 @@
         android:layout_alignParentBottom="true"
         android:layout_toEndOf="@+id/journey_menu_select_transport_btn"
         android:layout_marginBottom="28dp"
-        android:id="@+id/journey_menu_create_btn" />
+        android:id="@+id/journey_menu_create_btn"
+        android:theme="@style/GreenButton"/>
 
 </RelativeLayout>
