@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_main_menu"
     android:layout_width="match_parent"
@@ -10,33 +11,23 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.cmpt276.indigo.carbontracker.MainMenu">
 
-    <TextView
-        android:text="@string/main_menu"
+    <Button
+        android:text="@string/view_carbon_footprint"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:id="@+id/main_menu_header"
-        android:textAppearance="@android:style/TextAppearance.Material.Headline" />
+        android:id="@+id/main_menu_carbonfootprint_btn"
+        android:theme="@style/GreenButton"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
 
     <Button
         android:text="@string/create_journey"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/main_menu_create_Journey_btn"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="120dp"
-        android:theme="@style/GreenButton" />
-
-    <Button
-        android:text="@string/view_carbon_footprint"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/main_menu_carbonfootprint_btn"
-        android:layout_below="@+id/main_menu_create_Journey_btn"
         android:theme="@style/GreenButton"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="15dp"/>
+        android:layout_marginBottom="35dp"
+        android:layout_above="@+id/main_menu_carbonfootprint_btn"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>
