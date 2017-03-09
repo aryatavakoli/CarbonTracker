@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /*
-
+    Implements TransportationSelectActvitiy UI for displaying list of added vehicles
  */
 
 public class TransportationSelectActvitiy extends AppCompatActivity {

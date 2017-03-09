@@ -1,11 +1,7 @@
 package com.cmpt276.indigo.carbontracker.carbon_tracker_model;
 
-
-import java.security.PublicKey;
-import java.util.Objects;
-
 /*
-
+    Implements VehicleModel that describes a vehicle object
  */
 
 public class VehicleModel implements CarbonFootprintComponent{

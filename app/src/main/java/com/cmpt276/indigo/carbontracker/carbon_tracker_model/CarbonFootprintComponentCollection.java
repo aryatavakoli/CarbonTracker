@@ -1,11 +1,14 @@
 package com.cmpt276.indigo.carbontracker.carbon_tracker_model;
 
 import java.io.InputStream;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
+
+/*
+    Implements CarbonFootprintComponentCollection that is Singleton class providing an interface between Model and UI
+ */
 
 public class CarbonFootprintComponentCollection {
 

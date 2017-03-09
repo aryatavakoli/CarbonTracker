@@ -19,7 +19,7 @@ import com.cmpt276.indigo.carbontracker.carbon_tracker_model.VehicleModel;
 import java.util.ArrayList;
 
 /*
-
+    Implements TransportationAddActivity UI for adding a new vehicle
  */
 
 public class TransportationAddActivity extends AppCompatActivity {
@@ -27,6 +27,7 @@ public class TransportationAddActivity extends AppCompatActivity {
     public static final int RESULT_DELETE = 200;
     CarbonFootprintComponentCollection carbonFootprintInterface;
     private boolean editing = false;
+    VehicleModel currentVehicle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,22 +45,23 @@ public class TransportationAddActivity extends AppCompatActivity {
 
     private void populateUIFromIntent() {
         Intent intent = getIntent();
-        VehicleModel vehicle = (VehicleModel) intent.getSerializableExtra("vehicle");
-        if (vehicle != null){
+        currentVehicle = (VehicleModel) intent.getSerializableExtra("vehicle");
+        if (currentVehicle != null){
             editing = true;
             EditText editName = (EditText) findViewById(R.id.add_transport_editText_nickname);
-            editName.setText(vehicle.getName());
+            editName.setText(currentVehicle.getName());
 
-            String make = vehicle.getMake();
-            String model = vehicle.getModel();
-            String year =  vehicle.getYear();
-            String transmission = vehicle.getTransmisson();
+            String make = currentVehicle.getMake();
+            String model = currentVehicle.getModel();
+            String year =  currentVehicle.getYear();
+            String transmission = currentVehicle.getTransmisson();
+            String engineDisplacement = currentVehicle.getEngineDisplacment();
 
             setSpinnerSelection(R.id.add_transport_dropdown_make, carbonFootprintInterface.getVehicleMakes(), make);
             setSpinnerSelection(R.id.add_transport_dropdown_model, carbonFootprintInterface.getVehicleModel(make), model);
-            setSpinnerSelection(R.id.add_transport_dropdown_year, carbonFootprintInterface.getVehicleYear(make, model), vehicle.getYear());
-            setSpinnerSelection(R.id.add_transport_dropdown_transmission, carbonFootprintInterface.getVehicleTransmission(make,model,year), vehicle.getTransmisson());
-            setSpinnerSelection(R.id.add_transport_dropdown_engine_displacement, carbonFootprintInterface.getVehicleEngineDisplacement(make,model,year,transmission),vehicle.getEngineDisplacment());
+            setSpinnerSelection(R.id.add_transport_dropdown_year, carbonFootprintInterface.getVehicleYear(make, model), year);
+            setSpinnerSelection(R.id.add_transport_dropdown_transmission, carbonFootprintInterface.getVehicleTransmission(make,model,year), transmission);
+            setSpinnerSelection(R.id.add_transport_dropdown_engine_displacement, carbonFootprintInterface.getVehicleEngineDisplacement(make,model,year,transmission), engineDisplacement);
         }
     }
 
@@ -226,6 +228,12 @@ public class TransportationAddActivity extends AppCompatActivity {
 
             }
         });
+        if(editing) {
+            int index = makes.indexOf(currentVehicle.getMake());
+            if(index > -1){
+                makeSpinner.setSelection(index);
+            }
+        }
     }
 
     private void setupModelDropdownList(final String selectedMake) {
@@ -244,6 +252,12 @@ public class TransportationAddActivity extends AppCompatActivity {
 
             }
         });
+        if(editing) {
+            int index = models.indexOf(currentVehicle.getModel());
+            if(index > -1){
+                modelSpinner.setSelection(index);
+            }
+        }
     }
 
     private void setupYearDropdownList(final String selectedMake, final String selectedModel) {
@@ -262,6 +276,12 @@ public class TransportationAddActivity extends AppCompatActivity {
 
             }
         });
+        if(editing) {
+            int index = years.indexOf(currentVehicle.getYear());
+            if(index > -1){
+                yearSpinner.setSelection(index);
+            }
+        }
     }
 
     private void setupTransmissionDropdownList(final String selectedMake, final String selectedModel, final String selectedYear) {
@@ -281,12 +301,24 @@ public class TransportationAddActivity extends AppCompatActivity {
 
             }
         });
+        if(editing) {
+            int index = transmissions.indexOf(currentVehicle.getYear());
+            if(index > -1){
+                transmissionSpinner.setSelection(index);
+            }
+        }
     }
 
     private void setupEngineDisplacmentDropdownList(String selectedMake, String selectedModel, String selectedYear, String selectedTransmission) {
         ArrayList<String> engineDisplacement = carbonFootprintInterface.getVehicleEngineDisplacement(selectedMake, selectedModel, selectedYear, selectedTransmission);
-        final Spinner transmissionSpinner = (Spinner)findViewById(R.id.add_transport_dropdown_engine_displacement);
-        fillSpinner(transmissionSpinner, engineDisplacement);
+        final Spinner engineDisplacementSpinner = (Spinner)findViewById(R.id.add_transport_dropdown_engine_displacement);
+        fillSpinner(engineDisplacementSpinner, engineDisplacement);
+        if(editing) {
+            int index = engineDisplacement.indexOf(currentVehicle.getEngineDisplacment());
+            if(index > -1){
+                engineDisplacementSpinner.setSelection(index);
+            }
+        }
     }
 
     private void fillSpinner(Spinner spinner, ArrayList<String> items) {
