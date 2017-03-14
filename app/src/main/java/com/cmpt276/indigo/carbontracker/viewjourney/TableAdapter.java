@@ -13,6 +13,7 @@ import com.cmpt276.indigo.carbontracker.carbon_tracker_model.JourneyModel;
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.RouteModel;
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.VehicleModel;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 /*
@@ -29,6 +30,7 @@ class TableAdapter extends BaseAdapter {
     private TextView totalDistance;
     private TextView date;
     private TextView co2;
+    private static final SimpleDateFormat SIMPLE_DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 
     TableAdapter(Context context) {
         CarbonFootprintComponentCollection carbonInterface = CarbonFootprintComponentCollection.getInstance();
@@ -82,7 +84,7 @@ class TableAdapter extends BaseAdapter {
         routeName.setTextSize(13);
         totalDistance.setText((route.getCityDistance() + route.getHighwayDistance()) + " km" + "");
         routeName.setTextSize(13);
-        date.setText(journey.getCreationDate() + "");
+        date.setText(SIMPLE_DATE_FORMAT.format(journey.getCreationDate()));
         date.setTextSize(13);
         co2.setText(journey.getCo2Emission() + " Kg" + "");
         co2.setTextSize(13);

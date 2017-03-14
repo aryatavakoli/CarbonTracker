@@ -12,7 +12,6 @@ import android.widget.ListView;
 import com.cmpt276.indigo.carbontracker.R;
 
 public class ViewJourneyActivity extends AppCompatActivity {
-    private static final String TAG = "ViewJourneyActivity";
     ListView tableListView;
 
     @Override
@@ -24,7 +23,6 @@ public class ViewJourneyActivity extends AppCompatActivity {
         tableListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Log.e(TAG, "onItemClick: " + i);
                 Intent intent = new Intent(getApplicationContext(), EditJourneyActivity.class);
                 intent.putExtra("position", i);
                 startActivity(intent);

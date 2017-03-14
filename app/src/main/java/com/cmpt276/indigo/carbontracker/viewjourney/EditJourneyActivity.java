@@ -18,6 +18,7 @@ public class EditJourneyActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_journey);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         final int position = getIntent().getIntExtra("position", -1);
         final CarbonFootprintComponentCollection carbonInterface = CarbonFootprintComponentCollection.getInstance();
         final ArrayList<JourneyModel> journies = carbonInterface.getJournies();
