@@ -73,8 +73,9 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.cmpt276.indigo.carbontracker.JourneyMenu" />
-
         </activity>
+        <activity android:name=".viewjourney.ViewJourneyActivity" />
+        <activity android:name=".viewjourney.EditJourneyActivity"></activity>
     </application>
 
 </manifest>

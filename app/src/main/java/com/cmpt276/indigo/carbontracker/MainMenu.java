@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.CarbonFootprintComponentCollection;
+import com.cmpt276.indigo.carbontracker.viewjourney.ViewJourneyActivity;
 
 import java.io.InputStream;
 /*
@@ -28,7 +29,7 @@ public class MainMenu extends AppCompatActivity {
         loadDataFile();
         journeySelectBtn();
         carbonFootprintSelectBtn();
-
+        journeyViewBtn();
     }
     //Go to carbon footprint activity
     private void carbonFootprintSelectBtn() {
@@ -56,6 +57,17 @@ public class MainMenu extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(MainMenu.this, JourneyMenu.class);
                 startActivityForResult(intent, JOURNEY_SELECT );
+            }
+        });
+    }
+
+    private void journeyViewBtn() {
+        Button btn = (Button) findViewById(R.id.main_menu_view_journey_btn);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainMenu.this, ViewJourneyActivity.class);
+                startActivity(intent );
             }
         });
     }

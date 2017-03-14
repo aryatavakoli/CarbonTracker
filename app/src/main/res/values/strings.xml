@@ -58,4 +58,6 @@
     <string name="tap_and_hold_to_edit_delete_routes">Tap and Hold To Edit/Delete Routes</string>
     <string name="tap_and_hold_to_edit_delete_vehicles">Tap and Hold To Edit/Delete Vehicles</string>
     <string name="engine_displacement">Engine Displacement:</string>
+    <string name="view_journey">view journey</string>
+    <string name="creation_id">ID</string>
 </resources>

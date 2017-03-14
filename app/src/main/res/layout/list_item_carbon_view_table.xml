@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content" >
+    <TextView
+        android:id="@+id/list_item_carbon_footprint_table_id_col"
+        android:layout_width="0dip"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.5"
+        android:gravity="center"
+        android:paddingBottom="10dip"
+        android:paddingTop="10dip"
+        android:textColor="#000000"
+        android:textSize="15sp"
+        android:text="@string/creation_id" />
+    <View
+        android:layout_width="1.5dip"
+        android:layout_height="fill_parent"
+        android:background="#B4B3B3"/>
+    <TextView
+        android:id="@+id/list_item_carbon_footprint_table_date_col"
+        android:layout_width="0dip"
+        android:layout_height="wrap_content"
+        android:layout_weight="1.19"
+        android:gravity="center"
+        android:paddingBottom="10dip"
+        android:paddingTop="10dip"
+        android:textColor="#000000"
+        android:textSize="15sp"
+        android:text="@string/creation_date" />
+
+    <View
+        android:layout_width="1.5dip"
+        android:layout_height="fill_parent"
+        android:background="#B4B3B3"/>
+
+    <TextView
+        android:id="@+id/list_item_carbon_footprint_table_vehicle_col"
+        android:layout_width="0dip"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:paddingBottom="10dip"
+        android:paddingTop="10dip"
+        android:textColor="#000000"
+        android:textSize="15sp"
+        android:gravity="center"
+        android:text="@string/car"
+        android:maxLines="1"/>
+
+    <View
+        android:layout_width="1.5dip"
+        android:layout_height="fill_parent"
+        android:background="#B4B3B3"/>
+
+    <TextView
+        android:id="@+id/list_item_carbon_footprint_table_route_col"
+        android:layout_width="0dip"
+        android:layout_height="wrap_content"
+        android:layout_weight="1.19"
+        android:paddingBottom="10dip"
+        android:textColor="#000000"
+        android:paddingTop="10dip"
+        android:textSize="15sp"
+        android:gravity="center"
+        android:text="@string/route"
+        android:maxLines="1" />
+
+    <View
+        android:layout_width="1.5dip"
+        android:layout_height="fill_parent"
+        android:background="#B4B3B3"/>
+
+    <TextView
+        android:id="@+id/list_item_carbon_footprint_table_distance_col"
+        android:layout_width="0dip"
+        android:layout_height="wrap_content"
+        android:layout_weight="1.19"
+        android:paddingBottom="10dip"
+        android:textColor="#000000"
+        android:paddingTop="10dip"
+        android:textSize="15sp"
+        android:gravity="center"
+        android:text="@string/distance"
+        android:maxLines="1" />
+
+    <View
+        android:layout_width="1.5dip"
+        android:layout_height="fill_parent"
+        android:background="#B4B3B3"/>
+
+    <TextView
+        android:id="@+id/list_item_carbon_footprint_table_co2_col"
+        android:layout_width="0dip"
+        android:layout_height="wrap_content"
+        android:layout_weight="1.11"
+        android:paddingBottom="10dip"
+        android:textColor="#000000"
+        android:textSize="15sp"
+        android:paddingTop="10dip"
+        android:gravity="center"
+        android:text="@string/co2"
+        android:maxLines="1"/>
+
+
+</LinearLayout>
