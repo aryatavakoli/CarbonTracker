@@ -75,7 +75,8 @@
                 android:value="com.cmpt276.indigo.carbontracker.JourneyMenu" />
         </activity>
         <activity android:name=".viewjourney.ViewJourneyActivity" />
-        <activity android:name=".viewjourney.EditJourneyActivity"></activity>
+        <activity android:name=".viewjourney.EditJourneyActivity" />
+        <activity android:name=".DateSelectActivity"></activity>
     </application>
 
 </manifest>

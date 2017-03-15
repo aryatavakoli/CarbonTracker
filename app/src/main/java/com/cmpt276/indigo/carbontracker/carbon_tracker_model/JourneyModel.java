@@ -16,7 +16,6 @@ public class JourneyModel implements CarbonFootprintComponent{
         vehicleModel = new VehicleModel();
         routeModel = new RouteModel();
         co2Emission = 0.0f;
-        creationDate = new Date();
     }
 
     public Date getCreationDate() {

@@ -1,10 +1,14 @@
 package com.cmpt276.indigo.carbontracker;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.icu.text.SimpleDateFormat;
+import android.icu.util.Calendar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -14,12 +18,14 @@ import com.cmpt276.indigo.carbontracker.carbon_tracker_model.RouteModel;
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.VehicleModel;
 
 import java.util.List;
+import java.util.Locale;
 
 /*
 
  */
 
 public class JourneyMenu extends AppCompatActivity {
+    public static final int DATE_SELECT = 52;
     JourneyModel newJourney;
     public static final int TRANSPORTATION_SELECT = 56;
     public static final int ROUTE_SELECT = 57;
@@ -40,7 +46,42 @@ public class JourneyMenu extends AppCompatActivity {
         transportSelectBtn();
         routeSelectBtn();
         selectOK();
+        gettingDate();
     }
+
+    final Calendar myCalendar = Calendar.getInstance();
+
+
+    private void gettingDate() {
+
+        final Calendar myCalendar = Calendar.getInstance();
+
+        final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
+
+            @Override
+            public void onDateSet(DatePicker view, int year, int monthOfYear,
+                                  int dayOfMonth) {
+                // TODO Auto-generated method stub
+                myCalendar.set(Calendar.YEAR, year);
+                myCalendar.set(Calendar.MONTH, monthOfYear);
+                myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                newJourney.setCreationDate(myCalendar.getTime());
+            }
+
+        };
+        Button txt = (Button) findViewById(R.id.journey_menu_select_date_btn);
+        txt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                new DatePickerDialog(JourneyMenu.this, date, myCalendar
+                        .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
+                        myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+
+            }
+        });
+    }
+
 
     private void selectOK() {
         Button btn = (Button) findViewById(R.id.journey_menu_create_btn);
