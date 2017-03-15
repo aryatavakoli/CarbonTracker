@@ -17,6 +17,7 @@ import com.cmpt276.indigo.carbontracker.carbon_tracker_model.JourneyModel;
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.RouteModel;
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.VehicleModel;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -80,6 +81,7 @@ public class JourneyMenu extends AppCompatActivity {
 
             }
         });
+
     }
 
 
