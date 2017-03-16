@@ -12,7 +12,7 @@ import java.util.List;
 
 public class UtilitySelectActivity extends AppCompatActivity {
 
-    private int indexOfRouteEditing = -1;
+    private int indexOfUtilitiesEditing = -1;
     private static final int ACTIVITY_RESULT_ADD = 30;
     private static final int ACTIVITY_RESULT_EDIT = 90;
 
