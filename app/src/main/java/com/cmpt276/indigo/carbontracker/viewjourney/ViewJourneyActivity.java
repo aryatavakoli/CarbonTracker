@@ -21,6 +21,8 @@ public class ViewJourneyActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_journey);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
         tableListView = (ListView) findViewById(R.id.list);
         tableListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

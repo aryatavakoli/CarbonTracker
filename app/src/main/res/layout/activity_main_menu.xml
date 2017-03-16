@@ -39,4 +39,13 @@
         android:layout_above="@+id/main_menu_carbonfootprint_btn"
         android:layout_centerHorizontal="true" />
 
+    <Button
+        android:text="Create New Utilities Bill"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/main_menu_create_utilities_btn"
+        android:theme="@style/GreenButton"
+        android:layout_below="@+id/main_menu_carbonfootprint_btn"
+        android:layout_centerHorizontal="true" />
+
 </RelativeLayout>

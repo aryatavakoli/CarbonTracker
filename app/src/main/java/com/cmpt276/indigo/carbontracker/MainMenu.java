@@ -27,9 +27,10 @@ public class MainMenu extends AppCompatActivity {
         // the system when the user tries to bring the app back to the foreground/
         //use shared preference to get aroundt his
         loadDataFile();
-        journeySelectBtn();
+        journeyCreateBtn();
         carbonFootprintSelectBtn();
         journeyViewBtn();
+        utilitesCreateBtn();
     }
     //Go to carbon footprint activity
     private void carbonFootprintSelectBtn() {
@@ -50,7 +51,7 @@ public class MainMenu extends AppCompatActivity {
     }
 
     //Launch Create a jounrney activity
-    private void journeySelectBtn() {
+    private void journeyCreateBtn() {
         Button btn = (Button) findViewById(R.id.main_menu_create_Journey_btn);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,6 +69,19 @@ public class MainMenu extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(MainMenu.this, ViewJourneyActivity.class);
                 startActivity(intent );
+            }
+        });
+    }
+
+    //Launch Create a utitliy activity
+    private void utilitesCreateBtn() {
+        Button btn = (Button) findViewById(R.id.main_menu_create_utilities_btn);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainMenu.this, UtilitySelectActivity.class);
+                //startActivityForResult(intent, JOURNEY_SELECT );
+                startActivity(intent);
             }
         });
     }

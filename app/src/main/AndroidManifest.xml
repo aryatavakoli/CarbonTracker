@@ -74,9 +74,46 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.cmpt276.indigo.carbontracker.JourneyMenu" />
         </activity>
-        <activity android:name=".viewjourney.ViewJourneyActivity" />
-        <activity android:name=".viewjourney.EditJourneyActivity" />
+
+        <activity
+            android:name=".viewjourney.ViewJourneyActivity"
+            android:label="View Journey"
+            android:parentActivityName=".MainMenu">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.cmpt276.indigo.carbontracker.MainMenu"/>
+        </activity>
+
+        <activity
+            android:name=".viewjourney.EditJourneyActivity"
+            android:label="Edit Journey"
+            android:parentActivityName=".JourneyMenu">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.cmpt276.indigo.carbontracker.JourneyMenu"/>
+        </activity>
+
         <activity android:name=".DateSelectActivity"></activity>
+
+        <activity
+            android:name=".UtilitySelectActivity"
+            android:label="@string/title_activity_utility_select"
+            android:parentActivityName=".MainMenu"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.cmpt276.indigo.carbontracker.MainMenu"/>
+        </activity>
+
+        <activity
+            android:name=".UtilityAddActivity"
+            android:label="Add utility Bill"
+            android:parentActivityName=".UtilitySelectActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.cmpt276.indigo.carbontracker.UtilitySelectActivity"/>
+        </activity>
+
     </application>
 
 </manifest>
