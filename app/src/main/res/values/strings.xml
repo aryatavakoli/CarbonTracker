@@ -60,4 +60,5 @@
     <string name="engine_displacement">Engine Displacement:</string>
     <string name="view_journey">view journey</string>
     <string name="creation_id">ID</string>
+    <string name="select_date">select date</string>
 </resources>

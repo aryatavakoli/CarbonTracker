@@ -4,6 +4,7 @@ import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.icu.text.SimpleDateFormat;
 import android.icu.util.Calendar;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -15,6 +16,7 @@ import android.widget.Toast;
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.CarbonFootprintComponentCollection;
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.JourneyModel;
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.RouteModel;
+import com.cmpt276.indigo.carbontracker.carbon_tracker_model.TipFragment;
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.VehicleModel;
 
 import java.util.Date;
@@ -46,7 +48,7 @@ public class JourneyMenu extends AppCompatActivity {
         carbonFootprintInterface = CarbonFootprintComponentCollection.getInstance();
         transportSelectBtn();
         routeSelectBtn();
-        selectOK();
+        selectCreate();
         gettingDate();
     }
 
@@ -85,7 +87,7 @@ public class JourneyMenu extends AppCompatActivity {
     }
 
 
-    private void selectOK() {
+    private void selectCreate() {
         Button btn = (Button) findViewById(R.id.journey_menu_create_btn);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,17 +95,31 @@ public class JourneyMenu extends AppCompatActivity {
                 if (isRouteSelected && isVehicleSelected) {
                     carbonFootprintInterface.add(newJourney);
                     Toast.makeText(JourneyMenu.this, "Journey Created!", Toast.LENGTH_SHORT).show();
-                    finish();
+                    showTipDialog();
+                    //finish();
+
                 }
                 else{
 
                     Toast.makeText(JourneyMenu.this,"Please select Route and Vehicle",Toast.LENGTH_SHORT).show();
                     return;
                 }
+
+
             }
         });
 
 }
+
+    private void showTipDialog() {
+        FragmentManager manager = getSupportFragmentManager();
+        TipFragment dialog = new TipFragment();
+        dialog.setCancelable(false);
+        dialog.show(manager,"message dialog");
+
+
+    }
+
     private void fillCarbonFootprintText() {
        newJourney.calculateEmissions();
         carbonEmission = newJourney.getCo2Emission();
