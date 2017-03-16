@@ -115,6 +115,15 @@
         android:theme="@style/GreenButton"/>
 
     <Button
+        android:id="@+id/journey_menu_delete_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="28dp"
+        android:text="@string/delete"
+        android:theme="@style/GreenButton" />
+
+    <Button
         android:text="@string/select_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

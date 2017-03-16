@@ -17,10 +17,6 @@
         android:textSize="15sp"
         android:textStyle="bold" />
 
-    <View
-        android:layout_width="1.5dip"
-        android:layout_height="fill_parent"
-        android:background="#B4B3B3" />
 
     <TextView
         android:id="@+id/list_item_carbon_footprint_table_date_col"
@@ -34,10 +30,6 @@
         android:textColor="#000000"
         android:textSize="15sp" />
 
-    <View
-        android:layout_width="1.5dip"
-        android:layout_height="fill_parent"
-        android:background="#B4B3B3" />
 
     <TextView
         android:id="@+id/list_item_carbon_footprint_table_vehicle_col"
@@ -52,10 +44,6 @@
         android:textColor="#000000"
         android:textSize="15sp" />
 
-    <View
-        android:layout_width="1.5dip"
-        android:layout_height="fill_parent"
-        android:background="#B4B3B3" />
 
     <TextView
         android:id="@+id/list_item_carbon_footprint_table_route_col"
@@ -75,36 +63,8 @@
         android:layout_height="fill_parent"
         android:background="#B4B3B3" />
 
-    <TextView
-        android:id="@+id/list_item_carbon_footprint_table_distance_col"
-        android:layout_width="0dip"
-        android:layout_height="wrap_content"
-        android:layout_weight="1.19"
-        android:gravity="center"
-        android:maxLines="1"
-        android:paddingBottom="10dip"
-        android:paddingTop="10dip"
-        android:text="@string/distance"
-        android:textColor="#000000"
-        android:textSize="15sp" />
 
-    <View
-        android:layout_width="1.5dip"
-        android:layout_height="fill_parent"
-        android:background="#B4B3B3" />
 
-    <TextView
-        android:id="@+id/list_item_carbon_footprint_table_co2_col"
-        android:layout_width="0dip"
-        android:layout_height="wrap_content"
-        android:layout_weight="1.11"
-        android:gravity="center"
-        android:maxLines="1"
-        android:paddingBottom="10dip"
-        android:paddingTop="10dip"
-        android:text="@string/co2"
-        android:textColor="#000000"
-        android:textSize="15sp" />
 
 
 </LinearLayout>

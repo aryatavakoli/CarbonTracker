@@ -108,6 +108,11 @@ public class CarbonFootprintComponentCollection {
             {
                 throw new IllegalArgumentException("Input component could not be found in the list.");
             }
+        } else if (component instanceof JourneyModel) {
+            int index = journies.indexOf(component);
+            if (index > -1) {
+                journies.get(index).setDeleted(true);
+            }
         }
         else{
             throw new IllegalArgumentException("Input component is not valid.");

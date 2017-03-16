@@ -14,6 +14,7 @@ import com.cmpt276.indigo.carbontracker.carbon_tracker_model.RouteModel;
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.VehicleModel;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 /*
@@ -27,14 +28,17 @@ class TableAdapter extends BaseAdapter {
     private TextView carId;
     private TextView carName;
     private TextView routeName;
-    private TextView totalDistance;
     private TextView date;
-    private TextView co2;
     private static final SimpleDateFormat SIMPLE_DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 
     TableAdapter(Context context) {
+        this.journeyList = new ArrayList<>();
         CarbonFootprintComponentCollection carbonInterface = CarbonFootprintComponentCollection.getInstance();
-        this.journeyList = carbonInterface.getJournies();
+        for (JourneyModel model : carbonInterface.getJournies()) {
+            if (!model.isDeleted()) {
+                journeyList.add(model);
+            }
+        }
         inflater = LayoutInflater.from(context);
     }
 
@@ -61,34 +65,23 @@ class TableAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
 
         JourneyModel journey = (JourneyModel) this.getItem(position);
-
         VehicleModel vehicles = journey.getVehicleModel();
-
         RouteModel route = journey.getRouteModel();
-
         if (convertView == null) {
-
             convertView = inflater.inflate(R.layout.list_item_carbon_view_table, null);
-
             carId = (TextView) convertView.findViewById(R.id.list_item_carbon_footprint_table_id_col);
             carName = (TextView) convertView.findViewById(R.id.list_item_carbon_footprint_table_vehicle_col);
             routeName = (TextView) convertView.findViewById(R.id.list_item_carbon_footprint_table_route_col);
-            totalDistance = (TextView) convertView.findViewById(R.id.list_item_carbon_footprint_table_distance_col);
             date = (TextView) convertView.findViewById(R.id.list_item_carbon_footprint_table_date_col);
-            co2 = (TextView) convertView.findViewById(R.id.list_item_carbon_footprint_table_co2_col);
         }
         carId.setText((position + 1) + "");
         carName.setText(vehicles.getName());
         carName.setTextSize(13);
         routeName.setText(route.getName());
         routeName.setTextSize(13);
-        totalDistance.setText((route.getCityDistance() + route.getHighwayDistance()) + " km" + "");
         routeName.setTextSize(13);
         date.setText(SIMPLE_DATE_FORMAT.format(journey.getCreationDate()));
         date.setTextSize(13);
-        co2.setText(journey.getCo2Emission() + " Kg" + "");
-        co2.setTextSize(13);
-
         return convertView;
     }
 

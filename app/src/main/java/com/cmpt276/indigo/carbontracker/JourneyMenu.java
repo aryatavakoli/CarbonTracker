@@ -19,6 +19,7 @@ import com.cmpt276.indigo.carbontracker.carbon_tracker_model.RouteModel;
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.TipFragment;
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.VehicleModel;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -50,6 +51,15 @@ public class JourneyMenu extends AppCompatActivity {
         routeSelectBtn();
         selectCreate();
         gettingDate();
+        deleteBtn();
+        Intent intent = getIntent();
+        if (intent != null && intent.getSerializableExtra("journey")!=null) {
+            newJourney = (JourneyModel) intent.getSerializableExtra("journey");
+            isVehicleSelected = true;
+            isRouteSelected = true;
+            fillJourneyTexts();
+            fillCarbonFootprintText();
+        }
     }
 
     final Calendar myCalendar = Calendar.getInstance();
@@ -163,6 +173,19 @@ public class JourneyMenu extends AppCompatActivity {
                 Intent intent = new Intent(JourneyMenu.this, RouteSelectActivity.class);
                 startActivityForResult(intent,ROUTE_SELECT);
 
+            }
+        });
+    }
+
+    private void deleteBtn() {
+        Button btn = (Button) findViewById(R.id.journey_menu_delete_btn);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (newJourney != null) {
+                    carbonFootprintInterface.remove(newJourney);
+                    finish();
+                }
             }
         });
     }

@@ -9,7 +9,9 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.cmpt276.indigo.carbontracker.JourneyMenu;
 import com.cmpt276.indigo.carbontracker.R;
+import com.cmpt276.indigo.carbontracker.carbon_tracker_model.JourneyModel;
 
 public class ViewJourneyActivity extends AppCompatActivity {
     ListView tableListView;
@@ -23,9 +25,10 @@ public class ViewJourneyActivity extends AppCompatActivity {
         tableListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent intent = new Intent(getApplicationContext(), EditJourneyActivity.class);
-                intent.putExtra("position", i);
+                Intent intent = new Intent(getApplicationContext(), JourneyMenu.class);
+                intent.putExtra("journey", (JourneyModel)tableListView.getAdapter().getItem(i));
                 startActivity(intent);
+
             }
         });
     }

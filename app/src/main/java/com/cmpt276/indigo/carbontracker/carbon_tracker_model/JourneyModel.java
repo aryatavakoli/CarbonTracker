@@ -12,12 +12,15 @@ public class JourneyModel implements CarbonFootprintComponent{
     private RouteModel routeModel;
     private float co2Emission;
     private Date creationDate;
+    private boolean isDeleted;
 
+    private long id;
     public JourneyModel(){
         vehicleModel = new VehicleModel();
         routeModel = new RouteModel();
         co2Emission = 0.0f;
         creationDate = new Date();
+        id = System.currentTimeMillis();
     }
 
     public Date getCreationDate() {
@@ -94,7 +97,21 @@ public class JourneyModel implements CarbonFootprintComponent{
 
     @Override
     public boolean equals(Object other){
-        //Needs to be implemented
+        if (other instanceof JourneyModel) {
+            return id == ((JourneyModel)other).id;
+        }
         return false;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public boolean isDeleted() {
+        return isDeleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        isDeleted = deleted;
     }
 }
