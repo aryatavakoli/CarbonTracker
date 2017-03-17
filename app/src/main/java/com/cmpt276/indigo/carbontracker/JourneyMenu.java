@@ -181,11 +181,12 @@ public class JourneyMenu extends AppCompatActivity {
 
     private void deleteBtn() {
         Button btn = (Button) findViewById(R.id.journey_menu_delete_btn);
+        final Context context = this;
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (newJourney != null) {
-                    carbonFootprintInterface.remove(newJourney);
+                    carbonFootprintInterface.remove(context, newJourney);
                     finish();
                 }
             }

@@ -69,9 +69,6 @@ public class VehicleDBAdapter {
     private DatabaseHelper myDBHelper;
     private SQLiteDatabase db;
 
-    /////////////////////////////////////////////////////////////////////
-    //	Public methods:
-    /////////////////////////////////////////////////////////////////////
 
     public VehicleDBAdapter(Context ctx) {
         this.context = ctx;
@@ -163,16 +160,15 @@ public class VehicleDBAdapter {
         String where = KEY_ROWID + "=" + vehicle.getId();
         // Create row's data:
         ContentValues newValues = new ContentValues();
-        ContentValues initialValues = new ContentValues();
-        initialValues.put(KEY_NAME, vehicle.getName());
-        initialValues.put(KEY_MODEL, vehicle.getModel());
-        initialValues.put(KEY_YEAR, vehicle.getYear());
-        initialValues.put(KEY_TRANSMISSION, vehicle.getTransmisson());
-        initialValues.put(KEY_ENGINE_DISPLACEMENT, vehicle.getEngineDisplacment());
-        initialValues.put(KEY_CITY_MILEAGE, vehicle.getCityMileage());
-        initialValues.put(KEY_HIGHWAY_MILEAGE, vehicle.getHighwayMileage());
-        initialValues.put(KEY_PRIMARY_FUEL_TYPE, vehicle.getPrimaryFuelType());
-        initialValues.put(KEY_IS_DELETED, vehicle.getIsDeleted());
+        newValues.put(KEY_NAME, vehicle.getName());
+        newValues.put(KEY_MODEL, vehicle.getModel());
+        newValues.put(KEY_YEAR, vehicle.getYear());
+        newValues.put(KEY_TRANSMISSION, vehicle.getTransmisson());
+        newValues.put(KEY_ENGINE_DISPLACEMENT, vehicle.getEngineDisplacment());
+        newValues.put(KEY_CITY_MILEAGE, vehicle.getCityMileage());
+        newValues.put(KEY_HIGHWAY_MILEAGE, vehicle.getHighwayMileage());
+        newValues.put(KEY_PRIMARY_FUEL_TYPE, vehicle.getPrimaryFuelType());
+        newValues.put(KEY_IS_DELETED, vehicle.getIsDeleted());
         // Insert it into the database.
         return db.update(DATABASE_TABLE, newValues, where, null) != 0;
     }

@@ -97,6 +97,43 @@ public class CarbonFootprintComponentCollection {
         }
     }
 
+    //Edit an existing component to replace it with the passed argument
+    private <E extends CarbonFootprintComponent> void edit(ArrayList<E> list, CarbonFootprintComponent component, Context context){
+        if (component instanceof VehicleModel){
+            VehicleModel vehicle = (VehicleModel) component;
+            VehicleDBAdapter vehicleDBAdapter = new VehicleDBAdapter(context);
+            vehicleDBAdapter.open();
+            vehicleDBAdapter.updateRow(vehicle);
+            vehicleDBAdapter.close();
+        }
+        else
+        {
+            throw new IllegalArgumentException("Input component could not be found in the list.");
+        }
+    }
+
+    //edit component from one of arrayList based on its underlying type
+    //Throw an exception if component cannot be casted to a valid type or found
+    public void edit(Context context, CarbonFootprintComponent component){
+        //TODO: edit database entries
+        if (component instanceof VehicleModel){
+            VehicleModel vehicle = (VehicleModel) component;
+            VehicleDBAdapter vehicleDBAdapter = new VehicleDBAdapter(context);
+            vehicleDBAdapter.open();
+            vehicleDBAdapter.updateRow(vehicle);
+            vehicleDBAdapter.close();
+        }
+        else if (component instanceof RouteModel){
+            edit(routes, component, context);
+        }
+        else if (component instanceof JourneyModel){
+            edit(journies, component, context);
+        }
+        else{
+            throw new IllegalArgumentException("Input component is not valid.");
+        }
+    }
+
     //deleting component from one of arrayList based on its underlying type
     //Throw an exception if component cannot be casted to a valid type
     public void delete(CarbonFootprintComponent component){
@@ -128,12 +165,16 @@ public class CarbonFootprintComponentCollection {
 
     //removing(hide) component from one of arrayList based on its underlying type
     //Throw an exception if component cannot be casted to a valid type
-    public void remove(CarbonFootprintComponent component){
+    public void remove(Context context, CarbonFootprintComponent component){
         // TODO: hide in database
         if (component instanceof VehicleModel){
-            int index = vehicles.indexOf(component);
-            if(index > -1){
-                vehicles.get(index).setIsDeleted(true);
+            VehicleModel vehicle = (VehicleModel) component;
+            if(vehicle.getId() > -1){
+                vehicle.setIsDeleted(true);
+                VehicleDBAdapter vehicleDBAdapter = new VehicleDBAdapter(context);
+                vehicleDBAdapter.open();
+                vehicleDBAdapter.updateRow(vehicle);
+                vehicleDBAdapter.close();
             }
             else
             {
@@ -154,36 +195,6 @@ public class CarbonFootprintComponentCollection {
             if (index > -1) {
                 journies.get(index).setDeleted(true);
             }
-        }
-        else{
-            throw new IllegalArgumentException("Input component is not valid.");
-        }
-    }
-
-    //Edit an existing component to replace it with the passed argument
-    private <E extends CarbonFootprintComponent> void edit(ArrayList<E> list, CarbonFootprintComponent component){
-        int index = list.indexOf(component);
-        if(index > -1){
-            list.set(index, (E)component);
-        }
-        else
-        {
-            throw new IllegalArgumentException("Input component could not be found in the list.");
-        }
-    }
-
-    //edit component from one of arrayList based on its underlying type
-    //Throw an exception if component cannot be casted to a valid type or found
-    public void edit(CarbonFootprintComponent component){
-        //TODO: edit database entries
-        if (component instanceof VehicleModel){
-            edit(vehicles, component);
-        }
-        else if (component instanceof RouteModel){
-            edit(routes, component);
-        }
-        else if (component instanceof JourneyModel){
-            edit(journies, component);
         }
         else{
             throw new IllegalArgumentException("Input component is not valid.");

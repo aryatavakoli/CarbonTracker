@@ -121,6 +121,7 @@ public class TransportationAddActivity extends AppCompatActivity {
                 }
                 else{
                     //Removing vehicle from collection if it is on the list
+                    vehicle.setId(currentVehicle.getId());
                     removeVehicle(vehicle);
                     setResult(RESULT_DELETE);
                     Toast.makeText(TransportationAddActivity.this, "Vehicle Deleted!", Toast.LENGTH_SHORT).show();
@@ -202,9 +203,10 @@ public class TransportationAddActivity extends AppCompatActivity {
         }
         return true;
     }
+
     //remove(hide) vehicle from the list
     void removeVehicle(VehicleModel vehicle){
-        carbonFootprintInterface.remove(vehicle);
+        carbonFootprintInterface.remove(this, vehicle);
     }
 
     //Set all the values for dropdown lists
@@ -327,4 +329,3 @@ public class TransportationAddActivity extends AppCompatActivity {
     }
 
 }
-/////
