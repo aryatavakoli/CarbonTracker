@@ -4,7 +4,7 @@ package com.cmpt276.indigo.carbontracker.carbon_tracker_model;
  * Created by Arya on 2017-03-16.
  */
 
-public class UtilitiesModel implements CarbonFootprintComponent {
+public class UtilityModel implements CarbonFootprintComponent {
     public static final double ELECTRIFY_FOOTPRINT_KG_PER_GWH = 9000;
     public static final double GAS_FOOTPRINT_KG_PER_GWH = 185760; // 51.6 Kg/Gj
 
@@ -14,17 +14,18 @@ public class UtilitiesModel implements CarbonFootprintComponent {
     }
 
     private Company companyName;
-    private String nickName;
+    private String name;
     private long billingPeriodInDays;
     private double totalEnergyConsumptionInGWH;
     private double totalCO2EmissionsInKg;
     private double dailyEnergyConsumptionInGWH;
     private double dailyCO2EmissionsInKg;
+    private int numberOfOccupants;
     private boolean isDeleted;
 
-    public UtilitiesModel(Company companyName){
+    public UtilityModel(Company companyName){
         this.companyName = companyName;
-        nickName = new String();
+        name = new String();
         billingPeriodInDays = 0;
         totalEnergyConsumptionInGWH = 0;
         totalCO2EmissionsInKg = 0;
@@ -41,12 +42,12 @@ public class UtilitiesModel implements CarbonFootprintComponent {
         this.companyName = companyName;
     }
 
-    public String getNickName() {
-        return nickName;
+    public String getName() {
+        return name;
     }
 
-    public void setNickName(String nickName) {
-        this.nickName = nickName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public long getBillingPeriodInDays() {
@@ -91,7 +92,7 @@ public class UtilitiesModel implements CarbonFootprintComponent {
         this.dailyCO2EmissionsInKg = dailyCO2EmissionsInKg;
     }
 
-    public boolean isDeleted() {
+    public boolean getIsDeleted() {
         return isDeleted;
     }
 
@@ -111,5 +112,47 @@ public class UtilitiesModel implements CarbonFootprintComponent {
                 totalCO2EmissionsInKg = 0;
                 break;
         }
+    }
+
+    public int getNumberOfOccupants() {
+        return numberOfOccupants;
+    }
+
+    public void setNumberOfOccupants(int numberOfOccupants) {
+        this.numberOfOccupants = numberOfOccupants;
+    }
+
+    @Override
+    public boolean equals(Object other){
+        if (other == null){
+            return false;
+        }
+        if (this == other){
+            return true;
+        }
+        if (!(other instanceof UtilityModel)){
+            return false;
+        }
+        UtilityModel o = (UtilityModel) other;
+        // a deleted object should never be compared to other components
+        if(o.isDeleted || this.isDeleted){
+            return false;
+        }
+        return this.name.equals(o.name);
+    }
+
+    @Override
+    public String toString() {
+        return "UtilityModel{" +
+                "companyName=" + companyName +
+                ", name='" + name + '\'' +
+                ", billingPeriodInDays=" + billingPeriodInDays +
+                ", totalEnergyConsumptionInGWH=" + totalEnergyConsumptionInGWH +
+                ", totalCO2EmissionsInKg=" + totalCO2EmissionsInKg +
+                ", dailyEnergyConsumptionInGWH=" + dailyEnergyConsumptionInGWH +
+                ", dailyCO2EmissionsInKg=" + dailyCO2EmissionsInKg +
+                ", numberOfOccupants=" + numberOfOccupants +
+                ", isDeleted=" + isDeleted +
+                '}';
     }
 }

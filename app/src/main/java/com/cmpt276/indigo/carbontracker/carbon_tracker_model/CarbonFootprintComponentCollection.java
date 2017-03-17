@@ -17,7 +17,7 @@ public class CarbonFootprintComponentCollection {
     private ArrayList<JourneyModel> journies;
     private ArrayList<String> vehicleMakes;
     private ArrayList<VehicleModel> readVehicles;
-    private ArrayList<UtilitiesModel> utilities;
+    private ArrayList<UtilityModel> utilities;
     private static CarbonFootprintComponentCollection instance = new CarbonFootprintComponentCollection();
 
     public static CarbonFootprintComponentCollection getInstance(){
@@ -42,7 +42,7 @@ public class CarbonFootprintComponentCollection {
 
     public ArrayList<JourneyModel> getJournies() {return journies;}
 
-    public ArrayList<UtilitiesModel> getUtilities() {return utilities;}
+    public ArrayList<UtilityModel> getUtilities() {return utilities;}
 
     //Adding component to one of arrayList based on its underlying type
     //Throw an exception if component cannot be casted to a valid type
@@ -57,8 +57,8 @@ public class CarbonFootprintComponentCollection {
         else if (component instanceof JourneyModel){
             journies.add((JourneyModel) component);
         }
-        else if (component instanceof  UtilitiesModel){
-            utilities.add((UtilitiesModel) component);
+        else if (component instanceof UtilityModel){
+            utilities.add((UtilityModel) component);
         }
         else{
             throw new IllegalArgumentException("Input component is not valid.");
@@ -88,8 +88,8 @@ public class CarbonFootprintComponentCollection {
                 throw new IllegalArgumentException("Input component could not be found in the list.");
             }
         }
-        else if (component instanceof UtilitiesModel) {
-            int index = utilities.indexOf((UtilitiesModel)component);
+        else if (component instanceof UtilityModel) {
+            int index = utilities.indexOf((UtilityModel)component);
             if (index > -1){
                 routes.remove(index);
             }
@@ -134,7 +134,7 @@ public class CarbonFootprintComponentCollection {
                 throw new IllegalArgumentException("Input component could not be found in the list.");
             }
         }
-        else if(component instanceof UtilitiesModel){
+        else if(component instanceof UtilityModel){
             int index = utilities.indexOf(component);
             if (index > -1) {
                 utilities.get(index).setDeleted(true);
@@ -172,7 +172,7 @@ public class CarbonFootprintComponentCollection {
         else if (component instanceof JourneyModel){
             edit(journies, component);
         }
-        else if (component instanceof UtilitiesModel){
+        else if (component instanceof UtilityModel){
             edit(utilities, component);
         }
         else{
@@ -199,7 +199,7 @@ public class CarbonFootprintComponentCollection {
         else if (component instanceof JourneyModel){
             validateComponentDuplication(journies, component);
         }
-        else if (component instanceof UtilitiesModel){
+        else if (component instanceof UtilityModel){
             validateComponentDuplication(utilities, component);
         }
         else{
@@ -223,7 +223,7 @@ public class CarbonFootprintComponentCollection {
                 throw new IllegalArgumentException();
             }
         }
-        else if (component instanceof UtilitiesModel){
+        else if (component instanceof UtilityModel){
             if (index < 0 || index >= instance.getUtilities().size()) {
                 throw new IllegalArgumentException();
             }
