@@ -30,6 +30,7 @@ import java.util.Locale;
 
 public class JourneyMenu extends AppCompatActivity {
     public static final int DATE_SELECT = 52;
+    static int messageIndex = 0;
     JourneyModel newJourney;
     public static final int TRANSPORTATION_SELECT = 56;
     public static final int ROUTE_SELECT = 57;
@@ -127,14 +128,25 @@ public class JourneyMenu extends AppCompatActivity {
             }
         });
 
+
+
 }
+
+    private String getMessageFromArray(){
+        String[] messageArray = getResources().getStringArray(R.array.messageArray);
+        if (messageIndex == messageArray.length ) messageIndex = 0;
+        String message = messageArray[messageIndex];
+
+        return message;
+    }
 
     private void showTipDialog() {
         FragmentManager manager = getSupportFragmentManager();
         TipFragment dialog = new TipFragment();
         dialog.setCancelable(false);
         dialog.show(manager,"message dialog");
-        dialog.setMessage("hello");
+        String message = getMessageFromArray();
+        dialog.setMessage(message);
 
 
     }

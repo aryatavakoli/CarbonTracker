@@ -21,8 +21,19 @@ import com.cmpt276.indigo.carbontracker.R;
  */
 
 public class TipFragment extends AppCompatDialogFragment {
-    static int i =0;
+    static int messageIndex =0;
     private String message;
+
+
+
+    private String getMessageFromArray(){
+        String[] messageArray = getResources().getStringArray(R.array.messageArray);
+        if (messageIndex == messageArray.length ) messageIndex = 0;
+        String message = messageArray[messageIndex];
+        messageIndex ++;
+        return message;
+    }
+
 
     public void setMessage(String message) {
         this.message = message;
@@ -31,8 +42,8 @@ public class TipFragment extends AppCompatDialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        message = "message number ";
-        builder.setMessage(message + i);
+        message = getMessageFromArray();
+        builder.setMessage(message);
         builder.setTitle("New Tip");
         builder.setNegativeButton("OK", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
@@ -47,7 +58,6 @@ public class TipFragment extends AppCompatDialogFragment {
                 TipFragment dialog2 = new TipFragment();
                 dialog2.setCancelable(false);
                 dialog2.show(manager,"message dialog");
-                i++;
             }
 
         });
