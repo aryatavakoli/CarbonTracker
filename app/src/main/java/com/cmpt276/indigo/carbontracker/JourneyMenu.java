@@ -38,6 +38,7 @@ public class JourneyMenu extends AppCompatActivity {
     List<Integer> journey_positionList;
     public float carbonEmission;
 
+    private boolean isEdit = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,6 +56,7 @@ public class JourneyMenu extends AppCompatActivity {
         Intent intent = getIntent();
         if (intent != null && intent.getSerializableExtra("journey")!=null) {
             newJourney = (JourneyModel) intent.getSerializableExtra("journey");
+            isEdit = true;
             isVehicleSelected = true;
             isRouteSelected = true;
             fillJourneyTexts();
@@ -102,9 +104,16 @@ public class JourneyMenu extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (isRouteSelected && isVehicleSelected) {
-                    carbonFootprintInterface.add(newJourney);
-                    Toast.makeText(JourneyMenu.this, "Journey Created!", Toast.LENGTH_SHORT).show();
-                    showTipDialog();
+                    if (isEdit) {
+                        carbonFootprintInterface.edit(newJourney);
+                        Toast.makeText(JourneyMenu.this, "Journey Save!", Toast.LENGTH_SHORT).show();
+                        finish();
+                    } else {
+                        carbonFootprintInterface.add(newJourney);
+                        Toast.makeText(JourneyMenu.this, "Journey Created!", Toast.LENGTH_SHORT).show();
+                        showTipDialog();
+                    }
+
                     //finish();
 
                 }
