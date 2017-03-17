@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="messageArray">
+        <item>"this is one of the tips1"</item>
+        <item>"this is one of the tips2"</item>
+        <item>"this is one of the tips3"</item>
+        <item>"this is one of the tips4"</item>
+        <item>"this is one of the tips5"</item>
+        <item>"this is one of the tips6"</item>
+        <item>"this is one of the tips7"</item>
+        <item>"this is one of the tips8"</item>
+        <item>"this is one of the tips9"</item>
+        <item>"this is one of the tips10"</item>
+        <item>"this is one of the tips11"</item>
+        <item>"this is one of the tips12"</item>
+        <item>"this is one of the tips13"</item>
+        <item>"this is one of the tips14"</item>
+        <item>"this is one of the tips15"</item>
+        <item>"this is one of the tips16"</item>
+
+    </string-array>
+</resources>
