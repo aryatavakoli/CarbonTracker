@@ -16,8 +16,8 @@ public class UtilitiesModel implements CarbonFootprintComponent {
     private Company companyName;
     private String nickName;
     private long billingPeriodInDays;
-    private double monthlyEnergyConsumptionInGWH;
-    private double monthlyCO2EmissionsInKg;
+    private double totalEnergyConsumptionInGWH;
+    private double totalCO2EmissionsInKg;
     private double dailyEnergyConsumptionInGWH;
     private double dailyCO2EmissionsInKg;
     private boolean isDeleted;
@@ -26,8 +26,11 @@ public class UtilitiesModel implements CarbonFootprintComponent {
         this.companyName = companyName;
         nickName = new String();
         billingPeriodInDays = 0;
-        monthlyEnergyConsumptionInGWH = 0;
-        monthlyCO2EmissionsInKg = 0;
+        totalEnergyConsumptionInGWH = 0;
+        totalCO2EmissionsInKg = 0;
+        dailyEnergyConsumptionInGWH = 0;
+        dailyCO2EmissionsInKg = 0;
+        isDeleted = false;
     }
 
     public Company getCompanyName() {
@@ -54,24 +57,24 @@ public class UtilitiesModel implements CarbonFootprintComponent {
         this.billingPeriodInDays = billingPeriodInDays;
     }
 
-    public double getMonthlyEnergyConsumptionInGWH() {
-        return monthlyEnergyConsumptionInGWH;
+    public double getTotalEnergyConsumptionInGWH() {
+        return totalEnergyConsumptionInGWH;
     }
 
-    public void setMonthlyEnergyConsumptionInGWH(double monthlyEnergyConsumptionInGWH) {
-        this.monthlyEnergyConsumptionInGWH = monthlyEnergyConsumptionInGWH;
+    public void setTotalEnergyConsumptionInGWH(double totalEnergyConsumptionInGWH) {
+        this.totalEnergyConsumptionInGWH = totalEnergyConsumptionInGWH;
     }
 
-    public double getMonthlyCO2EmissionsInKg() {
-        return monthlyCO2EmissionsInKg;
+    public double getTotalCO2EmissionsInKg() {
+        return totalCO2EmissionsInKg;
     }
 
-    public void setMonthlyCO2EmissionsInKg(double monthlyCO2EmissionsInKg) {
-        this.monthlyCO2EmissionsInKg = monthlyCO2EmissionsInKg;
+    public void setTotalCO2EmissionsInKg(double totalCO2EmissionsInKg) {
+        this.totalCO2EmissionsInKg = totalCO2EmissionsInKg;
     }
 
     public double getDailyEnergyConsumptionInGWH() {
-        dailyCO2EmissionsInKg = monthlyEnergyConsumptionInGWH/billingPeriodInDays;
+        dailyCO2EmissionsInKg = totalEnergyConsumptionInGWH /billingPeriodInDays;
         return dailyEnergyConsumptionInGWH;
     }
 
@@ -80,7 +83,7 @@ public class UtilitiesModel implements CarbonFootprintComponent {
     }
 
     public double getDailyCO2EmissionsInKg() {
-        dailyCO2EmissionsInKg = monthlyCO2EmissionsInKg / billingPeriodInDays;
+        dailyCO2EmissionsInKg = totalCO2EmissionsInKg / billingPeriodInDays;
         return dailyCO2EmissionsInKg;
     }
 
@@ -96,16 +99,16 @@ public class UtilitiesModel implements CarbonFootprintComponent {
         isDeleted = deleted;
     }
 
-    public void calculateMonthlyEmissions(){
+    public void calculateTotalEmissions(){
         switch (companyName){
             case BCHYDRO:
-                monthlyCO2EmissionsInKg = ELECTRIFY_FOOTPRINT_KG_PER_GWH * monthlyEnergyConsumptionInGWH;
+                totalCO2EmissionsInKg = ELECTRIFY_FOOTPRINT_KG_PER_GWH * totalEnergyConsumptionInGWH;
                 break;
             case FORTISBC:
-                monthlyCO2EmissionsInKg = GAS_FOOTPRINT_KG_PER_GWH * monthlyEnergyConsumptionInGWH;
+                totalCO2EmissionsInKg = GAS_FOOTPRINT_KG_PER_GWH * totalEnergyConsumptionInGWH;
                 break;
             default:
-                monthlyCO2EmissionsInKg = 0;
+                totalCO2EmissionsInKg = 0;
                 break;
         }
     }
