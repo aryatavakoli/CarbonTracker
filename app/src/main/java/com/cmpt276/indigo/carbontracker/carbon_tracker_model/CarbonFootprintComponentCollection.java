@@ -1,5 +1,8 @@
 package com.cmpt276.indigo.carbontracker.carbon_tracker_model;
 
+import android.content.Context;
+import android.database.Cursor;
+
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -17,7 +20,6 @@ public class CarbonFootprintComponentCollection {
     private ArrayList<JourneyModel> journies;
     private ArrayList<String> vehicleMakes;
     private ArrayList<VehicleModel> readVehicles;
-    private ArrayList<UtilityModel> utilities;
     private static CarbonFootprintComponentCollection instance = new CarbonFootprintComponentCollection();
 
     public static CarbonFootprintComponentCollection getInstance(){
@@ -29,27 +31,60 @@ public class CarbonFootprintComponentCollection {
         routes = new ArrayList<>();
         journies = new ArrayList<>();
         vehicleMakes = new ArrayList<>();
-        utilities= new ArrayList<>();
     }
 
-    public ArrayList<VehicleModel> getVehicles() {
-        return vehicles;
+    public ArrayList<VehicleModel> getVehicles(Context context) {
+        VehicleDBAdapter vehicleDBAdapter = new VehicleDBAdapter(context);
+        vehicleDBAdapter.open();
+        Cursor cursor = vehicleDBAdapter.getAllRows();
+        ArrayList<VehicleModel> vehicleModels = new ArrayList<>();
+        // Reset cursor to start, checking to see if there's data:
+        if (cursor.moveToFirst()) {
+            do {
+                // Process the data:
+                long id = (long)cursor.getInt(vehicleDBAdapter.COL_ROWID);
+                String name = cursor.getString(VehicleDBAdapter.COL_NAME);
+                String make = cursor.getString(VehicleDBAdapter.COL_MAKE);
+                String model = cursor.getString(VehicleDBAdapter.COL_MODEL);
+                String year = cursor.getString(VehicleDBAdapter.COL_YEAR);
+                String transmission = cursor.getString(VehicleDBAdapter.COL_TRANSMISSION);
+                String engineDisplacement = cursor.getString(VehicleDBAdapter.COL_ENGINE_DISPLACEMENT);
+                double cityMileage = cursor.getDouble(VehicleDBAdapter.COL_CITY_MILEAGE);
+                double highwayMileage = cursor.getDouble(VehicleDBAdapter.COL_HIGHWAY_MILEAGE);
+                String primaryFuelType = cursor.getString(VehicleDBAdapter.COL_PRIMARY_FUEL_TYPE);
+                boolean isDeleted = cursor.getInt(VehicleDBAdapter.COL_IS_DELETED) > 0;
+                if(isDeleted) {
+                    continue;
+                }
+                VehicleModel vehicleModel = new VehicleModel(id, name, make, model, year, transmission, engineDisplacement, cityMileage, highwayMileage, primaryFuelType, isDeleted);
+                vehicleModels.add(vehicleModel);
+            } while(cursor.moveToNext());
+        }
+        // Close the cursor to avoid a resource leak.
+        cursor.close();
+        return vehicleModels;
     }
 
     public ArrayList<RouteModel> getRoutes() {
+        //TODO: read from Route table
         return routes;
     }
 
-    public ArrayList<JourneyModel> getJournies() {return journies;}
-
-    public ArrayList<UtilityModel> getUtilities() {return utilities;}
+    public ArrayList<JourneyModel> getJournies() {
+        //TODO: read from Journie table
+        return journies;
+    }
 
     //Adding component to one of arrayList based on its underlying type
     //Throw an exception if component cannot be casted to a valid type
-    public void add(CarbonFootprintComponent component){
-        validateComponentDuplication(component);
+    public void add(Context context, CarbonFootprintComponent component){
+        //TODO: add to database instead of arraylist
+        validateComponentDuplication(context, component);
         if (component instanceof VehicleModel){
-            vehicles.add((VehicleModel)component);
+            VehicleDBAdapter vehicleDBAdapter = new VehicleDBAdapter(context);
+            vehicleDBAdapter.open();
+            vehicleDBAdapter.insertRow((VehicleModel)component);
+            vehicleDBAdapter.close();
         }
         else if (component instanceof RouteModel){
             routes.add((RouteModel) component);
@@ -57,8 +92,42 @@ public class CarbonFootprintComponentCollection {
         else if (component instanceof JourneyModel){
             journies.add((JourneyModel) component);
         }
-        else if (component instanceof UtilityModel){
-            utilities.add((UtilityModel) component);
+        else{
+            throw new IllegalArgumentException("Input component is not valid.");
+        }
+    }
+
+    //Edit an existing component to replace it with the passed argument
+    private <E extends CarbonFootprintComponent> void edit(ArrayList<E> list, CarbonFootprintComponent component, Context context){
+        if (component instanceof VehicleModel){
+            VehicleModel vehicle = (VehicleModel) component;
+            VehicleDBAdapter vehicleDBAdapter = new VehicleDBAdapter(context);
+            vehicleDBAdapter.open();
+            vehicleDBAdapter.updateRow(vehicle);
+            vehicleDBAdapter.close();
+        }
+        else
+        {
+            throw new IllegalArgumentException("Input component could not be found in the list.");
+        }
+    }
+
+    //edit component from one of arrayList based on its underlying type
+    //Throw an exception if component cannot be casted to a valid type or found
+    public void edit(Context context, CarbonFootprintComponent component){
+        //TODO: edit database entries
+        if (component instanceof VehicleModel){
+            VehicleModel vehicle = (VehicleModel) component;
+            VehicleDBAdapter vehicleDBAdapter = new VehicleDBAdapter(context);
+            vehicleDBAdapter.open();
+            vehicleDBAdapter.updateRow(vehicle);
+            vehicleDBAdapter.close();
+        }
+        else if (component instanceof RouteModel){
+            edit(routes, component, context);
+        }
+        else if (component instanceof JourneyModel){
+            edit(journies, component, context);
         }
         else{
             throw new IllegalArgumentException("Input component is not valid.");
@@ -68,6 +137,7 @@ public class CarbonFootprintComponentCollection {
     //deleting component from one of arrayList based on its underlying type
     //Throw an exception if component cannot be casted to a valid type
     public void delete(CarbonFootprintComponent component){
+        // delete from database
         if (component instanceof VehicleModel){
             int index = vehicles.indexOf((VehicleModel)component);
             if(index > -1){
@@ -88,15 +158,6 @@ public class CarbonFootprintComponentCollection {
                 throw new IllegalArgumentException("Input component could not be found in the list.");
             }
         }
-        else if (component instanceof UtilityModel) {
-            int index = utilities.indexOf((UtilityModel)component);
-            if (index > -1){
-                routes.remove(index);
-            }
-            else {
-                throw new IllegalArgumentException("Input component could not be found in the list.");
-            }
-        }
         else{
             throw new IllegalArgumentException("Input component is not valid.");
         }
@@ -104,11 +165,16 @@ public class CarbonFootprintComponentCollection {
 
     //removing(hide) component from one of arrayList based on its underlying type
     //Throw an exception if component cannot be casted to a valid type
-    public void remove(CarbonFootprintComponent component){
+    public void remove(Context context, CarbonFootprintComponent component){
+        // TODO: hide in database
         if (component instanceof VehicleModel){
-            int index = vehicles.indexOf(component);
-            if(index > -1){
-                vehicles.get(index).setIsDeleted(true);
+            VehicleModel vehicle = (VehicleModel) component;
+            if(vehicle.getId() > -1){
+                vehicle.setIsDeleted(true);
+                VehicleDBAdapter vehicleDBAdapter = new VehicleDBAdapter(context);
+                vehicleDBAdapter.open();
+                vehicleDBAdapter.updateRow(vehicle);
+                vehicleDBAdapter.close();
             }
             else
             {
@@ -124,56 +190,12 @@ public class CarbonFootprintComponentCollection {
             {
                 throw new IllegalArgumentException("Input component could not be found in the list.");
             }
-        }
-        else if (component instanceof JourneyModel) {
+        } else if (component instanceof JourneyModel) {
             int index = journies.indexOf(component);
             if (index > -1) {
                 journies.get(index).setDeleted(true);
+                journies.remove(index);
             }
-            else {
-                throw new IllegalArgumentException("Input component could not be found in the list.");
-            }
-        }
-        else if(component instanceof UtilityModel){
-            int index = utilities.indexOf(component);
-            if (index > -1) {
-                utilities.get(index).setDeleted(true);
-            }
-            else {
-                throw new IllegalArgumentException("Input component could not be found in the list.");
-            }
-        }
-        else{
-            throw new IllegalArgumentException("Input component is not valid.");
-        }
-    }
-
-    //Edit an existing compoent to replace it with the passed argument
-    private <E extends CarbonFootprintComponent> void edit(ArrayList<E> list, CarbonFootprintComponent component){
-        int index = list.indexOf(component);
-        if(index > -1){
-            list.set(index, (E)component);
-        }
-        else
-        {
-            throw new IllegalArgumentException("Input component could not be found in the list.");
-        }
-    }
-
-    //edit component from one of arrayList based on its underlying type
-    //Throw an exception if component cannot be casted to a valid type or found
-    public void edit(CarbonFootprintComponent component){
-        if (component instanceof VehicleModel){
-            edit(vehicles, component);
-        }
-        else if (component instanceof RouteModel){
-            edit(routes, component);
-        }
-        else if (component instanceof JourneyModel){
-            edit(journies, component);
-        }
-        else if (component instanceof UtilityModel){
-            edit(utilities, component);
         }
         else{
             throw new IllegalArgumentException("Input component is not valid.");
@@ -189,9 +211,20 @@ public class CarbonFootprintComponentCollection {
 
     //Validating component based on its underlying
     //Throw an exception if the component is not valid
-    private void validateComponentDuplication(CarbonFootprintComponent component){
+    private void validateComponentDuplication(Context context, CarbonFootprintComponent component){
+        // check from database
         if (component instanceof VehicleModel){
-            validateComponentDuplication(vehicles, component);
+            VehicleModel vehicleModel = (VehicleModel)component;
+            VehicleDBAdapter vehicleDBAdapter = new VehicleDBAdapter(context);
+            vehicleDBAdapter.open();
+            Cursor c = vehicleDBAdapter.getName(vehicleModel.getName());
+            if(c.getCount() > 0)
+            {
+                vehicleDBAdapter.close();
+                throw new DuplicateComponentException();
+            }
+            vehicleDBAdapter.close();
+            return;
         }
         else if (component instanceof RouteModel){
             validateComponentDuplication(routes, component);
@@ -199,37 +232,8 @@ public class CarbonFootprintComponentCollection {
         else if (component instanceof JourneyModel){
             validateComponentDuplication(journies, component);
         }
-        else if (component instanceof UtilityModel){
-            validateComponentDuplication(utilities, component);
-        }
         else{
             throw new IllegalArgumentException("Input component is not valid.");
-        }
-    }
-
-    public void changeComponent(CarbonFootprintComponent component, int indexOfComponentEditting){
-
-    }
-
-    //Validating index of component
-    private void validateComponentIndexWithException(CarbonFootprintComponent component,int index) {
-        if (component instanceof VehicleModel){
-            if (index < 0 || index >= instance.getVehicles().size()) {
-                throw new IllegalArgumentException();
-            }
-        }
-        else if (component instanceof RouteModel){
-            if (index < 0 || index >= instance.getRoutes().size()) {
-                throw new IllegalArgumentException();
-            }
-        }
-        else if (component instanceof UtilityModel){
-            if (index < 0 || index >= instance.getUtilities().size()) {
-                throw new IllegalArgumentException();
-            }
-        }
-        else{
-            throw new IllegalArgumentException();
         }
     }
 

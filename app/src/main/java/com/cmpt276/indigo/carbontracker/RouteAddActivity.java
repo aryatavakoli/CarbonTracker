@@ -196,7 +196,7 @@ public class RouteAddActivity extends AppCompatActivity {
 
     boolean addRoute(RouteModel route){
         try{
-            carbonFootprintInterface.add(route);
+            carbonFootprintInterface.add(this, route);
         }
         catch(DuplicateComponentException e){
             if(!editing) {
@@ -231,7 +231,7 @@ public class RouteAddActivity extends AppCompatActivity {
     }
 
     void removeRoute(RouteModel route){
-        carbonFootprintInterface.remove(route);
+        carbonFootprintInterface.remove(this, route);
         Toast.makeText(RouteAddActivity.this, "deleting completed", Toast.LENGTH_LONG).show();
     }
 

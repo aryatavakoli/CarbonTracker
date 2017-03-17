@@ -7,6 +7,7 @@ package com.cmpt276.indigo.carbontracker.carbon_tracker_model;
 public class VehicleModel implements CarbonFootprintComponent{
     public static final double GASOLINE_FOOTPRINT_KG_PER_LITRE = 2.35; // 8.89 kg per gallon in kg/L
     public static final double DIESEL_FOOTPRINT_KG_PER_LITRE = 2.69; // 10.16 kg per Gallon in kg/L
+    private long id;
     private String name;
     private String make;
     private String model;
@@ -17,9 +18,9 @@ public class VehicleModel implements CarbonFootprintComponent{
     private double highwayMileage; // Gallon per mile milleage Highway
     private String primaryFuelType;
     private boolean isDeleted;          // when a Car is deleted, we should hide it instead of removing it
-    private double carbonFootprint;
 
     public VehicleModel(){
+        id = -1;
         name = new String();
         make = new String();
         model = new String();
@@ -30,19 +31,25 @@ public class VehicleModel implements CarbonFootprintComponent{
         highwayMileage = 0;
         primaryFuelType = new String();
         isDeleted = false;
-        carbonFootprint = 0;
     }
 
-    public VehicleModel(String name, String make, String model, String year, String transmission, String engineDisplacment){
+    public VehicleModel(long id, String name, String make, String model, String year, String transmission, String engineDisplacment,
+                        double cityMileage, double highwayMileage, String primaryFuelType, boolean isDeleted){
+        this.id = id;
         this.name = name;
         this.make = make;
         this.model = model;
         this.year = year;
         this.transmisson = transmission;
-        this.engineDisplacment = new String();
-        cityMileage = 0;
-        highwayMileage = 0;
-        isDeleted = false;
+        this.engineDisplacment = engineDisplacment;
+        this.cityMileage = cityMileage;
+        this.highwayMileage = highwayMileage;
+        this.primaryFuelType = primaryFuelType;
+        this.isDeleted = isDeleted;
+    }
+
+    public long getId() {
+        return id;
     }
 
     public String getName() {
@@ -59,6 +66,10 @@ public class VehicleModel implements CarbonFootprintComponent{
 
     public String getYear() {
         return year;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public void setName(String name) {
@@ -169,6 +180,5 @@ public class VehicleModel implements CarbonFootprintComponent{
         this.cityMileage = other.cityMileage; // Gallon per mile mileage city
         this.highwayMileage = other.highwayMileage; // Gallon per mile milleage Highway
         this.primaryFuelType = other.primaryFuelType;
-        this.carbonFootprint = other.carbonFootprint;
     }
 }

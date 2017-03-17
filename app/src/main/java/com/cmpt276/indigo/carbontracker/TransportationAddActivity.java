@@ -121,6 +121,7 @@ public class TransportationAddActivity extends AppCompatActivity {
                 }
                 else{
                     //Removing vehicle from collection if it is on the list
+                    vehicle.setId(currentVehicle.getId());
                     removeVehicle(vehicle);
                     setResult(RESULT_DELETE);
                     Toast.makeText(TransportationAddActivity.this, "Vehicle Deleted!", Toast.LENGTH_SHORT).show();
@@ -172,7 +173,7 @@ public class TransportationAddActivity extends AppCompatActivity {
         }
 
         //Creating vehicle object to pass it to vehicle activity to be added to the list.
-        VehicleModel vehicle = new VehicleModel(name, make, model, year, transmission , engineDisplacement);
+        VehicleModel vehicle = new VehicleModel(-1, name, make, model, year, transmission , engineDisplacement, 0, 0, "", false);
 
         // setting fuel efficiency data
         carbonFootprintInterface.populateCarFuelData(vehicle);
@@ -192,7 +193,7 @@ public class TransportationAddActivity extends AppCompatActivity {
 
     boolean addVehicle(VehicleModel vehicle){
         try{
-            carbonFootprintInterface.add(vehicle);
+            carbonFootprintInterface.add(this, vehicle);
         }
         catch(DuplicateComponentException e){
             if(!editing) {
@@ -202,9 +203,10 @@ public class TransportationAddActivity extends AppCompatActivity {
         }
         return true;
     }
+
     //remove(hide) vehicle from the list
     void removeVehicle(VehicleModel vehicle){
-        carbonFootprintInterface.remove(vehicle);
+        carbonFootprintInterface.remove(this, vehicle);
     }
 
     //Set all the values for dropdown lists
@@ -327,4 +329,3 @@ public class TransportationAddActivity extends AppCompatActivity {
     }
 
 }
-/////

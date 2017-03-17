@@ -1,7 +1,7 @@
 package com.cmpt276.indigo.carbontracker.carbon_tracker_model;
 
 /*
-
+    Implements RouteModel that describes a route object
  */
 
 public class RouteModel implements CarbonFootprintComponent{
