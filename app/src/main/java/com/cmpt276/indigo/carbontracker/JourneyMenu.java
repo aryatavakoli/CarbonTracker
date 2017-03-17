@@ -62,7 +62,6 @@ public class JourneyMenu extends AppCompatActivity {
         }
     }
 
-    final Calendar myCalendar = Calendar.getInstance();
 
 
     private void gettingDate() {
@@ -126,6 +125,7 @@ public class JourneyMenu extends AppCompatActivity {
         TipFragment dialog = new TipFragment();
         dialog.setCancelable(false);
         dialog.show(manager,"message dialog");
+        dialog.setMessage("hello");
 
 
     }

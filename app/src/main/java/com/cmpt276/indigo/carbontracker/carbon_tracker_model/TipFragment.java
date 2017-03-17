@@ -21,12 +21,19 @@ import com.cmpt276.indigo.carbontracker.R;
  */
 
 public class TipFragment extends AppCompatDialogFragment {
+    static int i =0;
+    private String message;
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-
-        builder.setMessage("I need to work on this part.");
+        message = "message number ";
+        builder.setMessage(message + i);
+        builder.setTitle("New Tip");
         builder.setNegativeButton("OK", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 getActivity().finish();
@@ -40,12 +47,10 @@ public class TipFragment extends AppCompatDialogFragment {
                 TipFragment dialog2 = new TipFragment();
                 dialog2.setCancelable(false);
                 dialog2.show(manager,"message dialog");
-
+                i++;
             }
 
         });
-
-
 
 
         AlertDialog alert = builder.show();
