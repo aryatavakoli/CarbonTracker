@@ -18,6 +18,8 @@ public class UtilitiesModel implements CarbonFootprintComponent {
     private long billingPeriodInDays;
     private double monthlyEnergyConsumptionInGWH;
     private double monthlyCO2EmissionsInKg;
+    private double dailyEnergyConsumptionInGWH;
+    private double dailyCO2EmissionsInKg;
 
     public UtilitiesModel(Company companyName){
         this.companyName = companyName;
@@ -65,6 +67,24 @@ public class UtilitiesModel implements CarbonFootprintComponent {
 
     public void setMonthlyCO2EmissionsInKg(double monthlyCO2EmissionsInKg) {
         this.monthlyCO2EmissionsInKg = monthlyCO2EmissionsInKg;
+    }
+
+    public double getDailyEnergyConsumptionInGWH() {
+        dailyCO2EmissionsInKg = monthlyEnergyConsumptionInGWH/billingPeriodInDays;
+        return dailyEnergyConsumptionInGWH;
+    }
+
+    public void setDailyEnergyConsumptionInGWH(double dailyEnergyConsumptionInGWH) {
+        this.dailyEnergyConsumptionInGWH = dailyEnergyConsumptionInGWH;
+    }
+
+    public double getDailyCO2EmissionsInKg() {
+        dailyCO2EmissionsInKg = monthlyCO2EmissionsInKg / billingPeriodInDays;
+        return dailyCO2EmissionsInKg;
+    }
+
+    public void setDailyCO2EmissionsInKg(double dailyCO2EmissionsInKg) {
+        this.dailyCO2EmissionsInKg = dailyCO2EmissionsInKg;
     }
 
     public void calculateMonthlyEmissions(){

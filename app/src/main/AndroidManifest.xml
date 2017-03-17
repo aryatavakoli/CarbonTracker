@@ -107,7 +107,7 @@
 
         <activity
             android:name=".UtilityAddActivity"
-            android:label="Add utility Bill"
+            android:label="@string/utlity_add"
             android:parentActivityName=".UtilitySelectActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

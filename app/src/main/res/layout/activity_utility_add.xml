@@ -1,9 +1,127 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.cmpt276.indigo.carbontracker.UtilityAddActivity">
 
-</android.support.constraint.ConstraintLayout>
+
+    <Button
+        android:id="@+id/utility_add_button_delete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/delete"
+        android:layout_marginEnd="14dp"
+        android:theme="@style/GreenButton"
+        android:layout_alignBaseline="@+id/utility_add_button_ok"
+        android:layout_alignBottom="@+id/utility_add_button_ok"
+        android:layout_toStartOf="@+id/utility_add_button_ok" />
+
+    <Button
+        android:id="@+id/utility_add_button_ok"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/ok"
+        android:layout_marginTop="12dp"
+        android:theme="@style/GreenButton"
+        android:layout_below="@+id/utility_add_table_layout"
+        android:layout_alignEnd="@+id/utility_add_table_layout" />
+
+    <TableLayout
+        android:id="@+id/utility_add_table_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Bill Name: " />
+
+            <EditText
+                android:id="@+id/utility_add_editText_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@android:color/holo_green_light"
+                android:ems="10"
+                android:hint="NickName"
+                android:inputType="textNoSuggestions|textPersonName"
+                android:textCursorDrawable="@drawable/cursor_color" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Company: " />
+
+            <Spinner
+                android:id="@+id/utility_add_spinner_company"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Billing Period" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Energy Consumption " />
+
+            <EditText
+                android:id="@+id/editText2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@android:color/holo_green_light"
+                android:ems="10"
+                android:hint="Energery (GWh)"
+                android:inputType="number"
+                android:textCursorDrawable="@drawable/cursor_color" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Occupants: " />
+
+            <EditText
+                android:id="@+id/editText3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@android:color/holo_green_light"
+                android:ems="10"
+                android:hint="# of People"
+                android:inputType="number"
+                android:textCursorDrawable="@drawable/cursor_color" />
+        </TableRow>
+    </TableLayout>
+</RelativeLayout>
