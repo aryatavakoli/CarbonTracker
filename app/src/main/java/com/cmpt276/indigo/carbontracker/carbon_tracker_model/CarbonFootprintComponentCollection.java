@@ -31,18 +31,24 @@ public class CarbonFootprintComponentCollection {
     }
 
     public ArrayList<VehicleModel> getVehicles() {
+        //TODO: read from Vehicle table
         return vehicles;
     }
 
     public ArrayList<RouteModel> getRoutes() {
+        //TODO: read from Route table
         return routes;
     }
 
-    public ArrayList<JourneyModel> getJournies() {return journies;}
+    public ArrayList<JourneyModel> getJournies() {
+        //TODO: read from Journie table
+        return journies;
+    }
 
     //Adding component to one of arrayList based on its underlying type
     //Throw an exception if component cannot be casted to a valid type
     public void add(CarbonFootprintComponent component){
+        //TODO: add to database instead of arraylist
         validateComponentDuplication(component);
         if (component instanceof VehicleModel){
             vehicles.add((VehicleModel)component);
@@ -61,6 +67,7 @@ public class CarbonFootprintComponentCollection {
     //deleting component from one of arrayList based on its underlying type
     //Throw an exception if component cannot be casted to a valid type
     public void delete(CarbonFootprintComponent component){
+        // delete from database
         if (component instanceof VehicleModel){
             int index = vehicles.indexOf((VehicleModel)component);
             if(index > -1){
@@ -89,6 +96,7 @@ public class CarbonFootprintComponentCollection {
     //removing(hide) component from one of arrayList based on its underlying type
     //Throw an exception if component cannot be casted to a valid type
     public void remove(CarbonFootprintComponent component){
+        // TODO: hide in database
         if (component instanceof VehicleModel){
             int index = vehicles.indexOf(component);
             if(index > -1){
@@ -119,7 +127,7 @@ public class CarbonFootprintComponentCollection {
         }
     }
 
-    //Edit an existing compoent to replace it with the passed argument
+    //Edit an existing component to replace it with the passed argument
     private <E extends CarbonFootprintComponent> void edit(ArrayList<E> list, CarbonFootprintComponent component){
         int index = list.indexOf(component);
         if(index > -1){
@@ -134,6 +142,7 @@ public class CarbonFootprintComponentCollection {
     //edit component from one of arrayList based on its underlying type
     //Throw an exception if component cannot be casted to a valid type or found
     public void edit(CarbonFootprintComponent component){
+        //TODO: edit database entries
         if (component instanceof VehicleModel){
             edit(vehicles, component);
         }
@@ -158,6 +167,7 @@ public class CarbonFootprintComponentCollection {
     //Validating component based on its underlying
     //Throw an exception if the component is not valid
     private void validateComponentDuplication(CarbonFootprintComponent component){
+        // check from database
         if (component instanceof VehicleModel){
             validateComponentDuplication(vehicles, component);
         }
@@ -169,27 +179,6 @@ public class CarbonFootprintComponentCollection {
         }
         else{
             throw new IllegalArgumentException("Input component is not valid.");
-        }
-    }
-
-    public void changeComponent(CarbonFootprintComponent component, int indexOfComponentEditting){
-
-    }
-
-    //Validating index of component
-    private void validateComponentIndexWithException(CarbonFootprintComponent component,int index) {
-        if (component instanceof VehicleModel){
-            if (index < 0 || index >= instance.getVehicles().size()) {
-                throw new IllegalArgumentException();
-            }
-        }
-        else if (component instanceof RouteModel){
-            if (index < 0 || index >= instance.getRoutes().size()) {
-                throw new IllegalArgumentException();
-            }
-        }
-        else{
-            throw new IllegalArgumentException();
         }
     }
 

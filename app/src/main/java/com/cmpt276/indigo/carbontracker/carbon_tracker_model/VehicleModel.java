@@ -17,7 +17,6 @@ public class VehicleModel implements CarbonFootprintComponent{
     private double highwayMileage; // Gallon per mile milleage Highway
     private String primaryFuelType;
     private boolean isDeleted;          // when a Car is deleted, we should hide it instead of removing it
-    private double carbonFootprint;
 
     public VehicleModel(){
         name = new String();
@@ -30,7 +29,6 @@ public class VehicleModel implements CarbonFootprintComponent{
         highwayMileage = 0;
         primaryFuelType = new String();
         isDeleted = false;
-        carbonFootprint = 0;
     }
 
     public VehicleModel(String name, String make, String model, String year, String transmission, String engineDisplacment){
@@ -169,6 +167,5 @@ public class VehicleModel implements CarbonFootprintComponent{
         this.cityMileage = other.cityMileage; // Gallon per mile mileage city
         this.highwayMileage = other.highwayMileage; // Gallon per mile milleage Highway
         this.primaryFuelType = other.primaryFuelType;
-        this.carbonFootprint = other.carbonFootprint;
     }
 }

@@ -4,7 +4,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Objects;
 /*
-
+    Implements JourneyModel that describes a journey object
  */
 
 public class JourneyModel implements CarbonFootprintComponent{

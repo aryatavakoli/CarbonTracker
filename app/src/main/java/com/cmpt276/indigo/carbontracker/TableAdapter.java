@@ -18,7 +18,7 @@ import com.cmpt276.indigo.carbontracker.carbon_tracker_model.VehicleModel;
 
  */
 
-class TableAdapter extends BaseAdapter {
+class  TableAdapter extends BaseAdapter {
 
     private List<JourneyModel> journeyList;
     private LayoutInflater inflater;
