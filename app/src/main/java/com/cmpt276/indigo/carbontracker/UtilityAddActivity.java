@@ -116,7 +116,7 @@ public class UtilityAddActivity extends AppCompatActivity {
 
     boolean addUtility(UtilityModel utility){
         try{
-            carbonFootprintInterface.add(utility);
+            carbonFootprintInterface.add(this,utility);
         }
         catch(DuplicateComponentException e){
                 Toast.makeText(UtilityAddActivity.this, "This Utility already exists.", Toast.LENGTH_SHORT).show();
