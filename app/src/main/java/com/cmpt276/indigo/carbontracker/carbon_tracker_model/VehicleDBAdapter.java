@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-public class VechicleDBAdapter {
+public class VehicleDBAdapter {
 
     // For logging:
     private static final String TAG = "VechicleDBAdapter";
@@ -19,7 +19,7 @@ public class VechicleDBAdapter {
     public static final String KEY_NAME = "name";
     public static final String KEY_MAKE = "make";
     public static final String KEY_MODEL = "model";
-    public static final String KEY_YEAR = "model";
+    public static final String KEY_YEAR = "year";
     public static final String KEY_TRANSMISSION = "transmission";
     public static final String KEY_ENGINE_DISPLACEMENT = "engine_displacement";
     public static final String KEY_CITY_MILEAGE = "city_mileage";
@@ -51,15 +51,16 @@ public class VechicleDBAdapter {
     private static final String DATABASE_CREATE_SQL =
             "create table " + DATABASE_TABLE
                     + " (" + KEY_ROWID + " integer primary key autoincrement, "
-                    + KEY_NAME + " text not null, "
+                    + KEY_NAME + " text not null unique, "
                     + KEY_MAKE + " text not null, "
+                    + KEY_MODEL + " text not null, "
                     + KEY_YEAR + " text not null, "
                     + KEY_TRANSMISSION + " text not null, "
                     + KEY_ENGINE_DISPLACEMENT + " text not null, "
                     + KEY_CITY_MILEAGE + " double not null, "
                     + KEY_HIGHWAY_MILEAGE + " double not null, "
                     + KEY_PRIMARY_FUEL_TYPE + " text not null, "
-                    + KEY_IS_DELETED + " boolean not null, "
+                    + KEY_IS_DELETED + " boolean not null"
                     + ");";
 
     // Context of application who uses us.
@@ -72,13 +73,13 @@ public class VechicleDBAdapter {
     //	Public methods:
     /////////////////////////////////////////////////////////////////////
 
-    public VechicleDBAdapter(Context ctx) {
+    public VehicleDBAdapter(Context ctx) {
         this.context = ctx;
         myDBHelper = new DatabaseHelper(context);
     }
 
     // Open the database connection.
-    public VechicleDBAdapter open() {
+    public VehicleDBAdapter open() {
         db = myDBHelper.getWritableDatabase();
         return this;
     }
@@ -94,6 +95,7 @@ public class VechicleDBAdapter {
         ContentValues initialValues = new ContentValues();
         initialValues.put(KEY_NAME, vehicle.getName());
         initialValues.put(KEY_MODEL, vehicle.getModel());
+        initialValues.put(KEY_MAKE, vehicle.getMake());
         initialValues.put(KEY_YEAR, vehicle.getYear());
         initialValues.put(KEY_TRANSMISSION, vehicle.getTransmisson());
         initialValues.put(KEY_ENGINE_DISPLACEMENT, vehicle.getEngineDisplacment());
@@ -102,7 +104,8 @@ public class VechicleDBAdapter {
         initialValues.put(KEY_PRIMARY_FUEL_TYPE, vehicle.getPrimaryFuelType());
         initialValues.put(KEY_IS_DELETED, vehicle.getIsDeleted());
         // Insert it into the database.
-        return db.insert(DATABASE_TABLE, null, initialValues);
+        vehicle.setId(db.insert(DATABASE_TABLE, null, initialValues));
+        return vehicle.getId();
     }
 
     // Delete a row from the database, by rowId (primary key)
@@ -144,9 +147,20 @@ public class VechicleDBAdapter {
         return c;
     }
 
+    // Get a specific vehicle by name
+    public Cursor getName(String vehicleName) {
+        String where = KEY_NAME + "='" + vehicleName + "'";
+        Cursor c = 	db.query(true, DATABASE_TABLE, ALL_KEYS,
+                where, null, null, null, null, null);
+        if (c != null) {
+            c.moveToFirst();
+        }
+        return c;
+    }
+
     // Change an existing row to be equal to new data.
-    public boolean updateRow(long rowId, VehicleModel vehicle) {
-        String where = KEY_ROWID + "=" + rowId;
+    public boolean updateRow(VehicleModel vehicle) {
+        String where = KEY_ROWID + "=" + vehicle.getId();
         // Create row's data:
         ContentValues newValues = new ContentValues();
         ContentValues initialValues = new ContentValues();
@@ -161,6 +175,14 @@ public class VechicleDBAdapter {
         initialValues.put(KEY_IS_DELETED, vehicle.getIsDeleted());
         // Insert it into the database.
         return db.update(DATABASE_TABLE, newValues, where, null) != 0;
+    }
+
+    public void dropTable() {
+        db.execSQL("DROP TABLE " + DATABASE_TABLE);
+    }
+
+    public void createTable() {
+        db.execSQL(DATABASE_CREATE_SQL);
     }
 
     /**

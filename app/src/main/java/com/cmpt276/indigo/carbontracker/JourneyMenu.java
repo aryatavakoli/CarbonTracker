@@ -1,6 +1,7 @@
 package com.cmpt276.indigo.carbontracker;
 
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.icu.text.SimpleDateFormat;
 import android.icu.util.Calendar;
@@ -99,11 +100,12 @@ public class JourneyMenu extends AppCompatActivity {
 
     private void selectCreate() {
         Button btn = (Button) findViewById(R.id.journey_menu_create_btn);
+        final Context context = this;
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (isRouteSelected && isVehicleSelected) {
-                    carbonFootprintInterface.add(newJourney);
+                    carbonFootprintInterface.add(context, newJourney);
                     Toast.makeText(JourneyMenu.this, "Journey Created!", Toast.LENGTH_SHORT).show();
                     showTipDialog();
                     //finish();

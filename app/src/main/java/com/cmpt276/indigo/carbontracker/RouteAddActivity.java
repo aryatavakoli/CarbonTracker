@@ -196,7 +196,7 @@ public class RouteAddActivity extends AppCompatActivity {
 
     boolean addRoute(RouteModel route){
         try{
-            carbonFootprintInterface.add(route);
+            carbonFootprintInterface.add(this, route);
         }
         catch(DuplicateComponentException e){
             if(!editing) {

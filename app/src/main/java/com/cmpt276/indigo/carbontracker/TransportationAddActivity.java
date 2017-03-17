@@ -172,7 +172,7 @@ public class TransportationAddActivity extends AppCompatActivity {
         }
 
         //Creating vehicle object to pass it to vehicle activity to be added to the list.
-        VehicleModel vehicle = new VehicleModel(name, make, model, year, transmission , engineDisplacement);
+        VehicleModel vehicle = new VehicleModel(-1, name, make, model, year, transmission , engineDisplacement, 0, 0, "", false);
 
         // setting fuel efficiency data
         carbonFootprintInterface.populateCarFuelData(vehicle);
@@ -192,7 +192,7 @@ public class TransportationAddActivity extends AppCompatActivity {
 
     boolean addVehicle(VehicleModel vehicle){
         try{
-            carbonFootprintInterface.add(vehicle);
+            carbonFootprintInterface.add(this, vehicle);
         }
         catch(DuplicateComponentException e){
             if(!editing) {

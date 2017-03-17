@@ -1,6 +1,7 @@
 package com.cmpt276.indigo.carbontracker;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -65,7 +66,7 @@ public class TransportationSelectActvitiy extends AppCompatActivity {
         //set reference to listview
         ListView carList = (ListView) findViewById(R.id.transportation_select_list);
         populateVehiclesList();
-
+        final Context context = this;
         //handle click for each element in listview
         carList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -73,7 +74,7 @@ public class TransportationSelectActvitiy extends AppCompatActivity {
                 Intent intent = getIntent();
                 // Passing selected vehicle to the caller activity
                 int realPosition = vehicle_positionList.get(position);
-                VehicleModel selectedVehicle = carbonFootprintInterface.getVehicles().get(realPosition);
+                VehicleModel selectedVehicle = carbonFootprintInterface.getVehicles(context).get(realPosition);
                 intent.putExtra("vehicle", selectedVehicle);
                 setResult(RESULT_OK, intent);
                 finish();
@@ -84,7 +85,7 @@ public class TransportationSelectActvitiy extends AppCompatActivity {
     private void populateVehiclesList() {
         ListView carList = (ListView) findViewById(R.id.transportation_select_list);
         carbonFootprintInterface = CarbonFootprintComponentCollection.getInstance();
-        ArrayList<VehicleModel> vehicles = carbonFootprintInterface.getVehicles();
+        ArrayList<VehicleModel> vehicles = carbonFootprintInterface.getVehicles(this);
         // putting vehicles in list
         List<String> vehicle_nameList = new ArrayList<>();
         vehicle_positionList = new ArrayList<>();
@@ -110,7 +111,7 @@ public class TransportationSelectActvitiy extends AppCompatActivity {
     }
 
     private void setupEditVehicleLongPress() {
-        final ArrayList<VehicleModel> vehicles = carbonFootprintInterface.getVehicles();
+        final ArrayList<VehicleModel> vehicles = carbonFootprintInterface.getVehicles(this);
         ListView list = (ListView) findViewById(R.id.transportation_select_list);
         list.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
@@ -136,7 +137,7 @@ public class TransportationSelectActvitiy extends AppCompatActivity {
                     break;
                 case ACTIVITY_RESULT_EDIT:
                     VehicleModel modifiedVehicle = (VehicleModel) data.getSerializableExtra("vehicle");
-                    VehicleModel vehicle = carbonFootprintInterface.getVehicles().get(indexOfVehicleEditing);
+                    VehicleModel vehicle = carbonFootprintInterface.getVehicles(this).get(indexOfVehicleEditing);
                     for(JourneyModel v: carbonFootprintInterface.getJournies()){
                         if(v.getVehicleModel().equals(vehicle))
                         {
