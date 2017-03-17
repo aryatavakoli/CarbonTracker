@@ -129,15 +129,7 @@ public class UtilitySelectActivity extends AppCompatActivity {
                 case ACTIVITY_RESULT_EDIT:
                     UtilityModel modifiedUtility = (UtilityModel) data.getSerializableExtra("utility");
                     UtilityModel utility = carbonFootprintInterface.getUtilities().get(indexOfUtilityEditing);
-                    for (UtilityModel v : carbonFootprintInterface.getUtilities()) {
-                        if (v.equals(utility)) {
-                            utility.setName(modifiedUtility.getName());
-                            utility.setTotalEnergyConsumptionInGWH(modifiedUtility.getTotalEnergyConsumptionInGWH());
-                            utility.setCompanyName(modifiedUtility.getCompanyName());
-                            utility.setBillingPeriodInDays(modifiedUtility.getBillingPeriodInDays());
-                            populateUtilitiesList();
-                        }
-                    }
+                    //TODO: IMPLEMENT ACTIVITY_RESULT_EDIT
             }
         }
         else if (resultCode == UtilityAddActivity.RESULT_DELETE){
