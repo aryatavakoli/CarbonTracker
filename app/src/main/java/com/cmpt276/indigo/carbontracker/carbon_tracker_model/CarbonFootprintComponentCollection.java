@@ -194,6 +194,7 @@ public class CarbonFootprintComponentCollection {
             int index = journies.indexOf(component);
             if (index > -1) {
                 journies.get(index).setDeleted(true);
+                journies.remove(index);
             }
         }
         else{

@@ -31,6 +31,7 @@ import java.util.Locale;
 
 public class JourneyMenu extends AppCompatActivity {
     public static final int DATE_SELECT = 52;
+    static int messageIndex = 0;
     JourneyModel newJourney;
     public static final int TRANSPORTATION_SELECT = 56;
     public static final int ROUTE_SELECT = 57;
@@ -39,6 +40,7 @@ public class JourneyMenu extends AppCompatActivity {
     List<Integer> journey_positionList;
     public float carbonEmission;
 
+    private boolean isEdit = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,6 +58,7 @@ public class JourneyMenu extends AppCompatActivity {
         Intent intent = getIntent();
         if (intent != null && intent.getSerializableExtra("journey")!=null) {
             newJourney = (JourneyModel) intent.getSerializableExtra("journey");
+            isEdit = true;
             isVehicleSelected = true;
             isRouteSelected = true;
             fillJourneyTexts();
@@ -63,7 +66,6 @@ public class JourneyMenu extends AppCompatActivity {
         }
     }
 
-    final Calendar myCalendar = Calendar.getInstance();
 
 
     private void gettingDate() {
@@ -105,10 +107,15 @@ public class JourneyMenu extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (isRouteSelected && isVehicleSelected) {
-                    carbonFootprintInterface.add(context, newJourney);
-                    Toast.makeText(JourneyMenu.this, "Journey Created!", Toast.LENGTH_SHORT).show();
-                    showTipDialog();
-                    //finish();
+                    if (isEdit) {
+                        carbonFootprintInterface.edit(context, newJourney);
+                        Toast.makeText(JourneyMenu.this, "Journey Save!", Toast.LENGTH_SHORT).show();
+                        finish();
+                    } else {
+                        carbonFootprintInterface.add(context, newJourney);
+                        Toast.makeText(JourneyMenu.this, "Journey Created!", Toast.LENGTH_SHORT).show();
+                        showTipDialog();
+                    }
 
                 }
                 else{
@@ -121,13 +128,25 @@ public class JourneyMenu extends AppCompatActivity {
             }
         });
 
+
+
 }
+
+    private String getMessageFromArray(){
+        String[] messageArray = getResources().getStringArray(R.array.messageArray);
+        if (messageIndex == messageArray.length ) messageIndex = 0;
+        String message = messageArray[messageIndex];
+
+        return message;
+    }
 
     private void showTipDialog() {
         FragmentManager manager = getSupportFragmentManager();
         TipFragment dialog = new TipFragment();
         dialog.setCancelable(false);
         dialog.show(manager,"message dialog");
+        String message = getMessageFromArray();
+        dialog.setMessage(message);
 
 
     }
