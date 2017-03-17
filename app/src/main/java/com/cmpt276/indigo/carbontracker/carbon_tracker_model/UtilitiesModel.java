@@ -20,6 +20,7 @@ public class UtilitiesModel implements CarbonFootprintComponent {
     private double monthlyCO2EmissionsInKg;
     private double dailyEnergyConsumptionInGWH;
     private double dailyCO2EmissionsInKg;
+    private boolean isDeleted;
 
     public UtilitiesModel(Company companyName){
         this.companyName = companyName;
@@ -85,6 +86,14 @@ public class UtilitiesModel implements CarbonFootprintComponent {
 
     public void setDailyCO2EmissionsInKg(double dailyCO2EmissionsInKg) {
         this.dailyCO2EmissionsInKg = dailyCO2EmissionsInKg;
+    }
+
+    public boolean isDeleted() {
+        return isDeleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        isDeleted = deleted;
     }
 
     public void calculateMonthlyEmissions(){

@@ -17,6 +17,7 @@ public class CarbonFootprintComponentCollection {
     private ArrayList<JourneyModel> journies;
     private ArrayList<String> vehicleMakes;
     private ArrayList<VehicleModel> readVehicles;
+    private ArrayList<UtilitiesModel> utilities;
     private static CarbonFootprintComponentCollection instance = new CarbonFootprintComponentCollection();
 
     public static CarbonFootprintComponentCollection getInstance(){
@@ -28,6 +29,7 @@ public class CarbonFootprintComponentCollection {
         routes = new ArrayList<>();
         journies = new ArrayList<>();
         vehicleMakes = new ArrayList<>();
+        utilities= new ArrayList<>();
     }
 
     public ArrayList<VehicleModel> getVehicles() {
@@ -39,6 +41,8 @@ public class CarbonFootprintComponentCollection {
     }
 
     public ArrayList<JourneyModel> getJournies() {return journies;}
+
+    public ArrayList<UtilitiesModel> getUtilities() {return utilities;}
 
     //Adding component to one of arrayList based on its underlying type
     //Throw an exception if component cannot be casted to a valid type
@@ -52,6 +56,9 @@ public class CarbonFootprintComponentCollection {
         }
         else if (component instanceof JourneyModel){
             journies.add((JourneyModel) component);
+        }
+        else if (component instanceof  UtilitiesModel){
+            utilities.add((UtilitiesModel) component);
         }
         else{
             throw new IllegalArgumentException("Input component is not valid.");
@@ -78,6 +85,15 @@ public class CarbonFootprintComponentCollection {
             }
             else
             {
+                throw new IllegalArgumentException("Input component could not be found in the list.");
+            }
+        }
+        else if (component instanceof UtilitiesModel) {
+            int index = utilities.indexOf((UtilitiesModel)component);
+            if (index > -1){
+                routes.remove(index);
+            }
+            else {
                 throw new IllegalArgumentException("Input component could not be found in the list.");
             }
         }
@@ -108,10 +124,23 @@ public class CarbonFootprintComponentCollection {
             {
                 throw new IllegalArgumentException("Input component could not be found in the list.");
             }
-        } else if (component instanceof JourneyModel) {
+        }
+        else if (component instanceof JourneyModel) {
             int index = journies.indexOf(component);
             if (index > -1) {
                 journies.get(index).setDeleted(true);
+            }
+            else {
+                throw new IllegalArgumentException("Input component could not be found in the list.");
+            }
+        }
+        else if(component instanceof UtilitiesModel){
+            int index = utilities.indexOf(component);
+            if (index > -1) {
+                utilities.get(index).setDeleted(true);
+            }
+            else {
+                throw new IllegalArgumentException("Input component could not be found in the list.");
             }
         }
         else{
@@ -143,6 +172,9 @@ public class CarbonFootprintComponentCollection {
         else if (component instanceof JourneyModel){
             edit(journies, component);
         }
+        else if (component instanceof UtilitiesModel){
+            edit(utilities, component);
+        }
         else{
             throw new IllegalArgumentException("Input component is not valid.");
         }
@@ -167,6 +199,9 @@ public class CarbonFootprintComponentCollection {
         else if (component instanceof JourneyModel){
             validateComponentDuplication(journies, component);
         }
+        else if (component instanceof UtilitiesModel){
+            validateComponentDuplication(utilities, component);
+        }
         else{
             throw new IllegalArgumentException("Input component is not valid.");
         }
@@ -185,6 +220,11 @@ public class CarbonFootprintComponentCollection {
         }
         else if (component instanceof RouteModel){
             if (index < 0 || index >= instance.getRoutes().size()) {
+                throw new IllegalArgumentException();
+            }
+        }
+        else if (component instanceof UtilitiesModel){
+            if (index < 0 || index >= instance.getUtilities().size()) {
                 throw new IllegalArgumentException();
             }
         }
