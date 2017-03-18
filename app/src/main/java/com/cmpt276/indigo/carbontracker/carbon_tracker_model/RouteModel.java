@@ -5,6 +5,7 @@ package com.cmpt276.indigo.carbontracker.carbon_tracker_model;
  */
 
 public class RouteModel implements CarbonFootprintComponent{
+    private long id;
     private String name;
     private int cityDistance;
     private int highwayDistance;
@@ -17,6 +18,10 @@ public class RouteModel implements CarbonFootprintComponent{
         highwayDistance = 0;
         totalDistance = 0;
         isDeleted = false;          // when a Route is deleted, we should hide it instead of removing it
+    }
+
+    public long getId() {
+        return id;
     }
 
     public String getName() {
@@ -33,6 +38,10 @@ public class RouteModel implements CarbonFootprintComponent{
 
     public int getTotalDistance() {
         return totalDistance;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public void setName(String name) {
