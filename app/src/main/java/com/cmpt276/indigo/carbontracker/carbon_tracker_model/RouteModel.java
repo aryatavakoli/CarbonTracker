@@ -20,6 +20,15 @@ public class RouteModel implements CarbonFootprintComponent{
         isDeleted = false;          // when a Route is deleted, we should hide it instead of removing it
     }
 
+    public RouteModel(long id, String name, int cityDistance, int highwayDistance, int totalDistance, boolean isDeleted){
+        this.id = id;
+        this.name = name;
+        this.cityDistance = cityDistance;
+        this.highwayDistance = highwayDistance;
+        this.totalDistance = totalDistance;
+        this.isDeleted = isDeleted;
+    }
+
     public long getId() {
         return id;
     }

@@ -39,7 +39,7 @@ public class CarbonFootprintComponentCollection {
         VehicleDBAdapter vehicleDBAdapter = new VehicleDBAdapter(context);
         vehicleDBAdapter.open();
         Cursor cursor = vehicleDBAdapter.getAllRows();
-        ArrayList<VehicleModel> vehicleModels = new ArrayList<>();
+        ArrayList<VehicleModel> vehicles = new ArrayList<>();
         // Reset cursor to start, checking to see if there's data:
         if (cursor.moveToFirst()) {
             do {
@@ -58,17 +58,40 @@ public class CarbonFootprintComponentCollection {
                 if(isDeleted) {
                     continue;
                 }
-                VehicleModel vehicleModel = new VehicleModel(id, name, make, model, year, transmission, engineDisplacement, cityMileage, highwayMileage, primaryFuelType, isDeleted);
-                vehicleModels.add(vehicleModel);
+                VehicleModel vehicle = new VehicleModel(id, name, make, model, year, transmission, engineDisplacement, cityMileage, highwayMileage, primaryFuelType, isDeleted);
+                vehicles.add(vehicle);
             } while(cursor.moveToNext());
         }
         // Close the cursor to avoid a resource leak.
         cursor.close();
-        return vehicleModels;
+        return vehicles;
     }
 
-    public ArrayList<RouteModel> getRoutes() {
+    public ArrayList<RouteModel> getRoutes(Context context) {
         //TODO: read from Route table
+        RouteDBAdabtor routeDBAdabtor = new RouteDBAdabtor(context);
+        routeDBAdabtor.open();
+        Cursor cursor = routeDBAdabtor.getAllRows();
+        ArrayList<RouteModel> routes = new ArrayList<>();
+        //Reset cursor to start, checking to see if there's data:
+        if (cursor.moveToFirst()){
+            do {
+                //Process the data:
+                long id = (long) cursor.getInt(routeDBAdabtor.COL_ROWID);
+                String name = cursor.getString(RouteDBAdabtor.COL_NAME);
+                double cityDistance = cursor.getDouble(RouteDBAdabtor.COL_CITY_DISTANCE);
+                double highwayDistance = cursor.getDouble(RouteDBAdabtor.COL_HIGHWAY_DISTANCE);
+                double totalDistance = cursor.getDouble((RouteDBAdabtor.COL_TOTAL_DISTANCE));
+                boolean isDeleted = cursor.getInt(RouteDBAdabtor.COL_IS_DELETED) > 0;
+                if (isDeleted){
+                    continue;
+                }
+                RouteModel route = new RouteModel(id, name ,(int)cityDistance, (int)highwayDistance, (int)totalDistance, isDeleted);
+                routes.add(route);
+            }while(cursor.moveToNext());
+        }
+        //Close the cursor to avoid a resource leak.
+        cursor.close();
         return routes;
     }
 
@@ -91,7 +114,11 @@ public class CarbonFootprintComponentCollection {
             vehicleDBAdapter.close();
         }
         else if (component instanceof RouteModel){
-            routes.add((RouteModel) component);
+            RouteDBAdabtor routeDBAdabtor = new RouteDBAdabtor(context);
+            routeDBAdabtor.open();
+            routeDBAdabtor.open();
+            routeDBAdabtor.insertRow((RouteModel)component);
+            routeDBAdabtor.close();
         }
         else if (component instanceof JourneyModel){
             journies.add((JourneyModel) component);
@@ -131,7 +158,11 @@ public class CarbonFootprintComponentCollection {
             vehicleDBAdapter.close();
         }
         else if (component instanceof RouteModel){
-            edit(routes, component, context);
+            RouteModel route = (RouteModel) component;
+            RouteDBAdabtor routeDBAdabtor = new RouteDBAdabtor((context));
+            routeDBAdabtor.open();
+            routeDBAdabtor.updateRow(route);
+            routeDBAdabtor.close();
         }
         else if (component instanceof JourneyModel){
             edit(journies, component, context);
@@ -202,9 +233,13 @@ public class CarbonFootprintComponentCollection {
             }
         }
         else if (component instanceof RouteModel){
-            int index = routes.indexOf(component);
-            if(index > -1){
-                routes.get(index).setIsDeleted(true);
+            RouteModel route = (RouteModel) component;
+            if(route.getId() > -1){
+                route.setIsDeleted(true);
+                RouteDBAdabtor routeDBAdabtor = new RouteDBAdabtor(context);
+                routeDBAdabtor.open();
+                routeDBAdabtor.updateRow(route);
+                routeDBAdabtor.close();
             }
             else
             {
@@ -240,6 +275,7 @@ public class CarbonFootprintComponentCollection {
     //Throw an exception if the component is not valid
     private void validateComponentDuplication(Context context, CarbonFootprintComponent component){
         // check from database
+        //TODO: Check the database
         if (component instanceof VehicleModel){
             VehicleModel vehicleModel = (VehicleModel)component;
             VehicleDBAdapter vehicleDBAdapter = new VehicleDBAdapter(context);
@@ -254,7 +290,17 @@ public class CarbonFootprintComponentCollection {
             return;
         }
         else if (component instanceof RouteModel){
-            validateComponentDuplication(routes, component);
+            RouteModel routeModel = (RouteModel) component;
+            RouteDBAdabtor routeDBAdabtor = new RouteDBAdabtor(context);
+            routeDBAdabtor.open();
+            Cursor c = routeDBAdabtor.getName(routeModel.getName());
+            if(c.getCount() > 0)
+            {
+                routeDBAdabtor.close();
+                throw new DuplicateComponentException();
+            }
+            routeDBAdabtor.close();
+            return;
         }
         else if (component instanceof JourneyModel){
             validateComponentDuplication(journies, component);
