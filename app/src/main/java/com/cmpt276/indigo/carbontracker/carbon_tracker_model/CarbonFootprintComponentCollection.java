@@ -134,7 +134,10 @@ public class CarbonFootprintComponentCollection {
             edit(routes, component, context);
         }
         else if (component instanceof JourneyModel){
-            edit(journies, component, context);
+            int index = journies.indexOf((JourneyModel)component);
+            if (index > -1) {
+                journies.set(index, (JourneyModel) component);
+            }
         }
         else if (component instanceof UtilityModel){
             edit(utilities, component, context);

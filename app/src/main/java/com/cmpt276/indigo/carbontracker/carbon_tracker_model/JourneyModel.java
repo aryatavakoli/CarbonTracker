@@ -86,7 +86,13 @@ public class JourneyModel implements CarbonFootprintComponent{
         {
             totalFootprint = 0;
         }
-
+        if (vehicleModel.getName().equals("Walk/Bicycle")) {
+            totalFootprint =  routeModel.getTotalDistance() * 0.0f ;
+        } else if (vehicleModel.getName().equals("Bus")) {
+            totalFootprint =  routeModel.getTotalDistance() * 89f ;
+        } else if (vehicleModel.getName().equals("Skytrain")) {
+            totalFootprint =  routeModel.getTotalDistance() * 8.7f ;
+        }
         //Converts double to float for use with graph
         //Rounds it off
         convertedFootprint =  Math.round((float)totalFootprint * 100.0f) / 100.0f;
