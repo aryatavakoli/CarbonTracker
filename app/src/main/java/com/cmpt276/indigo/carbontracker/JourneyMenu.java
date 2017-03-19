@@ -19,6 +19,7 @@ import com.cmpt276.indigo.carbontracker.carbon_tracker_model.JourneyModel;
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.RouteModel;
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.TipFragment;
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.VehicleModel;
+import com.cmpt276.indigo.carbontracker.viewjourney.SelectTransActivity;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -178,7 +179,7 @@ public class JourneyMenu extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(JourneyMenu.this, TransportationSelectActvitiy.class);
+                Intent intent = new Intent(JourneyMenu.this, SelectTransActivity.class);
                 startActivityForResult(intent, TRANSPORTATION_SELECT );
 
             }

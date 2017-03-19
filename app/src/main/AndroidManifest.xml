@@ -78,7 +78,7 @@
         </activity>
 
         <activity
-            android:name=".viewjourney.EditJourneyActivity"
+            android:name=".viewjourney.SelectTransActivity"
             android:label="Edit Journey"
             android:parentActivityName=".JourneyMenu">
             <meta-data
