@@ -28,6 +28,7 @@ public class RouteSelectActivity extends AppCompatActivity {
     private static final int ACTIVITY_RESULT_ADD = 40;
     private static final int ACTIVITY_RESULT_EDIT = 60;
     List<Integer> routePositionList;
+    ArrayList<RouteModel> routes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,7 +72,7 @@ public class RouteSelectActivity extends AppCompatActivity {
                 Intent intent = getIntent();
                 // Passing selected route to the caller activity
                 int realPosition = routePositionList.get(position);
-                RouteModel selectedRoute = carbonFootprintInterface.getRoutes().get(realPosition);
+                RouteModel selectedRoute = routes.get(realPosition);
                 intent.putExtra("route", selectedRoute);
                 setResult(RESULT_OK, intent);
                 finish();
@@ -82,7 +83,7 @@ public class RouteSelectActivity extends AppCompatActivity {
     private void populateRoutesList() {
         ListView routeList = (ListView) findViewById(R.id.route_select_list);
         carbonFootprintInterface = CarbonFootprintComponentCollection.getInstance();
-        ArrayList<RouteModel> routes = carbonFootprintInterface.getRoutes();
+        routes = carbonFootprintInterface.getRoutes(this);
         // putting routes in list
         List<String> routeNameList = new ArrayList<>();
         routePositionList = new ArrayList<>();
@@ -108,7 +109,7 @@ public class RouteSelectActivity extends AppCompatActivity {
     }
 
     private void setupEditRouteLongPress() {
-        final ArrayList<RouteModel> routes = carbonFootprintInterface.getRoutes();
+        final ArrayList<RouteModel> routes = carbonFootprintInterface.getRoutes(this);
         ListView list = (ListView) findViewById(R.id.route_select_list);
         list.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
@@ -133,17 +134,10 @@ public class RouteSelectActivity extends AppCompatActivity {
                     break;
                 case ACTIVITY_RESULT_EDIT:
                     RouteModel modifiedRoute = (RouteModel) data.getSerializableExtra("route");
-                    RouteModel route = carbonFootprintInterface.getRoutes().get(indexOfRouteEditing);
-                    for(JourneyModel v: carbonFootprintInterface.getJournies()){
-                        if(v.getRouteModel().equals(route))
-                        {
-                            v.setRouteModel(modifiedRoute);
-                        }
-                    }
-                    route.setName(modifiedRoute.getName());
-                    route.setHighwayDistance(modifiedRoute.getHighwayDistance());
-                    route.setCityDistance(modifiedRoute.getCityDistance());
+                    modifiedRoute.setId(indexOfRouteEditing);
+                    carbonFootprintInterface.edit(this, modifiedRoute);
                     populateRoutesList();
+                    break;
             }
 
         }

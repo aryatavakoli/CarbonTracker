@@ -7,11 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-/**
- * Created by faranakpouya on 2017-03-18.
- */
-
-public class RouteDBAdabtor {
+public class RouteDBAdaptor {
 
     // For logging:
     private static final String TAG = "RouteDBAdapter";
@@ -55,17 +51,17 @@ public class RouteDBAdabtor {
     // Context of application who uses us.
     private final Context context;
 
-    private RouteDBAdabtor.DatabaseHelper myDBHelper;
+    private RouteDBAdaptor.DatabaseHelper myDBHelper;
     private SQLiteDatabase db;
 
 
-    public RouteDBAdabtor(Context ctx) {
+    public RouteDBAdaptor(Context ctx) {
         this.context = ctx;
         myDBHelper = new DatabaseHelper(context);
     }
 
     // Open the database connection.
-    public RouteDBAdabtor open() {
+    public RouteDBAdaptor open() {
         db = myDBHelper.getWritableDatabase();
         return this;
     }
