@@ -63,4 +63,5 @@
     <string name="select_date">select date</string>
     <string name="title_activity_utility_select">Select Utiltity Bill</string>
     <string name="utlity_add">Add Utility Bill</string>
+    <string name="transportation">Transportation</string>
 </resources>

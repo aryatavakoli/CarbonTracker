@@ -11,7 +11,7 @@ import com.cmpt276.indigo.carbontracker.viewjourney.ViewJourneyActivity;
 
 import java.io.InputStream;
 /*
-
+    implments main menu activity
  */
 public class MainMenu extends AppCompatActivity {
     public static final int JOURNEY_SELECT = 300;

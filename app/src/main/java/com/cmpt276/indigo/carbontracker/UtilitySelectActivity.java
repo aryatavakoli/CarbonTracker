@@ -16,6 +16,9 @@ import com.cmpt276.indigo.carbontracker.carbon_tracker_model.UtilityModel;
 import java.util.ArrayList;
 import java.util.List;
 
+/*
+    implements Utility Select activity
+ */
 public class UtilitySelectActivity extends AppCompatActivity {
 
     private int indexOfUtilityEditing = -1;

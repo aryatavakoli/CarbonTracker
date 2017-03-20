@@ -77,7 +77,7 @@ class  TableAdapter extends BaseAdapter {
         carName.setTextSize(13);
         routeName.setText(route.getName());
         routeName.setTextSize(13);
-        totalDistance.setText((route.getCityDistance()+ route.getHighwayDistance()) + " km" + "");
+        totalDistance.setText((route.getTotalDistance()) + " km" + "");
         routeName.setTextSize(13);
         date.setText(journey.getCreationDate()+ "");
         date.setTextSize(13);

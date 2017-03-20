@@ -1,5 +1,10 @@
 package com.cmpt276.indigo.carbontracker;
 
+/**
+ * Created by arya on 05/03/17.
+ * Implements the menu for each for the graph
+ */
+
 import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;

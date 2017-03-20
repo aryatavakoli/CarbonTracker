@@ -24,7 +24,7 @@ import java.net.NoRouteToHostException;
 import static java.sql.Types.NULL;
 
 /*
-    Implements RouteAddActivity UI for adding a new route
+    implements Route Add activity
  */
 
 public class RouteAddActivity extends AppCompatActivity {

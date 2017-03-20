@@ -46,6 +46,7 @@ public class RouteModel implements CarbonFootprintComponent{
     }
 
     public int getTotalDistance() {
+        totalDistance = cityDistance + highwayDistance;
         return totalDistance;
     }
 
