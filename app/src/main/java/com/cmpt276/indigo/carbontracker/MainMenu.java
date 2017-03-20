@@ -38,7 +38,7 @@ public class MainMenu extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainMenu.this, CarbonFootprintMenu.class);
+                Intent intent = new Intent(MainMenu.this, CarbonFootprintMainMenu.class);
                 startActivity(intent);
             }
         });
