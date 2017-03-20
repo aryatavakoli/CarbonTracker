@@ -57,37 +57,32 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.cmpt276.indigo.carbontracker.MainMenu" />
         </activity>
-
         <activity
-            android:name=".CarbonFootprintMenu"
+            android:name=".CarbonFootprintJourneyFootprintMenu"
             android:label="@string/title_activity_carbon_footprint_menu"
-            android:parentActivityName=".JourneyMenu"
+            android:parentActivityName=".CarbonFootprintMainMenu"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.cmpt276.indigo.carbontracker.JourneyMenu" />
+                android:value="com.cmpt276.indigo.carbontracker.CarbonFootprintMainMenu" />
         </activity>
-
         <activity
             android:name=".viewjourney.ViewJourneyActivity"
             android:label="View Journey"
             android:parentActivityName=".MainMenu">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.cmpt276.indigo.carbontracker.MainMenu"/>
+                android:value="com.cmpt276.indigo.carbontracker.MainMenu" />
         </activity>
-
         <activity
             android:name=".viewjourney.SelectTransActivity"
             android:label="Edit Journey"
             android:parentActivityName=".JourneyMenu">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.cmpt276.indigo.carbontracker.JourneyMenu"/>
+                android:value="com.cmpt276.indigo.carbontracker.JourneyMenu" />
         </activity>
-
-        <activity android:name=".DateSelectActivity"></activity>
-
+        <activity android:name=".DateSelectActivity" />
         <activity
             android:name=".UtilitySelectActivity"
             android:label="@string/title_activity_utility_select"
@@ -95,18 +90,42 @@
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.cmpt276.indigo.carbontracker.MainMenu"/>
+                android:value="com.cmpt276.indigo.carbontracker.MainMenu" />
         </activity>
-
         <activity
             android:name=".UtilityAddActivity"
             android:label="@string/utlity_add"
             android:parentActivityName=".UtilitySelectActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.cmpt276.indigo.carbontracker.UtilitySelectActivity"/>
+                android:value="com.cmpt276.indigo.carbontracker.UtilitySelectActivity" />
+        </activity>
+        <activity
+            android:name=".UtilityResultActivity"
+            android:label="@string/title_emssions_summary"
+            android:parentActivityName=".UtilitySelectActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.cmpt276.indigo.carbontracker.UtilitySelectActivity" />
+        </activity>
+        <activity
+            android:name=".CarbonFootprintPeriodicDataMenu"
+            android:label="@string/emissions_by_period"
+            android:parentActivityName=".CarbonFootprintMainMenu"
+            android:theme="@style/AppTheme.NoActionBar" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.cmpt276.indigo.carbontracker.CarbonFootprintMainMenu" />
         </activity>
 
+        <activity
+            android:name=".CarbonFootprintMainMenu"
+            android:label="@string/data_menu_title"
+            android:parentActivityName=".MainMenu">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.cmpt276.indigo.carbontracker.MainMenu" />
+        </activity>
     </application>
 
 </manifest>

@@ -15,14 +15,13 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 import android.view.Menu;
-import android.view.MenuItem;
 
-public class CarbonFootprintMenu extends AppCompatActivity {
+public class CarbonFootprintJourneyFootprintMenu extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_carbon_footprint_menu);
+        setContentView(R.layout.activity_carbon_footprint_journey_footprint_menu);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -93,9 +92,9 @@ public class CarbonFootprintMenu extends AppCompatActivity {
             switch (position)
             {
                 case 0:
-                    return new CarbonFootprintGraphTab();
+                    return new CarbonFootprintJourneyGraphTab();
                 case 1:
-                    return new CarbonFootprintTableTab();
+                    return new CarbonFootprintJourneyTableTab();
 
                 default:
                     return null;

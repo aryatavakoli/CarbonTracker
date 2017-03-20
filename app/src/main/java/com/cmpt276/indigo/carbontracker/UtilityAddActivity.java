@@ -78,6 +78,13 @@ public class UtilityAddActivity extends AppCompatActivity {
                             .show();
                     return;
                 }
+
+                EditText editTextPeople = (EditText) findViewById(R.id.utility_add_editText_num_ppl);
+                if (editTextPeople.getText().toString().length() == 0) {
+                    Toast.makeText(UtilityAddActivity.this, "Please enter Occupants", Toast.LENGTH_SHORT)
+                            .show();
+                    return;
+                }
                 UtilityModel newUtility = createUtility();
 
                 //adding Utility to collection if it is not duplicate

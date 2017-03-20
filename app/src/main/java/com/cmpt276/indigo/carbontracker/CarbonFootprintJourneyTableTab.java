@@ -7,20 +7,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
-import com.cmpt276.indigo.carbontracker.carbon_tracker_model.FuelDataInputStream;
-import com.cmpt276.indigo.carbontracker.carbon_tracker_model.JourneyModel;
-
 /**
  * Created by arya on 05/03/17.
  * Implements the Table for each journey
  */
 
-public class CarbonFootprintTableTab extends Fragment {
+public class CarbonFootprintJourneyTableTab extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.activity_carbon_footprint_table, container, false);
+        View rootView = inflater.inflate(R.layout.activity_carbon_footprint_journey_table, container, false);
 
         ListView tableListView = (ListView) rootView.findViewById(R.id.list);
 

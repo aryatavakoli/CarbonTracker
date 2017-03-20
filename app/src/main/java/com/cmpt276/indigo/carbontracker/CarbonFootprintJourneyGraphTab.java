@@ -21,14 +21,14 @@ import java.util.ArrayList;
  * Implements the Graph for each Journey
  */
 
-public class CarbonFootprintGraphTab extends Fragment {
+public class CarbonFootprintJourneyGraphTab extends Fragment {
     ArrayList<JourneyModel> journeys;
     CarbonFootprintComponentCollection carbonInterface;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.activity_carbon_footprint_graph, container, false);
+        View rootView = inflater.inflate(R.layout.activity_carbon_footprint_journey_graph, container, false);
 
         carbonInterface = CarbonFootprintComponentCollection.getInstance();
 

@@ -64,4 +64,9 @@
     <string name="title_activity_utility_select">Select Utiltity Bill</string>
     <string name="utlity_add">Add Utility Bill</string>
     <string name="transportation">Transportation</string>
+    <string name="title_emssions_summary">Utility Emissions Summary</string>
+    <string name="title_activity_carbon_footprint_daily_menu">CarbonFootprintDailyMenu</string>
+    <string name="tap_and_hold_to_edit_utilities_bill">Tap and Hold to Edit Utilities Bill</string>
+    <string name="emissions_by_period">Emissions by Period</string>
+    <string name="data_menu_title">Data Menu</string>
 </resources>

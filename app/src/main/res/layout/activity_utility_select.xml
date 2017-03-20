@@ -20,7 +20,7 @@
         android:id="@+id/utilities_select_list" />
 
     <TextView
-        android:text="Tap and Hold to Edit Utilities Bill"
+        android:text="@string/tap_and_hold_to_edit_utilities_bill"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
