@@ -116,7 +116,6 @@ public class CarbonFootprintComponentCollection {
         else if (component instanceof RouteModel){
             RouteDBAdaptor routeDBAdaptor = new RouteDBAdaptor(context);
             routeDBAdaptor.open();
-            routeDBAdaptor.open();
             routeDBAdaptor.insertRow((RouteModel)component);
             routeDBAdaptor.close();
         }

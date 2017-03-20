@@ -46,7 +46,7 @@ public class VehicleDBAdapter {
     public static final String DATABASE_NAME = "CarbonTrackerDb";
     public static final String DATABASE_TABLE = "vehicleTable";
     // Track DB version if a new version of your app changes the format.
-    public static final int DATABASE_VERSION = 1;
+    public static final int DATABASE_VERSION = 3;
 
     private static final String DATABASE_CREATE_SQL =
             "create table " + DATABASE_TABLE
@@ -78,7 +78,14 @@ public class VehicleDBAdapter {
     // Open the database connection.
     public VehicleDBAdapter open() {
         db = myDBHelper.getWritableDatabase();
+        ensureTableExists();
         return this;
+    }
+
+    private void ensureTableExists(){
+        if(!tableExists()) {
+            createTable();
+        }
     }
 
     // Close the database connection.
@@ -179,6 +186,19 @@ public class VehicleDBAdapter {
 
     public void createTable() {
         db.execSQL(DATABASE_CREATE_SQL);
+    }
+
+    // this methods checks existance of vehicle table and returns true if it exists
+    private boolean tableExists() {
+        Cursor cursor = db.rawQuery("select DISTINCT tbl_name from sqlite_master where tbl_name = '" + DATABASE_TABLE + "'", null);
+        if(cursor!=null) {
+            if(cursor.getCount()>0) {
+                cursor.close();
+                return true;
+            }
+            cursor.close();
+        }
+        return false;
     }
 
     /**
