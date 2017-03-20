@@ -8,6 +8,7 @@ import java.util.Objects;
  */
 
 public class JourneyModel implements CarbonFootprintComponent{
+    public static final float CO2_PER_KM_BUS = 89f;
     private VehicleModel vehicleModel;
     private RouteModel routeModel;
     private float co2Emission;
@@ -73,14 +74,16 @@ public class JourneyModel implements CarbonFootprintComponent{
         double cityDistanceInKm = routeModel.getCityDistance();
 
         //Gasoline
+        double litres = (cityDistanceInKm / cityMileageKmPerLitre)
+                + (highwayDistanceInKm / highwayMileageKmPerLitre);
         if (fuelType.contains("Gasoline") || Objects.equals(fuelType, "Regular") || Objects.equals(fuelType, "Premium"))
         {
-            totalFootprint = (VehicleModel.GASOLINE_FOOTPRINT_KG_PER_LITRE) * ((cityDistanceInKm/cityMileageKmPerLitre) + (highwayDistanceInKm/highwayMileageKmPerLitre));
+            totalFootprint = (VehicleModel.GASOLINE_FOOTPRINT_KG_PER_LITRE) * litres;
         }
         //Diesel
         else if (Objects.equals(fuelType, "Diesel"))
         {
-            totalFootprint = (VehicleModel.DIESEL_FOOTPRINT_KG_PER_LITRE) * ((cityDistanceInKm/cityMileageKmPerLitre) + (highwayDistanceInKm/highwayMileageKmPerLitre));
+            totalFootprint = (VehicleModel.DIESEL_FOOTPRINT_KG_PER_LITRE) * litres;
         }
         else if (Objects.equals(fuelType, "Electricity") || Objects.equals(fuelType,"Electric") )
         {
@@ -89,7 +92,7 @@ public class JourneyModel implements CarbonFootprintComponent{
         if (vehicleModel.getName().equals("Walk/Bicycle")) {
             totalFootprint =  routeModel.getTotalDistance() * 0.0f ;
         } else if (vehicleModel.getName().equals("Bus")) {
-            totalFootprint =  routeModel.getTotalDistance() * 89f ;
+            totalFootprint =  routeModel.getTotalDistance() * CO2_PER_KM_BUS;
         } else if (vehicleModel.getName().equals("Skytrain")) {
             totalFootprint =  routeModel.getTotalDistance() * 8.7f ;
         }

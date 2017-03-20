@@ -113,15 +113,22 @@ public class UtilityAddActivity extends AppCompatActivity {
         EditText editTextName = (EditText) findViewById(R.id.utility_add_editText_name);
         String name = editTextName.getText().toString();
 
+        //TODO: Get days from calender and convert to int
         EditText editTextDays = (EditText) findViewById(R.id.utility_add_editText_num_days);
         int days = Integer.parseInt(editTextDays.getText().toString());
 
         EditText editTextEnergy = (EditText) findViewById(R.id.utility_add_editText_energy_consumption);
         int energy = Integer.parseInt(editTextEnergy.getText().toString());
+
+        EditText editTextNumPeople = (EditText) findViewById(R.id.utility_add_editText_num_ppl);
+        int num_ppl = Integer.parseInt(editTextNumPeople.getText().toString());
+
         UtilityModel newUtility = new UtilityModel(company);
         newUtility.setName(name);
         newUtility.setBillingPeriodInDays(days);
         newUtility.setTotalEnergyConsumptionInGWH(energy);
+        newUtility.setNumberOfOccupants(num_ppl);
+
         return  newUtility;
     }
 

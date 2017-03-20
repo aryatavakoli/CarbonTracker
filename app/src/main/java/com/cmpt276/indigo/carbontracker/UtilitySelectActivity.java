@@ -66,13 +66,13 @@ public class UtilitySelectActivity extends AppCompatActivity {
         utilitiesList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = getIntent();
+                Intent intent = new Intent(getBaseContext(), UtilityResultActivity.class);
                 // Passing selected Utilities to the caller activity
                 int realPosition = utilityPositionList.get(position);
                 UtilityModel selectedUtility = carbonFootprintInterface.getUtilities().get(realPosition);
                 intent.putExtra("utility", selectedUtility);
                 setResult(RESULT_OK, intent);
-                finish();
+                startActivity(intent);
             }
         });
     }

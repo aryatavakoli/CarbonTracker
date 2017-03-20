@@ -1,9 +1,293 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.cmpt276.indigo.carbontracker.UtilityResultActivity">
 
-</android.support.constraint.ConstraintLayout>
+
+    <TableLayout
+        android:id="@+id/utility_result_bill_information"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="35dp">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:text="Bill Information"
+                android:textAlignment="center"
+                android:textAppearance="@android:style/TextAppearance.Material.Title" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Bill Name: " />
+
+            <TextView
+                android:id="@+id/utility_result_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="N/A" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Company: " />
+
+            <TextView
+                android:id="@+id/utility_result_company"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="N/A" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Billing Days: " />
+
+            <TextView
+                android:id="@+id/utility_result_billing_days"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="N/A" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Total Energy Consumption: " />
+
+            <TextView
+                android:id="@+id/utility_result__total_energy_consumption"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="N/A" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Total Carbon Emissions: " />
+
+            <TextView
+                android:id="@+id/utility_result_total_emission"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="N/A" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Number of Occupants" />
+
+            <TextView
+                android:id="@+id/utility_result_occupants"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="N/A" />
+        </TableRow>
+
+    </TableLayout>
+
+    <TableLayout
+        android:id="@+id/utility_result_per_day"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/utility_result_bill_information"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="10dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Per-Day Usage"
+                android:textAlignment="center"
+                android:textAppearance="@android:style/TextAppearance.Material.Title" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Energy Consumption: " />
+
+            <TextView
+                android:id="@+id/utility_result_per_day_energy_consumption"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="N/A" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Carbon Emissions: " />
+
+            <TextView
+                android:id="@+id/utility_result_per_day_emissions"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="N/A" />
+        </TableRow>
+
+    </TableLayout>
+
+    <TableLayout
+        android:id="@+id/utility_result_per_person"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/utility_result_per_day"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="10dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Per-Person Usage"
+                android:textAlignment="center"
+                android:textAppearance="@android:style/TextAppearance.Material.Title" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Energy Consumption: " />
+
+            <TextView
+                android:id="@+id/utility_result_per_person_energy_consumption"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="N/A" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Daily Carbon Emissions: " />
+
+            <TextView
+                android:id="@+id/utility_result_per_person_emissions"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="N/A" />
+        </TableRow>
+
+    </TableLayout>
+
+    <TableLayout
+        android:id="@+id/utility_result_per_person_and_per_day"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/utility_result_per_person"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="10dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Person/day Usage"
+                android:textAlignment="center"
+                android:textAppearance="@android:style/TextAppearance.Material.Title" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Energy Consumption: " />
+
+            <TextView
+                android:id="@+id/utility_result_utility_result_per_person_and_per_day_energy_consumption"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="N/A" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Daily Carbon Emissions: " />
+
+            <TextView
+                android:id="@+id/utility_result_utility_result_per_person_and_per_day_emissions"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="N/A" />
+        </TableRow>
+
+    </TableLayout>
+
+</RelativeLayout>

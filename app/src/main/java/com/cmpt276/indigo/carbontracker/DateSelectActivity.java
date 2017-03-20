@@ -4,8 +4,6 @@ package com.cmpt276.indigo.carbontracker;
     Implements Pop-up calender
  */
 import android.app.DatePickerDialog;
-import android.icu.text.SimpleDateFormat;
-import android.icu.util.Calendar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -14,6 +12,8 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Locale;
 
 import static com.cmpt276.indigo.carbontracker.R.styleable.View;

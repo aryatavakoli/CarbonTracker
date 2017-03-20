@@ -20,6 +20,8 @@ public class UtilityModel implements CarbonFootprintComponent {
     private double totalCO2EmissionsInKg;
     private double dailyEnergyConsumptionInGWH;
     private double dailyCO2EmissionsInKg;
+    private double totalEmissionsPerOccupant;
+    private double totalEnergyConsumptionPerOccupant;
     private int numberOfOccupants;
     private boolean isDeleted;
 
@@ -31,6 +33,8 @@ public class UtilityModel implements CarbonFootprintComponent {
         totalCO2EmissionsInKg = 0;
         dailyEnergyConsumptionInGWH = 0;
         dailyCO2EmissionsInKg = 0;
+        totalEmissionsPerOccupant = 0;
+        totalEnergyConsumptionPerOccupant = 0;
         isDeleted = false;
     }
 
@@ -67,6 +71,7 @@ public class UtilityModel implements CarbonFootprintComponent {
     }
 
     public double getTotalCO2EmissionsInKg() {
+        calculateTotalEmissions();
         return totalCO2EmissionsInKg;
     }
 
@@ -114,12 +119,38 @@ public class UtilityModel implements CarbonFootprintComponent {
         }
     }
 
+    public void calculateTotalEmissionsPerOccupant(){
+        totalEmissionsPerOccupant = totalEmissionsPerOccupant/numberOfOccupants;
+    }
+
+    public void calculateTotalEnergyConsumptionPerOccupant(){
+        totalEnergyConsumptionPerOccupant = dailyCO2EmissionsInKg/numberOfOccupants;
+    }
+
+    public double getTotalEmissionsPerOccupant() {
+        return totalEmissionsPerOccupant;
+    }
+
+    public void setTotalEmissionsPerOccupant(double totalEmissionsPerOccupant) {
+        this.totalEmissionsPerOccupant = totalEmissionsPerOccupant;
+    }
+
+    public double getTotalEnergyConsumptionPerOccupant() {
+        return totalEnergyConsumptionPerOccupant;
+    }
+
+    public void setTotalEnergyConsumptionPerOccupant(double totalEnergyConsumptionPerOccupant) {
+        this.totalEnergyConsumptionPerOccupant = totalEnergyConsumptionPerOccupant;
+    }
+
     public int getNumberOfOccupants() {
         return numberOfOccupants;
     }
 
     public void setNumberOfOccupants(int numberOfOccupants) {
         this.numberOfOccupants = numberOfOccupants;
+
+
     }
 
     @Override
