@@ -13,9 +13,10 @@ public class UtilityModel implements CarbonFootprintComponent {
         FORTISBC
     }
 
+    private long id;
     private Company companyName;
     private String name;
-    private long billingPeriodInDays;
+    private long billingPeriodInDay;
     private double totalEnergyConsumptionInGWH;
     private double totalCO2EmissionsInKg;
     private double dailyEnergyConsumptionInGWH;
@@ -28,7 +29,7 @@ public class UtilityModel implements CarbonFootprintComponent {
     public UtilityModel(Company companyName){
         this.companyName = companyName;
         name = new String();
-        billingPeriodInDays = 0;
+        billingPeriodInDay = 0;
         totalEnergyConsumptionInGWH = 0;
         totalCO2EmissionsInKg = 0;
         dailyEnergyConsumptionInGWH = 0;
@@ -36,6 +37,19 @@ public class UtilityModel implements CarbonFootprintComponent {
         totalEmissionsPerOccupant = 0;
         totalEnergyConsumptionPerOccupant = 0;
         isDeleted = false;
+    }
+
+    public UtilityModel(long id, Company company, String name, long billingPeriodInDay, double totalEnergyConsumptionInGWH, double totalCO2EmissionsInKg, double dailyEnergyConsumptionInGWH, double dailyCO2EmissionsInKg, int numberOfOccupants, boolean isDeleted){
+        this.id = id;
+        this.companyName = company;
+        this.name = name;
+        this.billingPeriodInDay = billingPeriodInDay;
+        this.totalCO2EmissionsInKg = totalCO2EmissionsInKg;
+        this.totalEnergyConsumptionInGWH =totalEnergyConsumptionInGWH;
+        this.dailyEnergyConsumptionInGWH = dailyEnergyConsumptionInGWH;
+        this.dailyCO2EmissionsInKg = dailyCO2EmissionsInKg;
+        this.numberOfOccupants = numberOfOccupants;
+        this.isDeleted = isDeleted;
     }
 
     public Company getCompanyName() {
@@ -55,11 +69,11 @@ public class UtilityModel implements CarbonFootprintComponent {
     }
 
     public long getBillingPeriodInDays() {
-        return billingPeriodInDays;
+        return billingPeriodInDay;
     }
 
     public void setBillingPeriodInDays(long billingPeriodInDays) {
-        this.billingPeriodInDays = billingPeriodInDays;
+        this.billingPeriodInDay = billingPeriodInDays;
     }
 
     public double getTotalEnergyConsumptionInGWH() {
@@ -80,7 +94,7 @@ public class UtilityModel implements CarbonFootprintComponent {
     }
 
     public double getDailyEnergyConsumptionInGWH() {
-        dailyCO2EmissionsInKg = totalEnergyConsumptionInGWH /billingPeriodInDays;
+        dailyCO2EmissionsInKg = totalEnergyConsumptionInGWH /billingPeriodInDay;
         return dailyEnergyConsumptionInGWH;
     }
 
@@ -89,7 +103,7 @@ public class UtilityModel implements CarbonFootprintComponent {
     }
 
     public double getDailyCO2EmissionsInKg() {
-        dailyCO2EmissionsInKg = totalCO2EmissionsInKg / billingPeriodInDays;
+        dailyCO2EmissionsInKg = totalCO2EmissionsInKg / billingPeriodInDay;
         return dailyCO2EmissionsInKg;
     }
 
@@ -177,7 +191,7 @@ public class UtilityModel implements CarbonFootprintComponent {
         return "UtilityModel{" +
                 "companyName=" + companyName +
                 ", name='" + name + '\'' +
-                ", billingPeriodInDays=" + billingPeriodInDays +
+                ", billingPeriodInDays=" + billingPeriodInDay +
                 ", totalEnergyConsumptionInGWH=" + totalEnergyConsumptionInGWH +
                 ", totalCO2EmissionsInKg=" + totalCO2EmissionsInKg +
                 ", dailyEnergyConsumptionInGWH=" + dailyEnergyConsumptionInGWH +

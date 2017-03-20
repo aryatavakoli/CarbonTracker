@@ -16,10 +16,6 @@ import android.widget.TextView;
 import com.cmpt276.indigo.carbontracker.JourneyMenu;
 import com.cmpt276.indigo.carbontracker.R;
 
-/**
- * Created by parmis on 2017-03-15.
- */
-
 public class TipFragment extends AppCompatDialogFragment {
     static int messageIndex =0;
     private String message;

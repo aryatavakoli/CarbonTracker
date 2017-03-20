@@ -7,44 +7,34 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-public class VehicleDBAdapter {
+public class RouteDBAdaptor {
 
     // For logging:
-    private static final String TAG = "VechicleDBAdapter";
+    private static final String TAG = "RouteDBAdapter";
 
     // DB Fields
     public static final String KEY_ROWID = "_id";
     public static final int COL_ROWID = 0;
 
     public static final String KEY_NAME = "name";
-    public static final String KEY_MAKE = "make";
-    public static final String KEY_MODEL = "model";
-    public static final String KEY_YEAR = "year";
-    public static final String KEY_TRANSMISSION = "transmission";
-    public static final String KEY_ENGINE_DISPLACEMENT = "engine_displacement";
-    public static final String KEY_CITY_MILEAGE = "city_mileage";
-    public static final String KEY_HIGHWAY_MILEAGE = "highway_mileage";
-    public static final String KEY_PRIMARY_FUEL_TYPE = "primary_fuel_type";
+    public static final String KEY_CITY_DISTANCE = "city_distance";
+    public static final String KEY_HIGHWAY_DISTANCE = "highway_distance";
+    public static final String KEY_TOTAL_DISTANCE = "total_distance";
     public static final String KEY_IS_DELETED = "is_deleted";
 
     public static final int COL_NAME = 1;
-    public static final int COL_MAKE = 2;
-    public static final int COL_MODEL = 3;
-    public static final int COL_YEAR = 4;
-    public static final int COL_TRANSMISSION = 5;
-    public static final int COL_ENGINE_DISPLACEMENT = 6;
-    public static final int COL_CITY_MILEAGE = 7;
-    public static final int COL_HIGHWAY_MILEAGE = 8;
-    public static final int COL_PRIMARY_FUEL_TYPE = 9;
-    public static final int COL_IS_DELETED = 10;
+    public static final int COL_CITY_DISTANCE = 2;
+    public static final int COL_HIGHWAY_DISTANCE = 3;
+    public static final int COL_TOTAL_DISTANCE = 4;
+    public static final int COL_IS_DELETED = 5;
 
     public static final String[] ALL_KEYS = new String[] {
-            KEY_ROWID, KEY_NAME, KEY_MAKE, KEY_MODEL, KEY_YEAR, KEY_TRANSMISSION, KEY_ENGINE_DISPLACEMENT, KEY_CITY_MILEAGE, KEY_HIGHWAY_MILEAGE, KEY_PRIMARY_FUEL_TYPE, KEY_IS_DELETED
+            KEY_ROWID, KEY_NAME, KEY_CITY_DISTANCE, KEY_HIGHWAY_DISTANCE, KEY_TOTAL_DISTANCE, KEY_IS_DELETED
     };
 
     // DB info: it's name, and the table we are using (just one).
     public static final String DATABASE_NAME = "CarbonTrackerDb";
-    public static final String DATABASE_TABLE = "vehicleTable";
+    public static final String DATABASE_TABLE = "routeTable";
     // Track DB version if a new version of your app changes the format.
     public static final int DATABASE_VERSION = 3;
 
@@ -52,31 +42,26 @@ public class VehicleDBAdapter {
             "create table " + DATABASE_TABLE
                     + " (" + KEY_ROWID + " integer primary key autoincrement, "
                     + KEY_NAME + " text not null unique, "
-                    + KEY_MAKE + " text not null, "
-                    + KEY_MODEL + " text not null, "
-                    + KEY_YEAR + " text not null, "
-                    + KEY_TRANSMISSION + " text not null, "
-                    + KEY_ENGINE_DISPLACEMENT + " text not null, "
-                    + KEY_CITY_MILEAGE + " double not null, "
-                    + KEY_HIGHWAY_MILEAGE + " double not null, "
-                    + KEY_PRIMARY_FUEL_TYPE + " text not null, "
+                    + KEY_CITY_DISTANCE + " double not null, "
+                    + KEY_HIGHWAY_DISTANCE + " double not null, "
+                    + KEY_TOTAL_DISTANCE + " double not null, "
                     + KEY_IS_DELETED + " boolean not null"
                     + ");";
 
     // Context of application who uses us.
     private final Context context;
 
-    private DatabaseHelper myDBHelper;
+    private RouteDBAdaptor.DatabaseHelper myDBHelper;
     private SQLiteDatabase db;
 
 
-    public VehicleDBAdapter(Context ctx) {
+    public RouteDBAdaptor(Context ctx) {
         this.context = ctx;
         myDBHelper = new DatabaseHelper(context);
     }
 
     // Open the database connection.
-    public VehicleDBAdapter open() {
+    public RouteDBAdaptor open() {
         db = myDBHelper.getWritableDatabase();
         ensureTableExists();
         return this;
@@ -94,22 +79,17 @@ public class VehicleDBAdapter {
     }
 
     // Add a new set of values to the database.
-    public long insertRow(VehicleModel vehicle) {
+    public long insertRow(RouteModel route) {
         // Create row's data:
         ContentValues initialValues = new ContentValues();
-        initialValues.put(KEY_NAME, vehicle.getName());
-        initialValues.put(KEY_MODEL, vehicle.getModel());
-        initialValues.put(KEY_MAKE, vehicle.getMake());
-        initialValues.put(KEY_YEAR, vehicle.getYear());
-        initialValues.put(KEY_TRANSMISSION, vehicle.getTransmisson());
-        initialValues.put(KEY_ENGINE_DISPLACEMENT, vehicle.getEngineDisplacment());
-        initialValues.put(KEY_CITY_MILEAGE, vehicle.getCityMileage());
-        initialValues.put(KEY_HIGHWAY_MILEAGE, vehicle.getHighwayMileage());
-        initialValues.put(KEY_PRIMARY_FUEL_TYPE, vehicle.getPrimaryFuelType());
-        initialValues.put(KEY_IS_DELETED, vehicle.getIsDeleted());
+        initialValues.put(KEY_NAME, route.getName());
+        initialValues.put(KEY_CITY_DISTANCE, route.getCityDistance());
+        initialValues.put(KEY_HIGHWAY_DISTANCE, route.getHighwayDistance());
+        initialValues.put(KEY_TOTAL_DISTANCE, route.getTotalDistance());
+        initialValues.put(KEY_IS_DELETED, route.getIsDeleted());
         // Insert it into the database.
-        vehicle.setId(db.insert(DATABASE_TABLE, null, initialValues));
-        return vehicle.getId();
+        route.setId(db.insert(DATABASE_TABLE, null, initialValues));
+        return route.getId();
     }
 
     // Delete a row from the database, by rowId (primary key)
@@ -151,9 +131,9 @@ public class VehicleDBAdapter {
         return c;
     }
 
-    // Get a specific vehicle by name
-    public Cursor getName(String vehicleName) {
-        String where = KEY_NAME + "='" + vehicleName + "'";
+    // Get a specific route by name
+    public Cursor getName(String routeName) {
+        String where = KEY_NAME + "='" + routeName + "'";
         Cursor c = 	db.query(true, DATABASE_TABLE, ALL_KEYS,
                 where, null, null, null, null, null);
         if (c != null) {
@@ -163,19 +143,15 @@ public class VehicleDBAdapter {
     }
 
     // Change an existing row to be equal to new data.
-    public boolean updateRow(VehicleModel vehicle) {
-        String where = KEY_ROWID + "=" + vehicle.getId();
+    public boolean updateRow(RouteModel route) {
+        String where = KEY_ROWID + "=" + route.getId();
         // Create row's data:
         ContentValues newValues = new ContentValues();
-        newValues.put(KEY_NAME, vehicle.getName());
-        newValues.put(KEY_MODEL, vehicle.getModel());
-        newValues.put(KEY_YEAR, vehicle.getYear());
-        newValues.put(KEY_TRANSMISSION, vehicle.getTransmisson());
-        newValues.put(KEY_ENGINE_DISPLACEMENT, vehicle.getEngineDisplacment());
-        newValues.put(KEY_CITY_MILEAGE, vehicle.getCityMileage());
-        newValues.put(KEY_HIGHWAY_MILEAGE, vehicle.getHighwayMileage());
-        newValues.put(KEY_PRIMARY_FUEL_TYPE, vehicle.getPrimaryFuelType());
-        newValues.put(KEY_IS_DELETED, vehicle.getIsDeleted());
+        newValues.put(KEY_NAME, route.getName());
+        newValues.put(KEY_CITY_DISTANCE, route.getCityDistance());
+        newValues.put(KEY_HIGHWAY_DISTANCE, route.getHighwayDistance());
+        newValues.put(KEY_TOTAL_DISTANCE, route.getTotalDistance());
+        newValues.put(KEY_IS_DELETED, route.getIsDeleted());
         // Insert it into the database.
         return db.update(DATABASE_TABLE, newValues, where, null) != 0;
     }
@@ -188,7 +164,7 @@ public class VehicleDBAdapter {
         db.execSQL(DATABASE_CREATE_SQL);
     }
 
-    // this methods checks existance of vehicle table and returns true if it exists
+    // this methods checks existance of route table and returns true if it exists
     private boolean tableExists() {
         Cursor cursor = db.rawQuery("select DISTINCT tbl_name from sqlite_master where tbl_name = '" + DATABASE_TABLE + "'", null);
         if(cursor!=null) {

@@ -5,10 +5,11 @@ package com.cmpt276.indigo.carbontracker.carbon_tracker_model;
  */
 
 public class RouteModel implements CarbonFootprintComponent{
+    private long id;
     private String name;
-    private int cityDistance;
-    private int highwayDistance;
-    private int totalDistance;
+    private double cityDistance;
+    private double highwayDistance;
+    private double totalDistance;
     private boolean isDeleted;
 
     public RouteModel(){
@@ -19,42 +20,59 @@ public class RouteModel implements CarbonFootprintComponent{
         isDeleted = false;          // when a Route is deleted, we should hide it instead of removing it
     }
 
+    public RouteModel(long id, String name, double cityDistance, double highwayDistance, double totalDistance, boolean isDeleted){
+        this.id = id;
+        this.name = name;
+        this.cityDistance = cityDistance;
+        this.highwayDistance = highwayDistance;
+        this.totalDistance = totalDistance;
+        this.isDeleted = isDeleted;
+    }
+
+    public long getId() {
+        return id;
+    }
+
     public String getName() {
         return name;
     }
 
-    public int getCityDistance() {
+    public double getCityDistance() {
         return cityDistance;
     }
 
-    public int getHighwayDistance() {
+    public double getHighwayDistance() {
         return highwayDistance;
     }
 
-    public int getTotalDistance() {
+    public double getTotalDistance() {
         totalDistance = cityDistance + highwayDistance;
         return totalDistance;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public void setName(String name) {
         this.name = name;
     }
 
-    public void setCityDistance(int cityDistance) {
+    public void setCityDistance(double cityDistance) {
         if(cityDistance < 0){
             throw new IllegalArgumentException("City distance must be a positive number.");
         }
         this.cityDistance = cityDistance;
     }
 
-    public void setHighwayDistance(int highwayDistance) {
+    public void setHighwayDistance(double highwayDistance) {
         if(highwayDistance < 0){
             throw new IllegalArgumentException("Highway distance must be a positive number.");
         }
         this.highwayDistance = highwayDistance;
     }
 
-    public void setTotalDistance(int totalDistance) {
+    public void setTotalDistance(double totalDistance) {
         if(totalDistance < 0){
             throw new IllegalArgumentException("Total distance must be a positive number.");
         }
