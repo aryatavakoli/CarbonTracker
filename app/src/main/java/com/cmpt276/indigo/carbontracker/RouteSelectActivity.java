@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /*
-
+    implments Route selection activity
  */
 public class RouteSelectActivity extends AppCompatActivity {
 

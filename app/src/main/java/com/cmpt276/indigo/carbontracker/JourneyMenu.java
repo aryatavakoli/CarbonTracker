@@ -27,7 +27,7 @@ import java.util.List;
 import java.util.Locale;
 
 /*
-
+    implments journey UI
  */
 
 public class JourneyMenu extends AppCompatActivity {

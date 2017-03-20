@@ -16,6 +16,10 @@ import com.cmpt276.indigo.carbontracker.carbon_tracker_model.CarbonFootprintComp
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.DuplicateComponentException;
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.UtilityModel;
 
+/*
+    implements Utility Add activity
+ */
+
 public class UtilityAddActivity extends AppCompatActivity {
     public static final int RESULT_DELETE = 15;
     CarbonFootprintComponentCollection carbonFootprintInterface;
