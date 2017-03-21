@@ -1,6 +1,7 @@
 package com.cmpt276.indigo.carbontracker;
 
 import android.app.Activity;
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -8,6 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -16,6 +18,8 @@ import com.cmpt276.indigo.carbontracker.carbon_tracker_model.CarbonFootprintComp
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.DuplicateComponentException;
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.UtilityModel;
 
+import java.util.Calendar;
+
 /*
     implements Utility Add activity
  */
@@ -23,6 +27,10 @@ import com.cmpt276.indigo.carbontracker.carbon_tracker_model.UtilityModel;
 public class UtilityAddActivity extends AppCompatActivity {
     public static final int RESULT_DELETE = 15;
     CarbonFootprintComponentCollection carbonFootprintInterface;
+    final Calendar startCalendar = Calendar.getInstance();
+    final Calendar endCalendar = Calendar.getInstance();
+    int duration;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,10 +39,43 @@ public class UtilityAddActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         carbonFootprintInterface = CarbonFootprintComponentCollection.getInstance();
-
         setupOKButton();
         loadSpinner();
         //setupDeleteButton();
+        gettingDate(R.id.StartDatebtn, startCalendar);
+        gettingDate(R.id.endDateBtn,endCalendar );
+    }
+
+
+    private void gettingDate(final int id , final Calendar myCalendar){
+
+        final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
+
+            @Override
+            public void onDateSet(DatePicker view, int year, int monthOfYear,
+                                  int dayOfMonth) {
+                // TODO Auto-generated method stub
+                myCalendar.set(Calendar.YEAR, year);
+                myCalendar.set(Calendar.MONTH, monthOfYear);
+                myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                Button txt = (Button) findViewById(id);
+                txt.setText(myCalendar.get(Calendar.YEAR) + " " + myCalendar.get(Calendar.MONTH) + " " + myCalendar.get(Calendar.DAY_OF_MONTH));
+            }
+
+        };
+        Button txt = (Button) findViewById(id);
+        txt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                new DatePickerDialog(UtilityAddActivity.this, date, myCalendar
+                        .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
+                        myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+
+            }
+        });
+
+
     }
 
     private void loadSpinner() {
@@ -47,6 +88,11 @@ public class UtilityAddActivity extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                duration = ((endCalendar.get(Calendar.YEAR) - startCalendar.get(Calendar.YEAR)) * 360) + (
+                        (endCalendar.get(Calendar.MONTH) - startCalendar.get(Calendar.MONTH)) * 30
+                ) + (endCalendar.get(Calendar.DAY_OF_MONTH) - startCalendar.get(Calendar.DAY_OF_MONTH));
+                Toast.makeText(UtilityAddActivity.this, duration + "", Toast.LENGTH_SHORT).show();
+
                 Spinner spinnerCompany  = (Spinner) findViewById(R.id.utility_add_spinner_company);
                 UtilityModel.Company company = (UtilityModel.Company) spinnerCompany.getSelectedItem();
 
@@ -63,14 +109,6 @@ public class UtilityAddActivity extends AppCompatActivity {
 
                 }
 
-                EditText editTextDays = (EditText) findViewById(R.id.utility_add_editText_num_days);
-
-                if (editTextDays.getText().toString().length() == 0) {
-                    Toast.makeText(UtilityAddActivity.this, "Please enter a Billing Period.", Toast.LENGTH_SHORT)
-                            .show();
-                    return;
-
-                }
 
                 EditText editTextEnergy = (EditText) findViewById(R.id.utility_add_editText_energy_consumption);
                 if (editTextEnergy.getText().toString().length() == 0) {
@@ -113,15 +151,17 @@ public class UtilityAddActivity extends AppCompatActivity {
         EditText editTextName = (EditText) findViewById(R.id.utility_add_editText_name);
         String name = editTextName.getText().toString();
 
-        EditText editTextDays = (EditText) findViewById(R.id.utility_add_editText_num_days);
-        int days = Integer.parseInt(editTextDays.getText().toString());
-
         EditText editTextEnergy = (EditText) findViewById(R.id.utility_add_editText_energy_consumption);
         int energy = Integer.parseInt(editTextEnergy.getText().toString());
+
+        EditText editTextOccupants = (EditText) findViewById(R.id.utility_add_editText_num_ppl);
+        int occupants = Integer.parseInt(editTextOccupants.getText().toString());
+
         UtilityModel newUtility = new UtilityModel(company);
         newUtility.setName(name);
-        newUtility.setBillingPeriodInDays(days);
-        newUtility.setTotalEnergyConsumptionInGWH(energy);
+        newUtility.setBillingPeriodInDays(duration);
+        newUtility.setTotalEnergyConsumptionInGJ(energy);
+        newUtility.setNumberOfOccupants(occupants);
         return  newUtility;
     }
 
@@ -130,7 +170,7 @@ public class UtilityAddActivity extends AppCompatActivity {
             carbonFootprintInterface.add(this,utility);
         }
         catch(DuplicateComponentException e){
-                Toast.makeText(UtilityAddActivity.this, "This Utility already exists.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(UtilityAddActivity.this, "This Utility already exists.", Toast.LENGTH_SHORT).show();
             return false;
         }
         return true;
