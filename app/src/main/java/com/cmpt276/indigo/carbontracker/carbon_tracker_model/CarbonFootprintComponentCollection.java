@@ -130,6 +130,7 @@ public class CarbonFootprintComponentCollection {
             utilityDBAdapter.insertRow((RouteModel)component);
             utilityDBAdapter.close();
             */
+            utilities.add((UtilityModel) component);
         }
         else{
             throw new IllegalArgumentException("Input component is not valid.");
@@ -176,7 +177,11 @@ public class CarbonFootprintComponentCollection {
             }
         }
         else if (component instanceof UtilityModel){
-            edit(utilities, component, context);
+//            edit(utilities, component, context);
+            int index = utilities.indexOf((UtilityModel)component);
+            if (index > -1) {       //Index has a problem. It will fixed in database
+                utilities.set(index, (UtilityModel) component);
+            }
         }
         else{
             throw new IllegalArgumentException("Input component is not valid.");
@@ -262,27 +267,16 @@ public class CarbonFootprintComponentCollection {
         }
         else if (component instanceof UtilityModel) {
             UtilityModel utility = (UtilityModel) component;
-//            if(utility.getId() > -1){
-//                utility.setIsDeleted(true);
-//                //TODO: add UtilityDBAdapter and uncomment following code
-//                /*
-//                UtilityDBAdapter utilityDBAdapter = new RouteDBAdapter(context);
-//                utilityDBAdapter.open();
-//                utilityDBAdapter.updateRow(utility);
-//                utilityDBAdapter.close();
-//                */
-//            }
-//            else
-//            {
-//                throw new IllegalArgumentException("Input component could not be found in the list.");
-
-//This part should be removed later
-            int index = utilities.indexOf(component);
-            if (index > -1) {
-                utilities.get(index).setIsDeleted(true);
-                utilities.remove(index);
-
-
+            if(utility.getId() > -1){
+                utility.setIsDeleted(true);
+                UtilityDBAdapter utilityDBAdapter = new UtilityDBAdapter(context);
+                utilityDBAdapter.open();
+                utilityDBAdapter.updateRow(utility);
+                utilityDBAdapter.close();
+            }
+            else
+            {
+                throw new IllegalArgumentException("Input component could not be found in the list.");
 
             }
         }
@@ -333,7 +327,16 @@ public class CarbonFootprintComponentCollection {
             validateComponentDuplication(journies, component);
         }
         else if (component instanceof UtilityModel){
-            validateComponentDuplication(utilities, component);
+            UtilityModel utilityModel = (UtilityModel) component;
+            UtilityDBAdapter utilityDBAdapter = new UtilityDBAdapter(context);
+            utilityDBAdapter.open();
+            Cursor c = utilityDBAdapter.getName(utilityModel.getName());
+            if (c.getCount() > 0){
+                utilityDBAdapter.close();
+                throw new DuplicateComponentException();
+            }
+            utilityDBAdapter.close();
+            return;
         }
         else{
             throw new IllegalArgumentException("Input component is not valid.");

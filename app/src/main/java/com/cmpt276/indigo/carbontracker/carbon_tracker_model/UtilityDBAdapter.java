@@ -88,7 +88,7 @@ public class UtilityDBAdapter {
         // Create row's data:
         ContentValues initialValues = new ContentValues();
         initialValues.put(KEY_NAME, utility.getName());
-        initialValues.put(KEY_BILLING_PERIOD_IN_DAY, utility.getBillingPeriodInDays());
+//        initialValues.put(KEY_BILLING_PERIOD_IN_DAY, utility.getBillingPeriodInDays());
         initialValues.put(KEY_TOTAL_ENERGY_CONSUMPTION_IN_GWH, utility.getTotalEnergyConsumptionInGJ()); //TODO: double check
         initialValues.put(KEY_NUMBER_OF_OCCUPANTS, utility.getNumberOfOccupants());
         initialValues.put(KEY_IS_DELETED, utility.getIsDeleted());
@@ -153,7 +153,7 @@ public class UtilityDBAdapter {
         // Create row's data:
         ContentValues newValues = new ContentValues();
         newValues.put(KEY_NAME, utility.getName());
-        newValues.put(KEY_BILLING_PERIOD_IN_DAY, utility.getBillingPeriodInDays());
+//        newValues.put(KEY_BILLING_PERIOD_IN_DAY, utility.getBillingPeriodInDays());
         newValues.put(KEY_TOTAL_ENERGY_CONSUMPTION_IN_GWH, utility.getTotalEnergyConsumptionInGJ());
         newValues.put(KEY_NUMBER_OF_OCCUPANTS, utility.getNumberOfOccupants());
         newValues.put(KEY_IS_DELETED, utility.getIsDeleted());

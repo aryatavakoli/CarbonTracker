@@ -1,5 +1,7 @@
 package com.cmpt276.indigo.carbontracker.carbon_tracker_model;
 
+import java.util.Calendar;
+
 /**
  * Created by Arya on 2017-03-16.
  */
@@ -17,26 +19,28 @@ public class UtilityModel implements CarbonFootprintComponent {
     private long id;
     private Company companyName;
     private String name;
-    private int billingPeriodInDays;
     private double totalEnergyConsumptionInGWh;
     private int numberOfOccupants;
     private boolean isDeleted;
-    //TODO: Adding startData and endData
+    private Calendar startDate;
+    private Calendar endDate;
 
     public UtilityModel(long id,
                         Company company,
                         String name,
-                        int billingPeriodInDays,
                         double totalEnergyConsumptionInGWh,
                         int numberOfOccupants,
+                        Calendar startDate,
+                        Calendar endDate,
                         boolean isDeleted){
-        this.id = id;
-        this.companyName = company;
-        this.name = name;
-        this.billingPeriodInDays = billingPeriodInDays;
-        this.totalEnergyConsumptionInGWh = totalEnergyConsumptionInGWh;
-        this.numberOfOccupants = numberOfOccupants;
-        this.isDeleted = isDeleted;
+        setId(id);
+        setCompanyName(company);
+        setName(name);
+        setTotalEnergyConsumption(totalEnergyConsumptionInGWh);
+        setNumberOfOccupants(numberOfOccupants);
+        setStartDate(startDate);
+        setEndDate(endDate);
+        setIsDeleted(isDeleted);
     }
 
     public long getId() {
@@ -61,14 +65,6 @@ public class UtilityModel implements CarbonFootprintComponent {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public long getBillingPeriodInDays() {
-        return billingPeriodInDays;
-    }
-
-    public void setBillingPeriodInDays(int billingPeriodInDays) {
-        this.billingPeriodInDays = billingPeriodInDays;
     }
 
     public double getTotalEnergyConsumption() {
@@ -100,11 +96,11 @@ public class UtilityModel implements CarbonFootprintComponent {
     }
 
     public double calculateDailyEnergyConsumptionInGJ() {
-        return getTotalEnergyConsumptionInGJ() / billingPeriodInDays;
+        return getTotalEnergyConsumptionInGJ() / calculateBillingPeriodInDays();
     }
 
     public double calculateDailyCO2EmissionsInKg() {
-        return calculateTotalEmissions() / billingPeriodInDays;
+        return calculateTotalEmissions() / calculateBillingPeriodInDays();
     }
 
     public boolean getIsDeleted() {
@@ -113,6 +109,22 @@ public class UtilityModel implements CarbonFootprintComponent {
 
     public void setIsDeleted(boolean deleted) {
         isDeleted = deleted;
+    }
+
+    public Calendar getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(Calendar startDate) {
+        this.startDate = startDate;
+    }
+
+    public Calendar getEndDate(){
+        return endDate;
+    }
+
+    public void setEndDate(Calendar endDay) {
+        this.endDate = endDay;
     }
 
     public double calculateTotalEmissions(){
@@ -129,6 +141,14 @@ public class UtilityModel implements CarbonFootprintComponent {
                 break;
         }
         return totalCO2EmissionsInKg;
+    }
+
+    //TODO: find shorter way for duration. It seams the formula is not correct
+    public int calculateBillingPeriodInDays(){
+        int duration = ((endDate.get(Calendar.YEAR) - startDate.get(Calendar.YEAR)) * 360) + (
+                (endDate.get(Calendar.MONTH) - startDate.get(Calendar.MONTH)) * 30
+        ) + (endDate.get(Calendar.DAY_OF_MONTH) - startDate.get(Calendar.DAY_OF_MONTH));
+        return duration;
     }
 
     public double getTotalEmissionsPerOccupant() {
@@ -171,7 +191,6 @@ public class UtilityModel implements CarbonFootprintComponent {
         return "UtilityModel{" +
                 "companyName=" + companyName +
                 ", name='" + name + '\'' +
-                ", billingPeriodInDays=" + billingPeriodInDays +
                 ", totalEnergyConsumptionInGJ=" + totalEnergyConsumptionInGWh +
                 ", numberOfOccupants=" + numberOfOccupants +
                 ", isDeleted=" + isDeleted +

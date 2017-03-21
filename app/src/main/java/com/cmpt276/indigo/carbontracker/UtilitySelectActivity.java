@@ -132,6 +132,7 @@ public class UtilitySelectActivity extends AppCompatActivity {
                 case ACTIVITY_RESULT_EDIT:
                     UtilityModel modifiedUtility = (UtilityModel) data.getSerializableExtra("utility");
                     modifiedUtility.setId(indexOfUtilityEditing);
+                    carbonFootprintInterface.edit(this, modifiedUtility);
                     populateUtilitiesList();
                     break;
             }
