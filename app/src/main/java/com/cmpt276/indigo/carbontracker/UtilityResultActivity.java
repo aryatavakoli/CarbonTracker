@@ -56,8 +56,17 @@ public class UtilityResultActivity extends AppCompatActivity {
         emissionsDisplay.setText(newUtilities.getDailyCO2EmissionsInKg() + " Kg");
     }
 
+    private void fillPerPersonTexts() {
+        TextView energyDisplay = (TextView) findViewById(R.id.utility_result_per_person_energy_consumption);
+        energyDisplay.setText(newUtilities.getTotalEnergyConsumptionPerOccupant() + " GJ");
+
+        TextView emissionsDisplay = (TextView) findViewById(R.id.utility_result_per_person_emissions);
+        energyDisplay.setText(newUtilities.getTotalEmissionsPerOccupant() + " GJ");
+    }
+
     private void fillTexts() {
         fillBillInformation();
         fillPerDayUsageTexts();
+        fillPerPersonTexts();
     }
 }

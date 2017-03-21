@@ -117,7 +117,7 @@
                 android:text="Number of Occupants" />
 
             <TextView
-                android:id="@+id/textView14"
+                android:id="@+id/utility_result_occupants"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="N/A" />
@@ -224,7 +224,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Daily Carbon Emissions: " />
+                android:text="Carbon Emissions: " />
 
             <TextView
                 android:id="@+id/utility_result_per_person_emissions"
@@ -279,7 +279,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Daily Carbon Emissions: " />
+                android:text="Carbon Emissions: " />
 
             <TextView
                 android:id="@+id/utility_result_utility_result_per_person_and_per_day_emissions"
