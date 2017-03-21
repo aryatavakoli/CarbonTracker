@@ -69,20 +69,20 @@ public class CarbonFootprintComponentCollection {
 
     public ArrayList<RouteModel> getRoutes(Context context) {
         //TODO: read from Route table
-        RouteDBAdaptor routeDBAdaptor = new RouteDBAdaptor(context);
-        routeDBAdaptor.open();
-        Cursor cursor = routeDBAdaptor.getAllRows();
+        RouteDBAdapter routeDBAdapter = new RouteDBAdapter(context);
+        routeDBAdapter.open();
+        Cursor cursor = routeDBAdapter.getAllRows();
         ArrayList<RouteModel> routes = new ArrayList<>();
         //Reset cursor to start, checking to see if there's data:
         if (cursor.moveToFirst()){
             do {
                 //Process the data:
-                long id = (long) cursor.getInt(routeDBAdaptor.COL_ROWID);
-                String name = cursor.getString(RouteDBAdaptor.COL_NAME);
-                double cityDistance = cursor.getDouble(RouteDBAdaptor.COL_CITY_DISTANCE);
-                double highwayDistance = cursor.getDouble(RouteDBAdaptor.COL_HIGHWAY_DISTANCE);
-                double totalDistance = cursor.getDouble((RouteDBAdaptor.COL_TOTAL_DISTANCE));
-                boolean isDeleted = cursor.getInt(RouteDBAdaptor.COL_IS_DELETED) > 0;
+                long id = (long) cursor.getInt(routeDBAdapter.COL_ROWID);
+                String name = cursor.getString(RouteDBAdapter.COL_NAME);
+                double cityDistance = cursor.getDouble(RouteDBAdapter.COL_CITY_DISTANCE);
+                double highwayDistance = cursor.getDouble(RouteDBAdapter.COL_HIGHWAY_DISTANCE);
+                double totalDistance = cursor.getDouble((RouteDBAdapter.COL_TOTAL_DISTANCE));
+                boolean isDeleted = cursor.getInt(RouteDBAdapter.COL_IS_DELETED) > 0;
                 if (isDeleted){
                     continue;
                 }
@@ -114,16 +114,22 @@ public class CarbonFootprintComponentCollection {
             vehicleDBAdapter.close();
         }
         else if (component instanceof RouteModel){
-            RouteDBAdaptor routeDBAdaptor = new RouteDBAdaptor(context);
-            routeDBAdaptor.open();
-            routeDBAdaptor.insertRow((RouteModel)component);
-            routeDBAdaptor.close();
+            RouteDBAdapter routeDBAdapter = new RouteDBAdapter(context);
+            routeDBAdapter.open();
+            routeDBAdapter.insertRow((RouteModel)component);
+            routeDBAdapter.close();
         }
         else if (component instanceof JourneyModel){
             journies.add((JourneyModel) component);
         }
         else if (component instanceof UtilityModel){
-            utilities.add((UtilityModel) component);
+            //TODO: adding UtilityDBAdapted and uncommenting followings
+            /*
+            UtilityDBAdapter utilityDBAdapter = new UtilityDBAdapter(context);
+            utilityDBAdapter.open();
+            utilityDBAdapter.insertRow((RouteModel)component);
+            utilityDBAdapter.close();
+            */
         }
         else{
             throw new IllegalArgumentException("Input component is not valid.");
@@ -158,10 +164,10 @@ public class CarbonFootprintComponentCollection {
         }
         else if (component instanceof RouteModel){
             RouteModel route = (RouteModel) component;
-            RouteDBAdaptor routeDBAdaptor = new RouteDBAdaptor((context));
-            routeDBAdaptor.open();
-            routeDBAdaptor.updateRow(route);
-            routeDBAdaptor.close();
+            RouteDBAdapter routeDBAdapter = new RouteDBAdapter((context));
+            routeDBAdapter.open();
+            routeDBAdapter.updateRow(route);
+            routeDBAdapter.close();
         }
         else if (component instanceof JourneyModel){
             int index = journies.indexOf((JourneyModel)component);
@@ -238,10 +244,10 @@ public class CarbonFootprintComponentCollection {
             RouteModel route = (RouteModel) component;
             if(route.getId() > -1){
                 route.setIsDeleted(true);
-                RouteDBAdaptor routeDBAdaptor = new RouteDBAdaptor(context);
-                routeDBAdaptor.open();
-                routeDBAdaptor.updateRow(route);
-                routeDBAdaptor.close();
+                RouteDBAdapter routeDBAdapter = new RouteDBAdapter(context);
+                routeDBAdapter.open();
+                routeDBAdapter.updateRow(route);
+                routeDBAdapter.close();
             }
             else
             {
@@ -255,10 +261,20 @@ public class CarbonFootprintComponentCollection {
             }
         }
         else if (component instanceof UtilityModel) {
-            int index = utilities.indexOf(component);
-            if (index > -1) {
-                utilities.get(index).setDeleted(true);
-                utilities.remove(index);
+            UtilityModel utility = (UtilityModel) component;
+            if(utility.getId() > -1){
+                utility.setIsDeleted(true);
+                //TODO: add UtilityDBAdapter and uncomment following code
+                /*
+                UtilityDBAdapter utilityDBAdapter = new RouteDBAdapter(context);
+                utilityDBAdapter.open();
+                utilityDBAdapter.updateRow(utility);
+                utilityDBAdapter.close();
+                */
+            }
+            else
+            {
+                throw new IllegalArgumentException("Input component could not be found in the list.");
             }
         }
         else{
@@ -293,15 +309,15 @@ public class CarbonFootprintComponentCollection {
         }
         else if (component instanceof RouteModel){
             RouteModel routeModel = (RouteModel) component;
-            RouteDBAdaptor routeDBAdaptor = new RouteDBAdaptor(context);
-            routeDBAdaptor.open();
-            Cursor c = routeDBAdaptor.getName(routeModel.getName());
+            RouteDBAdapter routeDBAdapter = new RouteDBAdapter(context);
+            routeDBAdapter.open();
+            Cursor c = routeDBAdapter.getName(routeModel.getName());
             if(c.getCount() > 0)
             {
-                routeDBAdaptor.close();
+                routeDBAdapter.close();
                 throw new DuplicateComponentException();
             }
-            routeDBAdaptor.close();
+            routeDBAdapter.close();
             return;
         }
         else if (component instanceof JourneyModel){

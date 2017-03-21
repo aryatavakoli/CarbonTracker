@@ -131,8 +131,9 @@ public class UtilitySelectActivity extends AppCompatActivity {
                     break;
                 case ACTIVITY_RESULT_EDIT:
                     UtilityModel modifiedUtility = (UtilityModel) data.getSerializableExtra("utility");
-                    UtilityModel utility = carbonFootprintInterface.getUtilities().get(indexOfUtilityEditing);
-                    //TODO: IMPLEMENT ACTIVITY_RESULT_EDIT
+                    modifiedUtility.setId(indexOfUtilityEditing);
+                    populateUtilitiesList();
+                    break;
             }
         }
         else if (resultCode == UtilityAddActivity.RESULT_DELETE){

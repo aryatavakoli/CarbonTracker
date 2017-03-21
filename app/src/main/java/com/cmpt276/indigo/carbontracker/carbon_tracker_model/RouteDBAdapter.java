@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-public class RouteDBAdaptor {
+public class RouteDBAdapter {
 
     // For logging:
     private static final String TAG = "RouteDBAdapter";
@@ -51,17 +51,17 @@ public class RouteDBAdaptor {
     // Context of application who uses us.
     private final Context context;
 
-    private RouteDBAdaptor.DatabaseHelper myDBHelper;
+    private RouteDBAdapter.DatabaseHelper myDBHelper;
     private SQLiteDatabase db;
 
 
-    public RouteDBAdaptor(Context ctx) {
+    public RouteDBAdapter(Context ctx) {
         this.context = ctx;
         myDBHelper = new DatabaseHelper(context);
     }
 
     // Open the database connection.
-    public RouteDBAdaptor open() {
+    public RouteDBAdapter open() {
         db = myDBHelper.getWritableDatabase();
         ensureTableExists();
         return this;
