@@ -7,6 +7,8 @@ import android.view.View;
 import android.widget.Button;
 
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.CarbonFootprintComponentCollection;
+import com.cmpt276.indigo.carbontracker.carbon_tracker_model.JourneyModel;
+import com.cmpt276.indigo.carbontracker.carbon_tracker_model.VehicleModel;
 import com.cmpt276.indigo.carbontracker.viewjourney.ViewJourneyActivity;
 
 import java.io.InputStream;
@@ -68,7 +70,7 @@ public class MainMenu extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainMenu.this, ViewJourneyActivity.class);
-                startActivity(intent );
+                startActivityForResult(intent,23 );
             }
         });
     }
@@ -85,6 +87,18 @@ public class MainMenu extends AppCompatActivity {
             }
         });
     }
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == RESULT_OK) {
+            switch (requestCode) {
+                case 23:
+                    Intent intent2 = new Intent(MainMenu.this, JourneyMenu.class);
+                    startActivity(intent2);
+                    break;
+            }
+        }
+    }
+
 }
 
 

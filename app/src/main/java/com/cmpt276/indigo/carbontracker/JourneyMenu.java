@@ -31,8 +31,10 @@ import java.util.Locale;
  */
 
 public class JourneyMenu extends AppCompatActivity {
+    ArrayList<VehicleModel> vehicles;
+    ArrayList<RouteModel> routes;
+    ArrayList<JourneyModel> journies;
     public static final int DATE_SELECT = 52;
-    static int messageIndex = 0;
     JourneyModel newJourney;
     public static final int TRANSPORTATION_SELECT = 56;
     public static final int ROUTE_SELECT = 57;
@@ -51,6 +53,9 @@ public class JourneyMenu extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         newJourney = new JourneyModel(); // The journey the user is creating
         carbonFootprintInterface = CarbonFootprintComponentCollection.getInstance();
+        vehicles = carbonFootprintInterface.getVehicles(this);
+        routes = carbonFootprintInterface.getRoutes(this);
+        journies = carbonFootprintInterface.getJournies();
         transportSelectBtn();
         routeSelectBtn();
         selectCreate();
@@ -115,7 +120,8 @@ public class JourneyMenu extends AppCompatActivity {
                     } else {
                         carbonFootprintInterface.add(context, newJourney);
                         Toast.makeText(JourneyMenu.this, "Journey Created!", Toast.LENGTH_SHORT).show();
-                        showTipDialog();
+                        finish();
+
                     }
 
                 }
@@ -133,24 +139,7 @@ public class JourneyMenu extends AppCompatActivity {
 
 }
 
-    private String getMessageFromArray(){
-        String[] messageArray = getResources().getStringArray(R.array.messageArray);
-        if (messageIndex == messageArray.length ) messageIndex = 0;
-        String message = messageArray[messageIndex];
 
-        return message;
-    }
-
-    private void showTipDialog() {
-        FragmentManager manager = getSupportFragmentManager();
-        TipFragment dialog = new TipFragment();
-        dialog.setCancelable(false);
-        dialog.show(manager,"message dialog");
-        String message = getMessageFromArray();
-        dialog.setMessage(message);
-
-
-    }
 
     private void fillCarbonFootprintText() {
        newJourney.calculateEmissions();
@@ -230,6 +219,8 @@ public class JourneyMenu extends AppCompatActivity {
             fillCarbonFootprintText();
         }
     }
+
+
 
 }
 
