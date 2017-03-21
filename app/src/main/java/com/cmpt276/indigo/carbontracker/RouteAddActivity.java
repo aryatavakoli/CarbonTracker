@@ -63,9 +63,9 @@ public class RouteAddActivity extends AppCompatActivity {
     }
 
     private void calculate() {
-        int cityDistanceInKm = getNumberFromEditTextOrZeroForFail(R.id.add_route_editText_city_distance);
-        int highwayDistanceInKm = getNumberFromEditTextOrZeroForFail(R.id.add_route_editText_highway_distance);
-        int total = cityDistanceInKm + highwayDistanceInKm;
+        double cityDistanceInKm = getNumberFromEditTextOrZeroForFail(R.id.add_route_editText_city_distance);
+        double highwayDistanceInKm = getNumberFromEditTextOrZeroForFail(R.id.add_route_editText_highway_distance);
+        double total = cityDistanceInKm + highwayDistanceInKm;
         displayNumberIfPositive(R.id.add_route_textview_total_distance, total);
     }
 
@@ -87,7 +87,7 @@ public class RouteAddActivity extends AppCompatActivity {
         });
     }
 
-    private void displayNumberIfPositive(int id, int data) {
+    private void displayNumberIfPositive(int id, double data) {
         TextView textView = (TextView) findViewById(id);
         if (data >= 0) {
             textView.setText("" + data);
@@ -169,10 +169,10 @@ public class RouteAddActivity extends AppCompatActivity {
             String name = editTextName.getText().toString();
 
             EditText editTextHighway = (EditText) findViewById(R.id.add_route_editText_highway_distance);
-            int highway = Integer.parseInt(editTextHighway.getText().toString());
+            double highway = Double.parseDouble(editTextHighway.getText().toString());
 
             EditText editTextCity = (EditText) findViewById(R.id.add_route_editText_city_distance);
-            int city = Integer.parseInt(editTextCity.getText().toString());
+            double city = Double.parseDouble(editTextCity.getText().toString());
             RouteModel newRoute = new RouteModel();
             newRoute.setName(name);
             newRoute.setHighwayDistance(highway);
