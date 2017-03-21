@@ -117,7 +117,7 @@
                 android:text="Number of Occupants" />
 
             <TextView
-                android:id="@+id/utility_result_occupants"
+                android:id="@+id/textView14"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="N/A" />

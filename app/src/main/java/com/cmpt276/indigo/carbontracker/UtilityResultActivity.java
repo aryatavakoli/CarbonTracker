@@ -26,8 +26,6 @@ public class UtilityResultActivity extends AppCompatActivity {
         }
     }
 
-
-
     private void fillBillInformation() {
         TextView nameDisplay = (TextView) findViewById(R.id.utility_result_name);
         nameDisplay.setText(newUtilities.getName() + "");
@@ -36,14 +34,14 @@ public class UtilityResultActivity extends AppCompatActivity {
         companyDisplay.setText(newUtilities.getCompanyName() + "");
 
         TextView daysDisplay = (TextView) findViewById(R.id.utility_result_billing_days);
-        daysDisplay.setText(newUtilities.getBillingPeriodInDays() + "");
+        daysDisplay.setText(newUtilities.getBillingPeriodInDays() + " days");
 
         TextView energyDisplay = (TextView) findViewById(R.id.utility_result__total_energy_consumption);
-        energyDisplay.setText(newUtilities.getTotalEnergyConsumptionInGWH() + "");
+        energyDisplay.setText(newUtilities.getTotalEnergyConsumptionInGJ() + " GJ");
 
         newUtilities.calculateTotalEmissions();
         TextView emissionsDisplay = (TextView) findViewById(R.id.utility_result_total_emission);
-        emissionsDisplay.setText(newUtilities.getTotalCO2EmissionsInKg() + "");
+        emissionsDisplay.setText(newUtilities.getTotalCO2EmissionsInKg() + " Kg");
 
         TextView occupantsDisplay = (TextView) findViewById(R.id.utility_result_occupants);
         occupantsDisplay.setText(newUtilities.getNumberOfOccupants() + "");
@@ -52,10 +50,10 @@ public class UtilityResultActivity extends AppCompatActivity {
     private void fillPerDayUsageTexts() {
 
         TextView energyDisplay = (TextView) findViewById(R.id.utility_result_per_day_energy_consumption);
-        energyDisplay.setText(newUtilities.getDailyEnergyConsumptionInGWH() + "");
+        energyDisplay.setText(newUtilities.getDailyEnergyConsumptionInGJ() + " GJ");
 
-        TextView emissionsDisplay = (TextView) findViewById(R.id.utility_result_per_day_energy_consumption);
-        emissionsDisplay.setText(newUtilities.getDailyCO2EmissionsInKg() + "");
+        TextView emissionsDisplay = (TextView) findViewById(R.id.utility_result_per_day_emissions);
+        emissionsDisplay.setText(newUtilities.getDailyCO2EmissionsInKg() + " Kg");
     }
 
     private void fillTexts() {
