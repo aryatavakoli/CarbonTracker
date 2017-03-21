@@ -48,6 +48,14 @@ public class UtilityModel implements CarbonFootprintComponent {
         this.isDeleted = isDeleted;
     }
 
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
     public Company getCompanyName() {
         return companyName;
     }
@@ -64,7 +72,7 @@ public class UtilityModel implements CarbonFootprintComponent {
         this.name = name;
     }
 
-    public long getBillingPeriodInDays() {
+    public long getBillingPeriodInDay() {
         return billingPeriodInDay;
     }
 

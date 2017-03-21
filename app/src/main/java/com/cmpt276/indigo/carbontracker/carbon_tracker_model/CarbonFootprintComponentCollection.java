@@ -86,7 +86,7 @@ public class CarbonFootprintComponentCollection {
                 if (isDeleted){
                     continue;
                 }
-                RouteModel route = new RouteModel(id, name ,(int)cityDistance, (int)highwayDistance, (int)totalDistance, isDeleted);
+                RouteModel route = new RouteModel(id, name ,cityDistance, highwayDistance, totalDistance, isDeleted);
                 routes.add(route);
             }while(cursor.moveToNext());
         }
