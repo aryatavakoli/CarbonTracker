@@ -139,16 +139,16 @@ public class CarbonFootprintComponentCollection {
     //Edit an existing component to replace it with the passed argument
     private <E extends CarbonFootprintComponent> void edit(ArrayList<E> list, CarbonFootprintComponent component, Context context){
         if (component instanceof VehicleModel){
-            VehicleModel vehicle = (VehicleModel) component;
-            VehicleDBAdapter vehicleDBAdapter = new VehicleDBAdapter(context);
-            vehicleDBAdapter.open();
-            vehicleDBAdapter.updateRow(vehicle);
-            vehicleDBAdapter.close();
+//            VehicleModel vehicle = (VehicleModel) component;
+//            VehicleDBAdapter vehicleDBAdapter = new VehicleDBAdapter(context);
+//            vehicleDBAdapter.open();
+//            vehicleDBAdapter.updateRow(vehicle);
+//            vehicleDBAdapter.close();
         }
-        else
-        {
-            throw new IllegalArgumentException("Input component could not be found in the list.");
-        }
+//        else
+//        {
+//            throw new IllegalArgumentException("Input component could not be found in the list.");
+//        }
     }
 
     //edit component from one of arrayList based on its underlying type
@@ -284,7 +284,7 @@ public class CarbonFootprintComponentCollection {
 
 
 
-//            }
+            }
         }
         else{
             throw new IllegalArgumentException("Input component is not valid.");
