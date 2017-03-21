@@ -11,7 +11,7 @@ import android.util.Log;
  * Created by faranakpouya on 2017-03-18.
  */
 
-public class UtilityDBAdaptor {
+public class UtilityDBAdapter {
 
     // For logging:
     private static final String TAG = "UtilityDBAdapter";
@@ -23,23 +23,17 @@ public class UtilityDBAdaptor {
     public static final String KEY_NAME = "name";
     public static final String KEY_BILLING_PERIOD_IN_DAY = "billing_period_in_day";
     public static final String KEY_TOTAL_ENERGY_CONSUMPTION_IN_GWH = "total_energy_consumption_in_GWH";
-    public static final String KEY_TOTAL_CO2_EMISSION_IN_KG= "total_CO2_emissions_in_Kg";
-    public static final String KEY_DAILY_ENERGY_CONSUMPTION_IN_GWH = "daily_energy_consumption_in_GWH";
-    public static final String KEY_DAILY_CO2_EMISSION_IN_KG = "daily_CO2_emissions_in_Kg";
     public static final String KEY_NUMBER_OF_OCCUPANTS = "number_of_occupants";
     public static final String KEY_IS_DELETED = "is_deleted";
 
     public static final int COL_NAME = 1;
     public static final int COL_BILLING_PERIOD_IN_DAY = 2;
     public static final int COL_TOTAL_ENERGY_CONSUMPTION_IN_GWH = 3;
-    public static final int COL_TOTAL_CO2_EMISSION_IN_KG = 4;
-    public static final int COL_DAILY_ENERGY_CONSUMPTION_IN_GWH = 5;
-    public static final int COL_DAILY_CO2_EMISSION_IN_KG = 6;
-    public static final int COL_NUMBER_OF_OCCUPANTS = 7;
-    public static final int COL_IS_DELETED = 8;
+    public static final int COL_NUMBER_OF_OCCUPANTS = 4;
+    public static final int COL_IS_DELETED = 5;
 
     public static final String[] ALL_KEYS = new String[] {
-            KEY_ROWID, KEY_NAME, KEY_BILLING_PERIOD_IN_DAY, KEY_TOTAL_ENERGY_CONSUMPTION_IN_GWH, KEY_TOTAL_CO2_EMISSION_IN_KG, KEY_DAILY_ENERGY_CONSUMPTION_IN_GWH, KEY_DAILY_CO2_EMISSION_IN_KG, KEY_NUMBER_OF_OCCUPANTS, KEY_IS_DELETED
+            KEY_ROWID, KEY_NAME, KEY_BILLING_PERIOD_IN_DAY, KEY_TOTAL_ENERGY_CONSUMPTION_IN_GWH, KEY_NUMBER_OF_OCCUPANTS, KEY_IS_DELETED
     };
 
     // DB info: it's name, and the table we are using (just one).
@@ -54,9 +48,6 @@ public class UtilityDBAdaptor {
                     + KEY_NAME + " text not null unique, "
                     + KEY_BILLING_PERIOD_IN_DAY + " integer not null, "
                     + KEY_TOTAL_ENERGY_CONSUMPTION_IN_GWH + " double not null, "
-                    + KEY_TOTAL_CO2_EMISSION_IN_KG + " double not null, "
-                    + KEY_DAILY_ENERGY_CONSUMPTION_IN_GWH + " double not null, "
-                    + KEY_DAILY_CO2_EMISSION_IN_KG + " double not null, "
                     + KEY_NUMBER_OF_OCCUPANTS + " integer not null, "
                     + KEY_IS_DELETED + " boolean not null"
                     + ");";
@@ -64,17 +55,17 @@ public class UtilityDBAdaptor {
     // Context of application who uses us.
     private final Context context;
 
-    private UtilityDBAdaptor.DatabaseHelper myDBHelper;
+    private UtilityDBAdapter.DatabaseHelper myDBHelper;
     private SQLiteDatabase db;
 
 
-    public UtilityDBAdaptor(Context ctx) {
+    public UtilityDBAdapter(Context ctx) {
         this.context = ctx;
         myDBHelper = new DatabaseHelper(context);
     }
 
     // Open the database connection.
-    public UtilityDBAdaptor open() {
+    public UtilityDBAdapter open() {
         db = myDBHelper.getWritableDatabase();
         ensureTableExists();
         return this;
@@ -97,11 +88,8 @@ public class UtilityDBAdaptor {
         // Create row's data:
         ContentValues initialValues = new ContentValues();
         initialValues.put(KEY_NAME, utility.getName());
-        initialValues.put(KEY_BILLING_PERIOD_IN_DAY, utility.getBillingPeriodInDay());
-        initialValues.put(KEY_TOTAL_ENERGY_CONSUMPTION_IN_GWH, utility.getDailyEnergyConsumptionInGWH());
-        initialValues.put(KEY_TOTAL_CO2_EMISSION_IN_KG, utility.getDailyCO2EmissionsInKg());
-        initialValues.put(KEY_DAILY_ENERGY_CONSUMPTION_IN_GWH, utility.getDailyEnergyConsumptionInGWH());
-        initialValues.put(KEY_DAILY_CO2_EMISSION_IN_KG, utility.getDailyCO2EmissionsInKg());
+        initialValues.put(KEY_BILLING_PERIOD_IN_DAY, utility.getBillingPeriodInDays());
+        initialValues.put(KEY_TOTAL_ENERGY_CONSUMPTION_IN_GWH, utility.getTotalEnergyConsumptionInGJ()); //TODO: double check
         initialValues.put(KEY_NUMBER_OF_OCCUPANTS, utility.getNumberOfOccupants());
         initialValues.put(KEY_IS_DELETED, utility.getIsDeleted());
         // Insert it into the database.
@@ -165,11 +153,8 @@ public class UtilityDBAdaptor {
         // Create row's data:
         ContentValues newValues = new ContentValues();
         newValues.put(KEY_NAME, utility.getName());
-        newValues.put(KEY_BILLING_PERIOD_IN_DAY, utility.getBillingPeriodInDay());
-        newValues.put(KEY_TOTAL_ENERGY_CONSUMPTION_IN_GWH, utility.getDailyEnergyConsumptionInGWH());
-        newValues.put(KEY_TOTAL_CO2_EMISSION_IN_KG, utility.getDailyCO2EmissionsInKg());
-        newValues.put(KEY_DAILY_ENERGY_CONSUMPTION_IN_GWH, utility.getDailyEnergyConsumptionInGWH());
-        newValues.put(KEY_DAILY_CO2_EMISSION_IN_KG, utility.getDailyCO2EmissionsInKg());
+        newValues.put(KEY_BILLING_PERIOD_IN_DAY, utility.getBillingPeriodInDays());
+        newValues.put(KEY_TOTAL_ENERGY_CONSUMPTION_IN_GWH, utility.getTotalEnergyConsumptionInGJ());
         newValues.put(KEY_NUMBER_OF_OCCUPANTS, utility.getNumberOfOccupants());
         newValues.put(KEY_IS_DELETED, utility.getIsDeleted());
         // Insert it into the database.
