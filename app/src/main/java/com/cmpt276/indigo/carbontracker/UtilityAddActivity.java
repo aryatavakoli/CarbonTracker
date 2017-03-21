@@ -65,8 +65,9 @@ public class UtilityAddActivity extends AppCompatActivity {
                                   int dayOfMonth) {
                 // TODO Auto-generated method stub
                 myCalendar.set(Calendar.YEAR, year);
-                myCalendar.set(Calendar.MONTH, monthOfYear);
+                myCalendar.set(Calendar.MONTH, monthOfYear+1);
                 myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+
                 Button txt = (Button) findViewById(id);
                 txt.setText(myCalendar.get(Calendar.YEAR) + " " + myCalendar.get(Calendar.MONTH) + " " + myCalendar.get(Calendar.DAY_OF_MONTH));
             }
