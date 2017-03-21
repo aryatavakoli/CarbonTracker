@@ -18,38 +18,23 @@ public class UtilityModel implements CarbonFootprintComponent {
     private Company companyName;
     private String name;
     private int billingPeriodInDays;
-    private double totalEnergyConsumptionInGJ;
-    private double totalCO2EmissionsInKg;
-    private double dailyEnergyConsumptionInGJ;
-    private double dailyCO2EmissionsInKg;
-    private double totalEmissionsPerOccupant;
-    private double totalEnergyConsumptionPerOccupant;
+    private double totalEnergyConsumptionInGWh;
     private int numberOfOccupants;
     private boolean isDeleted;
+    //TODO: Adding startData and endData
 
-    public UtilityModel(Company companyName){
-        this.companyName = companyName;
-        name = new String();
-        billingPeriodInDays = 0;
-        totalEnergyConsumptionInGJ = 0;
-        totalCO2EmissionsInKg = 0;
-        dailyEnergyConsumptionInGJ = 0;
-        dailyCO2EmissionsInKg = 0;
-        totalEmissionsPerOccupant = 0;
-        totalEnergyConsumptionPerOccupant = 0;
-        numberOfOccupants = 0;
-        isDeleted = false;
-    }
-
-    public UtilityModel(long id, Company company, String name, long billingPeriodInDay, double totalEnergyConsumptionInGWH, double totalCO2EmissionsInKg, double dailyEnergyConsumptionInGWH, double dailyCO2EmissionsInKg, int numberOfOccupants, boolean isDeleted){
+    public UtilityModel(long id,
+                        Company company,
+                        String name,
+                        int billingPeriodInDays,
+                        double totalEnergyConsumptionInGWh,
+                        int numberOfOccupants,
+                        boolean isDeleted){
         this.id = id;
         this.companyName = company;
         this.name = name;
-        this.billingPeriodInDay = billingPeriodInDay;
-        this.totalCO2EmissionsInKg = totalCO2EmissionsInKg;
-        this.totalEnergyConsumptionInGWH =totalEnergyConsumptionInGWH;
-        this.dailyEnergyConsumptionInGWH = dailyEnergyConsumptionInGWH;
-        this.dailyCO2EmissionsInKg = dailyCO2EmissionsInKg;
+        this.billingPeriodInDays = billingPeriodInDays;
+        this.totalEnergyConsumptionInGWh = totalEnergyConsumptionInGWh;
         this.numberOfOccupants = numberOfOccupants;
         this.isDeleted = isDeleted;
     }
@@ -86,89 +71,72 @@ public class UtilityModel implements CarbonFootprintComponent {
         this.billingPeriodInDays = billingPeriodInDays;
     }
 
-    public double getTotalEnergyConsumptionInGJ() {
-        return totalEnergyConsumptionInGJ;
+    public double getTotalEnergyConsumption() {
+        return totalEnergyConsumptionInGWh;
     }
 
-    public void setTotalEnergyConsumptionInGJ(double totalEnergyConsumptionInGJ) {
+    public void setTotalEnergyConsumption(double totalEnergyConsumptionInGWh) {
+        this.totalEnergyConsumptionInGWh = totalEnergyConsumptionInGWh;
+    }
+
+    public double getTotalEnergyConsumptionInGJ() {
         //convert to GJ
+        double totalEnergyConsumptionInGJ = 0;
         switch (companyName) {
             //dont need to do anything
             case FORTISBC:
-                this.totalEnergyConsumptionInGJ = totalEnergyConsumptionInGJ;
+                totalEnergyConsumptionInGJ = totalEnergyConsumptionInGWh;
                 break;
             //convert to GJ
             case BCHYDRO:
-                this.totalEnergyConsumptionInGJ = totalEnergyConsumptionInGJ * CONVERTOGIGAJOULES;
+                totalEnergyConsumptionInGJ = totalEnergyConsumptionInGWh * CONVERTOGIGAJOULES;
                 break;
         }
+        return totalEnergyConsumptionInGJ;
     }
 
     public double getTotalCO2EmissionsInKg() {
-        calculateTotalEmissions();
-        return totalCO2EmissionsInKg;
+        return calculateTotalEmissions();
     }
 
-    public void setTotalCO2EmissionsInKg(double totalCO2EmissionsInKg) {
-        this.totalCO2EmissionsInKg = totalCO2EmissionsInKg;
+    public double calculateDailyEnergyConsumptionInGJ() {
+        return getTotalEnergyConsumptionInGJ() / billingPeriodInDays;
     }
 
-    public double getDailyEnergyConsumptionInGJ() {
-        dailyEnergyConsumptionInGJ = totalEnergyConsumptionInGJ / billingPeriodInDays;
-        return dailyEnergyConsumptionInGJ;
-    }
-
-    public void setDailyEnergyConsumptionInGJ(double dailyEnergyConsumptionInGJ) {
-        this.dailyEnergyConsumptionInGJ = dailyEnergyConsumptionInGJ;
-    }
-
-    public double getDailyCO2EmissionsInKg() {
-        dailyCO2EmissionsInKg = totalCO2EmissionsInKg / billingPeriodInDays;
-        return dailyCO2EmissionsInKg;
-    }
-
-    public void setDailyCO2EmissionsInKg(double dailyCO2EmissionsInKg) {
-        this.dailyCO2EmissionsInKg = dailyCO2EmissionsInKg;
+    public double calculateDailyCO2EmissionsInKg() {
+        return calculateTotalEmissions() / billingPeriodInDays;
     }
 
     public boolean getIsDeleted() {
         return isDeleted;
     }
 
-    public void setDeleted(boolean deleted) {
+    public void setIsDeleted(boolean deleted) {
         isDeleted = deleted;
     }
 
-    public void calculateTotalEmissions(){
+    public double calculateTotalEmissions(){
+        double totalCO2EmissionsInKg;
         switch (companyName){
             case BCHYDRO:
-                totalCO2EmissionsInKg = ELECTRIFY_FOOTPRINT_KG_PER_GJ * totalEnergyConsumptionInGJ;
+                totalCO2EmissionsInKg = ELECTRIFY_FOOTPRINT_KG_PER_GJ * getTotalEnergyConsumptionInGJ();
                 break;
             case FORTISBC:
-                totalCO2EmissionsInKg = GAS_FOOTPRINT_KG_PER_GJ * totalEnergyConsumptionInGJ;
+                totalCO2EmissionsInKg = GAS_FOOTPRINT_KG_PER_GJ * getTotalEnergyConsumptionInGJ();
                 break;
             default:
                 totalCO2EmissionsInKg = 0;
                 break;
         }
+        return totalCO2EmissionsInKg;
     }
 
     public double getTotalEmissionsPerOccupant() {
-        totalEmissionsPerOccupant =  totalCO2EmissionsInKg/numberOfOccupants;
-        return totalEmissionsPerOccupant;
-    }
-
-    public void setTotalEmissionsPerOccupant(double totalEmissionsPerOccupant) {
-        this.totalEmissionsPerOccupant = totalEmissionsPerOccupant;
+        return  calculateTotalEmissions()/numberOfOccupants;
     }
 
     public double getTotalEnergyConsumptionPerOccupant() {
-        totalEnergyConsumptionPerOccupant = totalEnergyConsumptionInGJ / numberOfOccupants;
-        return totalEnergyConsumptionPerOccupant;
-    }
-
-    public void setTotalEnergyConsumptionPerOccupant(double totalEnergyConsumptionPerOccupant) {
-        this.totalEnergyConsumptionPerOccupant = totalEnergyConsumptionPerOccupant;
+        return totalEnergyConsumptionInGWh / numberOfOccupants;
     }
 
     public int getNumberOfOccupants() {
@@ -177,8 +145,6 @@ public class UtilityModel implements CarbonFootprintComponent {
 
     public void setNumberOfOccupants(int numberOfOccupants) {
         this.numberOfOccupants = numberOfOccupants;
-
-
     }
 
     @Override
@@ -206,10 +172,7 @@ public class UtilityModel implements CarbonFootprintComponent {
                 "companyName=" + companyName +
                 ", name='" + name + '\'' +
                 ", billingPeriodInDays=" + billingPeriodInDays +
-                ", totalEnergyConsumptionInGJ=" + totalEnergyConsumptionInGJ +
-                ", totalCO2EmissionsInKg=" + totalCO2EmissionsInKg +
-                ", dailyEnergyConsumptionInGJ=" + dailyEnergyConsumptionInGJ +
-                ", dailyCO2EmissionsInKg=" + dailyCO2EmissionsInKg +
+                ", totalEnergyConsumptionInGJ=" + totalEnergyConsumptionInGWh +
                 ", numberOfOccupants=" + numberOfOccupants +
                 ", isDeleted=" + isDeleted +
                 '}';

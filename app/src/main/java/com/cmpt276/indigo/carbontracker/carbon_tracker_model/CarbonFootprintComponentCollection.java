@@ -257,7 +257,7 @@ public class CarbonFootprintComponentCollection {
         else if (component instanceof UtilityModel) {
             int index = utilities.indexOf(component);
             if (index > -1) {
-                utilities.get(index).setDeleted(true);
+                utilities.get(index).setIsDeleted(true);
                 utilities.remove(index);
             }
         }
