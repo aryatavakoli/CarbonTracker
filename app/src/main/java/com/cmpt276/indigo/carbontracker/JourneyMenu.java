@@ -3,8 +3,6 @@ package com.cmpt276.indigo.carbontracker;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.icu.text.SimpleDateFormat;
-import android.icu.util.Calendar;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -21,10 +19,12 @@ import com.cmpt276.indigo.carbontracker.carbon_tracker_model.TipFragment;
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.VehicleModel;
 import com.cmpt276.indigo.carbontracker.viewjourney.SelectTransActivity;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Locale;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /*
     implments journey UI
@@ -71,8 +71,6 @@ public class JourneyMenu extends AppCompatActivity {
             fillCarbonFootprintText();
         }
     }
-
-
 
     private void gettingDate() {
 
