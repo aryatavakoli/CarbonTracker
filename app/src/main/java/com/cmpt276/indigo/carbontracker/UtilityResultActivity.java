@@ -50,10 +50,10 @@ public class UtilityResultActivity extends AppCompatActivity {
     private void fillPerDayUsageTexts() {
 
         TextView energyDisplay = (TextView) findViewById(R.id.utility_result_per_day_energy_consumption);
-        energyDisplay.setText(newUtilities.getDailyEnergyConsumptionInGJ() + " GJ");
+        energyDisplay.setText(newUtilities.calculateDailyEnergyConsumptionInGJ() + " GJ");
 
         TextView emissionsDisplay = (TextView) findViewById(R.id.utility_result_per_day_emissions);
-        emissionsDisplay.setText(newUtilities.getDailyCO2EmissionsInKg() + " Kg");
+        emissionsDisplay.setText(newUtilities.calculateDailyCO2EmissionsInKg() + " Kg");
     }
 
     private void fillPerPersonTexts() {
