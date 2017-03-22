@@ -127,7 +127,7 @@
                 android:layout_height="wrap_content"
                 android:backgroundTint="@android:color/holo_green_light"
                 android:ems="10"
-                android:hint="Energy(GWh)"
+                android:hint="As Written on Bill"
                 android:inputType="number"
                 android:textCursorDrawable="@drawable/cursor_color" />
         </TableRow>

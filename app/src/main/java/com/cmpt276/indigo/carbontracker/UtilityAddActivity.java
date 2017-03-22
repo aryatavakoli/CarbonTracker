@@ -7,22 +7,18 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.CarbonFootprintComponentCollection;
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.DuplicateComponentException;
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.UtilityModel;
-import com.cmpt276.indigo.carbontracker.carbon_tracker_model.VehicleModel;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 
 /*
@@ -104,7 +100,7 @@ public class UtilityAddActivity extends AppCompatActivity {
             UtilityModel.Company company = currentUtility.getCompanyName();
             setSpinnerSelection(R.id.utility_add_spinner_company, company);
             EditText editConsumption = (EditText) findViewById(R.id.utility_add_editText_energy_consumption);
-            editConsumption.setText("" + currentUtility.getTotalEnergyConsumption());
+            editConsumption.setText("" + currentUtility.getTotalEnergyConsumptionInGWH());
             EditText editNumberOfOccupents = (EditText) findViewById(R.id.utility_add_editText_num_ppl);
             editNumberOfOccupents.setText("" + currentUtility.getNumberOfOccupants());
             startCalendar = currentUtility.getStartDate();

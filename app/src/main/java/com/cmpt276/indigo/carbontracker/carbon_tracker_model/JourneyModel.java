@@ -118,7 +118,7 @@ public class JourneyModel implements CarbonFootprintComponent{
         return id;
     }
 
-    public boolean isDeleted() {
+    public boolean getIsDeleted() {
         return isDeleted;
     }
 
