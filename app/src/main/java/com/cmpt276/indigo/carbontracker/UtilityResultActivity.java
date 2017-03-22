@@ -8,6 +8,11 @@ import android.widget.TextView;
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.CarbonFootprintComponentCollection;
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.UtilityModel;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
+import static java.lang.Math.round;
+
 public class UtilityResultActivity extends AppCompatActivity {
     UtilityModel newUtilities;
     CarbonFootprintComponentCollection carbonFootprintInterface;
@@ -47,13 +52,14 @@ public class UtilityResultActivity extends AppCompatActivity {
         occupantsDisplay.setText(newUtilities.getNumberOfOccupants() + "");
     }
 
+
     private void fillPerDayUsageTexts() {
 
         TextView energyDisplay = (TextView) findViewById(R.id.utility_result_per_day_energy_consumption);
-        energyDisplay.setText(newUtilities.calculateDailyEnergyConsumptionInGJ() + " GJ");
+        energyDisplay.setText(round(newUtilities.calculateDailyEnergyConsumptionInGJ()) + " GJ");
 
         TextView emissionsDisplay = (TextView) findViewById(R.id.utility_result_per_day_emissions);
-        emissionsDisplay.setText(newUtilities.calculateDailyCO2EmissionsInKg() + " Kg");
+        emissionsDisplay.setText(round(newUtilities.calculateDailyCO2EmissionsInKg()) + " Kg");
     }
 
     private void fillPerPersonTexts() {
@@ -61,8 +67,9 @@ public class UtilityResultActivity extends AppCompatActivity {
         energyDisplay.setText(newUtilities.getTotalEnergyConsumptionPerOccupant() + " GJ");
 
         TextView emissionsDisplay = (TextView) findViewById(R.id.utility_result_per_person_emissions);
-        energyDisplay.setText(newUtilities.getTotalEmissionsPerOccupant() + " Kg");
+        emissionsDisplay.setText(newUtilities.getTotalEmissionsPerOccupant() + " Kg");
     }
+
 
     private void fillTexts() {
         fillBillInformation();
