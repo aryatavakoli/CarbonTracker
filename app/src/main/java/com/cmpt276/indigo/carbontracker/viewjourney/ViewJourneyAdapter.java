@@ -18,10 +18,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 /*
-
+the adapter to View all Journey
  */
 
-class TableAdapter extends BaseAdapter {
+class ViewJourneyAdapter extends BaseAdapter {
 
     private List<JourneyModel> journeyList;
     private LayoutInflater inflater;
@@ -29,16 +29,19 @@ class TableAdapter extends BaseAdapter {
     private TextView carName;
     private TextView routeName;
     private TextView date;
+    // will be format the date.
     private static final SimpleDateFormat SIMPLE_DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 
-    TableAdapter(Context context) {
+    ViewJourneyAdapter(Context context) {
         this.journeyList = new ArrayList<>();
         CarbonFootprintComponentCollection carbonInterface = CarbonFootprintComponentCollection.getInstance();
+        //display all journey
         for (JourneyModel model : carbonInterface.getJournies()) {
             if (!model.isDeleted()) {
                 journeyList.add(model);
             }
         }
+        // init the LayoutInflater
         inflater = LayoutInflater.from(context);
     }
 
@@ -67,6 +70,7 @@ class TableAdapter extends BaseAdapter {
         JourneyModel journey = (JourneyModel) this.getItem(position);
         VehicleModel vehicles = journey.getVehicleModel();
         RouteModel route = journey.getRouteModel();
+        // init the convert view
         if (convertView == null) {
             convertView = inflater.inflate(R.layout.list_item_carbon_view_table, null);
             carId = (TextView) convertView.findViewById(R.id.list_item_carbon_footprint_table_id_col);
@@ -74,12 +78,14 @@ class TableAdapter extends BaseAdapter {
             routeName = (TextView) convertView.findViewById(R.id.list_item_carbon_footprint_table_route_col);
             date = (TextView) convertView.findViewById(R.id.list_item_carbon_footprint_table_date_col);
         }
+        // set the data
         carId.setText((position + 1) + "");
         carName.setText(vehicles.getName());
         carName.setTextSize(13);
         routeName.setText(route.getName());
         routeName.setTextSize(13);
         routeName.setTextSize(13);
+        // format the date.
         date.setText(SIMPLE_DATE_FORMAT.format(journey.getCreationDate()));
         date.setTextSize(13);
         return convertView;

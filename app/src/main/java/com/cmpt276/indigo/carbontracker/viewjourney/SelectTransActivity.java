@@ -18,6 +18,9 @@ import com.cmpt276.indigo.carbontracker.carbon_tracker_model.VehicleModel;
 
 import java.util.ArrayList;
 
+/**
+ * the activity to select the transport type
+ */
 public class SelectTransActivity extends AppCompatActivity {
 
     private Spinner spinner;
@@ -29,15 +32,17 @@ public class SelectTransActivity extends AppCompatActivity {
         setContentView(R.layout.activity_edit_journey);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-        spinner = (Spinner) findViewById(R.id.spinner);
+        spinner = (Spinner) findViewById(R.id.spinner);//the spinner to list the transport types
         findViewById(R.id.ok).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String item = (String) spinner.getSelectedItem();
+                //select the cat type
                 if (item.equals("Car")) {
                     Intent intent = new Intent(SelectTransActivity.this, TransportationSelectActvitiy.class);
                     startActivityForResult(intent, TRANSPORTATION_SELECT );
                 } else {
+                    //select the other type
                     Intent intent = new Intent();
                     VehicleModel selectedVehicle = new VehicleModel();
                     selectedVehicle.setName(item);
@@ -52,6 +57,7 @@ public class SelectTransActivity extends AppCompatActivity {
         if (resultCode == RESULT_OK) {
             switch (requestCode) {
                 case TRANSPORTATION_SELECT:
+                    // when select the cat type ,TransportationSelectActvitiy will return the the vehicle
                     Intent intent = getIntent();
                     intent.putExtra("vehicle", (VehicleModel) data.getSerializableExtra("vehicle"));
                     setResult(RESULT_OK, intent);
@@ -64,6 +70,7 @@ public class SelectTransActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
+            // to back
             onBackPressed();
         }
         return true;

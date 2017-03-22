@@ -89,6 +89,7 @@ public class JourneyModel implements CarbonFootprintComponent{
         {
             totalFootprint = 0;
         }
+        // update mode to calculate the convertedFootprint
         if (vehicleModel.getName().equals("Walk/Bicycle")) {
             totalFootprint =  routeModel.getTotalDistance() * 0.0f ;
         } else if (vehicleModel.getName().equals("Bus")) {
