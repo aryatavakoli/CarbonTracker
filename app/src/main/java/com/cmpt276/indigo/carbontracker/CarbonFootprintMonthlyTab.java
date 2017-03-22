@@ -137,12 +137,7 @@ public class CarbonFootprintMonthlyTab extends Fragment {
 
     }
 
-    public static int generateRandomPositiveValue(int max, int min) {
-        //Random rand = new Random();
-        int ii = min + (int) (Math.random() * ((max - (min)) + 1));
-        return ii;
-    }
-
+    //TODO: Modify these to get bar chart data
     public float getTotalElectrcityEmissions(ArrayList<UtilityModel> utilities) {
         float totalElectrcity = 5;//sample data
         return totalElectrcity;
