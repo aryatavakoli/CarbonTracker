@@ -43,15 +43,34 @@
             android:layout_height="wrap_content" >
 
             <TextView
-                android:text="@string/make"
+                android:text="@string/transporation_mode"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="@android:style/TextAppearance.Material.Medium" />
 
             <Spinner
+                android:id="@+id/add_transport_dropdown_transportation_mode"
                 android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/add_transport_dropdown_make" />
+                android:text="@string/make"
+                android:textAppearance="@android:style/TextAppearance.Material.Medium" />
+
+
+            <Spinner
+                android:id="@+id/add_transport_dropdown_make"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
         </TableRow>
 
         <TableRow
@@ -141,6 +160,5 @@
         android:layout_alignBaseline="@+id/add_transport_ok_btn"
         android:layout_alignBottom="@+id/add_transport_ok_btn"
         android:layout_toStartOf="@+id/add_transport_ok_btn" />
-
 
 </RelativeLayout>

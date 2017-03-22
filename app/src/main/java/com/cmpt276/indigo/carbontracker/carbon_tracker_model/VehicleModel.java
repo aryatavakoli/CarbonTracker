@@ -5,6 +5,44 @@ package com.cmpt276.indigo.carbontracker.carbon_tracker_model;
  */
 
 public class VehicleModel implements CarbonFootprintComponent{
+
+    public enum TransportationMode {
+        CAR,
+        WALK_BIKE,
+        BUS,
+        SKYTRAIN
+    }
+
+    public static int TransportationModeToInt(TransportationMode mode){
+        if(mode == TransportationMode.CAR){
+            return 0;
+        }
+        else if(mode == TransportationMode.WALK_BIKE){
+            return 1;
+        }
+        else if(mode == TransportationMode.BUS){
+            return 2;
+        }
+        else {
+            return 3;
+        }
+    }
+
+    public static TransportationMode IntToTransportaionMode(int value){
+        if(value == 0){
+            return TransportationMode.CAR;
+        }
+        else if(value == 1){
+            return TransportationMode.WALK_BIKE;
+        }
+        else if(value == 2){
+            return TransportationMode.BUS;
+        }
+        else{
+            return TransportationMode.SKYTRAIN;
+        }
+    }
+
     public static final double GASOLINE_FOOTPRINT_KG_PER_LITRE = 2.35; // 8.89 kg per gallon in kg/L
     public static final double DIESEL_FOOTPRINT_KG_PER_LITRE = 2.69; // 10.16 kg per Gallon in kg/L
     private long id;
@@ -17,6 +55,7 @@ public class VehicleModel implements CarbonFootprintComponent{
     private double cityMileage; // Gallon per mile mileage city
     private double highwayMileage; // Gallon per mile milleage Highway
     private String primaryFuelType;
+    private TransportationMode transportaionMode;
     private boolean isDeleted;          // when a Car is deleted, we should hide it instead of removing it
 
     public VehicleModel(){
@@ -30,11 +69,12 @@ public class VehicleModel implements CarbonFootprintComponent{
         cityMileage = 0;
         highwayMileage = 0;
         primaryFuelType = new String();
+        transportaionMode = TransportationMode.CAR;
         isDeleted = false;
     }
 
     public VehicleModel(long id, String name, String make, String model, String year, String transmission, String engineDisplacment,
-                        double cityMileage, double highwayMileage, String primaryFuelType, boolean isDeleted){
+                        double cityMileage, double highwayMileage, String primaryFuelType, TransportationMode transportaionMode, boolean isDeleted){
         this.id = id;
         this.name = name;
         this.make = make;
@@ -45,6 +85,7 @@ public class VehicleModel implements CarbonFootprintComponent{
         this.cityMileage = cityMileage;
         this.highwayMileage = highwayMileage;
         this.primaryFuelType = primaryFuelType;
+        this.transportaionMode = transportaionMode;
         this.isDeleted = isDeleted;
     }
 
@@ -68,6 +109,10 @@ public class VehicleModel implements CarbonFootprintComponent{
         return year;
     }
 
+    public TransportationMode getTransportaionMode() {
+        return transportaionMode;
+    }
+
     public void setId(long id) {
         this.id = id;
     }
@@ -86,6 +131,10 @@ public class VehicleModel implements CarbonFootprintComponent{
 
     public void setYear(String year) {
         this.year = year;
+    }
+
+    public void setTransportaionMode(TransportationMode transportaionMode) {
+        this.transportaionMode = transportaionMode;
     }
 
     public String getEngineDisplacment() {
