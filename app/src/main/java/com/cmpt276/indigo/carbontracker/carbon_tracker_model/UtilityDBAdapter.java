@@ -7,6 +7,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import java.util.Calendar;
+
 /**
  * Created by faranakpouya on 2017-03-18.
  */
@@ -21,34 +23,40 @@ public class UtilityDBAdapter {
     public static final int COL_ROWID = 0;
 
     public static final String KEY_NAME = "name";
-    public static final String KEY_BILLING_PERIOD_IN_DAY = "billing_period_in_day";
+    public static final String KEY_COMPANY = "company";
     public static final String KEY_TOTAL_ENERGY_CONSUMPTION_IN_GWH = "total_energy_consumption_in_GWH";
     public static final String KEY_NUMBER_OF_OCCUPANTS = "number_of_occupants";
+    public static final String KEY_START_DATE = "start_date";
+    public static final String KEY_END_DATE = "end_date";
     public static final String KEY_IS_DELETED = "is_deleted";
 
     public static final int COL_NAME = 1;
-    public static final int COL_BILLING_PERIOD_IN_DAY = 2;
+    public static final int COL_COMPANY = 2;
     public static final int COL_TOTAL_ENERGY_CONSUMPTION_IN_GWH = 3;
     public static final int COL_NUMBER_OF_OCCUPANTS = 4;
-    public static final int COL_IS_DELETED = 5;
+    public static final int COL_START_DATE = 5;
+    public static final int COL_END_DATE = 6;
+    public static final int COL_IS_DELETED = 7;
 
     public static final String[] ALL_KEYS = new String[] {
-            KEY_ROWID, KEY_NAME, KEY_BILLING_PERIOD_IN_DAY, KEY_TOTAL_ENERGY_CONSUMPTION_IN_GWH, KEY_NUMBER_OF_OCCUPANTS, KEY_IS_DELETED
+            KEY_ROWID, KEY_NAME, KEY_COMPANY, KEY_TOTAL_ENERGY_CONSUMPTION_IN_GWH, KEY_NUMBER_OF_OCCUPANTS, KEY_START_DATE, KEY_END_DATE, KEY_IS_DELETED
     };
 
     // DB info: it's name, and the table we are using (just one).
     public static final String DATABASE_NAME = "CarbonTrackerDb";
     public static final String DATABASE_TABLE = "utilityTable";
     // Track DB version if a new version of your app changes the format.
-    public static final int DATABASE_VERSION = 1;
+    public static final int DATABASE_VERSION = 3;
 
     private static final String DATABASE_CREATE_SQL =
             "create table " + DATABASE_TABLE
                     + " (" + KEY_ROWID + " integer primary key autoincrement, "
-                    + KEY_NAME + " text not null unique, "
-                    + KEY_BILLING_PERIOD_IN_DAY + " integer not null, "
+                    + KEY_NAME + " text not null, "
+                    + KEY_COMPANY + " integer not null, "
                     + KEY_TOTAL_ENERGY_CONSUMPTION_IN_GWH + " double not null, "
                     + KEY_NUMBER_OF_OCCUPANTS + " integer not null, "
+                    + KEY_START_DATE + " date not null, "
+                    + KEY_END_DATE + " date not null, "
                     + KEY_IS_DELETED + " boolean not null"
                     + ");";
 
@@ -88,9 +96,11 @@ public class UtilityDBAdapter {
         // Create row's data:
         ContentValues initialValues = new ContentValues();
         initialValues.put(KEY_NAME, utility.getName());
-        initialValues.put(KEY_BILLING_PERIOD_IN_DAY, utility.getBillingPeriodInDays());
-        initialValues.put(KEY_TOTAL_ENERGY_CONSUMPTION_IN_GWH, utility.getTotalEnergyConsumptionInGJ()); //TODO: double check
+        initialValues.put(KEY_COMPANY, UtilityModel.CompanyToInt(utility.getCompanyName()));
+        initialValues.put(KEY_TOTAL_ENERGY_CONSUMPTION_IN_GWH, utility.getTotalEnergyConsumption());
         initialValues.put(KEY_NUMBER_OF_OCCUPANTS, utility.getNumberOfOccupants());
+        initialValues.put(KEY_START_DATE, utility.getStartDateString());
+        initialValues.put(KEY_END_DATE, utility.getEndDateString());
         initialValues.put(KEY_IS_DELETED, utility.getIsDeleted());
         // Insert it into the database.
         utility.setId(db.insert(DATABASE_TABLE, null, initialValues));
@@ -153,9 +163,11 @@ public class UtilityDBAdapter {
         // Create row's data:
         ContentValues newValues = new ContentValues();
         newValues.put(KEY_NAME, utility.getName());
-        newValues.put(KEY_BILLING_PERIOD_IN_DAY, utility.getBillingPeriodInDays());
-        newValues.put(KEY_TOTAL_ENERGY_CONSUMPTION_IN_GWH, utility.getTotalEnergyConsumptionInGJ());
+        newValues.put(KEY_COMPANY, UtilityModel.CompanyToInt(utility.getCompanyName()));
+        newValues.put(KEY_TOTAL_ENERGY_CONSUMPTION_IN_GWH, utility.getTotalEnergyConsumption());
         newValues.put(KEY_NUMBER_OF_OCCUPANTS, utility.getNumberOfOccupants());
+        newValues.put(KEY_START_DATE, utility.getStartDateString());
+        newValues.put(KEY_END_DATE, utility.getEndDateString());
         newValues.put(KEY_IS_DELETED, utility.getIsDeleted());
         // Insert it into the database.
         return db.update(DATABASE_TABLE, newValues, where, null) != 0;

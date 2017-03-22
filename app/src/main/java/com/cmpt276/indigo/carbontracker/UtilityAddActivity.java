@@ -21,6 +21,7 @@ import com.cmpt276.indigo.carbontracker.carbon_tracker_model.DuplicateComponentE
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.UtilityModel;
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.VehicleModel;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -31,11 +32,11 @@ import java.util.Calendar;
 public class UtilityAddActivity extends AppCompatActivity {
     public static final int RESULT_DELETE = 15;
     CarbonFootprintComponentCollection carbonFootprintInterface;
-    final Calendar startCalendar = Calendar.getInstance();
-    final Calendar endCalendar = Calendar.getInstance();
+    Calendar startCalendar = Calendar.getInstance();
+    Calendar endCalendar = Calendar.getInstance();
     UtilityModel currentUtility;
     boolean editing = false;
-    int duration;
+//    int duration;
 
 
 
@@ -46,15 +47,24 @@ public class UtilityAddActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         carbonFootprintInterface = CarbonFootprintComponentCollection.getInstance();
-        setupOKButton();
-        setupDeleteButton();
         loadSpinner();
         //setupDeleteButton();
         populateUIFromIntent();
         gettingDate(R.id.StartDatebtn, startCalendar);
-        gettingDate(R.id.endDateBtn,endCalendar );
+        gettingDate(R.id.endDateBtn, endCalendar);
+        setupOKButton();
+        setupDeleteButton();
     }
 
+    private void displayDate(Button btn, Calendar c) {
+        String date = calendarToString(c);
+        btn.setText(date);
+    }
+
+    private String calendarToString(Calendar c) {
+        SimpleDateFormat formatter = new SimpleDateFormat("MMM dd, yyyy");
+        return formatter.format(c.getTime());
+    }
 
     private void gettingDate(final int id , final Calendar myCalendar){
 
@@ -63,26 +73,26 @@ public class UtilityAddActivity extends AppCompatActivity {
             @Override
             public void onDateSet(DatePicker view, int year, int monthOfYear,
                                   int dayOfMonth) {
-                // TODO Auto-generated method stub
                 myCalendar.set(Calendar.YEAR, year);
-                myCalendar.set(Calendar.MONTH, monthOfYear);
+                myCalendar.set(Calendar.MONTH, monthOfYear+1);
                 myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+
                 Button txt = (Button) findViewById(id);
-                txt.setText(myCalendar.get(Calendar.YEAR) + " " + myCalendar.get(Calendar.MONTH) + " " + myCalendar.get(Calendar.DAY_OF_MONTH));
+                displayDate(txt, myCalendar);
             }
 
         };
-        Button txt = (Button) findViewById(id);
+        final Button txt = (Button) findViewById(id);
         txt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
                 new DatePickerDialog(UtilityAddActivity.this, date, myCalendar
                         .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
                         myCalendar.get(Calendar.DAY_OF_MONTH)).show();
-
+                displayDate(txt, myCalendar);
             }
         });
+        displayDate(txt, myCalendar);
     }
 
     private void populateUIFromIntent(){
@@ -98,7 +108,8 @@ public class UtilityAddActivity extends AppCompatActivity {
             editConsumption.setText("" + currentUtility.getTotalEnergyConsumption());
             EditText editNumberOfOccupents = (EditText) findViewById(R.id.utility_add_editText_num_ppl);
             editNumberOfOccupents.setText("" + currentUtility.getNumberOfOccupants());
-            //TODO: populate start and end dates
+            startCalendar = currentUtility.getStartDate();
+            endCalendar = currentUtility.getEndDate();
         }
     }
 
@@ -125,56 +136,30 @@ public class UtilityAddActivity extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                duration = ((endCalendar.get(Calendar.YEAR) - startCalendar.get(Calendar.YEAR)) * 360) + (
-                        (endCalendar.get(Calendar.MONTH) - startCalendar.get(Calendar.MONTH)) * 30
-                ) + (endCalendar.get(Calendar.DAY_OF_MONTH) - startCalendar.get(Calendar.DAY_OF_MONTH));
-                Toast.makeText(UtilityAddActivity.this, duration + "", Toast.LENGTH_SHORT).show();
-
-                Spinner spinnerCompany  = (Spinner) findViewById(R.id.utility_add_spinner_company);
-                UtilityModel.Company company = (UtilityModel.Company) spinnerCompany.getSelectedItem();
-
-                if (company == null) {
-                    Toast.makeText(UtilityAddActivity.this, "Company should be selected", Toast.LENGTH_SHORT).show();
-                }
-
-                EditText editTextName = (EditText) findViewById(R.id.utility_add_editText_name);
-
-                if (editTextName.getText().toString().length() == 0) {
-                    Toast.makeText(UtilityAddActivity.this, "Please enter a Utility name.", Toast.LENGTH_SHORT)
-                            .show();
-                    return;
-
-                }
-
-
-                EditText editTextEnergy = (EditText) findViewById(R.id.utility_add_editText_energy_consumption);
-                if (editTextEnergy.getText().toString().length() == 0) {
-                    Toast.makeText(UtilityAddActivity.this, "Please enter Energy Consumption", Toast.LENGTH_SHORT)
-                            .show();
-                    return;
-                }
-
-                EditText editTextPeople = (EditText) findViewById(R.id.utility_add_editText_num_ppl);
-                if (editTextPeople.getText().toString().length() == 0) {
-                    Toast.makeText(UtilityAddActivity.this, "Please enter Occupants", Toast.LENGTH_SHORT)
-                            .show();
-                    return;
-                }
+                //Try to get data from utility add UI and create a utility object
                 UtilityModel newUtility = createUtility();
-
+                if(newUtility == null){
+                    return;
+                }
+                //adding and replacing route when a user is editing
+                if (editing){
+                    Intent intent = getIntent();
+                    //Passing the utility object to the TransportationActivity
+                    intent.putExtra("utility", newUtility);
+                    setResult(RESULT_OK, intent);
+                    finish();
+                }
                 //adding Utility to collection if it is not duplicate
-                if (!addUtility(newUtility)) {
+                else if (!addUtility(newUtility)) {
                     return;
                 }
                 else {
                     Toast.makeText(UtilityAddActivity.this, "Utility Added!", Toast.LENGTH_SHORT).show();
-
+                }
                     Intent intent = new Intent();
                     intent.putExtra("utility", newUtility);
                     setResult(Activity.RESULT_OK, intent);
-
                     finish();
-                }
             }
 
         });
@@ -182,6 +167,9 @@ public class UtilityAddActivity extends AppCompatActivity {
 
     private void setupDeleteButton(){
         Button btnDelete = (Button) findViewById(R.id.utility_add_button_delete);
+        if(!editing){
+            btnDelete.setEnabled(false);
+        }
         btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -212,22 +200,45 @@ public class UtilityAddActivity extends AppCompatActivity {
     }
 
     private UtilityModel createUtility() {
-        // Get values from UI:
-        Spinner spinnerCompany  = (Spinner) findViewById(R.id.utility_add_spinner_company);
-        UtilityModel.Company company = (UtilityModel.Company) spinnerCompany.getSelectedItem();
 
         EditText editTextName = (EditText) findViewById(R.id.utility_add_editText_name);
         String name = editTextName.getText().toString();
 
+        if (editTextName.getText().toString().length() == 0) {
+            Toast.makeText(UtilityAddActivity.this, "Please enter a Utility name.", Toast.LENGTH_SHORT).show();
+            return null;
+        }
+
+        Spinner spinnerCompany = (Spinner) findViewById(R.id.utility_add_spinner_company);
+        UtilityModel.Company company = (UtilityModel.Company) spinnerCompany.getSelectedItem();
+
+        if (company == null) {
+            Toast.makeText(UtilityAddActivity.this, "Company should be selected", Toast.LENGTH_SHORT).show();
+            return null;
+        }
+        if (startCalendar == null || endCalendar == null) {
+            Toast.makeText(UtilityAddActivity.this, "Please select start and end days.", Toast.LENGTH_SHORT).show();
+            return null;
+        } else if (endCalendar.getTimeInMillis() < startCalendar.getTimeInMillis()) {
+            Toast.makeText(UtilityAddActivity.this, "End date cannot be before start date.", Toast.LENGTH_SHORT).show();
+            return null;
+        }
+
         EditText editTextEnergy = (EditText) findViewById(R.id.utility_add_editText_energy_consumption);
+        if (editTextEnergy.getText().toString().length() == 0) {
+            Toast.makeText(UtilityAddActivity.this, "Please enter Energy Consumption", Toast.LENGTH_SHORT).show();
+            return null;
+        }
         double energy = Double.parseDouble(editTextEnergy.getText().toString());
 
-        EditText editTextOccupants = (EditText) findViewById(R.id.utility_add_editText_num_ppl);
-        int occupants = Integer.parseInt(editTextOccupants.getText().toString());
+        EditText editTextPeople = (EditText) findViewById(R.id.utility_add_editText_num_ppl);
+        if (editTextPeople.getText().toString().length() == 0) {
+            Toast.makeText(UtilityAddActivity.this, "Please enter Occupants", Toast.LENGTH_SHORT).show();
+            return null;
+        }
+        int occupants = Integer.parseInt(editTextPeople.getText().toString());
 
-        UtilityModel newUtility = new UtilityModel(-1, company, name, duration, energy, occupants, false);
-
-        return  newUtility;
+        return new UtilityModel(-1, company, name, energy, occupants, startCalendar, endCalendar, false);
     }
 
     boolean addUtility(UtilityModel utility){
@@ -235,7 +246,9 @@ public class UtilityAddActivity extends AppCompatActivity {
             carbonFootprintInterface.add(this,utility);
         }
         catch(DuplicateComponentException e){
-            Toast.makeText(UtilityAddActivity.this, "This Utility already exists.", Toast.LENGTH_SHORT).show();
+            if(!editing) {
+                Toast.makeText(UtilityAddActivity.this, "This Utility already exists.", Toast.LENGTH_SHORT).show();
+            }
             return false;
         }
         return true;

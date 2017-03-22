@@ -1,5 +1,6 @@
 package com.cmpt276.indigo.carbontracker;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -21,12 +22,12 @@ import java.util.List;
  */
 public class UtilitySelectActivity extends AppCompatActivity {
 
-    private int indexOfUtilityEditing = -1;
+    private long indexOfUtilityEditing = -1;
     private static final int ACTIVITY_RESULT_ADD = 30;
     private static final int ACTIVITY_RESULT_EDIT = 90;
 
     CarbonFootprintComponentCollection carbonFootprintInterface;
-    List<Integer> utilityPositionList;
+    ArrayList<UtilityModel> utilities;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,14 +63,14 @@ public class UtilitySelectActivity extends AppCompatActivity {
         ListView utilitiesList = (ListView) findViewById(R.id.utilities_select_list);
         populateUtilitiesList();
 
+        final Context context = this;
         //handle click for each element in listview
         utilitiesList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(getBaseContext(), UtilityResultActivity.class);
                 // Passing selected Utilities to the caller activity
-                int realPosition = utilityPositionList.get(position);
-                UtilityModel selectedUtility = carbonFootprintInterface.getUtilities().get(realPosition);
+                UtilityModel selectedUtility = carbonFootprintInterface.getUtilities(context).get(position);
                 intent.putExtra("utility", selectedUtility);
                 setResult(RESULT_OK, intent);
                 startActivity(intent);
@@ -80,16 +81,14 @@ public class UtilitySelectActivity extends AppCompatActivity {
     private void populateUtilitiesList() {
         ListView utilitiesList = (ListView) findViewById(R.id.utilities_select_list);
         carbonFootprintInterface = CarbonFootprintComponentCollection.getInstance();
-        ArrayList<UtilityModel> utilities = carbonFootprintInterface.getUtilities();
+        utilities = carbonFootprintInterface.getUtilities(this);
         // putting Utilities in list
         List<String> utilityNameList = new ArrayList<>();
-        utilityPositionList = new ArrayList<>();
         //Add elements
         int counter = 0;
         for(UtilityModel v: utilities){
             if(!v.getIsDeleted()) {
                 utilityNameList.add(v.getName());
-                utilityPositionList.add(counter);
             }
             counter++;
         }
@@ -106,14 +105,12 @@ public class UtilitySelectActivity extends AppCompatActivity {
     }
 
     private void setupEditUtilityLongPress() {
-        final ArrayList<UtilityModel> utilities = carbonFootprintInterface.getUtilities();
         ListView list = (ListView) findViewById(R.id.utilities_select_list);
         list.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                int realPosition = utilityPositionList.get(position);
-                indexOfUtilityEditing = realPosition;
-                UtilityModel utility = utilities.get(realPosition);
+                UtilityModel utility = utilities.get(position);
+                indexOfUtilityEditing = utility.getId();
                 Intent intent = UtilityAddActivity.makeIntentForEditUtility(UtilitySelectActivity.this, utility);
                 startActivityForResult(intent, ACTIVITY_RESULT_EDIT);
                 return true;
@@ -132,6 +129,7 @@ public class UtilitySelectActivity extends AppCompatActivity {
                 case ACTIVITY_RESULT_EDIT:
                     UtilityModel modifiedUtility = (UtilityModel) data.getSerializableExtra("utility");
                     modifiedUtility.setId(indexOfUtilityEditing);
+                    carbonFootprintInterface.edit(this, modifiedUtility);
                     populateUtilitiesList();
                     break;
             }
