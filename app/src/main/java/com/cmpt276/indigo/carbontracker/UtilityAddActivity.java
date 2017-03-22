@@ -74,8 +74,9 @@ public class UtilityAddActivity extends AppCompatActivity {
             public void onDateSet(DatePicker view, int year, int monthOfYear,
                                   int dayOfMonth) {
                 myCalendar.set(Calendar.YEAR, year);
-                myCalendar.set(Calendar.MONTH, monthOfYear);
+                myCalendar.set(Calendar.MONTH, monthOfYear+1);
                 myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+
                 Button txt = (Button) findViewById(id);
                 displayDate(txt, myCalendar);
             }
