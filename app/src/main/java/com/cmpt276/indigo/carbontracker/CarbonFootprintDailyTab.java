@@ -15,6 +15,17 @@ public class CarbonFootprintDailyTab extends Fragment {
                              Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.activity_carbon_footprint_daily_tab, container, false);
+
+        Button btn = (Button) rootView.findViewById(R.id.refresh_on_date_pick);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                createPieGraph();
+            }
+        });
         return rootView;
+    }
+
+    private void createPieGraph() {
     }
 }
