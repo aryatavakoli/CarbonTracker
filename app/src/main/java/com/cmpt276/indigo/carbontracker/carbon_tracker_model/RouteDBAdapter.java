@@ -41,7 +41,7 @@ public class RouteDBAdapter {
     private static final String DATABASE_CREATE_SQL =
             "create table " + DATABASE_TABLE
                     + " (" + KEY_ROWID + " integer primary key autoincrement, "
-                    + KEY_NAME + " text not null unique, "
+                    + KEY_NAME + " text not null, "
                     + KEY_CITY_DISTANCE + " double not null, "
                     + KEY_HIGHWAY_DISTANCE + " double not null, "
                     + KEY_TOTAL_DISTANCE + " double not null, "

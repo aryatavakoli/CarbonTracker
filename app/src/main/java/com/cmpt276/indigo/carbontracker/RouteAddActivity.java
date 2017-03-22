@@ -197,6 +197,9 @@ public class RouteAddActivity extends AppCompatActivity {
 
     private void setupDeleteButton(){
         Button btnDelete = (Button) findViewById(R.id.add_route_delete_btn);
+        if(!editing){
+            btnDelete.setEnabled(false);
+        }
         btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

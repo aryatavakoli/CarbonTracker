@@ -51,7 +51,7 @@ public class VehicleDBAdapter {
     private static final String DATABASE_CREATE_SQL =
             "create table " + DATABASE_TABLE
                     + " (" + KEY_ROWID + " integer primary key autoincrement, "
-                    + KEY_NAME + " text not null unique, "
+                    + KEY_NAME + " text not null, "
                     + KEY_MAKE + " text not null, "
                     + KEY_MODEL + " text not null, "
                     + KEY_YEAR + " text not null, "

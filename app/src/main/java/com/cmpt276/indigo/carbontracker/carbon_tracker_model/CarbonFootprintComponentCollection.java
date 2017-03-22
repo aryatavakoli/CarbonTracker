@@ -4,7 +4,9 @@ import android.content.Context;
 import android.database.Cursor;
 
 import java.io.InputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
@@ -15,12 +17,9 @@ import java.util.Set;
 
 public class CarbonFootprintComponentCollection {
 
-    private ArrayList<VehicleModel> vehicles;
-    private ArrayList<RouteModel> routes;
     private ArrayList<JourneyModel> journies;
     private ArrayList<String> vehicleMakes;
     private ArrayList<VehicleModel> readVehicles;
-    private ArrayList<UtilityModel> utilities;
     private static CarbonFootprintComponentCollection instance = new CarbonFootprintComponentCollection();
 
     public static CarbonFootprintComponentCollection getInstance(){
@@ -28,11 +27,8 @@ public class CarbonFootprintComponentCollection {
     }
 
     private CarbonFootprintComponentCollection(){
-        vehicles = new ArrayList<>();
-        routes = new ArrayList<>();
         journies = new ArrayList<>();
         vehicleMakes = new ArrayList<>();
-        utilities = new ArrayList<>();
     }
 
     public ArrayList<VehicleModel> getVehicles(Context context) {
@@ -68,7 +64,6 @@ public class CarbonFootprintComponentCollection {
     }
 
     public ArrayList<RouteModel> getRoutes(Context context) {
-        //TODO: read from Route table
         RouteDBAdapter routeDBAdapter = new RouteDBAdapter(context);
         routeDBAdapter.open();
         Cursor cursor = routeDBAdapter.getAllRows();
@@ -100,12 +95,48 @@ public class CarbonFootprintComponentCollection {
         return journies;
     }
 
-    public ArrayList<UtilityModel> getUtilities() {return utilities;}
+    public ArrayList<UtilityModel> getUtilities(Context context) {
+        UtilityDBAdapter utilityDBAdapter = new UtilityDBAdapter(context);
+        utilityDBAdapter.open();
+        Cursor cursor = utilityDBAdapter.getAllRows();
+        ArrayList<UtilityModel> utilities = new ArrayList<>();
+        //Reset cursor to start, checking to see if there's data:
+        if (cursor.moveToFirst()){
+            do {
+                //Process the data:
+                long id = (long) cursor.getInt(UtilityDBAdapter.COL_ROWID);
+                String name = cursor.getString(UtilityDBAdapter.COL_NAME);
+                UtilityModel.Company company = UtilityModel.IntToCompany(cursor.getInt(UtilityDBAdapter.COL_COMPANY));
+                double totalEnergyConsumptionInGWh = cursor.getDouble(UtilityDBAdapter.COL_TOTAL_ENERGY_CONSUMPTION_IN_GWH);
+                int numberOfOccupants = cursor.getInt((UtilityDBAdapter.COL_NUMBER_OF_OCCUPANTS));
+
+                Calendar startDate = Calendar.getInstance();
+                Calendar endDate = Calendar.getInstance();
+                SimpleDateFormat formatter = new SimpleDateFormat(UtilityModel.DATE_FORMAT);
+                try
+                {
+                    startDate.setTime(formatter.parse(cursor.getString(UtilityDBAdapter.COL_START_DATE)));
+                    endDate.setTime(formatter.parse(cursor.getString(UtilityDBAdapter.COL_END_DATE)));
+                }
+                catch(Exception e){
+
+                }
+                boolean isDeleted = cursor.getInt(UtilityDBAdapter.COL_IS_DELETED) > 0;
+                if (isDeleted){
+                    continue;
+                }
+                UtilityModel utilityModel = new UtilityModel(id, company, name, totalEnergyConsumptionInGWh, numberOfOccupants, startDate, endDate, isDeleted);
+                utilities.add(utilityModel);
+            }while(cursor.moveToNext());
+        }
+        //Close the cursor to avoid a resource leak.
+        cursor.close();
+        return utilities;
+    }
 
     //Adding component to one of arrayList based on its underlying type
     //Throw an exception if component cannot be casted to a valid type
     public void add(Context context, CarbonFootprintComponent component){
-        //TODO: add to database instead of arraylist
         validateComponentDuplication(context, component);
         if (component instanceof VehicleModel){
             VehicleDBAdapter vehicleDBAdapter = new VehicleDBAdapter(context);
@@ -120,17 +151,14 @@ public class CarbonFootprintComponentCollection {
             routeDBAdapter.close();
         }
         else if (component instanceof JourneyModel){
+            //TODO: add to database instead of arraylist
             journies.add((JourneyModel) component);
         }
         else if (component instanceof UtilityModel){
-            //TODO: adding UtilityDBAdapted and uncommenting followings
-            /*
             UtilityDBAdapter utilityDBAdapter = new UtilityDBAdapter(context);
             utilityDBAdapter.open();
-            utilityDBAdapter.insertRow((RouteModel)component);
+            utilityDBAdapter.insertRow((UtilityModel) component);
             utilityDBAdapter.close();
-            */
-            utilities.add((UtilityModel) component);
         }
         else{
             throw new IllegalArgumentException("Input component is not valid.");
@@ -155,7 +183,6 @@ public class CarbonFootprintComponentCollection {
     //edit component from one of arrayList based on its underlying type
     //Throw an exception if component cannot be casted to a valid type or found
     public void edit(Context context, CarbonFootprintComponent component){
-        //TODO: edit database entries
         if (component instanceof VehicleModel){
             VehicleModel vehicle = (VehicleModel) component;
             VehicleDBAdapter vehicleDBAdapter = new VehicleDBAdapter(context);
@@ -171,56 +198,18 @@ public class CarbonFootprintComponentCollection {
             routeDBAdapter.close();
         }
         else if (component instanceof JourneyModel){
+            //TODO: edit database entries
             int index = journies.indexOf((JourneyModel)component);
             if (index > -1) {
                 journies.set(index, (JourneyModel) component);
             }
         }
         else if (component instanceof UtilityModel){
-//            edit(utilities, component, context);
-            int index = utilities.indexOf((UtilityModel)component);
-            if (index > -1) {       //Index has a problem. It will fixed in database
-                utilities.set(index, (UtilityModel) component);
-            }
-        }
-        else{
-            throw new IllegalArgumentException("Input component is not valid.");
-        }
-    }
-
-    //deleting component from one of arrayList based on its underlying type
-    //Throw an exception if component cannot be casted to a valid type
-    public void delete(CarbonFootprintComponent component){
-        // delete from database
-        if (component instanceof VehicleModel){
-            int index = vehicles.indexOf((VehicleModel)component);
-            if(index > -1){
-                vehicles.remove(index);
-            }
-            else
-            {
-                throw new IllegalArgumentException("Input component could not be found in the list.");
-            }
-        }
-        else if (component instanceof RouteModel){
-            int index = routes.indexOf((RouteModel)component);
-            if(index > -1){
-                routes.remove(index);
-            }
-            else
-            {
-                throw new IllegalArgumentException("Input component could not be found in the list.");
-            }
-        }
-        else if (component instanceof UtilityModel){
-            int index = utilities.indexOf((UtilityModel)component);
-            if(index > -1){
-                utilities.remove(index);
-            }
-            else
-            {
-                throw new IllegalArgumentException("Input component could not be found in the list.");
-            }
+            UtilityModel utilityModel = (UtilityModel) component;
+            UtilityDBAdapter utilityDBAdapter = new UtilityDBAdapter((context));
+            utilityDBAdapter.open();
+            utilityDBAdapter.updateRow(utilityModel);
+            utilityDBAdapter.close();
         }
         else{
             throw new IllegalArgumentException("Input component is not valid.");
@@ -230,7 +219,6 @@ public class CarbonFootprintComponentCollection {
     //removing(hide) component from one of arrayList based on its underlying type
     //Throw an exception if component cannot be casted to a valid type
     public void remove(Context context, CarbonFootprintComponent component){
-        // TODO: hide in database
         if (component instanceof VehicleModel){
             VehicleModel vehicle = (VehicleModel) component;
             if(vehicle.getId() > -1){
@@ -259,6 +247,7 @@ public class CarbonFootprintComponentCollection {
                 throw new IllegalArgumentException("Input component could not be found in the list.");
             }
         } else if (component instanceof JourneyModel) {
+            // TODO: hide in database
             int index = journies.indexOf(component);
             if (index > -1) {
                 journies.get(index).setDeleted(true);
@@ -296,7 +285,6 @@ public class CarbonFootprintComponentCollection {
     //Throw an exception if the component is not valid
     private void validateComponentDuplication(Context context, CarbonFootprintComponent component){
         // check from database
-        //TODO: Check the database
         if (component instanceof VehicleModel){
             VehicleModel vehicleModel = (VehicleModel)component;
             VehicleDBAdapter vehicleDBAdapter = new VehicleDBAdapter(context);
@@ -324,6 +312,7 @@ public class CarbonFootprintComponentCollection {
             return;
         }
         else if (component instanceof JourneyModel){
+            //TODO: Check the database
             validateComponentDuplication(journies, component);
         }
         else if (component instanceof UtilityModel){

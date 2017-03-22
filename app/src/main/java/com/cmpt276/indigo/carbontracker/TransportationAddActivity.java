@@ -37,10 +37,10 @@ public class TransportationAddActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         carbonFootprintInterface = CarbonFootprintComponentCollection.getInstance();
-        setupOkButton();
-        setupDeleteButton();
         setupDropdownList();
         populateUIFromIntent();
+        setupOkButton();
+        setupDeleteButton();
     }
 
     private void populateUIFromIntent() {
@@ -107,6 +107,9 @@ public class TransportationAddActivity extends AppCompatActivity {
 
     private void setupDeleteButton(){
         Button btnDelete = (Button) findViewById(R.id.add_transport_delete_btn);
+        if(!editing){
+            btnDelete.setEnabled(false);
+        }
         btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
