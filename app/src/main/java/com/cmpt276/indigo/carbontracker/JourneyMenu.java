@@ -70,6 +70,7 @@ public class JourneyMenu extends AppCompatActivity {
         }
     }
 
+    //sets date to one journey including year month and day
     private void gettingDate() {
 
         final Calendar myCalendar = Calendar.getInstance();
@@ -140,7 +141,7 @@ public class JourneyMenu extends AppCompatActivity {
 }
 
 
-
+    //display co2emission
     private void fillCarbonFootprintText() {
        newJourney.calculateEmissions();
         carbonEmission = newJourney.getCo2Emission();
@@ -150,6 +151,7 @@ public class JourneyMenu extends AppCompatActivity {
         }
     }
 
+    //display vehicle and route
     private void fillJourneyTexts() {
 
         if (isVehicleSelected) {

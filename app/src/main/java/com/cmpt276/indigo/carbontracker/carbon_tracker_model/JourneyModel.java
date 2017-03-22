@@ -52,6 +52,7 @@ public class JourneyModel implements CarbonFootprintComponent{
         return co2Emission;
     }
 
+    //error handling
     public void setCo2Emission(float co2Emission){
         if(co2Emission < 0){
             throw new IllegalArgumentException("CO2 emission cannot be negative.");
