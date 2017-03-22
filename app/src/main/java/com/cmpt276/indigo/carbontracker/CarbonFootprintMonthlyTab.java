@@ -1,14 +1,17 @@
 package com.cmpt276.indigo.carbontracker;
 
+
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
+import java.util.Calendar;
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.CarbonFootprintComponentCollection;
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.JourneyModel;
+import com.cmpt276.indigo.carbontracker.carbon_tracker_model.RouteModel;
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.UtilityModel;
+import com.cmpt276.indigo.carbontracker.carbon_tracker_model.VehicleModel;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
@@ -19,14 +22,24 @@ import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
-
 import java.util.ArrayList;
+
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+
 //change this
 public class CarbonFootprintMonthlyTab extends Fragment {
     public static final int NUMBEROFDAYS = 28;
     ArrayList<JourneyModel> journeys;
     ArrayList<UtilityModel> utilities;
     CarbonFootprintComponentCollection carbonInterface;
+    ArrayList<JourneyModel> journey28;
+    ArrayList<UtilityModel> utility28;
+    Calendar today = Calendar.getInstance();
+    Calendar last28 = Calendar.getInstance();
+    Calendar tomorrow = Calendar.getInstance();
     private BarChart mChart;
 
     ArrayList<String> barLabels;
@@ -41,6 +54,11 @@ public class CarbonFootprintMonthlyTab extends Fragment {
 
         journeys = carbonInterface.getJournies();
         utilities = carbonInterface.getUtilities(getActivity());
+        last28.add(Calendar.DAY_OF_MONTH,-28);
+        tomorrow.add(Calendar.DAY_OF_MONTH,2);
+
+
+
 
 
 
@@ -139,27 +157,66 @@ public class CarbonFootprintMonthlyTab extends Fragment {
 
     //TODO: Modify these to get bar chart data
     public float getTotalElectrcityEmissions(ArrayList<UtilityModel> utilities) {
-        float totalElectrcity = 5;//sample data
+        float totalElectrcity = 0;//sample data
+        for (UtilityModel utility : utilities){
+            if (utility.getStartDate().before(tomorrow) && utility.getStartDate().after(last28)) {
+                if (utility.getCompanyName() == UtilityModel.Company.BCHYDRO) {
+                    float total_emission = (float) (utility.getNumberOfOccupants() * utility.getTotalEmissionsPerOccupant());
+                    totalElectrcity = totalElectrcity + total_emission;
+                }
+            }
+        }
         return totalElectrcity;
     }
 
     public float getTotalNaturalGasEmissions(ArrayList<UtilityModel> utilities) {
-        float totalNaturalGasEmissions = 10;//sample
+        float totalNaturalGasEmissions = 0;//sample
+        for (UtilityModel utility : utilities) {
+            if (utility.getStartDate().before(tomorrow) && utility.getStartDate().after(last28)) {
+                if (utility.getCompanyName() == UtilityModel.Company.FORTISBC) {
+                    float total_emission = (float) (utility.getNumberOfOccupants() * utility.getTotalEmissionsPerOccupant());
+                    totalNaturalGasEmissions = totalNaturalGasEmissions + total_emission;
+                }
+            }
+        }
         return totalNaturalGasEmissions;
     }
 
     public float getTotalBusEmissions(ArrayList<JourneyModel> journeys) {
-        float totalBusEmissions = 15;//sample
+        float totalBusEmissions = 0;//sample
+        for (JourneyModel journey : journeys) {
+            if (journey.getCreationDate().after(last28.getTime()) && journey.getCreationDate().before(tomorrow.getTime())) {
+                if (journey.getVehicleModel().getTransportaionMode() == VehicleModel.TransportationMode.BUS) {
+                    totalBusEmissions = totalBusEmissions + journey.getCo2Emission();
+                }
+            }
+        }
         return totalBusEmissions;
     }
 
     public float getTotalSkytrainEmissions(ArrayList<JourneyModel> journeys) {
-        float totalSkytrainEmissions = 20;//sample
-        return totalSkytrainEmissions;
+        float totalSkytrainEmissions = 0;//sample
+        for (JourneyModel journey : journeys) {
+            if (journey.getCreationDate().after(last28.getTime()) && journey.getCreationDate().before(tomorrow.getTime())) {
+                if (journey.getVehicleModel().getTransportaionMode() == VehicleModel.TransportationMode.SKYTRAIN) {
+                    totalSkytrainEmissions = totalSkytrainEmissions + journey.getCo2Emission();
+                }
+            }
+        }
+            return totalSkytrainEmissions;
+
     }
 
+
     public float getTotalCarEmissions(ArrayList<JourneyModel> journeys) {
-        float totalCarEmissions = 25; //
+        float totalCarEmissions = 0; //
+        for (JourneyModel journey : journeys) {
+            if (journey.getCreationDate().after(last28.getTime()) && journey.getCreationDate().before(tomorrow.getTime())) {
+                if (journey.getVehicleModel().getTransportaionMode() == VehicleModel.TransportationMode.CAR) {
+                    totalCarEmissions = totalCarEmissions + journey.getCo2Emission();
+                }
+            }
+        }
         return totalCarEmissions;
     }
 }
