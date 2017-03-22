@@ -13,6 +13,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.cmpt276.indigo.carbontracker.JourneyMenu;
 import com.cmpt276.indigo.carbontracker.R;
@@ -20,6 +21,7 @@ import com.cmpt276.indigo.carbontracker.TransportationSelectActvitiy;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 
 public class TipFragment extends AppCompatDialogFragment {
     CarbonFootprintComponentCollection carbonFootprintInterface;
@@ -130,25 +132,51 @@ public class TipFragment extends AppCompatDialogFragment {
 
     }
 
-    private void populateMessageList() {
 
-        messageList[0]= "You had"+ vehicles.size()+ "car trips in total. You might be able to cut that down by combining trips tomorrow.";
+
+    private void populateMessageList() {
+        final Calendar today = Calendar.getInstance();
         float CO2usage=0;
-        int gasolineNumber=0;
+        float CO2Car= 0;
+        int carNUm = 0;
+        int walkNum= 0;
+        float distanceWalked = 0;
+        int shortDistanceTrips=0;
+        int cityNum = 0;
+        int highwayNum = 0;
         for(JourneyModel v: journies){
-            if (v.getVehicleModel().getEngineDisplacment() == "")
-//            v.getRouteModel().getHighwayDistance()
-            if (v.getCreationDate() == Calendar.getInstance().getTime()){
-                CO2usage = CO2usage + v.getCo2Emission();
+            CO2usage =  CO2usage + v.getCo2Emission();
+            if (v.getVehicleModel().getTransportaionMode()== VehicleModel.TransportationMode.CAR && v.getCreationDate() == today.getTime()) {
+                carNUm++;
+                CO2Car =  CO2Car + v.getCo2Emission();
+            }
+            if (v.getRouteModel().getTotalDistance() <10 && v.getVehicleModel().getTransportaionMode() != VehicleModel.TransportationMode.WALK_BIKE)  {
+                shortDistanceTrips ++;
+            }
+            if (v.getVehicleModel().getTransportaionMode() == VehicleModel.TransportationMode.WALK_BIKE){
+                walkNum++;
+                distanceWalked += v.getRouteModel().getTotalDistance();
+
+            }
+            if ((v.getRouteModel().getHighwayDistance() < v.getRouteModel().getCityDistance()) &&
+                    v.getVehicleModel().getTransportaionMode() == VehicleModel.TransportationMode.CAR){
+                cityNum ++;
             }
 
+
+
+
         }
-        messageList[1]= "You generate "+ CO2usage  + " of CO2 today from natural gas use. Shorter showers might help cut down emissions from hot water heater.";
-        messageList[2]= "this is my 3rd";
-        messageList[3]= "what is love baby dont hurt me";
-        messageList[4]= "baby are u down down";
-        messageList[5]= "baby dont worry u ar my only";
-        messageList[6]= "lonely I have nobody";
+        messageList[0]= "You had"+ carNUm+ "car trips today. You might be able to cut that down by combining trips tomorrow.";
+        messageList[1]= "You generate "+ CO2usage  + " of CO2 . Shorter showers might help cut down emissions from hot water heater.";
+        messageList[2]= "Overall you had " + CO2usage + " kgs of carbon which " + CO2Car+" of it belongs to your car trips";
+        messageList[3]= "You have " + shortDistanceTrips +" trips with total distance of less than 10km you can try walking or biking these routes";
+        messageList[4]= "You have Walked/Biked" + distanceWalked +  "kms in total of " + walkNum +" walk/bike trips you had" ;
+        messageList[5]= "In " + cityNum + " of your car journeys highway distance was less than city distance" +
+                " if it is not necessary try to avoid driving in city and traffics because it produces more CO2 ";
+        messageList[6]= "during taking each of your " +  carNUm+
+        " car tips try to Drive at an appropriate speed -" +
+        " staying within the 70mph limit can bring savings of 10 per cent for your fuel bill compared to driving at 80mph.";
         messageList[7]= "u dont know ur beautiful";
         messageList[8]= "I feel it coming";
         messageList[9]= "mimiram barat";
@@ -158,6 +186,11 @@ public class TipFragment extends AppCompatDialogFragment {
         messageList[13]= "I dont wanna live forever";
         messageList[14]= "to pishie manio mi00";
     }
+
+
+
+
+
 
 }
 
