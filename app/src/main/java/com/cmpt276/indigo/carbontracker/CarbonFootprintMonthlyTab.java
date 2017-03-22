@@ -22,6 +22,7 @@ import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.utils.ColorTemplate;
@@ -36,9 +37,9 @@ public class CarbonFootprintMonthlyTab extends Fragment {
     ArrayList<UtilityModel> utilities;
     CarbonFootprintComponentCollection carbonInterface;
     private BarChart mChart;
-    ArrayList<Entry> dailyElectricityEntry;
-    ArrayList<Entry> dailyNaturalGasEntry;
-    ArrayList<Entry> dailyJourneyEntry;
+    ArrayList<BarEntry> dailyElectricityEntry;
+    ArrayList<BarEntry> dailyNaturalGasEntry;
+    ArrayList<BarEntry> dailyJourneyEntry;
     ArrayList<BarEntry> barEntries;
 
     @Override
@@ -54,18 +55,31 @@ public class CarbonFootprintMonthlyTab extends Fragment {
         ArrayList<String> barLabels = new ArrayList<>();
         ArrayList<BarEntry> barEntries = new ArrayList<>();
 
+        createGraph(rootView, barLabels, barEntries);
+
+
+
+        return rootView;
+    }
+
+    private void createGraph(View rootView, ArrayList<String> barLabels, ArrayList<BarEntry> barEntries) {
         mChart = (BarChart) rootView.findViewById(R.id.chart1);
         mChart.getDescription().setEnabled(false);
         mChart.setPinchZoom(false);
         mChart.setScaleEnabled(false);
 
-        for (int i = 0; i < 5; i++){
-            barEntries.add(new BarEntry(i, generateRandomPositiveValue(0,100)));
-        }
+        populateData(barLabels, barEntries);
 
         XAxis xAxis = mChart.getXAxis();
         xAxis.setGranularity(1f); // only intervals of 1 day
         xAxis.setGranularityEnabled(true);
+        xAxis.setDrawGridLines(false);
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+        xAxis.setValueFormatter(new IndexAxisValueFormatter(barLabels));
+
+        YAxis yAxis = mChart.getAxisLeft();
+        mChart.getAxisRight().setEnabled(false);
+        yAxis.setAxisMinimum(0);
 
         BarDataSet set1;
 
@@ -78,10 +92,11 @@ public class CarbonFootprintMonthlyTab extends Fragment {
         BarData data = new BarData(dataSets);
 
         mChart.setData(data);
+        mChart.setFitBars(true);
+    }
 
+    private void populateData(ArrayList<String> barLabels, ArrayList<BarEntry> barEntries) {
 
-
-        return rootView;
     }
 
 
