@@ -86,11 +86,11 @@ public class CarbonFootprintPeriodicDataMenu extends AppCompatActivity {
         public CharSequence getPageTitle(int position) {
             switch (position) {
                 case 0:
-                    return "Daily";
+                    return "1 Day";
                 case 1:
-                    return "Monthly";
+                    return "4 Weeks";
                 case 2:
-                    return "Yearly";
+                    return "1 Year";
             }
             return null;
         }

@@ -35,7 +35,7 @@ class TableAdapter extends BaseAdapter {
         this.journeyList = new ArrayList<>();
         CarbonFootprintComponentCollection carbonInterface = CarbonFootprintComponentCollection.getInstance();
         for (JourneyModel model : carbonInterface.getJournies()) {
-            if (!model.isDeleted()) {
+            if (!model.getIsDeleted()) {
                 journeyList.add(model);
             }
         }

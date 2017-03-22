@@ -7,8 +7,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-import java.util.Calendar;
-
 /**
  * Created by faranakpouya on 2017-03-18.
  */
@@ -97,7 +95,7 @@ public class UtilityDBAdapter {
         ContentValues initialValues = new ContentValues();
         initialValues.put(KEY_NAME, utility.getName());
         initialValues.put(KEY_COMPANY, UtilityModel.CompanyToInt(utility.getCompanyName()));
-        initialValues.put(KEY_TOTAL_ENERGY_CONSUMPTION_IN_GWH, utility.getTotalEnergyConsumption());
+        initialValues.put(KEY_TOTAL_ENERGY_CONSUMPTION_IN_GWH, utility.getTotalEnergyConsumptionInGWH());
         initialValues.put(KEY_NUMBER_OF_OCCUPANTS, utility.getNumberOfOccupants());
         initialValues.put(KEY_START_DATE, utility.getStartDateString());
         initialValues.put(KEY_END_DATE, utility.getEndDateString());
@@ -164,7 +162,7 @@ public class UtilityDBAdapter {
         ContentValues newValues = new ContentValues();
         newValues.put(KEY_NAME, utility.getName());
         newValues.put(KEY_COMPANY, UtilityModel.CompanyToInt(utility.getCompanyName()));
-        newValues.put(KEY_TOTAL_ENERGY_CONSUMPTION_IN_GWH, utility.getTotalEnergyConsumption());
+        newValues.put(KEY_TOTAL_ENERGY_CONSUMPTION_IN_GWH, utility.getTotalEnergyConsumptionInGWH());
         newValues.put(KEY_NUMBER_OF_OCCUPANTS, utility.getNumberOfOccupants());
         newValues.put(KEY_START_DATE, utility.getStartDateString());
         newValues.put(KEY_END_DATE, utility.getEndDateString());

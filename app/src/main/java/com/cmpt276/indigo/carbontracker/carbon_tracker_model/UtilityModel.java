@@ -10,7 +10,7 @@ import java.util.concurrent.TimeUnit;
 
 public class UtilityModel implements CarbonFootprintComponent {
     public static final String DATE_FORMAT = "yyyy-MMM-dd";
-    public static final double ELECTRIFY_FOOTPRINT_KG_PER_GJ = 2.5; //9000 Kg/GwH
+    public static final double ELECTRICITY_FOOTPRINT_KG_PER_GJ = 2.5; //9000 Kg/GwH
     public static final double GAS_FOOTPRINT_KG_PER_GJ = 51.6; // 51.6 Kg/Gj
     public static final int CONVERTOGIGAJOULES = 3600;
 
@@ -59,7 +59,7 @@ public class UtilityModel implements CarbonFootprintComponent {
         setId(id);
         setCompanyName(company);
         setName(name);
-        setTotalEnergyConsumption(totalEnergyConsumptionInGWh);
+        setTotalEnergyConsumptionInGWH(totalEnergyConsumptionInGWh);
         setNumberOfOccupants(numberOfOccupants);
         setStartDate(startDate);
         setEndDate(endDate);
@@ -90,11 +90,11 @@ public class UtilityModel implements CarbonFootprintComponent {
         this.name = name;
     }
 
-    public double getTotalEnergyConsumption() {
+    public double getTotalEnergyConsumptionInGWH() {
         return totalEnergyConsumptionInGWh;
     }
 
-    public void setTotalEnergyConsumption(double totalEnergyConsumptionInGWh) {
+    public void setTotalEnergyConsumptionInGWH(double totalEnergyConsumptionInGWh) {
         this.totalEnergyConsumptionInGWh = totalEnergyConsumptionInGWh;
     }
 
@@ -120,6 +120,10 @@ public class UtilityModel implements CarbonFootprintComponent {
 
     public double calculateDailyEnergyConsumptionInGJ() {
         return getTotalEnergyConsumptionInGJ() / calculateBillingPeriodInDays();
+    }
+
+    public double calculateDailyEnergyConsumptionInGWH() {
+        return getTotalEnergyConsumptionInGWH() / calculateBillingPeriodInDays();
     }
 
     public double calculateDailyCO2EmissionsInKg() {
@@ -164,7 +168,7 @@ public class UtilityModel implements CarbonFootprintComponent {
         double totalCO2EmissionsInKg;
         switch (companyName){
             case BCHYDRO:
-                totalCO2EmissionsInKg = ELECTRIFY_FOOTPRINT_KG_PER_GJ * getTotalEnergyConsumptionInGJ();
+                totalCO2EmissionsInKg = ELECTRICITY_FOOTPRINT_KG_PER_GJ * getTotalEnergyConsumptionInGJ();
                 break;
             case FORTISBC:
                 totalCO2EmissionsInKg = GAS_FOOTPRINT_KG_PER_GJ * getTotalEnergyConsumptionInGJ();
@@ -185,8 +189,12 @@ public class UtilityModel implements CarbonFootprintComponent {
         return  calculateTotalEmissions()/numberOfOccupants;
     }
 
-    public double getTotalEnergyConsumptionPerOccupant() {
+    public double getTotalEnergyConsumptionPerOccupantInGJ() {
         return getTotalEnergyConsumptionInGJ() / numberOfOccupants;
+    }
+
+    public double getTotalEnergyConsumptionPerOccupantInGWH() {
+        return getTotalEnergyConsumptionInGWH() / numberOfOccupants;
     }
 
     public int getNumberOfOccupants() {
