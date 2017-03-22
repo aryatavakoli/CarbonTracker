@@ -24,6 +24,7 @@ import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
+import com.github.mikephil.charting.utils.ColorTemplate;
 
 
 import java.util.ArrayList;
@@ -58,17 +59,26 @@ public class CarbonFootprintMonthlyTab extends Fragment {
         mChart.setPinchZoom(false);
         mChart.setScaleEnabled(false);
 
+        for (int i = 0; i < 5; i++){
+            barEntries.add(new BarEntry(i, generateRandomPositiveValue(0,100)));
+        }
+
         XAxis xAxis = mChart.getXAxis();
         xAxis.setGranularity(1f); // only intervals of 1 day
         xAxis.setGranularityEnabled(true);
 
         BarDataSet set1;
-        set1 = new BarDataSet(barEntries, "The year 2017");
+
+        set1 = new BarDataSet(barEntries, "EMISSION TYPE");
+        set1.setColors(ColorTemplate.MATERIAL_COLORS);
 
         ArrayList<IBarDataSet> dataSets = new ArrayList<IBarDataSet>();
         dataSets.add(set1);
 
         BarData data = new BarData(dataSets);
+
+        mChart.setData(data);
+
 
 
         return rootView;
