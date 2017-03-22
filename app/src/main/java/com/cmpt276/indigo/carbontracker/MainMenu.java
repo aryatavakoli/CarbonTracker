@@ -31,6 +31,7 @@ public class MainMenu extends AppCompatActivity {
         loadDataFile();
         journeyCreateBtn();
         carbonFootprintSelectBtn();
+        // add journey view button
         journeyViewBtn();
         utilitesCreateBtn();
     }
@@ -64,6 +65,9 @@ public class MainMenu extends AppCompatActivity {
         });
     }
 
+    /**
+     * jump to ViewJourneyActivity
+     */
     private void journeyViewBtn() {
         Button btn = (Button) findViewById(R.id.main_menu_view_journey_btn);
         btn.setOnClickListener(new View.OnClickListener() {

@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -13,7 +12,6 @@ import android.widget.ListView;
 
 import com.cmpt276.indigo.carbontracker.JourneyMenu;
 import com.cmpt276.indigo.carbontracker.R;
-import com.cmpt276.indigo.carbontracker.RouteSelectActivity;
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.CarbonFootprintComponentCollection;
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.JourneyModel;
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.RouteModel;
@@ -22,8 +20,11 @@ import com.cmpt276.indigo.carbontracker.carbon_tracker_model.VehicleModel;
 
 import java.util.ArrayList;
 
+/**
+ * the activity to display all the journey into a listview
+ */
 public class ViewJourneyActivity extends AppCompatActivity {
-    ListView tableListView;
+    ListView tableListView;//listview
     ArrayList<VehicleModel> vehicles;
     ArrayList<RouteModel> routes;
     ArrayList<JourneyModel> journies;
@@ -35,6 +36,7 @@ public class ViewJourneyActivity extends AppCompatActivity {
         setContentView(R.layout.activity_view_journey);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+        // init the view
         carbonFootprintInterface = CarbonFootprintComponentCollection.getInstance();
         vehicles = carbonFootprintInterface.getVehicles(this);
         routes = carbonFootprintInterface.getRoutes(this);
@@ -44,8 +46,10 @@ public class ViewJourneyActivity extends AppCompatActivity {
         tableListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                // to edit the journey
                 Intent intent = new Intent(getApplicationContext(), JourneyMenu.class);
                 intent.putExtra("journey", (JourneyModel)tableListView.getAdapter().getItem(i));
+                // start to edit
                 startActivity(intent);
 
             }
@@ -81,13 +85,15 @@ public class ViewJourneyActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        TableAdapter adapter = new TableAdapter(this);
+        // update the list view in order to show the news
+        ViewJourneyAdapter adapter = new ViewJourneyAdapter(this);
         tableListView.setAdapter(adapter);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
+            // to back
             onBackPressed();
         }
         return true;

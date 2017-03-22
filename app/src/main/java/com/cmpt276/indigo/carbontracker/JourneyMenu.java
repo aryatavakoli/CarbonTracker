@@ -38,7 +38,7 @@ public class JourneyMenu extends AppCompatActivity {
     List<Integer> journey_positionList;
     public float carbonEmission;
 
-    private boolean isEdit = false;
+    private boolean isEdit = false;// if in edit mode or not
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,16 +57,20 @@ public class JourneyMenu extends AppCompatActivity {
         gettingDate();
         deleteBtn();
         Intent intent = getIntent();
-        if (intent != null && intent.getSerializableExtra("journey")!=null) {
+        if (intent != null && intent.getSerializableExtra("journey") != null) {
+            // if intent.getSerializableExtra("journey") != null when first in
+            // it mean in edit mode
             newJourney = (JourneyModel) intent.getSerializableExtra("journey");
-            isEdit = true;
+            isEdit = true;//set the isEdit is true
             isVehicleSelected = true;
             isRouteSelected = true;
+            // update the view
             fillJourneyTexts();
             fillCarbonFootprintText();
         }
     }
 
+    //sets date to one journey including year month and day
     private void gettingDate() {
 
         final Calendar myCalendar = Calendar.getInstance();
@@ -97,6 +101,9 @@ public class JourneyMenu extends AppCompatActivity {
     }
 
 
+    /**
+     * create or edit
+     */
     private void selectCreate() {
         Button btn = (Button) findViewById(R.id.journey_menu_create_btn);
         final Context context = this;
@@ -104,9 +111,12 @@ public class JourneyMenu extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (isRouteSelected && isVehicleSelected) {
+                    // is in edit mode
                     if (isEdit) {
+                        // edit the journey
                         carbonFootprintInterface.edit(context, newJourney);
                         Toast.makeText(JourneyMenu.this, "Journey Save!", Toast.LENGTH_SHORT).show();
+                        // finish and back
                         finish();
                     } else {
                         carbonFootprintInterface.add(context, newJourney);
@@ -131,7 +141,7 @@ public class JourneyMenu extends AppCompatActivity {
 }
 
 
-
+    //display co2emission
     private void fillCarbonFootprintText() {
        newJourney.calculateEmissions();
         carbonEmission = newJourney.getCo2Emission();
@@ -141,6 +151,7 @@ public class JourneyMenu extends AppCompatActivity {
         }
     }
 
+    //display vehicle and route
     private void fillJourneyTexts() {
 
         if (isVehicleSelected) {
@@ -179,6 +190,9 @@ public class JourneyMenu extends AppCompatActivity {
         });
     }
 
+    /**
+     * delete the journey
+     */
     private void deleteBtn() {
         Button btn = (Button) findViewById(R.id.journey_menu_delete_btn);
         final Context context = this;
@@ -186,7 +200,9 @@ public class JourneyMenu extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (newJourney != null) {
+                    // delete the select journey
                     carbonFootprintInterface.remove(context, newJourney);
+                    // finish this activity and back
                     finish();
                 }
             }
