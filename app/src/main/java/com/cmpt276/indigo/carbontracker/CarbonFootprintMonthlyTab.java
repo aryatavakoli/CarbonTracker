@@ -37,7 +37,7 @@ public class CarbonFootprintMonthlyTab extends Fragment {
         View rootView = inflater.inflate(R.layout.activity_carbon_footprint_monthly_tab, container, false);
 
         TextView tv1 = (TextView) rootView.findViewById(R.id.textView7) ;
-        tv1.setTextColor(Color.parseColor("#2ecc71"));
+        tv1.setTextColor(Color.parseColor("#3498db"));
 
         TextView tv2 = (TextView) rootView.findViewById(R.id.textView5) ;
         tv2.setTextColor(Color.parseColor("#f1c40f"));
@@ -62,6 +62,7 @@ public class CarbonFootprintMonthlyTab extends Fragment {
 
         // if disabled, scaling can be done on x- and y-axis separately
         mChart.setPinchZoom(false);
+        mChart.setScaleEnabled(false);
 
         Legend l = mChart.getLegend();
         l.setEnabled(false);
@@ -191,7 +192,7 @@ public class CarbonFootprintMonthlyTab extends Fragment {
             set1 = new LineDataSet(dailyElectricityEntry, "DataSet 1");
             set1.setAxisDependency(YAxis.AxisDependency.LEFT);
             set1.setAxisDependency(YAxis.AxisDependency.RIGHT);
-            set1.setColor(Color.parseColor("#2ecc71"));
+            set1.setColor(Color.parseColor("#3498db"));
             set1.setDrawCircles(true);
             set1.setCircleRadius(4f);
             set1.setLineWidth(2f);
