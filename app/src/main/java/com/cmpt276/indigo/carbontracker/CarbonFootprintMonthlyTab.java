@@ -1,24 +1,23 @@
 package com.cmpt276.indigo.carbontracker;
 
-import android.graphics.Color;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.CarbonFootprintComponentCollection;
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.JourneyModel;
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.UtilityModel;
-import com.github.mikephil.charting.charts.LineChart;
-import com.github.mikephil.charting.components.Legend;
+import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
-import com.github.mikephil.charting.data.Entry;
-import com.github.mikephil.charting.data.LineData;
-import com.github.mikephil.charting.data.LineDataSet;
-import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
+import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
+import com.github.mikephil.charting.utils.ColorTemplate;
 
 
 import java.util.ArrayList;
@@ -28,22 +27,15 @@ public class CarbonFootprintMonthlyTab extends Fragment {
     ArrayList<JourneyModel> journeys;
     ArrayList<UtilityModel> utilities;
     CarbonFootprintComponentCollection carbonInterface;
-    private LineChart mChart;
+    private BarChart mChart;
 
+    ArrayList<String> barLabels;
+    ArrayList<BarEntry> barEntries;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.activity_carbon_footprint_monthly_tab, container, false);
-
-        TextView tv1 = (TextView) rootView.findViewById(R.id.textView7) ;
-        tv1.setTextColor(Color.parseColor("#3498db"));
-
-        TextView tv2 = (TextView) rootView.findViewById(R.id.textView5) ;
-        tv2.setTextColor(Color.parseColor("#f1c40f"));
-
-        TextView tv3 = (TextView) rootView.findViewById(R.id.textView3) ;
-        tv3.setTextColor(Color.parseColor("#e74c3c"));
 
         carbonInterface = CarbonFootprintComponentCollection.getInstance();
 
@@ -51,185 +43,123 @@ public class CarbonFootprintMonthlyTab extends Fragment {
         utilities = carbonInterface.getUtilities(getActivity());
 
 
-        mChart = (LineChart) rootView.findViewById(R.id.chart1);
-        mChart.setBackgroundColor(Color.WHITE);
-        mChart.setDrawGridBackground(true);
 
-        mChart.setDrawBorders(true);
+        createGraph(rootView,journeys,utilities);
 
-        // no description text
+
+
+        return rootView;
+    }
+    //creates graph
+    private void createGraph(View rootView ,
+                             ArrayList<JourneyModel> journeys,
+                             ArrayList<UtilityModel> utilities) {
+
+        mChart = (BarChart) rootView.findViewById(R.id.chart1);
         mChart.getDescription().setEnabled(false);
-
-        // if disabled, scaling can be done on x- and y-axis separately
         mChart.setPinchZoom(false);
         mChart.setScaleEnabled(false);
 
-        Legend l = mChart.getLegend();
-        l.setEnabled(false);
+        ArrayList<String> barLabels = new ArrayList<>();
+        ArrayList<BarEntry> barEntries = new ArrayList<>();
 
+        //Gets Values
+        float totalElectrcityEmissions = getTotalElectrcityEmissions(utilities);
+        float totalNaturalGasEmissions = getTotalNaturalGasEmissions(utilities);
+        float totalBusEmissions = getTotalBusEmissions(journeys);
+        float totalSkytrainEmissions = getTotalSkytrainEmissions(journeys);
+        float totalCarEmissions = getTotalCarEmissions(journeys);
+
+        //populates graph
+        populateUtilityEntries(
+                totalElectrcityEmissions,
+                totalNaturalGasEmissions,
+                barLabels,
+                barEntries);
+
+        populateJourneyEntries(
+                totalBusEmissions,
+                totalSkytrainEmissions,
+                totalCarEmissions,
+                barLabels,
+                barEntries);
+
+        //Xaxis properties
         XAxis xAxis = mChart.getXAxis();
-        xAxis.setAxisMinimum(0f);
-        xAxis.setEnabled(false);
+        xAxis.setGranularity(1f); // only intervals of 1 day
+        xAxis.setGranularityEnabled(true);
+        xAxis.setDrawGridLines(false);
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+        xAxis.setValueFormatter(new IndexAxisValueFormatter(barLabels));
 
-        YAxis leftAxis = mChart.getAxisLeft();
-        leftAxis.setAxisMinimum(0);
-        leftAxis.setDrawAxisLine(true);
-        leftAxis.setDrawZeroLine(true);
-        leftAxis.setDrawGridLines(true);
-
+        //Yaxis properties
+        YAxis yAxis = mChart.getAxisLeft();
         mChart.getAxisRight().setEnabled(false);
+        yAxis.setAxisMinimum(0);
 
-        // add data
-        setData(28);
+        BarDataSet set1;
 
-        mChart.invalidate();
-        return rootView;
+        set1 = new BarDataSet(barEntries, "EMISSION TYPE");
+        set1.setColors(ColorTemplate.MATERIAL_COLORS);
+
+        ArrayList<IBarDataSet> dataSets = new ArrayList<IBarDataSet>();
+        dataSets.add(set1);
+
+        BarData data = new BarData(dataSets);
+
+        mChart.setData(data);
+        mChart.setFitBars(true);
     }
 
-
-    private void setupChart(LineChart chart, LineData data) {
-
-
-        // no description text
-        chart.getDescription().setEnabled(false);
-
-        // mChart.setDrawHorizontalGrid(false);
-        //
-        // enable / disable grid background
-
-//        chart.getRenderer().getGridPaint().setGridColor(Color.WHITE & 0x70FFFFFF);
-
-        // enable touch gestures
-        chart.setTouchEnabled(true);
-
-        // enable scaling and dragging
-        chart.setDragEnabled(true);
-        chart.setScaleEnabled(true);
-
-        // if disabled, scaling can be done on x- and y-axis separately
-        chart.setPinchZoom(false);
-
-        // set custom chart offsets (automatic offset calculation is hereby disabled)
-        chart.setViewPortOffsets(10, 0, 10, 0);
-
-        // add data
-        chart.setData(data);
-
-        // get the legend (only possible after setting data)
-        Legend l = chart.getLegend();
-        l.setVerticalAlignment(Legend.LegendVerticalAlignment.BOTTOM);
-        l.setHorizontalAlignment(Legend.LegendHorizontalAlignment.LEFT);
-        l.setOrientation(Legend.LegendOrientation.HORIZONTAL);
-        l.setDrawInside(false);
-        l.setFormSize(8f);
-        l.setFormToTextSpace(4f);
-        l.setXEntrySpace(6f);
-
-        chart.getAxisLeft().setEnabled(false);
-        chart.getAxisRight().setEnabled(false);
-
-        chart.getXAxis().setEnabled(false);
-
-        // animate calls invalidate()...
-        chart.animateX(2500);
+    private void populateUtilityEntries(float totalElectrcity,
+                                        float totalNaturalGas,
+                                        ArrayList<String> barLabels,
+                                        ArrayList<BarEntry> barEntries) {
+            barEntries.add(new BarEntry(0, totalElectrcity));
+            barLabels.add("Electricity");
+            barEntries.add(new BarEntry(1, totalNaturalGas));
+            barLabels.add("Natural Gas");
     }
 
-    public static int generateRandomPositiveValue(int max , int min) {
-        //Random rand = new Random();
-        int ii = min + (int) (Math.random() * ((max - (min)) + 1));
-        return ii;
+    private void populateJourneyEntries(float totalBusEmissions,
+                                        float totalSkytrainEmissions,
+                                        float totalCarEmissions,
+                                        ArrayList<String> barLabels,
+                                        ArrayList<BarEntry> barEntries){
+        barEntries.add(new BarEntry(2, totalBusEmissions));
+        barLabels.add("Bus");
+        barEntries.add(new BarEntry(3, totalSkytrainEmissions));
+        barLabels.add("Skytrain");
+        barEntries.add(new BarEntry(4, totalCarEmissions));
+        barLabels.add("Car");
+        barEntries.add(new BarEntry(5, 0));
+        barLabels.add("Walk/Bike");
+
     }
 
+    //TODO: Modify these to get bar chart data
+    public float getTotalElectrcityEmissions(ArrayList<UtilityModel> utilities) {
+        float totalElectrcity = 5;//sample data
+        return totalElectrcity;
+    }
 
-    private void setData(int count) {
+    public float getTotalNaturalGasEmissions(ArrayList<UtilityModel> utilities) {
+        float totalNaturalGasEmissions = 10;//sample
+        return totalNaturalGasEmissions;
+    }
 
-        double[] dailyElectricityEmissions = new double[NUMBEROFDAYS];
-        double[] dailyNaturalGasEmissions = new double[NUMBEROFDAYS];
-        double[] dailyJourneyEmissions = new double[NUMBEROFDAYS];
+    public float getTotalBusEmissions(ArrayList<JourneyModel> journeys) {
+        float totalBusEmissions = 15;//sample
+        return totalBusEmissions;
+    }
 
-        //TODO: Get Data From Model
+    public float getTotalSkytrainEmissions(ArrayList<JourneyModel> journeys) {
+        float totalSkytrainEmissions = 20;//sample
+        return totalSkytrainEmissions;
+    }
 
-        //sample data
-        for (int i = 0; i < NUMBEROFDAYS; i++){
-            dailyElectricityEmissions[i] = generateRandomPositiveValue(2000,60000);
-            dailyNaturalGasEmissions[i] = generateRandomPositiveValue(1000,50000);
-            dailyJourneyEmissions[i] = generateRandomPositiveValue(1000,70000);
-        }
-
-        ArrayList<Entry> dailyElectricityEntry = new ArrayList<Entry>();
-
-        for (int day = 1; day < count; day++) {
-            dailyElectricityEntry.add(new Entry(day, (float) dailyElectricityEmissions[day]));
-        }
-
-        ArrayList<Entry> dailyNaturalGasEntry = new ArrayList<Entry>();
-
-        for (int day = 1; day < count; day++) {
-            dailyNaturalGasEntry.add(new Entry(day, (float) dailyNaturalGasEmissions[day]));
-        }
-
-        ArrayList<Entry> dailyJourneyEntry = new ArrayList<Entry>();
-
-        for (int day = 1; day < count; day++) {
-            dailyJourneyEntry.add(new Entry(day, (float) dailyJourneyEmissions[day]));
-        }
-
-        LineDataSet set1, set2 , set3;
-
-        if (mChart.getData() != null &&
-                mChart.getData().getDataSetCount() > 0) {
-            set1 = (LineDataSet)mChart.getData().getDataSetByIndex(0);
-            set2 = (LineDataSet)mChart.getData().getDataSetByIndex(1);
-            set3 = (LineDataSet)mChart.getData().getDataSetByIndex(2);
-            set1.setValues(dailyElectricityEntry);
-            set2.setValues(dailyNaturalGasEntry);
-            set3.setValues(dailyJourneyEntry);
-            mChart.getData().notifyDataChanged();
-            mChart.notifyDataSetChanged();
-        }
-        else {
-            // create a dataset and give it a type
-            set1 = new LineDataSet(dailyElectricityEntry, "DataSet 1");
-            set1.setAxisDependency(YAxis.AxisDependency.LEFT);
-            set1.setAxisDependency(YAxis.AxisDependency.RIGHT);
-            set1.setColor(Color.parseColor("#3498db"));
-            set1.setDrawCircles(true);
-            set1.setCircleRadius(4f);
-            set1.setLineWidth(2f);
-
-            // create a dataset and give it a type
-            set2 = new LineDataSet(dailyNaturalGasEntry, "DataSet 2");
-            set2.setAxisDependency(YAxis.AxisDependency.LEFT);
-            set2.setAxisDependency(YAxis.AxisDependency.RIGHT);
-            set2.setColor(Color.rgb(255, 255 , 0));
-            set2.setDrawCircles(true);
-            set2.setCircleRadius(4f);
-            set2.setLineWidth(2f);
-
-            // create a dataset and give it a type
-            set3 = new LineDataSet(dailyJourneyEntry, "DataSet 3");
-            set3.setAxisDependency(YAxis.AxisDependency.LEFT);
-            set2.setAxisDependency(YAxis.AxisDependency.RIGHT);
-            set3.setColor(Color.parseColor("#e74c3c"));
-            set3.setDrawCircles(true);
-            set3.setCircleRadius(4f);
-            set3.setLineWidth(2f);
-
-            ArrayList<ILineDataSet> dataSets = new ArrayList<ILineDataSet>();
-            dataSets.add(set1); // add the datasets
-            dataSets.add(set2);
-            dataSets.add(set3);
-
-            // create a data object with the datasets
-            LineData data = new LineData(dataSets);
-            data.setDrawValues(false);
-
-            // set data
-            mChart.setData(data);
-        }
+    public float getTotalCarEmissions(ArrayList<JourneyModel> journeys) {
+        float totalCarEmissions = 25; //
+        return totalCarEmissions;
     }
 }
-
-
-
-
