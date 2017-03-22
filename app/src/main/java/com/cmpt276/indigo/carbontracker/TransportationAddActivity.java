@@ -28,6 +28,7 @@ public class TransportationAddActivity extends AppCompatActivity {
     CarbonFootprintComponentCollection carbonFootprintInterface;
     private boolean editing = false;
     VehicleModel currentVehicle;
+    VehicleModel.TransportationMode transportationModes[];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,13 +57,28 @@ public class TransportationAddActivity extends AppCompatActivity {
             String year =  currentVehicle.getYear();
             String transmission = currentVehicle.getTransmisson();
             String engineDisplacement = currentVehicle.getEngineDisplacment();
+            VehicleModel.TransportationMode transportationMode = currentVehicle.getTransportaionMode();
 
             setSpinnerSelection(R.id.add_transport_dropdown_make, carbonFootprintInterface.getVehicleMakes(), make);
             setSpinnerSelection(R.id.add_transport_dropdown_model, carbonFootprintInterface.getVehicleModel(make), model);
             setSpinnerSelection(R.id.add_transport_dropdown_year, carbonFootprintInterface.getVehicleYear(make, model), year);
             setSpinnerSelection(R.id.add_transport_dropdown_transmission, carbonFootprintInterface.getVehicleTransmission(make,model,year), transmission);
             setSpinnerSelection(R.id.add_transport_dropdown_engine_displacement, carbonFootprintInterface.getVehicleEngineDisplacement(make,model,year,transmission), engineDisplacement);
+
+            int modeIndex = 0;
+            for(int i = 0; i < transportationModes.length; i++){
+                if(transportationModes[i] == transportationMode){
+                    modeIndex = i;
+                    break;
+                }
+            }
+            setSpinnerSelection(R.id.add_transport_dropdown_transportation_mode, modeIndex);
         }
+    }
+
+    private void setSpinnerSelection(int resourceId, int index){
+        Spinner makeSpinner = (Spinner) findViewById(resourceId);
+        makeSpinner.setSelection(index);
     }
 
     private void setSpinnerSelection(int resourceId, ArrayList<String> items, String item){
@@ -145,38 +161,46 @@ public class TransportationAddActivity extends AppCompatActivity {
             return null;
         }
 
-        Spinner vehicleMakeSpinner = (Spinner) findViewById(R.id.add_transport_dropdown_make);
-        String make = vehicleMakeSpinner.getSelectedItem().toString();
-        if (make == null){
-            Toast.makeText(TransportationAddActivity.this, "Vehicle make should be selected", Toast.LENGTH_SHORT).show();
-        }
+        Spinner transportationModelSpinner = (Spinner)findViewById(R.id.add_transport_dropdown_transportation_mode);
+        int selectedTransportationModeIndex = transportationModelSpinner.getSelectedItemPosition();
+        String make = null;
+        String model = null;
+        String year = null;
+        String transmission = null;
+        String engineDisplacement = null;
+        if(transportationModes[selectedTransportationModeIndex] == VehicleModel.TransportationMode.CAR){
+            Spinner vehicleMakeSpinner = (Spinner) findViewById(R.id.add_transport_dropdown_make);
+            make = vehicleMakeSpinner.getSelectedItem().toString();
+            if (make == null){
+                Toast.makeText(TransportationAddActivity.this, "Vehicle make should be selected", Toast.LENGTH_SHORT).show();
+            }
 
-        Spinner vehicleModelSpinner = (Spinner) findViewById(R.id.add_transport_dropdown_model);
-        String model = vehicleModelSpinner.getSelectedItem().toString();
-        if (model == null){
-            Toast.makeText(TransportationAddActivity.this, "Vehicle model should be selected", Toast.LENGTH_SHORT).show();
-        }
+            Spinner vehicleModelSpinner = (Spinner) findViewById(R.id.add_transport_dropdown_model);
+            model = vehicleModelSpinner.getSelectedItem().toString();
+            if (model == null){
+                Toast.makeText(TransportationAddActivity.this, "Vehicle model should be selected", Toast.LENGTH_SHORT).show();
+            }
 
-        Spinner vehicleYearSpinner = (Spinner) findViewById(R.id.add_transport_dropdown_year);
-        String year = vehicleYearSpinner.getSelectedItem().toString();
-        if (year == null){
-            Toast.makeText(TransportationAddActivity.this, "Vehicle year should be selected", Toast.LENGTH_SHORT).show();
-        }
+            Spinner vehicleYearSpinner = (Spinner) findViewById(R.id.add_transport_dropdown_year);
+            year = vehicleYearSpinner.getSelectedItem().toString();
+            if (year == null){
+                Toast.makeText(TransportationAddActivity.this, "Vehicle year should be selected", Toast.LENGTH_SHORT).show();
+            }
 
-        Spinner vehicleTransmissionSpinner = (Spinner) findViewById(R.id.add_transport_dropdown_transmission);
-        String transmission = vehicleTransmissionSpinner.getSelectedItem().toString();
-        if (transmission == null){
-            Toast.makeText(TransportationAddActivity.this, "Vehicle transmission should be selected", Toast.LENGTH_SHORT).show();
-        }
+            Spinner vehicleTransmissionSpinner = (Spinner) findViewById(R.id.add_transport_dropdown_transmission);
+            transmission = vehicleTransmissionSpinner.getSelectedItem().toString();
+            if (transmission == null){
+                Toast.makeText(TransportationAddActivity.this, "Vehicle transmission should be selected", Toast.LENGTH_SHORT).show();
+            }
 
-        Spinner vehicleEngineDisplacementSpinner = (Spinner) findViewById(R.id.add_transport_dropdown_engine_displacement);
-        String engineDisplacement = (String) vehicleEngineDisplacementSpinner.getSelectedItem();
-        if (engineDisplacement == null){
-            Toast.makeText(TransportationAddActivity.this, "Engine Displacement should be selected", Toast.LENGTH_SHORT).show();
+            Spinner vehicleEngineDisplacementSpinner = (Spinner) findViewById(R.id.add_transport_dropdown_engine_displacement);
+            engineDisplacement = (String) vehicleEngineDisplacementSpinner.getSelectedItem();
+            if (engineDisplacement == null){
+                Toast.makeText(TransportationAddActivity.this, "Engine Displacement should be selected", Toast.LENGTH_SHORT).show();
+            }
         }
-
         //Creating vehicle object to pass it to vehicle activity to be added to the list.
-        VehicleModel vehicle = new VehicleModel(-1, name, make, model, year, transmission , engineDisplacement, 0, 0, "", false);
+        VehicleModel vehicle = new VehicleModel(-1, name, make, model, year, transmission , engineDisplacement, 0, 0, "", transportationModes[selectedTransportationModeIndex], false);
 
         // setting fuel efficiency data
         carbonFootprintInterface.populateCarFuelData(vehicle);
@@ -214,7 +238,46 @@ public class TransportationAddActivity extends AppCompatActivity {
 
     //Set all the values for dropdown lists
     private void setupDropdownList() {
+        setupTransportationModelDropdownList();
         setupMakeDropdownList();
+    }
+
+    private void enableNonCarFields(boolean enable) {
+        Spinner makeSpinner = (Spinner)findViewById(R.id.add_transport_dropdown_make);
+        makeSpinner.setEnabled(enable);
+        Spinner modelSpinner = (Spinner)findViewById(R.id.add_transport_dropdown_model);
+        modelSpinner.setEnabled(enable);
+        Spinner yearSpinner = (Spinner)findViewById(R.id.add_transport_dropdown_year);
+        yearSpinner.setEnabled(enable);
+        Spinner transmissionSpinner = (Spinner)findViewById(R.id.add_transport_dropdown_transmission);
+        transmissionSpinner.setEnabled(enable);
+        Spinner engineDisplacementSpinner = (Spinner)findViewById(R.id.add_transport_dropdown_engine_displacement);
+        engineDisplacementSpinner.setEnabled(enable);
+    }
+
+    private void setupTransportationModelDropdownList() {
+        transportationModes = VehicleModel.TransportationMode.values();
+        Spinner transportationModelSpinner = (Spinner)findViewById(R.id.add_transport_dropdown_transportation_mode);
+        transportationModelSpinner.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, transportationModes));
+        transportationModelSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if(transportationModes[position] != VehicleModel.TransportationMode.CAR){
+                    // disable all other fields
+                    enableNonCarFields(false);
+                }
+                else{
+                    enableNonCarFields(true);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+        transportationModelSpinner.setSelection(0);
+        enableNonCarFields(true);
     }
 
     private void setupMakeDropdownList() {

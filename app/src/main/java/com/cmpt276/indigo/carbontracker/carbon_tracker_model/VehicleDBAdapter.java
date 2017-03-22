@@ -25,6 +25,7 @@ public class VehicleDBAdapter {
     public static final String KEY_CITY_MILEAGE = "city_mileage";
     public static final String KEY_HIGHWAY_MILEAGE = "highway_mileage";
     public static final String KEY_PRIMARY_FUEL_TYPE = "primary_fuel_type";
+    public static final String KEY_TRANSPORTATION_MODE = "transportation_mode";
     public static final String KEY_IS_DELETED = "is_deleted";
 
     public static final int COL_NAME = 1;
@@ -36,10 +37,11 @@ public class VehicleDBAdapter {
     public static final int COL_CITY_MILEAGE = 7;
     public static final int COL_HIGHWAY_MILEAGE = 8;
     public static final int COL_PRIMARY_FUEL_TYPE = 9;
-    public static final int COL_IS_DELETED = 10;
+    public static final int COL_TRANSPORTATION_MODE = 10;
+    public static final int COL_IS_DELETED = 11;
 
     public static final String[] ALL_KEYS = new String[] {
-            KEY_ROWID, KEY_NAME, KEY_MAKE, KEY_MODEL, KEY_YEAR, KEY_TRANSMISSION, KEY_ENGINE_DISPLACEMENT, KEY_CITY_MILEAGE, KEY_HIGHWAY_MILEAGE, KEY_PRIMARY_FUEL_TYPE, KEY_IS_DELETED
+            KEY_ROWID, KEY_NAME, KEY_MAKE, KEY_MODEL, KEY_YEAR, KEY_TRANSMISSION, KEY_ENGINE_DISPLACEMENT, KEY_CITY_MILEAGE, KEY_HIGHWAY_MILEAGE, KEY_PRIMARY_FUEL_TYPE, KEY_TRANSPORTATION_MODE, KEY_IS_DELETED
     };
 
     // DB info: it's name, and the table we are using (just one).
@@ -52,14 +54,15 @@ public class VehicleDBAdapter {
             "create table " + DATABASE_TABLE
                     + " (" + KEY_ROWID + " integer primary key autoincrement, "
                     + KEY_NAME + " text not null, "
-                    + KEY_MAKE + " text not null, "
-                    + KEY_MODEL + " text not null, "
-                    + KEY_YEAR + " text not null, "
-                    + KEY_TRANSMISSION + " text not null, "
-                    + KEY_ENGINE_DISPLACEMENT + " text not null, "
-                    + KEY_CITY_MILEAGE + " double not null, "
-                    + KEY_HIGHWAY_MILEAGE + " double not null, "
-                    + KEY_PRIMARY_FUEL_TYPE + " text not null, "
+                    + KEY_MAKE + " text, "
+                    + KEY_MODEL + " text, "
+                    + KEY_YEAR + " text, "
+                    + KEY_TRANSMISSION + " text, "
+                    + KEY_ENGINE_DISPLACEMENT + " text, "
+                    + KEY_CITY_MILEAGE + " double, "
+                    + KEY_HIGHWAY_MILEAGE + " double, "
+                    + KEY_PRIMARY_FUEL_TYPE + " text, "
+                    + KEY_TRANSPORTATION_MODE + " integer, "
                     + KEY_IS_DELETED + " boolean not null"
                     + ");";
 
@@ -106,6 +109,7 @@ public class VehicleDBAdapter {
         initialValues.put(KEY_CITY_MILEAGE, vehicle.getCityMileage());
         initialValues.put(KEY_HIGHWAY_MILEAGE, vehicle.getHighwayMileage());
         initialValues.put(KEY_PRIMARY_FUEL_TYPE, vehicle.getPrimaryFuelType());
+        initialValues.put(KEY_TRANSPORTATION_MODE, VehicleModel.TransportationModeToInt(vehicle.getTransportaionMode()));
         initialValues.put(KEY_IS_DELETED, vehicle.getIsDeleted());
         // Insert it into the database.
         vehicle.setId(db.insert(DATABASE_TABLE, null, initialValues));
@@ -175,6 +179,7 @@ public class VehicleDBAdapter {
         newValues.put(KEY_CITY_MILEAGE, vehicle.getCityMileage());
         newValues.put(KEY_HIGHWAY_MILEAGE, vehicle.getHighwayMileage());
         newValues.put(KEY_PRIMARY_FUEL_TYPE, vehicle.getPrimaryFuelType());
+        newValues.put(KEY_TRANSPORTATION_MODE, VehicleModel.TransportationModeToInt(vehicle.getTransportaionMode()));
         newValues.put(KEY_IS_DELETED, vehicle.getIsDeleted());
         // Insert it into the database.
         return db.update(DATABASE_TABLE, newValues, where, null) != 0;

@@ -74,14 +74,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.cmpt276.indigo.carbontracker.MainMenu" />
         </activity>
-        <activity
-            android:name=".viewjourney.SelectTransActivity"
-            android:label="Edit Journey"
-            android:parentActivityName=".JourneyMenu">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.cmpt276.indigo.carbontracker.JourneyMenu" />
-        </activity>
         <activity android:name=".DateSelectActivity" />
         <activity
             android:name=".UtilitySelectActivity"

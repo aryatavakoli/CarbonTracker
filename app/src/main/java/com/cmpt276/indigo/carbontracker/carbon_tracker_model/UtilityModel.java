@@ -186,7 +186,7 @@ public class UtilityModel implements CarbonFootprintComponent {
     }
 
     public double getTotalEnergyConsumptionPerOccupant() {
-        return totalEnergyConsumptionInGWh / numberOfOccupants;
+        return getTotalEnergyConsumptionInGJ() / numberOfOccupants;
     }
 
     public int getNumberOfOccupants() {

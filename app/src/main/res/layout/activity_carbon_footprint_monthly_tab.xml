@@ -11,19 +11,19 @@ android:layout_height="match_parent" >
             android:id="@+id/textView7"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="TextView" />
+            android:text="BCHYRO EMISSION" />
 
         <TextView
             android:id="@+id/textView5"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="TextView" />
+            android:text="FORTISBC EMISSION" />
 
         <TextView
             android:id="@+id/textView3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="TextView" />
+            android:text="JOURNEY EMISSIONS" />
 
         <View
                 android:layout_width="match_parent"
