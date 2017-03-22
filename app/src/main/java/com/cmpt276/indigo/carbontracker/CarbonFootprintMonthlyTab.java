@@ -130,31 +130,25 @@ public class CarbonFootprintMonthlyTab extends Fragment {
         double[] dailyNaturalGasEmissions = new double[NUMBEROFDAYS];
         double[] dailyJourneyEmissions = new double[NUMBEROFDAYS];
 
+        //TODO: Get Data From Model
+
         ArrayList<Entry> dailyElectricityEntry = new ArrayList<Entry>();
 
-        for (int i = 0; i < count; i++) {
-            float val = (float)  5;// + (float)
-            // ((mult *
-            // 0.1) / 10);
-            dailyElectricityEntry.add(new Entry(i, val));
+        for (int day = 1; day <= count; day++) {
+            dailyElectricityEntry.add(new Entry(day, (float) dailyElectricityEmissions[day]));
         }
 
         ArrayList<Entry> dailyNaturalGasEntry = new ArrayList<Entry>();
 
-        for (int day = 0; day < count; day++) {
-            float val = (float) 15;// + (float)
-            // ((mult *
-            // 0.1) / 10);
-            dailyNaturalGasEntry.add(new Entry(day, val));
+        for (int day = 1; day <= count; day++) {
+            float val = 15;
+            dailyNaturalGasEntry.add(new Entry(day, (float) dailyNaturalGasEmissions[day]));
         }
 
         ArrayList<Entry> dailyJourneyEntry = new ArrayList<Entry>();
 
-        for (int day = 0; day < count; day++) {
-            float val = (float) 10;// + (float)
-            // ((mult *
-            // 0.1) / 10);
-            dailyJourneyEntry.add(new Entry(day, val));
+        for (int day = 1; day <= count; day++) {
+            dailyJourneyEntry.add(new Entry(day, (float) dailyJourneyEmissions[day]));
         }
 
         LineDataSet set1, set2 , set3;
