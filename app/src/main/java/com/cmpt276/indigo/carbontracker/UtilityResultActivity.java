@@ -33,8 +33,8 @@ public class UtilityResultActivity extends AppCompatActivity {
         TextView companyDisplay = (TextView) findViewById(R.id.utility_result_company);
         companyDisplay.setText(newUtilities.getCompanyName() + "");
 
-//        TextView daysDisplay = (TextView) findViewById(R.id.utility_result_billing_days);
-//        daysDisplay.setText(newUtilities.getBillingPeriodInDays() + " days");
+        TextView daysDisplay = (TextView) findViewById(R.id.utility_result_billing_days);
+        daysDisplay.setText(newUtilities.calculateBillingPeriodInDays() + " days");
 
         TextView energyDisplay = (TextView) findViewById(R.id.utility_result__total_energy_consumption);
         energyDisplay.setText(newUtilities.getTotalEnergyConsumptionInGJ() + " GJ");
@@ -61,7 +61,7 @@ public class UtilityResultActivity extends AppCompatActivity {
         energyDisplay.setText(newUtilities.getTotalEnergyConsumptionPerOccupant() + " GJ");
 
         TextView emissionsDisplay = (TextView) findViewById(R.id.utility_result_per_person_emissions);
-        energyDisplay.setText(newUtilities.getTotalEmissionsPerOccupant() + " GJ");
+        energyDisplay.setText(newUtilities.getTotalEmissionsPerOccupant() + " Kg");
     }
 
     private void fillTexts() {

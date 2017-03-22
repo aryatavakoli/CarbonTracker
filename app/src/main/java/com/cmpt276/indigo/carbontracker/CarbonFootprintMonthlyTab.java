@@ -134,20 +134,19 @@ public class CarbonFootprintMonthlyTab extends Fragment {
 
         ArrayList<Entry> dailyElectricityEntry = new ArrayList<Entry>();
 
-        for (int day = 1; day <= count; day++) {
+        for (int day = 1; day < count; day++) {
             dailyElectricityEntry.add(new Entry(day, (float) dailyElectricityEmissions[day]));
         }
 
         ArrayList<Entry> dailyNaturalGasEntry = new ArrayList<Entry>();
 
-        for (int day = 1; day <= count; day++) {
-            float val = 15;
+        for (int day = 1; day < count; day++) {
             dailyNaturalGasEntry.add(new Entry(day, (float) dailyNaturalGasEmissions[day]));
         }
 
         ArrayList<Entry> dailyJourneyEntry = new ArrayList<Entry>();
 
-        for (int day = 1; day <= count; day++) {
+        for (int day = 1; day < count; day++) {
             dailyJourneyEntry.add(new Entry(day, (float) dailyJourneyEmissions[day]));
         }
 
@@ -166,6 +165,7 @@ public class CarbonFootprintMonthlyTab extends Fragment {
             // create a dataset and give it a type
             set1 = new LineDataSet(dailyElectricityEntry, "DataSet 1");
             set1.setAxisDependency(YAxis.AxisDependency.LEFT);
+            set1.setAxisDependency(YAxis.AxisDependency.RIGHT);
             set1.setColor(Color.rgb(255, 0, 0));
             set1.setDrawCircles(true);
             set1.setLineWidth(4f);
@@ -173,6 +173,7 @@ public class CarbonFootprintMonthlyTab extends Fragment {
             // create a dataset and give it a type
             set2 = new LineDataSet(dailyNaturalGasEntry, "DataSet 2");
             set2.setAxisDependency(YAxis.AxisDependency.LEFT);
+            set2.setAxisDependency(YAxis.AxisDependency.RIGHT);
             set2.setColor(Color.rgb(0, 0, 255));
             set2.setDrawCircles(true);
             set2.setLineWidth(4f);
