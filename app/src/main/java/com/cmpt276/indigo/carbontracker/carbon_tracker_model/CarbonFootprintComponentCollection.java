@@ -50,11 +50,12 @@ public class CarbonFootprintComponentCollection {
                 double cityMileage = cursor.getDouble(VehicleDBAdapter.COL_CITY_MILEAGE);
                 double highwayMileage = cursor.getDouble(VehicleDBAdapter.COL_HIGHWAY_MILEAGE);
                 String primaryFuelType = cursor.getString(VehicleDBAdapter.COL_PRIMARY_FUEL_TYPE);
+                VehicleModel.TransportationMode transportationMode = VehicleModel.IntToTransportaionMode(cursor.getInt(VehicleDBAdapter.COL_TRANSPORTATION_MODE));
                 boolean isDeleted = cursor.getInt(VehicleDBAdapter.COL_IS_DELETED) > 0;
                 if(isDeleted) {
                     continue;
                 }
-                VehicleModel vehicle = new VehicleModel(id, name, make, model, year, transmission, engineDisplacement, cityMileage, highwayMileage, primaryFuelType, isDeleted);
+                VehicleModel vehicle = new VehicleModel(id, name, make, model, year, transmission, engineDisplacement, cityMileage, highwayMileage, primaryFuelType, transportationMode, isDeleted);
                 vehicles.add(vehicle);
             } while(cursor.moveToNext());
         }

@@ -3,7 +3,6 @@ package com.cmpt276.indigo.carbontracker;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -15,13 +14,9 @@ import android.widget.Toast;
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.CarbonFootprintComponentCollection;
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.JourneyModel;
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.RouteModel;
-import com.cmpt276.indigo.carbontracker.carbon_tracker_model.TipFragment;
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.VehicleModel;
-import com.cmpt276.indigo.carbontracker.viewjourney.SelectTransActivity;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Locale;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -164,7 +159,7 @@ public class JourneyMenu extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(JourneyMenu.this, SelectTransActivity.class);
+                Intent intent = new Intent(JourneyMenu.this, TransportationSelectActvitiy.class);
                 startActivityForResult(intent, TRANSPORTATION_SELECT );
 
             }
