@@ -205,6 +205,7 @@ public class UtilityModel implements CarbonFootprintComponent {
         this.numberOfOccupants = numberOfOccupants;
     }
 
+
     @Override
     public boolean equals(Object other){
         if (other == null){

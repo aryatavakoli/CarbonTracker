@@ -42,11 +42,7 @@ public class CarbonFootprintMonthlyTab extends Fragment {
         journeys = carbonInterface.getJournies();
         utilities = carbonInterface.getUtilities(getActivity());
 
-
-
         createGraph(rootView,journeys,utilities);
-
-
 
         return rootView;
     }
