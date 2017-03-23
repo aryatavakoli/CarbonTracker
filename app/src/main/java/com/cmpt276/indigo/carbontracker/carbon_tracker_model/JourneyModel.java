@@ -9,8 +9,11 @@ import java.util.Objects;
  */
 
 public class JourneyModel implements CarbonFootprintComponent{
+    public static final double CO2_PER_KM_BUS = 0.089;
+    public static final double CO2_PER_KM_SKYTRAIN = 0.087;
+    public static final double CO2_PER_KM_PEDESTRIAN = 0.0;
     public static final String DATE_FORMAT = "yyyy-MMM-dd";
-    public static final double CO2_PER_KM_BUS = 89.0;
+
     private long id;
     private VehicleModel vehicleModel;
     private RouteModel routeModel;
@@ -115,11 +118,11 @@ public class JourneyModel implements CarbonFootprintComponent{
                 totalFootprint = 0;
             }
             if (vehicleModel.getTransportaionMode() == VehicleModel.TransportationMode.WALK_BIKE) {
-                totalFootprint =  routeModel.getTotalDistance() * 0.0 ;
+                totalFootprint =  routeModel.getTotalDistance() * CO2_PER_KM_PEDESTRIAN ; //user chooses walk or bike
             } else if (vehicleModel.getTransportaionMode() == VehicleModel.TransportationMode.BUS) {
-                totalFootprint =  routeModel.getTotalDistance() * CO2_PER_KM_BUS;
+                totalFootprint =  routeModel.getTotalDistance() * CO2_PER_KM_BUS; //user chooses bus
             } else if (vehicleModel.getTransportaionMode() == VehicleModel.TransportationMode.SKYTRAIN) {
-                totalFootprint =  routeModel.getTotalDistance() * 8.7 ;
+                totalFootprint =  routeModel.getTotalDistance() * CO2_PER_KM_SKYTRAIN ; //user chooses skytrain
             }
         }
         co2Emission = totalFootprint;

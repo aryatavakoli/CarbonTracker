@@ -2,13 +2,26 @@ package com.cmpt276.indigo.carbontracker.carbon_tracker_model;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatDialogFragment;
+import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.cmpt276.indigo.carbontracker.JourneyMenu;
+import com.cmpt276.indigo.carbontracker.R;
+import com.cmpt276.indigo.carbontracker.TransportationSelectActvitiy;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 
 public class TipFragment extends AppCompatDialogFragment {
     CarbonFootprintComponentCollection carbonFootprintInterface;
@@ -130,10 +143,21 @@ public class TipFragment extends AppCompatDialogFragment {
         float distanceWalked = 0;
         int shortDistanceTrips=0;
         int cityNum = 0;
-        int highwayNum = 0;
+        float mostCarbonEmission= 0;
+        int todayJournies =0;
+        if (journies.size() > 0)   mostCarbonEmission = journies.get(0).getCo2Emission();
+        JourneyModel mostCo2Journey = new JourneyModel();
         for(JourneyModel v: journies){
+            if (v.getCreationDate() == today.getTime()){
+                todayJournies ++;
+            }
+            if (v.getCo2Emission() >  mostCarbonEmission && v.getVehicleModel().getTransportaionMode() == VehicleModel.TransportationMode.CAR){
+                 mostCarbonEmission = v.getCo2Emission();
+                 mostCo2Journey = v;
+            }
+
             CO2usage =  CO2usage + v.getCo2Emission();
-            if (v.getVehicleModel().getTransportaionMode()== VehicleModel.TransportationMode.CAR && v.getCreationDate().equals(today)) {
+            if (v.getVehicleModel().getTransportaionMode()== VehicleModel.TransportationMode.CAR) {
                 carNUm++;
                 CO2Car =  CO2Car + v.getCo2Emission();
             }
@@ -164,14 +188,17 @@ public class TipFragment extends AppCompatDialogFragment {
         messageList[6]= "during taking each of your " +  carNUm+
         " car tips try to Drive at an appropriate speed -" +
         " staying within the 70mph limit can bring savings of 10 per cent for your fuel bill compared to driving at 80mph.";
-        messageList[7]= "u dont know ur beautiful";
-        messageList[8]= "I feel it coming";
-        messageList[9]= "mimiram barat";
-        messageList[10]="akhe dooooset daram";
-        messageList[11]= "dooos draam zendegiro";
-        messageList[12]= "we dont talk anymore";
-        messageList[13]= "I dont wanna live forever";
-        messageList[14]= "to pishie manio mi00";
+        messageList[7]= "today yo your co2 emission was" + CO2usage + " CO2 emission per person in Canada" +
+                " is on average 14.68 metric tons per day";
+        messageList[8]= "Remove unnecessary weight from your"+ carNUm+"cars; this will cut down fuel consumption and carbon dioxide emissions";
+        messageList[9]= "your journey " + mostCo2Journey + " uses the most amount of CO2 with the" + mostCo2Journey.getVehicleModel().getName()+
+        "try to avoid this journey if it is possible";
+        messageList[10]="Today you had " + todayJournies + " journeys plan to do a number of errands in one trip rather than several trips and save both time and fuel";
+        messageList[11]= "Your number of walking trip is" + walkNum + " and your car trip is " + carNUm +
+        "You can try to walk more";
+        messageList[12]= "if you are using one of your " + carNUm+ " cars you have created today Minimise fuel wasted in idling by stopping the engine whenever your car is stopped or held up for an extended period of time.";
+        messageList[13]= "while driving one of your " + carNUm+ " cars listen to the radio for traffic slowdown warnings";
+        messageList[14]= " If you are taking one of your " + carNUm + " trips, don't keep it on idle. Appliances running on standby power consume a great deal of energy, unnecessarily.";
     }
 
 

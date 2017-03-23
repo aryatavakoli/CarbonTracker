@@ -55,7 +55,7 @@ public class CarbonFootprintMonthlyTab extends Fragment {
         journeys = carbonInterface.getJournies(getActivity());
         utilities = carbonInterface.getUtilities(getActivity());
         last28.add(Calendar.DAY_OF_MONTH,-28);
-        tomorrow.add(Calendar.DAY_OF_MONTH,2);
+        tomorrow.add(Calendar.DAY_OF_MONTH,1);
 
 
 
@@ -130,9 +130,9 @@ public class CarbonFootprintMonthlyTab extends Fragment {
                                         ArrayList<String> barLabels,
                                         ArrayList<BarEntry> barEntries) {
             barEntries.add(new BarEntry(0, totalElectrcity));
-            barLabels.add("Electricity");
+            barLabels.add("Electric");
             barEntries.add(new BarEntry(1, totalNaturalGas));
-            barLabels.add("Natural Gas");
+            barLabels.add("GAS");
     }
 
     private void populateJourneyEntries(double totalBusEmissions,

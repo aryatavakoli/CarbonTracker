@@ -3,6 +3,7 @@ package com.cmpt276.indigo.carbontracker;
 import android.app.DatePickerDialog;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,15 +13,17 @@ import android.widget.DatePicker;
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.CarbonFootprintComponentCollection;
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.JourneyModel;
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.UtilityModel;
+import com.cmpt276.indigo.carbontracker.carbon_tracker_model.VehicleModel;
 import com.github.mikephil.charting.charts.PieChart;
-import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 
 public class CarbonFootprintDailyTab extends Fragment {
     ArrayList<JourneyModel> journeys;
@@ -31,34 +34,69 @@ public class CarbonFootprintDailyTab extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View rootView = inflater.inflate(R.layout.activity_carbon_footprint_daily_tab, container, false);
+        final View rootView = inflater.inflate(R.layout.activity_carbon_footprint_daily_tab, container, false);
+
+        final Calendar myCalendar = Calendar.getInstance();
+
+        final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
+            ArrayList<PieEntry> pieEntries = new ArrayList<>();
+
+            @Override
+            public void onDateSet(DatePicker view, int year, int monthOfYear,
+                                  int dayOfMonth) {
+                final Button txt = (Button) rootView.findViewById(R.id.refresh_on_date_pick);
+                myCalendar.set(Calendar.YEAR, year);
+                myCalendar.set(Calendar.MONTH, monthOfYear);
+                myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                displayDate(txt, myCalendar);
+                pieEntries.clear();
 
         carbonInterface = CarbonFootprintComponentCollection.getInstance();
 
         journeys = carbonInterface.getJournies(getActivity());
         utilities = carbonInterface.getUtilities(getActivity());
 
-        ArrayList<PieEntry> pieEntries = new ArrayList<>();
+                float totalElectrcityEmissionsToday = getTotalElectrcityEmissionsToday(utilities,myCalendar);
+                float totalNaturalGasEmissionsToday = getTotalNaturalGasEmissionsToday(utilities,myCalendar);
+                float totalBusEmissionsToday = getTotalBusEmissionsToday(journeys,myCalendar);
+                float totalSkytrainEmissionsToday = getTotalSkytrainEmissionsToday(journeys,myCalendar);
+                float totalCarEmissionsToday = getTotalCarEmissionsToday(journeys,myCalendar);
 
-        float totalElectrcityEmissionsToday = getTotalElectrcityEmissionsToday(utilities);
-        float totalNaturalGasEmissionsToday = getTotalNaturalGasEmissionsToday(utilities);
-        float totalBusEmissionsToday = getTotalBusEmissionsToday(journeys);
-        float totalSkytrainEmissionsToday = getTotalSkytrainEmissionsToday(journeys);
-        float totalCarEmissionsToday = getTotalCarEmissionsToday(journeys);
+                populateGraph(
+                        totalElectrcityEmissionsToday,
+                        totalNaturalGasEmissionsToday,
+                        totalBusEmissionsToday,
+                        totalSkytrainEmissionsToday,
+                        totalCarEmissionsToday,
+                        pieEntries);
 
-        populateGraph(
-                totalElectrcityEmissionsToday,
-                totalNaturalGasEmissionsToday,
-                totalBusEmissionsToday,
-                totalSkytrainEmissionsToday,
-                totalCarEmissionsToday,
-                pieEntries);
+                createGraph(rootView, pieEntries);
+            }
+        };
+        final Button txt = (Button) rootView.findViewById(R.id.refresh_on_date_pick);
+        txt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
-        createGraph(rootView, pieEntries);
-
+                new DatePickerDialog(getActivity(), date, myCalendar
+                        .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
+                        myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+            }
+        });
 
         return rootView;
     }
+
+    private void displayDate(Button btn, Calendar c) {
+        String date = calendarToString(c);
+        btn.setText(date);
+    }
+
+    private String calendarToString(Calendar c) {
+        SimpleDateFormat formatter = new SimpleDateFormat("MMM dd, yyyy");
+        return formatter.format(c.getTime());
+    }
+
 
     private void createGraph(View rootView, ArrayList<PieEntry> pieEntries) {
         PieChart pieChart = (PieChart) rootView.findViewById(R.id.daily_pie_graph);
@@ -86,28 +124,69 @@ public class CarbonFootprintDailyTab extends Fragment {
         pieEntries.add(new PieEntry(0f,"Walk/bike"));
     }
 
-    private float getTotalElectrcityEmissionsToday(ArrayList<UtilityModel> utilities) {
-        float totalElectrcityEmissionsToday = 5;
-        return totalElectrcityEmissionsToday;
-    }
+    private float getTotalElectrcityEmissionsToday(ArrayList<UtilityModel> utilities, Calendar today) {
+        float totalElectrcityEmissionsToday = 0;
+        for (UtilityModel utility : utilities) {
+            if (utility.getStartDate().equals(today)) {
+                Log.d("Hello", "Emission true");
+                if (utility.getCompanyName() == UtilityModel.Company.BCHYDRO) {
+                    float total_emission = (float) (utility.calculateDailyCO2EmissionsInKg());
+                    totalElectrcityEmissionsToday += total_emission;
+                }
+            }
+        }
+            Log.d("Hello", "Emission: " + totalElectrcityEmissionsToday);
+            return totalElectrcityEmissionsToday;
+        }
 
-    private float getTotalNaturalGasEmissionsToday(ArrayList<UtilityModel> utilities) {
-        float totalNaturalGasEmissionsToday = 10;
+
+    private float getTotalNaturalGasEmissionsToday(ArrayList<UtilityModel> utilities, Calendar today) {
+        float totalNaturalGasEmissionsToday = 0;
+        for (UtilityModel utility : utilities) {
+            if (utility.getStartDate().equals(today)) {
+                if (utility.getCompanyName() == UtilityModel.Company.FORTISBC) {
+                    float total_emission = (float) (utility.calculateDailyCO2EmissionsInKg());
+                    totalNaturalGasEmissionsToday += total_emission;
+                }
+            }
+        }
         return totalNaturalGasEmissionsToday;
     }
 
-    private float getTotalBusEmissionsToday(ArrayList<JourneyModel> journeys) {
-        float totalBusEmissionsToday = 15;
+
+    private float getTotalBusEmissionsToday(ArrayList<JourneyModel> journeys, Calendar today) {
+        float totalBusEmissionsToday = 0;
+        for (JourneyModel journey : journeys) {
+            if (!journey.getCreationDate().after(today.getTime()) && journey.getCreationDate().before(today.getTime())) {
+                if (journey.getVehicleModel().getTransportaionMode() == VehicleModel.TransportationMode.BUS) {
+                    totalBusEmissionsToday = totalBusEmissionsToday + journey.getCo2Emission();
+                }
+            }
+        }
         return totalBusEmissionsToday;
     }
 
-    private float getTotalSkytrainEmissionsToday(ArrayList<JourneyModel> journeys) {
-        float totalSkytrainEmissionsToday = 20;
+    private float getTotalSkytrainEmissionsToday(ArrayList<JourneyModel> journeys, Calendar today) {
+        float totalSkytrainEmissionsToday = 0;
+        for (JourneyModel journey : journeys) {
+            if (!journey.getCreationDate().after(today.getTime()) && journey.getCreationDate().before(today.getTime())) {
+                if (journey.getVehicleModel().getTransportaionMode() == VehicleModel.TransportationMode.SKYTRAIN) {
+                    totalSkytrainEmissionsToday = totalSkytrainEmissionsToday + journey.getCo2Emission();
+                }
+            }
+        }
         return totalSkytrainEmissionsToday;
     }
 
-    private float getTotalCarEmissionsToday(ArrayList<JourneyModel> journeys) {
-        float totalCarEmissionsToday = 25;
+    private float getTotalCarEmissionsToday(ArrayList<JourneyModel> journeys, Calendar today) {
+        float totalCarEmissionsToday = 0;
+        for (JourneyModel journey : journeys) {
+            if (!journey.getCreationDate().after(today.getTime()) && journey.getCreationDate().before(today.getTime())) {
+                if (journey.getVehicleModel().getTransportaionMode() == VehicleModel.TransportationMode.CAR) {
+                    totalCarEmissionsToday = totalCarEmissionsToday + journey.getCo2Emission();
+                }
+            }
+        }
         return totalCarEmissionsToday;
     }
 }
