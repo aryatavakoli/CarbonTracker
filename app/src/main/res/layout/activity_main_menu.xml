@@ -31,7 +31,7 @@
         android:layout_centerHorizontal="true" />
 
     <Button
-        android:text="Create New Utilities Bill"
+        android:text="@string/view_utilities"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/main_menu_create_utilities_btn"
