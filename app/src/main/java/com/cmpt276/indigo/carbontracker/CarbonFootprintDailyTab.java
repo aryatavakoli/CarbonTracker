@@ -51,25 +51,23 @@ public class CarbonFootprintDailyTab extends Fragment {
                 displayDate(txt, myCalendar);
                 pieEntries.clear();
 
-        carbonInterface = CarbonFootprintComponentCollection.getInstance();
+            carbonInterface = CarbonFootprintComponentCollection.getInstance();
+            journeys = carbonInterface.getJournies(getActivity());
+            utilities = carbonInterface.getUtilities(getActivity());
 
-        journeys = carbonInterface.getJournies(getActivity());
-        utilities = carbonInterface.getUtilities(getActivity());
+            double totalElectrcityEmissionsToday = getTotalElectrcityEmissionsToday(utilities,myCalendar);
+            double totalNaturalGasEmissionsToday = getTotalNaturalGasEmissionsToday(utilities,myCalendar);
+            double totalBusEmissionsToday = getTotalBusEmissionsToday(journeys,myCalendar);
+            double totalSkytrainEmissionsToday = getTotalSkytrainEmissionsToday(journeys,myCalendar);
+            double totalCarEmissionsToday = getTotalCarEmissionsToday(journeys,myCalendar);
 
-                double totalElectrcityEmissionsToday = getTotalElectrcityEmissionsToday(utilities,myCalendar);
-                double totalNaturalGasEmissionsToday = getTotalNaturalGasEmissionsToday(utilities,myCalendar);
-                double totalBusEmissionsToday = getTotalBusEmissionsToday(journeys,myCalendar);
-                double totalSkytrainEmissionsToday = getTotalSkytrainEmissionsToday(journeys,myCalendar);
-                double totalCarEmissionsToday = getTotalCarEmissionsToday(journeys,myCalendar);
-
-                populateGraph(
-                        (float)totalElectrcityEmissionsToday,
-                        (float)totalNaturalGasEmissionsToday,
-                        (float)totalBusEmissionsToday,
-                        (float)totalSkytrainEmissionsToday,
-                        (float)totalCarEmissionsToday,
-                        pieEntries);
-
+            populateGraph(
+                    (float)totalElectrcityEmissionsToday,
+                    (float)totalNaturalGasEmissionsToday,
+                    (float)totalBusEmissionsToday,
+                    (float)totalSkytrainEmissionsToday,
+                    (float)totalCarEmissionsToday,
+                    pieEntries);
                 createGraph(rootView, pieEntries);
             }
         };
@@ -127,7 +125,7 @@ public class CarbonFootprintDailyTab extends Fragment {
     private float getTotalElectrcityEmissionsToday(ArrayList<UtilityModel> utilities, Calendar today) {
         float totalElectrcityEmissionsToday = 0;
         for (UtilityModel utility : utilities) {
-            if (utility.getStartDate().equals(today)) {
+            if (isSameDay(utility.getStartDate(), today)) {
                 Log.d("Hello", "Emission true");
                 if (utility.getCompanyName() == UtilityModel.Company.BCHYDRO) {
                     float total_emission = (float) (utility.calculateDailyCO2EmissionsInKg());
@@ -143,7 +141,7 @@ public class CarbonFootprintDailyTab extends Fragment {
     private float getTotalNaturalGasEmissionsToday(ArrayList<UtilityModel> utilities, Calendar today) {
         float totalNaturalGasEmissionsToday = 0;
         for (UtilityModel utility : utilities) {
-            if (utility.getStartDate().equals(today)) {
+            if (isSameDay(utility.getStartDate(), today)) {
                 if (utility.getCompanyName() == UtilityModel.Company.FORTISBC) {
                     float total_emission = (float) (utility.calculateDailyCO2EmissionsInKg());
                     totalNaturalGasEmissionsToday += total_emission;
@@ -157,7 +155,7 @@ public class CarbonFootprintDailyTab extends Fragment {
     private double getTotalBusEmissionsToday(ArrayList<JourneyModel> journeys, Calendar today) {
         double totalBusEmissionsToday = 0;
         for (JourneyModel journey : journeys) {
-            if (!journey.getCreationDate().after(today.getTime()) && journey.getCreationDate().before(today.getTime())) {
+            if (isSameDay(journey.getCreationDate(), today)) {
                 if (journey.getVehicleModel().getTransportaionMode() == VehicleModel.TransportationMode.BUS) {
                     totalBusEmissionsToday = totalBusEmissionsToday + journey.getCo2Emission();
                 }
@@ -169,7 +167,7 @@ public class CarbonFootprintDailyTab extends Fragment {
     private double getTotalSkytrainEmissionsToday(ArrayList<JourneyModel> journeys, Calendar today) {
         double totalSkytrainEmissionsToday = 0;
         for (JourneyModel journey : journeys) {
-            if (!journey.getCreationDate().after(today.getTime()) && journey.getCreationDate().before(today.getTime())) {
+            if (isSameDay(journey.getCreationDate(), today)) {
                 if (journey.getVehicleModel().getTransportaionMode() == VehicleModel.TransportationMode.SKYTRAIN) {
                     totalSkytrainEmissionsToday = totalSkytrainEmissionsToday + journey.getCo2Emission();
                 }
@@ -181,12 +179,21 @@ public class CarbonFootprintDailyTab extends Fragment {
     private double getTotalCarEmissionsToday(ArrayList<JourneyModel> journeys, Calendar today) {
         double totalCarEmissionsToday = 0;
         for (JourneyModel journey : journeys) {
-            if (!journey.getCreationDate().after(today.getTime()) && journey.getCreationDate().before(today.getTime())) {
+            //if (!journey.getCreationDate().after(today.getTime()) && journey.getCreationDate().before(today.getTime())) {
+            if (isSameDay(journey.getCreationDate(), today)) {
                 if (journey.getVehicleModel().getTransportaionMode() == VehicleModel.TransportationMode.CAR) {
                     totalCarEmissionsToday = totalCarEmissionsToday + journey.getCo2Emission();
                 }
             }
         }
         return totalCarEmissionsToday;
+    }
+
+    public boolean isSameDay(Calendar cal1, Calendar cal2) {
+        if (cal1 == null || cal2 == null)
+            return false;
+        return (cal1.get(Calendar.ERA) == cal2.get(Calendar.ERA)
+                && cal1.get(Calendar.YEAR) == cal2.get(Calendar.YEAR)
+                && cal1.get(Calendar.DAY_OF_YEAR) == cal2.get(Calendar.DAY_OF_YEAR));
     }
 }
