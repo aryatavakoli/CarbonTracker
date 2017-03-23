@@ -151,10 +151,10 @@ public class UtilityAddActivity extends AppCompatActivity {
                 else {
                     Toast.makeText(UtilityAddActivity.this, "Utility Added!", Toast.LENGTH_SHORT).show();
                 }
-                    Intent intent = new Intent();
-                    intent.putExtra("utility", newUtility);
-                    setResult(Activity.RESULT_OK, intent);
-                    finish();
+                Intent intent = new Intent();
+                intent.putExtra("utility", newUtility);
+                setResult(Activity.RESULT_OK, intent);
+                finish();
             }
 
         });
@@ -168,23 +168,10 @@ public class UtilityAddActivity extends AppCompatActivity {
         btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Try to get data from transportation add UI
-                UtilityModel utility = createUtility();
-                if(!editing){
-                    if (utility == null){
-                        return;
-                    }
-                    Toast.makeText(UtilityAddActivity.this, "This utility does not exit.", Toast.LENGTH_SHORT)
-                            .show();
-                }
-                else{
-                    //Removing utility from collection if it is on the list
-                    utility.setId(currentUtility.getId());
-                    removeUtility(utility);
-                    setResult(RESULT_DELETE);
-                    Toast.makeText(UtilityAddActivity.this, "Utility Deleted!", Toast.LENGTH_SHORT).show();
-                    finish();
-                }
+            removeUtility(currentUtility);
+            setResult(RESULT_DELETE);
+            Toast.makeText(UtilityAddActivity.this, "Utility Deleted!", Toast.LENGTH_SHORT).show();
+            finish();
             }
         });
     }

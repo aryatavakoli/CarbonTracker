@@ -6,8 +6,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import com.cmpt276.indigo.carbontracker.viewjourney.ViewJourneyActivity;
-
 public class CarbonFootprintMainMenu extends AppCompatActivity {
 
     @Override

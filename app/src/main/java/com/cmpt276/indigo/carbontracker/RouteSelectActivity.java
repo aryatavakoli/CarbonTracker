@@ -109,7 +109,7 @@ public class RouteSelectActivity extends AppCompatActivity {
     }
 
     private void setupEditRouteLongPress() {
-        final ArrayList<RouteModel> routes = carbonFootprintInterface.getRoutes(this);
+        routes = carbonFootprintInterface.getRoutes(this);
         ListView list = (ListView) findViewById(R.id.route_select_list);
         list.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override

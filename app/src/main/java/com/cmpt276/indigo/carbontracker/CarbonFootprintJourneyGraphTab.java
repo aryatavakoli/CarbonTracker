@@ -32,7 +32,7 @@ public class CarbonFootprintJourneyGraphTab extends Fragment {
 
         carbonInterface = CarbonFootprintComponentCollection.getInstance();
 
-        journeys = carbonInterface.getJournies();
+        journeys = carbonInterface.getJournies(getActivity());
 
         PieChart pieChart = (PieChart) rootView.findViewById(R.id.bar_graph);
 
@@ -41,7 +41,7 @@ public class CarbonFootprintJourneyGraphTab extends Fragment {
 
         for (int i = 0; i < journeys.size(); i++) {
             pieEntriesLabels.add(journeys.get(i).getRouteModel().getName());
-            pieEntries.add(new PieEntry(journeys.get(i).getCo2Emission(), pieEntriesLabels.get(i)));
+            pieEntries.add(new PieEntry((float)journeys.get(i).getCo2Emission(), pieEntriesLabels.get(i)));
         }
 
         PieDataSet dataSets = new PieDataSet(pieEntries,null);

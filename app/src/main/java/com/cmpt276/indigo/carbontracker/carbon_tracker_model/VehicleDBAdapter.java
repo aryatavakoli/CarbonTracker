@@ -7,6 +7,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import java.util.ArrayList;
+
 public class VehicleDBAdapter {
 
     // For logging:
@@ -133,8 +135,42 @@ public class VehicleDBAdapter {
         c.close();
     }
 
+    private VehicleModel makeVehicle(Cursor cursor){
+        boolean isDeleted = cursor.getInt(COL_IS_DELETED) > 0;
+        long id = (long)cursor.getInt(COL_ROWID);
+        String name = cursor.getString(COL_NAME);
+        String make = cursor.getString(COL_MAKE);
+        String model = cursor.getString(COL_MODEL);
+        String year = cursor.getString(COL_YEAR);
+        String transmission = cursor.getString(COL_TRANSMISSION);
+        String engineDisplacement = cursor.getString(COL_ENGINE_DISPLACEMENT);
+        double cityMileage = cursor.getDouble(COL_CITY_MILEAGE);
+        double highwayMileage = cursor.getDouble(COL_HIGHWAY_MILEAGE);
+        String primaryFuelType = cursor.getString(COL_PRIMARY_FUEL_TYPE);
+        VehicleModel.TransportationMode transportationMode = VehicleModel.IntToTransportaionMode(cursor.getInt(VehicleDBAdapter.COL_TRANSPORTATION_MODE));
+
+        return new VehicleModel(id, name, make, model, year, transmission, engineDisplacement, cityMileage, highwayMileage, primaryFuelType, transportationMode, isDeleted);
+    }
+
+    public ArrayList<VehicleModel> getAllVehicles() {
+        open();
+        Cursor cursor = getAllRows();
+        ArrayList<VehicleModel> vehicles = new ArrayList<>();
+        if (cursor.moveToFirst()) {
+            do {
+                // Process the data:
+                VehicleModel vehicleModel = makeVehicle(cursor);
+                if(vehicleModel != null && !vehicleModel.getIsDeleted()) {
+                    vehicles.add(vehicleModel);
+                }
+            } while(cursor.moveToNext());
+        }
+        close();
+        return vehicles;
+    }
+
     // Return all data in the database.
-    public Cursor getAllRows() {
+    private Cursor getAllRows() {
         String where = null;
         Cursor c = 	db.query(true, DATABASE_TABLE, ALL_KEYS,
                 where, null, null, null, null, null);
@@ -144,8 +180,20 @@ public class VehicleDBAdapter {
         return c;
     }
 
+    public VehicleModel getVehicle(long rowId) {
+        Cursor cursor = getRow(rowId);
+        if (cursor.moveToFirst()) {
+            do {
+                // Process the data:
+                VehicleModel vehicleModel = makeVehicle(cursor);
+                return vehicleModel;
+            } while(cursor.moveToNext());
+        }
+        return null;
+    }
+
     // Get a specific row (by rowId)
-    public Cursor getRow(long rowId) {
+    private Cursor getRow(long rowId) {
         String where = KEY_ROWID + "=" + rowId;
         Cursor c = 	db.query(true, DATABASE_TABLE, ALL_KEYS,
                 where, null, null, null, null, null);
@@ -157,7 +205,8 @@ public class VehicleDBAdapter {
 
     // Get a specific vehicle by name
     public Cursor getName(String vehicleName) {
-        String where = KEY_NAME + "='" + vehicleName + "'";
+        String where = KEY_NAME + "='" + vehicleName + "'" +
+                        " AND " + KEY_IS_DELETED + "=" + 0;
         Cursor c = 	db.query(true, DATABASE_TABLE, ALL_KEYS,
                 where, null, null, null, null, null);
         if (c != null) {

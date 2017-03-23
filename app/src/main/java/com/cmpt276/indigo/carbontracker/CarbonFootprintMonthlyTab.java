@@ -55,7 +55,7 @@ public class CarbonFootprintMonthlyTab extends Fragment {
 
         carbonInterface = CarbonFootprintComponentCollection.getInstance();
 
-        journeys = carbonInterface.getJournies();
+        journeys = carbonInterface.getJournies(getActivity());
         utilities = carbonInterface.getUtilities(getActivity());
         last28.add(Calendar.DAY_OF_MONTH,-28);
         tomorrow.add(Calendar.DAY_OF_MONTH,1);
@@ -83,9 +83,9 @@ public class CarbonFootprintMonthlyTab extends Fragment {
         //Gets Values
         float totalElectrcityEmissions = getTotalElectrcityEmissions(utilities);
         float totalNaturalGasEmissions = getTotalNaturalGasEmissions(utilities);
-        float totalBusEmissions = getTotalBusEmissions(journeys);
-        float totalSkytrainEmissions = getTotalSkytrainEmissions(journeys);
-        float totalCarEmissions = getTotalCarEmissions(journeys);
+        double totalBusEmissions = getTotalBusEmissions(journeys);
+        double totalSkytrainEmissions = getTotalSkytrainEmissions(journeys);
+        double totalCarEmissions = getTotalCarEmissions(journeys);
 
         //populates graph
         populateUtilityEntries(
@@ -138,16 +138,16 @@ public class CarbonFootprintMonthlyTab extends Fragment {
             barLabels.add("GAS");
     }
 
-    private void populateJourneyEntries(float totalBusEmissions,
-                                        float totalSkytrainEmissions,
-                                        float totalCarEmissions,
+    private void populateJourneyEntries(double totalBusEmissions,
+                                        double totalSkytrainEmissions,
+                                        double totalCarEmissions,
                                         ArrayList<String> barLabels,
                                         ArrayList<BarEntry> barEntries){
-        barEntries.add(new BarEntry(2, totalBusEmissions));
+        barEntries.add(new BarEntry(2, (float)totalBusEmissions));
         barLabels.add("Bus");
-        barEntries.add(new BarEntry(3, totalSkytrainEmissions));
+        barEntries.add(new BarEntry(3, (float)totalSkytrainEmissions));
         barLabels.add("Skytrain");
-        barEntries.add(new BarEntry(4, totalCarEmissions));
+        barEntries.add(new BarEntry(4, (float)totalCarEmissions));
         barLabels.add("Car");
         barEntries.add(new BarEntry(5, 0));
         barLabels.add("Walk/Bike");
@@ -181,8 +181,8 @@ public class CarbonFootprintMonthlyTab extends Fragment {
         return totalNaturalGasEmissions;
     }
 
-    public float getTotalBusEmissions(ArrayList<JourneyModel> journeys) {
-        float totalBusEmissions = 0;//sample
+    public double getTotalBusEmissions(ArrayList<JourneyModel> journeys) {
+        double totalBusEmissions = 0;//sample
         for (JourneyModel journey : journeys) {
             if (journey.getCreationDate().after(last28.getTime()) && journey.getCreationDate().before(tomorrow.getTime())) {
                 if (journey.getVehicleModel().getTransportaionMode() == VehicleModel.TransportationMode.BUS) {
@@ -193,8 +193,8 @@ public class CarbonFootprintMonthlyTab extends Fragment {
         return totalBusEmissions;
     }
 
-    public float getTotalSkytrainEmissions(ArrayList<JourneyModel> journeys) {
-        float totalSkytrainEmissions = 0;//sample
+    public double getTotalSkytrainEmissions(ArrayList<JourneyModel> journeys) {
+        double totalSkytrainEmissions = 0;//sample
         for (JourneyModel journey : journeys) {
             if (journey.getCreationDate().after(last28.getTime()) && journey.getCreationDate().before(tomorrow.getTime())) {
                 if (journey.getVehicleModel().getTransportaionMode() == VehicleModel.TransportationMode.SKYTRAIN) {
@@ -202,13 +202,12 @@ public class CarbonFootprintMonthlyTab extends Fragment {
                 }
             }
         }
-            return totalSkytrainEmissions;
-
+        return totalSkytrainEmissions;
     }
 
 
-    public float getTotalCarEmissions(ArrayList<JourneyModel> journeys) {
-        float totalCarEmissions = 0; //
+    public double getTotalCarEmissions(ArrayList<JourneyModel> journeys) {
+        double totalCarEmissions = 0; //
         for (JourneyModel journey : journeys) {
             if (journey.getCreationDate().after(last28.getTime()) && journey.getCreationDate().before(tomorrow.getTime())) {
                 if (journey.getVehicleModel().getTransportaionMode() == VehicleModel.TransportationMode.CAR) {

@@ -129,23 +129,11 @@ public class TransportationAddActivity extends AppCompatActivity {
         btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Try to get data from transportation add UI
-                VehicleModel vehicle = createVehicleObject();
-                if(!editing){
-                    if (vehicle == null){
-                        return;
-                    }
-                    Toast.makeText(TransportationAddActivity.this, "This vehicle does not exit.", Toast.LENGTH_SHORT)
-                            .show();
-                }
-                else{
-                    //Removing vehicle from collection if it is on the list
-                    vehicle.setId(currentVehicle.getId());
-                    removeVehicle(vehicle);
-                    setResult(RESULT_DELETE);
-                    Toast.makeText(TransportationAddActivity.this, "Vehicle Deleted!", Toast.LENGTH_SHORT).show();
-                    finish();
-                }
+                //Removing vehicle from collection if it is on the list
+                removeVehicle(currentVehicle);
+                setResult(RESULT_DELETE);
+                Toast.makeText(TransportationAddActivity.this, "Vehicle Deleted!", Toast.LENGTH_SHORT).show();
+                finish();
             }
         });
     }
