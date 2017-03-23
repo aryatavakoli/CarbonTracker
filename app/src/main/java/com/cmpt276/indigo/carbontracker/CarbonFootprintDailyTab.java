@@ -47,19 +47,18 @@ public class CarbonFootprintDailyTab extends Fragment {
                 myCalendar.set(Calendar.YEAR, year);
                 myCalendar.set(Calendar.MONTH, monthOfYear);
                 myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-                Date today = myCalendar.getTime();
-                displayDate(txt, today);
+                displayDate(txt, myCalendar);
                 pieEntries.clear();
 
                 carbonInterface = CarbonFootprintComponentCollection.getInstance();
                 journeys = carbonInterface.getJournies();
                 utilities = carbonInterface.getUtilities(getActivity());
 
-                float totalElectrcityEmissionsToday = getTotalElectrcityEmissionsToday(utilities,today);
-                float totalNaturalGasEmissionsToday = getTotalNaturalGasEmissionsToday(utilities,today);
-                float totalBusEmissionsToday = getTotalBusEmissionsToday(journeys,today);
-                float totalSkytrainEmissionsToday = getTotalSkytrainEmissionsToday(journeys,today);
-                float totalCarEmissionsToday = getTotalCarEmissionsToday(journeys,today);
+                float totalElectrcityEmissionsToday = getTotalElectrcityEmissionsToday(utilities,myCalendar);
+                float totalNaturalGasEmissionsToday = getTotalNaturalGasEmissionsToday(utilities,myCalendar);
+                float totalBusEmissionsToday = getTotalBusEmissionsToday(journeys,myCalendar);
+                float totalSkytrainEmissionsToday = getTotalSkytrainEmissionsToday(journeys,myCalendar);
+                float totalCarEmissionsToday = getTotalCarEmissionsToday(journeys,myCalendar);
 
                 populateGraph(
                         totalElectrcityEmissionsToday,
@@ -86,12 +85,12 @@ public class CarbonFootprintDailyTab extends Fragment {
         return rootView;
     }
 
-    private void displayDate(Button btn, Date c) {
+    private void displayDate(Button btn, Calendar c) {
         String date = calendarToString(c);
         btn.setText(date);
     }
 
-    private String calendarToString(Date c) {
+    private String calendarToString(Calendar c) {
         SimpleDateFormat formatter = new SimpleDateFormat("MMM dd, yyyy");
         return formatter.format(c.getTime());
     }
@@ -123,7 +122,7 @@ public class CarbonFootprintDailyTab extends Fragment {
         pieEntries.add(new PieEntry(0f,"Walk/bike"));
     }
 
-    private float getTotalElectrcityEmissionsToday(ArrayList<UtilityModel> utilities, Date today) {
+    private float getTotalElectrcityEmissionsToday(ArrayList<UtilityModel> utilities, Calendar today) {
         float totalElectrcityEmissionsToday = 0;
         for (UtilityModel utility : utilities) {
             if (utility.getStartDate().before(today) && utility.getEndDate().after(today)) {
@@ -138,10 +137,10 @@ public class CarbonFootprintDailyTab extends Fragment {
         return totalElectrcityEmissionsToday;
     }
 
-    private float getTotalNaturalGasEmissionsToday(ArrayList<UtilityModel> utilities, Date today) {
+    private float getTotalNaturalGasEmissionsToday(ArrayList<UtilityModel> utilities, Calendar today) {
         float totalNaturalGasEmissionsToday = 0;
         for (UtilityModel utility : utilities) {
-            if (utility.getStartDate().equals(today)) {
+            if (utility.getStartDate().before(today) && utility.getEndDate().after(today)) {
                 if (utility.getCompanyName() == UtilityModel.Company.FORTISBC) {
                     float total_emission = (float)  utility.calculateDailyCO2EmissionsInKg();
                     totalNaturalGasEmissionsToday = totalNaturalGasEmissionsToday + total_emission;
@@ -151,17 +150,17 @@ public class CarbonFootprintDailyTab extends Fragment {
         return totalNaturalGasEmissionsToday;
     }
 
-    private float getTotalBusEmissionsToday(ArrayList<JourneyModel> journeys, Date today) {
+    private float getTotalBusEmissionsToday(ArrayList<JourneyModel> journeys, Calendar today) {
         float totalBusEmissionsToday = 15;
         return totalBusEmissionsToday;
     }
 
-    private float getTotalSkytrainEmissionsToday(ArrayList<JourneyModel> journeys, Date today) {
+    private float getTotalSkytrainEmissionsToday(ArrayList<JourneyModel> journeys, Calendar today) {
         float totalSkytrainEmissionsToday = 20;
         return totalSkytrainEmissionsToday;
     }
 
-    private float getTotalCarEmissionsToday(ArrayList<JourneyModel> journeys, Date today) {
+    private float getTotalCarEmissionsToday(ArrayList<JourneyModel> journeys, Calendar today) {
         float totalCarEmissionsToday = 25;
         return totalCarEmissionsToday;
     }
