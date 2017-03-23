@@ -9,6 +9,10 @@ import android.support.v7.app.AppCompatDialogFragment;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+/**
+ * Implements Dialouge box for tips
+ */
+
 public class TipFragment extends AppCompatDialogFragment {
     CarbonFootprintComponentCollection carbonFootprintInterface;
 

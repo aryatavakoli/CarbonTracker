@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -16,6 +17,7 @@ import com.cmpt276.indigo.carbontracker.carbon_tracker_model.CarbonFootprintComp
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.DuplicateComponentException;
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.JourneyModel;
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.RouteModel;
+import com.cmpt276.indigo.carbontracker.carbon_tracker_model.TipFragment;
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.UtilityModel;
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.VehicleModel;
 
@@ -30,8 +32,10 @@ import java.util.List;
 
 public class JourneyAddActivity extends AppCompatActivity {
     public static final int RESULT_DELETE = 15;
-    ArrayList<JourneyModel> journies;
     public static final int DATE_SELECT = 52;
+    ArrayList<JourneyModel> journies;
+    ArrayList<VehicleModel> vehicles;
+    ArrayList<RouteModel> routes;
     JourneyModel newJourney;
     public static final int TRANSPORTATION_SELECT = 56;
     public static final int ROUTE_SELECT = 57;
@@ -51,6 +55,8 @@ public class JourneyAddActivity extends AppCompatActivity {
         newJourney = new JourneyModel(); // The journey the user is creating
         carbonFootprintInterface = CarbonFootprintComponentCollection.getInstance();
         journies = carbonFootprintInterface.getJournies(this);
+        routes = carbonFootprintInterface.getRoutes(this);
+        vehicles = carbonFootprintInterface.getVehicles(this);
         populateUIFromIntent();
         transportSelectBtn();
         routeSelectBtn();
@@ -92,6 +98,7 @@ public class JourneyAddActivity extends AppCompatActivity {
 
         };
         Button txt = (Button) findViewById(R.id.journey_menu_select_date_btn);
+//        if the user select the date button a date picker will pop up
         txt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -107,7 +114,6 @@ public class JourneyAddActivity extends AppCompatActivity {
      */
     private void selectCreate() {
         Button btn = (Button) findViewById(R.id.journey_menu_create_btn);
-        final Context context = this;
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -125,7 +131,7 @@ public class JourneyAddActivity extends AppCompatActivity {
                     intent.putExtra("journey", newJourney);
                     setResult(Activity.RESULT_OK, intent);
                     Toast.makeText(JourneyAddActivity.this, "Journey Created!", Toast.LENGTH_SHORT).show();
-                    finish();
+                    showTipDialog();
                 }
                 else{
                     Toast.makeText(JourneyAddActivity.this,"Please select Route and Vehicle",Toast.LENGTH_SHORT).show();
@@ -150,7 +156,7 @@ public class JourneyAddActivity extends AppCompatActivity {
 
     //display co2emission
     private void fillCarbonFootprintText() {
-       newJourney.calculateEmissions();
+        newJourney.calculateEmissions();
         carbonEmission = newJourney.getCo2Emission();
         if (isRouteSelected && isVehicleSelected){
             TextView footprintDisplay = (TextView) findViewById(R.id.journey_menu_text_current_footprint);
@@ -247,6 +253,17 @@ public class JourneyAddActivity extends AppCompatActivity {
         Intent intent = makeIntentForNewJourney(packageContext);
         intent.putExtra("journey", journeyModel);
         return intent;
+    }
+    private void showTipDialog() { //open a dialoge and pass the arraylist to the tipfragment to use them
+        FragmentManager manager = getSupportFragmentManager();
+        TipFragment dialog = new TipFragment();
+        dialog.setCancelable(false);
+        dialog.show(manager,"message dialog");
+        dialog.setVehicles(vehicles);
+        dialog.setJournies(journies);
+        dialog.setRoutes(routes);
+
+
     }
 }
 

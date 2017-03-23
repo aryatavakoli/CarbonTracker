@@ -13,6 +13,7 @@ import java.util.Calendar;
 
 /**
  * Created by faranakpouya on 2017-03-18.
+ * Implments adapter for Utilitydatabase
  */
 
 public class UtilityDBAdapter {

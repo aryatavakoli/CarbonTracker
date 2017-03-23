@@ -24,6 +24,11 @@ import com.github.mikephil.charting.utils.ColorTemplate;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+/**
+ * Created by Arya on 2017-03-16.
+ * Implements Yearly Bar Graph Tab
+ */
+
 public class CarbonFootprintYearlyTab extends Fragment {
     public static final int NUMBEROFMONTHS = 12;
     ArrayList<JourneyModel> journeys;
@@ -51,6 +56,7 @@ public class CarbonFootprintYearlyTab extends Fragment {
     }
 
     private double getMonthCo2(int i) {
+//        for each month we get the total co2 of journies in that month + c02 of utilities in that month
         double totalJourneyCo2 = 0;
         for (JourneyModel j : journeys){
             Calendar c = j.getCreationDate();
@@ -85,7 +91,9 @@ public class CarbonFootprintYearlyTab extends Fragment {
         ArrayList<String> barLabels = new ArrayList<>();
         ArrayList<BarEntry> barEntries = new ArrayList<>();
         //TODO: POPULATE ARRAY
-        double[] emissionsData = new double[12];
+        double[] emissionsData = new double[NUMBEROFMONTHS];
+//        make an array of 12 for 12 months of a year
+//        set each month to its own C02 emission which has been calculated
         emissionsData[0] = getMonthCo2(0);
         emissionsData[1] = getMonthCo2(1);
         emissionsData[2] = getMonthCo2(2);
@@ -136,6 +144,7 @@ public class CarbonFootprintYearlyTab extends Fragment {
     }
 
     private void populateBarLabels(ArrayList<String> barLabels) {
+//        label the bars for the graph
         barLabels.add("Jan");
         barLabels.add("Feb");
         barLabels.add("Mar");

@@ -73,4 +73,5 @@
     <string name="transporation_mode">Transporation Mode</string>
     <string name="choose_date">Choose Date</string>
     <string name="tap_and_hold_to_edit_or_delete_journies">Tap and Hold to Edit or Delete Journies</string>
+    <string name="view_utilities">View Utilities</string>
 </resources>

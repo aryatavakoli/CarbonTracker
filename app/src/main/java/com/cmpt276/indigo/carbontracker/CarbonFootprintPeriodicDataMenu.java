@@ -10,6 +10,11 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 
+/**
+ * Created by Arya on 2017-03-16.
+ * Implements PeriodicData Graph Menu Tabbed Activity
+ */
+
 public class CarbonFootprintPeriodicDataMenu extends AppCompatActivity {
 
     /**

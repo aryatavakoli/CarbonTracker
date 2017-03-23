@@ -46,7 +46,7 @@ public class UtilitySelectActivity extends AppCompatActivity {
         setupEditUtilityLongPress();
     }
 
-    private void startAddActivity() {
+    private void startAddActivity() {//opens the add utility
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
