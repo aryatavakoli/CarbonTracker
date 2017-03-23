@@ -9,8 +9,8 @@ import java.util.Objects;
  */
 
 public class JourneyModel implements CarbonFootprintComponent{
-    public static final double CO2_PER_KM_BUS = 0.089;
-    public static final double CO2_PER_KM_SKYTRAIN = 0.087;
+    public static final double CO2_PER_KM_BUS = 0.0089;
+    public static final double CO2_PER_KM_SKYTRAIN = 0.0087;
     public static final double CO2_PER_KM_PEDESTRIAN = 0.0;
     public static final String DATE_FORMAT = "yyyy-MMM-dd";
 
