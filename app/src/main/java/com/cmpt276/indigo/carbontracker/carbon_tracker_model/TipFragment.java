@@ -84,13 +84,13 @@ public class TipFragment extends AppCompatDialogFragment {
     }
 
     @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
+    public Dialog onCreateDialog(Bundle savedInstanceState) { // load?
         carbonFootprintInterface = CarbonFootprintComponentCollection.getInstance();
         populateMessageList();
         final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setMessage(messageList[messageIndex]);
         messageIndex ++;
-        if (messageIndex == 15)messageIndex = 0;
+        if (messageIndex == 15) messageIndex = 0;
         builder.setTitle("New Tip");
         builder.setNegativeButton("OK", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
@@ -114,15 +114,10 @@ public class TipFragment extends AppCompatDialogFragment {
             }
 
         });
-
-
         AlertDialog alert = builder.show();
         alert.setCancelable(false);
         return alert;
-
     }
-
-
 
     private void populateMessageList() {
         final Calendar today = Calendar.getInstance();
@@ -163,26 +158,28 @@ public class TipFragment extends AppCompatDialogFragment {
                     v.getVehicleModel().getTransportaionMode() == VehicleModel.TransportationMode.CAR){
                 cityNum ++;
             }
-
-
-
-
         }
-        messageList[0]= "You had"+ carNUm+ "car trips today. You might be able to cut that down by combining trips tomorrow.";
+        messageList[0]= "You had "+ carNUm+ " car trips today. You might be able to cut that down by combining trips tomorrow.";
         messageList[1]= "You generate "+ CO2usage  + " of CO2 . Shorter showers might help cut down emissions from hot water heater.";
-        messageList[2]= "Overall you had " + CO2usage + " kgs of carbon which " + CO2Car+" of it belongs to your car trips";
+        messageList[2]= "Overall you had " + CO2usage + " kgs of carbon which " + CO2Car + " of it belongs to your car trips";
         messageList[3]= "You have " + shortDistanceTrips +" trips with total distance of less than 10km you can try walking or biking these routes";
-        messageList[4]= "You have Walked/Biked" + distanceWalked +  "kms in total of " + walkNum +" walk/bike trips you had" ;
+        messageList[4]= "You have Walked/Biked " + distanceWalked +  "kms in total of " + walkNum +" walk/bike trips you had" ;
         messageList[5]= "In " + cityNum + " of your car journeys highway distance was less than city distance" +
                 " if it is not necessary try to avoid driving in city and traffics because it produces more CO2 ";
         messageList[6]= "during taking each of your " +  carNUm+
         " car tips try to Drive at an appropriate speed -" +
         " staying within the 70mph limit can bring savings of 10 per cent for your fuel bill compared to driving at 80mph.";
-        messageList[7]= "today yo your co2 emission was" + CO2usage + " CO2 emission per person in Canada" +
+        messageList[7]= "today yo your co2 emission was " + CO2usage + " CO2 emission per person in Canada" +
                 " is on average 14.68 metric tons per day";
-        messageList[8]= "Remove unnecessary weight from your"+ carNUm+"cars; this will cut down fuel consumption and carbon dioxide emissions";
-        messageList[9]= "your journey " + mostCo2Journey + " uses the most amount of CO2 with the" + mostCo2Journey.getVehicleModel().getName()+
-        "try to avoid this journey if it is possible";
+        messageList[8]= "Remove unnecessary weight from your " + carNUm+" cars; this will cut down fuel consumption and carbon dioxide emissions";
+        if(mostCo2Journey.getVehicleModel() != null) {
+            messageList[9] = "your journey " + mostCo2Journey + " uses the most amount of CO2 with the" + mostCo2Journey.getVehicleModel().getName() +
+                    ". Try to avoid this journey if it is possible";
+        }
+        else
+        {
+            messageList[9] = "";
+        }
         messageList[10]="Today you had " + todayJournies + " journeys plan to do a number of errands in one trip rather than several trips and save both time and fuel";
         messageList[11]= "Your number of walking trip is" + walkNum + " and your car trip is " + carNUm +
         "You can try to walk more";
