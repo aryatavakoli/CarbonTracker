@@ -29,15 +29,6 @@
         android:layout_marginBottom="5dp"
         android:layout_above="@+id/main_menu_carbonfootprint_btn"
         android:layout_centerHorizontal="true" />
-    <Button
-        android:text="@string/create_journey"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/main_menu_create_Journey_btn"
-        android:theme="@style/GreenButton"
-        android:layout_marginBottom="55dp"
-        android:layout_above="@+id/main_menu_carbonfootprint_btn"
-        android:layout_centerHorizontal="true" />
 
     <Button
         android:text="Create New Utilities Bill"

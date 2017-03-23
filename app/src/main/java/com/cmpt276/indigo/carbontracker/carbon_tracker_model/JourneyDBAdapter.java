@@ -27,18 +27,16 @@ public class JourneyDBAdapter {
     public static final String KEY_ROUTE_id = "route_id";
     public static final String KEY_CO2_EMISSION = "co2_emission";
     public static final String KEY_CREATE_DATE = "create_date";
-    public static final String KEY_TABLE_ID = "table_id";
     public static final String KEY_IS_DELETED = "is_deleted";
 
     public static final int COL_TRANSPORTATION_ID = 1;
     public static final int COL_ROUTE_id = 2;
     public static final int COL_CO2_EMISSION = 3;
     public static final int COL_CREATE_DATE = 4;
-    public static final int COL_TABLE_ID = 5;
-    public static final int COL_IS_DELETED = 6;
+    public static final int COL_IS_DELETED = 5;
 
     public static final String[] ALL_KEYS = new String[] {
-            KEY_ROWID, KEY_TRANSPORTATION_ID, KEY_ROUTE_id, KEY_CO2_EMISSION, KEY_CREATE_DATE, KEY_TABLE_ID, KEY_IS_DELETED
+            KEY_ROWID, KEY_TRANSPORTATION_ID, KEY_ROUTE_id, KEY_CO2_EMISSION, KEY_CREATE_DATE, KEY_IS_DELETED
     };
 
     // DB info: it's name, and the table we are using (just one).
@@ -54,7 +52,6 @@ public class JourneyDBAdapter {
                     + KEY_ROUTE_id + " integer not null, "
                     + KEY_CO2_EMISSION + " double not null, "
                     + KEY_CREATE_DATE + " date not null, "
-                    + KEY_TABLE_ID + " integer not null,"
                     + KEY_IS_DELETED + " boolean not null"
                     + ");";
 
@@ -92,8 +89,8 @@ public class JourneyDBAdapter {
     public long insertRow(JourneyModel journey) {
         // Create row's data:
         ContentValues initialValues = new ContentValues();
-        initialValues.put(KEY_TRANSPORTATION_ID, journey.getId());
-        initialValues.put(KEY_ROUTE_id, journey.getId());
+        initialValues.put(KEY_TRANSPORTATION_ID, journey.getVehicleModel().getId());
+        initialValues.put(KEY_ROUTE_id, journey.getRouteModel().getId());
         initialValues.put(KEY_CO2_EMISSION, journey.getCo2Emission());
         initialValues.put(KEY_CREATE_DATE, journey.getCreationDateString());
         initialValues.put(KEY_IS_DELETED, journey.getIsDeleted());
@@ -121,9 +118,6 @@ public class JourneyDBAdapter {
 
     private JourneyModel makeJourney(Cursor cursor, VehicleDBAdapter vehicleDBAdapter, RouteDBAdapter routeDBAdapter){
         boolean isDeleted = cursor.getInt(JourneyDBAdapter.COL_IS_DELETED) > 0;
-        if (isDeleted){
-            return null;
-        }
         long id = (long) cursor.getInt(JourneyDBAdapter.COL_ROWID);
         long transportationID = (long)cursor.getInt(JourneyDBAdapter.COL_TRANSPORTATION_ID);
         long routeID = (long)cursor.getInt(JourneyDBAdapter.COL_ROUTE_id);
@@ -161,7 +155,7 @@ public class JourneyDBAdapter {
             do {
                 // Process the data:
                 JourneyModel journeyModel = makeJourney(cursor, vehicleDBAdapter, routeDBAdapter);
-                if(journeyModel != null) {
+                if(journeyModel != null && !journeyModel.getIsDeleted()) {
                     journies.add(journeyModel);
                 }
             } while(cursor.moveToNext());

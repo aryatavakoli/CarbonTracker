@@ -18,11 +18,11 @@
         <activity
             android:name=".TransportationSelectActvitiy"
             android:label="@string/title_activity_transportation_select_actvitiy"
-            android:parentActivityName=".JourneyMenu"
+            android:parentActivityName=".JourneyAddActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.cmpt276.indigo.carbontracker.JourneyMenu" />
+                android:value="com.cmpt276.indigo.carbontracker.JourneyAddActivity" />
         </activity>
         <activity
             android:name=".TransportationAddActivity"
@@ -35,11 +35,11 @@
         <activity
             android:name=".RouteSelectActivity"
             android:label="@string/title_activity_route_select"
-            android:parentActivityName=".JourneyMenu"
+            android:parentActivityName=".JourneyAddActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.cmpt276.indigo.carbontracker.JourneyMenu" />
+                android:value="com.cmpt276.indigo.carbontracker.JourneyAddActivity" />
         </activity>
         <activity
             android:name=".RouteAddActivity"
@@ -50,12 +50,12 @@
                 android:value="com.cmpt276.indigo.carbontracker.RouteSelectActivity" />
         </activity>
         <activity
-            android:name=".JourneyMenu"
+            android:name=".JourneyAddActivity"
             android:label="@string/title_activity_journey_menu"
             android:parentActivityName=".MainMenu">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.cmpt276.indigo.carbontracker.MainMenu" />
+                android:value="com.cmpt276.indigo.carbontracker.JourneySelectActivity" />
         </activity>
         <activity
             android:name=".CarbonFootprintJourneyFootprintMenu"
@@ -67,9 +67,10 @@
                 android:value="com.cmpt276.indigo.carbontracker.CarbonFootprintMainMenu" />
         </activity>
         <activity
-            android:name=".viewjourney.ViewJourneyActivity"
-            android:label="View Journey"
-            android:parentActivityName=".MainMenu">
+            android:name=".JourneySelectActivity"
+            android:label="Select Journey"
+            android:parentActivityName=".MainMenu"
+            android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.cmpt276.indigo.carbontracker.MainMenu" />

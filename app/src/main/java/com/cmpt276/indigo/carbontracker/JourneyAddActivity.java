@@ -1,5 +1,6 @@
 package com.cmpt276.indigo.carbontracker;
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -12,8 +13,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.CarbonFootprintComponentCollection;
+import com.cmpt276.indigo.carbontracker.carbon_tracker_model.DuplicateComponentException;
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.JourneyModel;
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.RouteModel;
+import com.cmpt276.indigo.carbontracker.carbon_tracker_model.UtilityModel;
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.VehicleModel;
 
 import java.util.Calendar;
@@ -25,7 +28,8 @@ import java.util.List;
     implments journey UI
  */
 
-public class JourneyMenu extends AppCompatActivity {
+public class JourneyAddActivity extends AppCompatActivity {
+    public static final int RESULT_DELETE = 15;
     ArrayList<JourneyModel> journies;
     public static final int DATE_SELECT = 52;
     JourneyModel newJourney;
@@ -47,11 +51,15 @@ public class JourneyMenu extends AppCompatActivity {
         newJourney = new JourneyModel(); // The journey the user is creating
         carbonFootprintInterface = CarbonFootprintComponentCollection.getInstance();
         journies = carbonFootprintInterface.getJournies(this);
+        populateUIFromIntent();
         transportSelectBtn();
         routeSelectBtn();
         selectCreate();
         gettingDate();
         deleteBtn();
+    }
+
+    private void populateUIFromIntent() {
         Intent intent = getIntent();
         if (intent != null && intent.getSerializableExtra("journey") != null) {
             // if intent.getSerializableExtra("journey") != null when first in
@@ -87,15 +95,12 @@ public class JourneyMenu extends AppCompatActivity {
         txt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new DatePickerDialog(JourneyMenu.this, date, myCalendar
+                new DatePickerDialog(JourneyAddActivity.this, date, myCalendar
                         .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
                         myCalendar.get(Calendar.DAY_OF_MONTH)).show();
-
             }
         });
-
     }
-
 
     /**
      * create or edit
@@ -109,28 +114,39 @@ public class JourneyMenu extends AppCompatActivity {
                 if (isRouteSelected && isVehicleSelected) {
                     // is in edit mode
                     if (isEdit) {
-                        // edit the journey
-                        carbonFootprintInterface.edit(context, newJourney);
-                        Toast.makeText(JourneyMenu.this, "Journey Save!", Toast.LENGTH_SHORT).show();
-                        // finish and back
+                        Intent intent = getIntent();
+                        intent.putExtra("journey", newJourney);
+                        setResult(RESULT_OK, intent);
                         finish();
-                    } else {
-                        carbonFootprintInterface.add(context, newJourney);
-                        Toast.makeText(JourneyMenu.this, "Journey Created!", Toast.LENGTH_SHORT).show();
-                        finish();
-
+                    } else if (!addJourney(newJourney)) {
+                        return;
                     }
-
+                    Intent intent = new Intent();
+                    intent.putExtra("journey", newJourney);
+                    setResult(Activity.RESULT_OK, intent);
+                    Toast.makeText(JourneyAddActivity.this, "Journey Created!", Toast.LENGTH_SHORT).show();
+                    finish();
                 }
                 else{
-
-                    Toast.makeText(JourneyMenu.this,"Please select Route and Vehicle",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(JourneyAddActivity.this,"Please select Route and Vehicle",Toast.LENGTH_SHORT).show();
                     return;
                 }
             }
         });
     }
 
+    boolean addJourney(JourneyModel journeyModel){
+        try{
+            carbonFootprintInterface.add(this,journeyModel);
+        }
+        catch(DuplicateComponentException e){
+            if(!isEdit) {
+                Toast.makeText(JourneyAddActivity.this, "This Journey already exists.", Toast.LENGTH_SHORT).show();
+            }
+            return false;
+        }
+        return true;
+    }
 
     //display co2emission
     private void fillCarbonFootprintText() {
@@ -162,7 +178,7 @@ public class JourneyMenu extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(JourneyMenu.this, TransportationSelectActvitiy.class);
+                Intent intent = new Intent(JourneyAddActivity.this, TransportationSelectActvitiy.class);
                 startActivityForResult(intent, TRANSPORTATION_SELECT );
 
             }
@@ -175,7 +191,7 @@ public class JourneyMenu extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(JourneyMenu.this, RouteSelectActivity.class);
+                Intent intent = new Intent(JourneyAddActivity.this, RouteSelectActivity.class);
                 startActivityForResult(intent,ROUTE_SELECT);
 
             }
@@ -187,6 +203,9 @@ public class JourneyMenu extends AppCompatActivity {
      */
     private void deleteBtn() {
         Button btn = (Button) findViewById(R.id.journey_menu_delete_btn);
+        if(!isEdit){
+            btn.setEnabled(false);
+        }
         final Context context = this;
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -194,6 +213,7 @@ public class JourneyMenu extends AppCompatActivity {
                 if (newJourney != null) {
                     // delete the select journey
                     carbonFootprintInterface.remove(context, newJourney);
+                    setResult(RESULT_DELETE);
                     // finish this activity and back
                     finish();
                 }
@@ -219,8 +239,15 @@ public class JourneyMenu extends AppCompatActivity {
         }
     }
 
+    public static Intent makeIntentForNewJourney(Context packageContext) {
+        return new Intent(packageContext, JourneyAddActivity.class);
+    }
 
-
+    public static Intent makeIntentForEditJourney(Context packageContext, JourneyModel journeyModel) {
+        Intent intent = makeIntentForNewJourney(packageContext);
+        intent.putExtra("journey", journeyModel);
+        return intent;
+    }
 }
 
 

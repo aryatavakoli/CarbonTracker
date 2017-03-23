@@ -128,9 +128,6 @@ public class UtilityDBAdapter {
 
     private UtilityModel makeUtility(Cursor cursor){
         boolean isDeleted = cursor.getInt(UtilityDBAdapter.COL_IS_DELETED) > 0;
-        if (isDeleted){
-            return null;
-        }
         long id = (long) cursor.getInt(UtilityDBAdapter.COL_ROWID);
         String name = cursor.getString(UtilityDBAdapter.COL_NAME);
         UtilityModel.Company company = UtilityModel.IntToCompany(cursor.getInt(UtilityDBAdapter.COL_COMPANY));
@@ -159,7 +156,7 @@ public class UtilityDBAdapter {
             do {
                 // Process the data:
                 UtilityModel utilityModel = makeUtility(cursor);
-                if(utilityModel != null) {
+                if(utilityModel != null && !utilityModel.getIsDeleted()) {
                     utilityModels.add(utilityModel);
                 }
             } while(cursor.moveToNext());
@@ -192,7 +189,8 @@ public class UtilityDBAdapter {
 
     // Get a specific utility by name
     public Cursor getName(String utilityName) {
-        String where = KEY_NAME + "='" + utilityName + "'";
+        String where = KEY_NAME + "='" + utilityName + "'" +
+                " AND " + KEY_IS_DELETED + "=" + 0;
         Cursor c = 	db.query(true, DATABASE_TABLE, ALL_KEYS,
                 where, null, null, null, null, null);
         if (c != null) {

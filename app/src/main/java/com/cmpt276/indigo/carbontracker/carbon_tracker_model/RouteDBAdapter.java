@@ -113,9 +113,6 @@ public class RouteDBAdapter {
 
     public RouteModel makeRoute(Cursor cursor) {
         boolean isDeleted = cursor.getInt(RouteDBAdapter.COL_IS_DELETED) > 0;
-        if (isDeleted){
-            return null;
-        }
         long id = (long) cursor.getInt(COL_ROWID);
         String name = cursor.getString(COL_NAME);
         double cityDistance = cursor.getDouble(COL_CITY_DISTANCE);
@@ -132,7 +129,7 @@ public class RouteDBAdapter {
             do {
                 // Process the data:
                 RouteModel routeModel = makeRoute(cursor);
-                if(routeModel != null) {
+                if(routeModel != null && !routeModel.getIsDeleted()) {
                     routes.add(routeModel);
                 }
             } while(cursor.moveToNext());
@@ -177,7 +174,8 @@ public class RouteDBAdapter {
 
     // Get a specific route by name
     public Cursor getName(String routeName) {
-        String where = KEY_NAME + "='" + routeName + "'";
+        String where = KEY_NAME + "='" + routeName + "'" +
+                " AND " + KEY_IS_DELETED + "=" + 0;
         Cursor c = 	db.query(true, DATABASE_TABLE, ALL_KEYS,
                 where, null, null, null, null, null);
         if (c != null) {

@@ -69,8 +69,10 @@ public class CarbonFootprintComponentCollection {
             routeDBAdapter.close();
         }
         else if (component instanceof JourneyModel){
-            //TODO: add to database instead of arraylist
-            journies.add((JourneyModel) component);
+            JourneyDBAdapter journeyDBAdapter = new JourneyDBAdapter(context);
+            journeyDBAdapter.open();
+            journeyDBAdapter.insertRow((JourneyModel)component);
+            journeyDBAdapter.close();
         }
         else if (component instanceof UtilityModel){
             UtilityDBAdapter utilityDBAdapter = new UtilityDBAdapter(context);

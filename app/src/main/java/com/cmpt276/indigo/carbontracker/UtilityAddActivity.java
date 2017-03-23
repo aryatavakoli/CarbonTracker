@@ -151,10 +151,10 @@ public class UtilityAddActivity extends AppCompatActivity {
                 else {
                     Toast.makeText(UtilityAddActivity.this, "Utility Added!", Toast.LENGTH_SHORT).show();
                 }
-                    Intent intent = new Intent();
-                    intent.putExtra("utility", newUtility);
-                    setResult(Activity.RESULT_OK, intent);
-                    finish();
+                Intent intent = new Intent();
+                intent.putExtra("utility", newUtility);
+                setResult(Activity.RESULT_OK, intent);
+                finish();
             }
 
         });

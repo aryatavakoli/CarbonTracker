@@ -1,7 +1,5 @@
 package com.cmpt276.indigo.carbontracker;
 
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -12,34 +10,28 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import com.cmpt276.indigo.carbontracker.carbon_tracker_model.CarbonFootprintComponent;
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.CarbonFootprintComponentCollection;
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.JourneyModel;
-import com.cmpt276.indigo.carbontracker.carbon_tracker_model.VehicleModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
-/*
-    Implements TransportationSelectActvitiy UI for displaying list of added vehicles
+/**
+ * the activity to display all the journey into a listview
  */
-
-public class TransportationSelectActvitiy extends AppCompatActivity {
-
-    private long idOfVehicleEditing = -1;
+public class JourneySelectActivity extends AppCompatActivity {
+    ArrayList<JourneyModel> journies;
+    private long idOfJourneyEditing = -1;
     CarbonFootprintComponentCollection carbonFootprintInterface;
     private static final int ACTIVITY_RESULT_ADD = 50;
     private static final int ACTIVITY_RESULT_EDIT = 100;
 
-    ArrayList<VehicleModel> vehicles;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.toolbar_transportation_select);
+        setContentView(R.layout.toolbar_journey_select);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        //Allows for back button
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
@@ -48,70 +40,64 @@ public class TransportationSelectActvitiy extends AppCompatActivity {
         setupEditVehicleLongPress();
     }
 
-    // FAB button to launch add activity
     private void startAddActivity() {
-        //set reference to fab
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(TransportationSelectActvitiy.this,TransportationAddActivity.class);
+                Intent intent = new Intent(JourneySelectActivity.this, JourneyAddActivity.class);
                 startActivityForResult(intent, ACTIVITY_RESULT_ADD);
             }
         });
     }
 
-    //sample for demonstartion purposes
     private void createListView() {
         //set reference to listview
-        ListView carList = (ListView) findViewById(R.id.transportation_select_list);
-        populateVehiclesList();
+        ListView carList = (ListView) findViewById(R.id.journey_select_list);
+        populateJourneyList();
         //handle click for each element in listview
         carList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = getIntent();
                 // Passing selected vehicle to the caller activity
-                VehicleModel selectedVehicle = vehicles.get(position);
-                intent.putExtra("vehicle", selectedVehicle);
+                JourneyModel selectedJourney = journies.get(position);
+                intent.putExtra("journey", selectedJourney);
                 setResult(RESULT_OK, intent);
                 finish();
             }
         });
     }
 
-    private void populateVehiclesList() {
-        ListView carList = (ListView) findViewById(R.id.transportation_select_list);
+    private void populateJourneyList() {
+        ListView journeyList = (ListView) findViewById(R.id.journey_select_list);
         carbonFootprintInterface = CarbonFootprintComponentCollection.getInstance();
-        vehicles = carbonFootprintInterface.getVehicles(this);
+        journies = carbonFootprintInterface.getJournies(this);
         // putting vehicles in list
-        List<String> vehicle_nameList = new ArrayList<>();
-        //Add elements
-        int counter = 0;
-        for(VehicleModel v: vehicles){
-            vehicle_nameList.add(v.getName());
-            counter++;
+        List<String> journey_nameList = new ArrayList<>();
+        for(JourneyModel v: journies){
+            journey_nameList.add("Car: " + v.getVehicleModel().getName() +
+                                "   Route: " + v.getRouteModel().getName() +
+                                "   Date: " + v.getCreationDateString());
         }
 
         //Create array adapter
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(
                 this, //context
                 android.R.layout.simple_list_item_1,
-                vehicle_nameList //arrayList
+                journey_nameList //arrayList
         );
-
-        //apply adapter ro listview
-        carList.setAdapter(arrayAdapter);
+        journeyList.setAdapter(arrayAdapter);
     }
 
     private void setupEditVehicleLongPress() {
-        ListView list = (ListView) findViewById(R.id.transportation_select_list);
+        ListView list = (ListView) findViewById(R.id.journey_select_list);
         list.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                VehicleModel vehicle = vehicles.get(position);
-                idOfVehicleEditing = vehicle.getId();
-                Intent intent = TransportationAddActivity.makeIntentForEditVehicle(TransportationSelectActvitiy.this, vehicle);
+                JourneyModel journeyModel  = journies.get(position);
+                idOfJourneyEditing = journeyModel.getId();
+                Intent intent = JourneyAddActivity.makeIntentForEditJourney(JourneySelectActivity.this, journeyModel);
                 startActivityForResult(intent, ACTIVITY_RESULT_EDIT);
                 return true;
             }
@@ -124,19 +110,19 @@ public class TransportationSelectActvitiy extends AppCompatActivity {
         if(resultCode == RESULT_OK){
             switch (requestCode){
                 case ACTIVITY_RESULT_ADD:
-                    populateVehiclesList();
+                    populateJourneyList();
                     break;
                 case ACTIVITY_RESULT_EDIT:
-                    VehicleModel modifiedVehicle = (VehicleModel) data.getSerializableExtra("vehicle");
-                    modifiedVehicle.setId(idOfVehicleEditing);
-                    carbonFootprintInterface.edit(this, modifiedVehicle);
-                    populateVehiclesList();
+                    JourneyModel modifiedJourney = (JourneyModel) data.getSerializableExtra("journey");
+                    modifiedJourney.setId(idOfJourneyEditing);
+                    carbonFootprintInterface.edit(this, modifiedJourney);
+                    populateJourneyList();
                     break;
             }
 
         }
-        else if (resultCode == TransportationAddActivity.RESULT_DELETE){
-            populateVehiclesList();
+        else if (resultCode == JourneyAddActivity.RESULT_DELETE){
+            populateJourneyList();
         }
 
     }

@@ -137,9 +137,6 @@ public class VehicleDBAdapter {
 
     private VehicleModel makeVehicle(Cursor cursor){
         boolean isDeleted = cursor.getInt(COL_IS_DELETED) > 0;
-        if(isDeleted) {
-            return null;
-        }
         long id = (long)cursor.getInt(COL_ROWID);
         String name = cursor.getString(COL_NAME);
         String make = cursor.getString(COL_MAKE);
@@ -163,7 +160,7 @@ public class VehicleDBAdapter {
             do {
                 // Process the data:
                 VehicleModel vehicleModel = makeVehicle(cursor);
-                if(vehicleModel != null) {
+                if(vehicleModel != null && !vehicleModel.getIsDeleted()) {
                     vehicles.add(vehicleModel);
                 }
             } while(cursor.moveToNext());
@@ -208,7 +205,8 @@ public class VehicleDBAdapter {
 
     // Get a specific vehicle by name
     public Cursor getName(String vehicleName) {
-        String where = KEY_NAME + "='" + vehicleName + "'";
+        String where = KEY_NAME + "='" + vehicleName + "'" +
+                        " AND " + KEY_IS_DELETED + "=" + 0;
         Cursor c = 	db.query(true, DATABASE_TABLE, ALL_KEYS,
                 where, null, null, null, null, null);
         if (c != null) {

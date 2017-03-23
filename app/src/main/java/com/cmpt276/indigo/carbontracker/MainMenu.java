@@ -7,9 +7,6 @@ import android.view.View;
 import android.widget.Button;
 
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.CarbonFootprintComponentCollection;
-import com.cmpt276.indigo.carbontracker.carbon_tracker_model.JourneyModel;
-import com.cmpt276.indigo.carbontracker.carbon_tracker_model.VehicleModel;
-import com.cmpt276.indigo.carbontracker.viewjourney.ViewJourneyActivity;
 
 import java.io.InputStream;
 /*
@@ -29,7 +26,6 @@ public class MainMenu extends AppCompatActivity {
         // the system when the user tries to bring the app back to the foreground/
         //use shared preference to get aroundt his
         loadDataFile();
-        journeyCreateBtn();
         carbonFootprintSelectBtn();
         // add journey view button
         journeyViewBtn();
@@ -53,27 +49,15 @@ public class MainMenu extends AppCompatActivity {
         carbonFootprint.loadDataFile(is);
     }
 
-    //Launch Create a jounrney activity
-    private void journeyCreateBtn() {
-        Button btn = (Button) findViewById(R.id.main_menu_create_Journey_btn);
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainMenu.this, JourneyMenu.class);
-                startActivityForResult(intent, JOURNEY_SELECT );
-            }
-        });
-    }
-
     /**
-     * jump to ViewJourneyActivity
+     * jump to JourneySelectActivity
      */
     private void journeyViewBtn() {
         Button btn = (Button) findViewById(R.id.main_menu_view_journey_btn);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainMenu.this, ViewJourneyActivity.class);
+                Intent intent = new Intent(MainMenu.this, JourneySelectActivity.class);
                 startActivityForResult(intent,23 );
             }
         });
@@ -94,12 +78,7 @@ public class MainMenu extends AppCompatActivity {
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == RESULT_OK) {
-            switch (requestCode) {
-                case 23:
-                    Intent intent2 = new Intent(MainMenu.this, JourneyMenu.class);
-                    startActivity(intent2);
-                    break;
-            }
+
         }
     }
 

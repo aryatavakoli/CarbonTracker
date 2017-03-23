@@ -2,26 +2,13 @@ package com.cmpt276.indigo.carbontracker.carbon_tracker_model;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatDialogFragment;
-import android.util.Log;
-import android.view.Gravity;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import com.cmpt276.indigo.carbontracker.JourneyMenu;
-import com.cmpt276.indigo.carbontracker.R;
-import com.cmpt276.indigo.carbontracker.TransportationSelectActvitiy;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 
 public class TipFragment extends AppCompatDialogFragment {
     CarbonFootprintComponentCollection carbonFootprintInterface;
