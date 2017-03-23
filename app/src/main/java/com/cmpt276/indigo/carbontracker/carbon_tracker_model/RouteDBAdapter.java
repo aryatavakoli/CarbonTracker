@@ -7,6 +7,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import java.util.ArrayList;
+
 public class RouteDBAdapter {
 
     // For logging:
@@ -109,8 +111,38 @@ public class RouteDBAdapter {
         c.close();
     }
 
+    public RouteModel makeRoute(Cursor cursor) {
+        boolean isDeleted = cursor.getInt(RouteDBAdapter.COL_IS_DELETED) > 0;
+        if (isDeleted){
+            return null;
+        }
+        long id = (long) cursor.getInt(COL_ROWID);
+        String name = cursor.getString(COL_NAME);
+        double cityDistance = cursor.getDouble(COL_CITY_DISTANCE);
+        double highwayDistance = cursor.getDouble(COL_HIGHWAY_DISTANCE);
+        double totalDistance = cursor.getDouble(COL_TOTAL_DISTANCE);
+        return new RouteModel(id, name ,cityDistance, highwayDistance, totalDistance, isDeleted);
+    }
+
+    public ArrayList<RouteModel> getAllRoutes() {
+        open();
+        Cursor cursor = getAllRows();
+        ArrayList<RouteModel> routes = new ArrayList<>();
+        if (cursor.moveToFirst()) {
+            do {
+                // Process the data:
+                RouteModel routeModel = makeRoute(cursor);
+                if(routeModel != null) {
+                    routes.add(routeModel);
+                }
+            } while(cursor.moveToNext());
+        }
+        close();
+        return routes;
+    }
+
     // Return all data in the database.
-    public Cursor getAllRows() {
+    private Cursor getAllRows() {
         String where = null;
         Cursor c = 	db.query(true, DATABASE_TABLE, ALL_KEYS,
                 where, null, null, null, null, null);
@@ -120,8 +152,20 @@ public class RouteDBAdapter {
         return c;
     }
 
+    public RouteModel getRoute(long rowId) {
+        Cursor cursor = getRow(rowId);
+        if (cursor.moveToFirst()) {
+            do {
+                // Process the data:
+                RouteModel routeModel = makeRoute(cursor);
+                return routeModel;
+            } while(cursor.moveToNext());
+        }
+        return null;
+    }
+
     // Get a specific row (by rowId)
-    public Cursor getRow(long rowId) {
+    private Cursor getRow(long rowId) {
         String where = KEY_ROWID + "=" + rowId;
         Cursor c = 	db.query(true, DATABASE_TABLE, ALL_KEYS,
                 where, null, null, null, null, null);

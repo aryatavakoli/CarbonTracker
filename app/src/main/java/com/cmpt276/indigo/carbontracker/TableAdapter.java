@@ -30,7 +30,7 @@ class  TableAdapter extends BaseAdapter {
 
     TableAdapter(Context context){
         CarbonFootprintComponentCollection carbonInterface = CarbonFootprintComponentCollection.getInstance();
-        this.journeyList = carbonInterface.getJournies();
+        this.journeyList = carbonInterface.getJournies(context);
         inflater = LayoutInflater.from(context);
     }
 

@@ -40,7 +40,7 @@ public class ViewJourneyActivity extends AppCompatActivity {
         carbonFootprintInterface = CarbonFootprintComponentCollection.getInstance();
         vehicles = carbonFootprintInterface.getVehicles(this);
         routes = carbonFootprintInterface.getRoutes(this);
-        journies = carbonFootprintInterface.getJournies();
+        journies = carbonFootprintInterface.getJournies(this);
         createBtn();
         tableListView = (ListView) findViewById(R.id.list);
         tableListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

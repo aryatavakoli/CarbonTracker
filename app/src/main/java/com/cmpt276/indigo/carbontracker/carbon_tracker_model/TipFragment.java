@@ -136,8 +136,8 @@ public class TipFragment extends AppCompatDialogFragment {
 
     private void populateMessageList() {
         final Calendar today = Calendar.getInstance();
-        float CO2usage=0;
-        float CO2Car= 0;
+        double CO2usage=0;
+        double CO2Car= 0;
         int carNUm = 0;
         int walkNum= 0;
         float distanceWalked = 0;
@@ -146,7 +146,7 @@ public class TipFragment extends AppCompatDialogFragment {
         int highwayNum = 0;
         for(JourneyModel v: journies){
             CO2usage =  CO2usage + v.getCo2Emission();
-            if (v.getVehicleModel().getTransportaionMode()== VehicleModel.TransportationMode.CAR && v.getCreationDate() == today.getTime()) {
+            if (v.getVehicleModel().getTransportaionMode()== VehicleModel.TransportationMode.CAR && v.getCreationDate().equals(today)) {
                 carNUm++;
                 CO2Car =  CO2Car + v.getCo2Emission();
             }

@@ -35,7 +35,7 @@ public class CarbonFootprintDailyTab extends Fragment {
 
         carbonInterface = CarbonFootprintComponentCollection.getInstance();
 
-        journeys = carbonInterface.getJournies();
+        journeys = carbonInterface.getJournies(getActivity());
         utilities = carbonInterface.getUtilities(getActivity());
 
         ArrayList<PieEntry> pieEntries = new ArrayList<>();

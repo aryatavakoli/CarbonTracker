@@ -26,8 +26,6 @@ import java.util.List;
  */
 
 public class JourneyMenu extends AppCompatActivity {
-    ArrayList<VehicleModel> vehicles;
-    ArrayList<RouteModel> routes;
     ArrayList<JourneyModel> journies;
     public static final int DATE_SELECT = 52;
     JourneyModel newJourney;
@@ -36,7 +34,7 @@ public class JourneyMenu extends AppCompatActivity {
     boolean isRouteSelected, isVehicleSelected;
     CarbonFootprintComponentCollection carbonFootprintInterface;
     List<Integer> journey_positionList;
-    public float carbonEmission;
+    public double carbonEmission;
 
     private boolean isEdit = false;// if in edit mode or not
     @Override
@@ -48,9 +46,7 @@ public class JourneyMenu extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         newJourney = new JourneyModel(); // The journey the user is creating
         carbonFootprintInterface = CarbonFootprintComponentCollection.getInstance();
-        vehicles = carbonFootprintInterface.getVehicles(this);
-        routes = carbonFootprintInterface.getRoutes(this);
-        journies = carbonFootprintInterface.getJournies();
+        journies = carbonFootprintInterface.getJournies(this);
         transportSelectBtn();
         routeSelectBtn();
         selectCreate();
@@ -83,7 +79,7 @@ public class JourneyMenu extends AppCompatActivity {
                 myCalendar.set(Calendar.YEAR, year);
                 myCalendar.set(Calendar.MONTH, monthOfYear);
                 myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-                newJourney.setCreationDate(myCalendar.getTime());
+                newJourney.setCreationDate(myCalendar);
             }
 
         };
@@ -131,14 +127,9 @@ public class JourneyMenu extends AppCompatActivity {
                     Toast.makeText(JourneyMenu.this,"Please select Route and Vehicle",Toast.LENGTH_SHORT).show();
                     return;
                 }
-
-
             }
         });
-
-
-
-}
+    }
 
 
     //display co2emission
@@ -147,7 +138,8 @@ public class JourneyMenu extends AppCompatActivity {
         carbonEmission = newJourney.getCo2Emission();
         if (isRouteSelected && isVehicleSelected){
             TextView footprintDisplay = (TextView) findViewById(R.id.journey_menu_text_current_footprint);
-            footprintDisplay.setText( carbonEmission + " Kg" + "");
+            String value = String.format("%." + 2 + "f", carbonEmission);
+            footprintDisplay.setText(value + " Kg" + "");
         }
     }
 

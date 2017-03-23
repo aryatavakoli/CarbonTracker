@@ -36,7 +36,7 @@ class ViewJourneyAdapter extends BaseAdapter {
         this.journeyList = new ArrayList<>();
         CarbonFootprintComponentCollection carbonInterface = CarbonFootprintComponentCollection.getInstance();
         //display all journey
-        for (JourneyModel model : carbonInterface.getJournies()) {
+        for (JourneyModel model : carbonInterface.getJournies(context)) {
             if (!model.getIsDeleted()) {
                 journeyList.add(model);
             }
