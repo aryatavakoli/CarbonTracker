@@ -189,12 +189,6 @@ public class TipFragment extends AppCompatDialogFragment {
         messageList[13]= "while driving one of your " + carNUm+ " cars listen to the radio for traffic slowdown warnings";
         messageList[14]= " If you are taking one of your " + carNUm + " trips, don't keep it on idle. Appliances running on standby power consume a great deal of energy, unnecessarily.";
     }
-
-
-
-
-
-
 }
 
 
