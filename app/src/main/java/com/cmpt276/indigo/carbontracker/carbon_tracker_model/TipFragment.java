@@ -69,7 +69,7 @@ public class TipFragment extends AppCompatDialogFragment {
         TipFragment.messageIndex = messageIndex;
     }
 
-    static int messageIndex =0;
+    static int messageIndex =0; //this our couner through messageArray
 
     public String getMessage() {
         return message;
@@ -90,7 +90,7 @@ public class TipFragment extends AppCompatDialogFragment {
         final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setMessage(messageList[messageIndex]);
         messageIndex ++;
-        if (messageIndex == 15)messageIndex = 0;
+        if (messageIndex == 15)messageIndex = 0; //if we have reache dthe end of the arraylist go back to index 0
         builder.setTitle("New Tip");
         builder.setNegativeButton("OK", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
@@ -101,12 +101,13 @@ public class TipFragment extends AppCompatDialogFragment {
         });
         builder.setPositiveButton("next tip", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
+//                if the user wants to see another tip we call anotheer dialod
                 FragmentManager manager = getFragmentManager();
                 TipFragment dialog2 = new TipFragment();
                 dialog2.setCancelable(false);
                 dialog2.show(manager,"message dialog");
                 dialog2.setMessage(messageList[messageIndex]);
-                dialog2.setJournies(journies);
+                dialog2.setJournies(journies); // pass data to tip fragment
                 dialog2.setRoutes(routes);
                 dialog2.setVehicles(vehicles);
                 messageIndex ++;
@@ -125,6 +126,7 @@ public class TipFragment extends AppCompatDialogFragment {
 
 
     private void populateMessageList() {
+//        populate each element of message list with the data user has provided us with
         final Calendar today = Calendar.getInstance();
         double CO2usage=0;
         double CO2Car= 0;
