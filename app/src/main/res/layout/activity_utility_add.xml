@@ -128,7 +128,7 @@
                 android:backgroundTint="@android:color/holo_green_light"
                 android:ems="10"
                 android:hint="As Written on Bill"
-                android:inputType="number"
+                android:inputType="numberDecimal"
                 android:textCursorDrawable="@drawable/cursor_color" />
         </TableRow>
 

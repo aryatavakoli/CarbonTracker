@@ -26,6 +26,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class CarbonFootprintDailyTab extends Fragment {
+    public static final double MIN_PERCENTAGE = 0.01;
     ArrayList<JourneyModel> journeys;
     ArrayList<UtilityModel> utilities;
     CarbonFootprintComponentCollection carbonInterface;
@@ -114,12 +115,25 @@ public class CarbonFootprintDailyTab extends Fragment {
                                float skytrain,
                                float car,
                                ArrayList<PieEntry> pieEntries) {
-        pieEntries.add(new PieEntry(electricity,"Electricity"));
-        pieEntries.add(new PieEntry(naturalGas,"Natural Gas"));
-        pieEntries.add(new PieEntry(car,"Car"));
-        pieEntries.add(new PieEntry(bus,"Bus"));
-        pieEntries.add(new PieEntry(skytrain,"Skytrain"));
-        pieEntries.add(new PieEntry(0f,"Walk/bike"));
+        float total = electricity + naturalGas + bus + skytrain + car;
+        if(total > 1e-6) {
+            if(electricity / total > MIN_PERCENTAGE) {
+                pieEntries.add(new PieEntry(electricity, "Electricity"));
+            }
+            if(naturalGas / total > MIN_PERCENTAGE) {
+                pieEntries.add(new PieEntry(naturalGas, "Natural Gas"));
+            }
+            if(car / total > MIN_PERCENTAGE) {
+                pieEntries.add(new PieEntry(car, "Car"));
+            }
+            if(bus / total > MIN_PERCENTAGE) {
+                pieEntries.add(new PieEntry(bus, "Bus"));
+            }
+            if(skytrain / total > MIN_PERCENTAGE) {
+                pieEntries.add(new PieEntry(skytrain, "Skytrain"));
+            }
+            //pieEntries.add(new PieEntry(0f, "Walk/bike"));
+        }
     }
 
     private float getTotalElectrcityEmissionsToday(ArrayList<UtilityModel> utilities, Calendar today) {

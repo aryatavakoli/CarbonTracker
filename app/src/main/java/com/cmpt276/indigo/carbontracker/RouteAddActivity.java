@@ -97,11 +97,11 @@ public class RouteAddActivity extends AppCompatActivity {
         }
     }
 
-    private int getNumberFromEditTextOrZeroForFail(int id) {
+    private double getNumberFromEditTextOrZeroForFail(int id) {
         EditText data = (EditText) findViewById(id);
         String text = data.getText().toString();
         try {
-            return Integer.parseInt(text);
+            return Double.parseDouble(text);
         } catch (NumberFormatException ex) {
             return 0;
         }

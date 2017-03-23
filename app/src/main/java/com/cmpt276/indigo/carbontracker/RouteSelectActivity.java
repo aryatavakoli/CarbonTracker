@@ -23,7 +23,7 @@ import java.util.List;
  */
 public class RouteSelectActivity extends AppCompatActivity {
 
-    private int indexOfRouteEditing = -1;
+    private long indexOfRouteEditing = -1;
     CarbonFootprintComponentCollection carbonFootprintInterface;
     private static final int ACTIVITY_RESULT_ADD = 40;
     private static final int ACTIVITY_RESULT_EDIT = 60;
@@ -114,9 +114,8 @@ public class RouteSelectActivity extends AppCompatActivity {
         list.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                int realPosition = routePositionList.get(position);
-                indexOfRouteEditing = realPosition;
-                RouteModel route = routes.get(realPosition);
+                RouteModel route = routes.get(position);
+                indexOfRouteEditing = route.getId();
                 Intent intent = RouteAddActivity.makeIntentForEditRoute(RouteSelectActivity.this, route);
                 startActivityForResult(intent, ACTIVITY_RESULT_EDIT);
                 return true;

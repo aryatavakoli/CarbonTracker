@@ -69,6 +69,7 @@ public class JourneyModel implements CarbonFootprintComponent{
     }
 
     public double getCo2Emission(){
+        calculateEmissions();
         return co2Emission;
     }
 

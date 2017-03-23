@@ -181,7 +181,7 @@ public class CarbonFootprintMonthlyTab extends Fragment {
     public double getTotalBusEmissions(ArrayList<JourneyModel> journeys) {
         double totalBusEmissions = 0;//sample
         for (JourneyModel journey : journeys) {
-            if (journey.getCreationDate().after(last28.getTime()) && journey.getCreationDate().before(tomorrow.getTime())) {
+            if (journey.getCreationDate().after(last28) && journey.getCreationDate().before(tomorrow)) {
                 if (journey.getVehicleModel().getTransportaionMode() == VehicleModel.TransportationMode.BUS) {
                     totalBusEmissions = totalBusEmissions + journey.getCo2Emission();
                 }
@@ -193,7 +193,7 @@ public class CarbonFootprintMonthlyTab extends Fragment {
     public double getTotalSkytrainEmissions(ArrayList<JourneyModel> journeys) {
         double totalSkytrainEmissions = 0;//sample
         for (JourneyModel journey : journeys) {
-            if (journey.getCreationDate().after(last28.getTime()) && journey.getCreationDate().before(tomorrow.getTime())) {
+            if (journey.getCreationDate().after(last28) && journey.getCreationDate().before(tomorrow)) {
                 if (journey.getVehicleModel().getTransportaionMode() == VehicleModel.TransportationMode.SKYTRAIN) {
                     totalSkytrainEmissions = totalSkytrainEmissions + journey.getCo2Emission();
                 }
@@ -206,7 +206,7 @@ public class CarbonFootprintMonthlyTab extends Fragment {
     public double getTotalCarEmissions(ArrayList<JourneyModel> journeys) {
         double totalCarEmissions = 0; //
         for (JourneyModel journey : journeys) {
-            if (journey.getCreationDate().after(last28.getTime()) && journey.getCreationDate().before(tomorrow.getTime())) {
+            if (journey.getCreationDate().after(last28) && journey.getCreationDate().before(tomorrow)) {
                 if (journey.getVehicleModel().getTransportaionMode() == VehicleModel.TransportationMode.CAR) {
                     totalCarEmissions = totalCarEmissions + journey.getCo2Emission();
                 }
