@@ -60,11 +60,7 @@ public class CarbonFootprintMonthlyTab extends Fragment {
 
 
 
-
-
         createGraph(rootView,journeys,utilities);
-
-
 
         return rootView;
     }
