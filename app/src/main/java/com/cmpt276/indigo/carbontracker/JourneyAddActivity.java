@@ -98,6 +98,7 @@ public class JourneyAddActivity extends AppCompatActivity {
 
         };
         Button txt = (Button) findViewById(R.id.journey_menu_select_date_btn);
+//        if the user select the date button a date picker will pop up
         txt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -113,7 +114,6 @@ public class JourneyAddActivity extends AppCompatActivity {
      */
     private void selectCreate() {
         Button btn = (Button) findViewById(R.id.journey_menu_create_btn);
-        final Context context = this;
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -254,7 +254,7 @@ public class JourneyAddActivity extends AppCompatActivity {
         intent.putExtra("journey", journeyModel);
         return intent;
     }
-    private void showTipDialog() {
+    private void showTipDialog() { //open a dialoge and pass the arraylist to the tipfragment to use them
         FragmentManager manager = getSupportFragmentManager();
         TipFragment dialog = new TipFragment();
         dialog.setCancelable(false);

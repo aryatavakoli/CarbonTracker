@@ -46,7 +46,7 @@ public class JourneySelectActivity extends AppCompatActivity {
         setupEditVehicleLongPress();
     }
 
-    private void startAddActivity() {
+    private void startAddActivity() { //launching the add activity
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,7 +96,7 @@ public class JourneySelectActivity extends AppCompatActivity {
         journeyList.setAdapter(arrayAdapter);
     }
 
-    private void setupEditVehicleLongPress() {
+    private void setupEditVehicleLongPress() { //we can edit the vehicle or delte
         ListView list = (ListView) findViewById(R.id.journey_select_list);
         list.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
@@ -104,7 +104,7 @@ public class JourneySelectActivity extends AppCompatActivity {
                 JourneyModel journeyModel  = journies.get(position);
                 idOfJourneyEditing = journeyModel.getId();
                 Intent intent = JourneyAddActivity.makeIntentForEditJourney(JourneySelectActivity.this, journeyModel);
-                startActivityForResult(intent, ACTIVITY_RESULT_EDIT);
+                startActivityForResult(intent, ACTIVITY_RESULT_EDIT); //open the edit activity
                 return true;
             }
         });
@@ -112,7 +112,7 @@ public class JourneySelectActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data){
-
+//get the result from add journey activity if it was for creating or adding
         if(resultCode == RESULT_OK){
             switch (requestCode){
                 case ACTIVITY_RESULT_ADD:
