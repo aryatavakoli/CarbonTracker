@@ -9,19 +9,22 @@ import java.util.Objects;
 
 public class JourneyModel implements CarbonFootprintComponent{
     public static final float CO2_PER_KM_BUS = 89f;
+    public static final float CO2_PER_KM_SKYTRAIN = 8.7f;
+    public static final float CO2_PER_KM_PEDESTRIAN = 0.0f;
     private VehicleModel vehicleModel;
     private RouteModel routeModel;
     private float co2Emission;
     private Date creationDate;
     private boolean isDeleted;
-
     private long id;
+
+    //components needed in a journey
     public JourneyModel(){
         vehicleModel = new VehicleModel();
         routeModel = new RouteModel();
         co2Emission = 0.0f;
         creationDate = new Date();
-        id = System.currentTimeMillis();
+        id = System.currentTimeMillis(); //each journey has its unique id
     }
 
     public Date getCreationDate() {
@@ -90,11 +93,11 @@ public class JourneyModel implements CarbonFootprintComponent{
             totalFootprint = 0;
         }
         if (vehicleModel.getTransportaionMode() == VehicleModel.TransportationMode.WALK_BIKE) {
-            totalFootprint =  routeModel.getTotalDistance() * 0.0f ;
+            totalFootprint =  routeModel.getTotalDistance() * CO2_PER_KM_PEDESTRIAN ; //user chooses walk or bike
         } else if (vehicleModel.getTransportaionMode() == VehicleModel.TransportationMode.BUS) {
-            totalFootprint =  routeModel.getTotalDistance() * CO2_PER_KM_BUS;
+            totalFootprint =  routeModel.getTotalDistance() * CO2_PER_KM_BUS; //user chooses bus
         } else if (vehicleModel.getTransportaionMode() == VehicleModel.TransportationMode.SKYTRAIN) {
-            totalFootprint =  routeModel.getTotalDistance() * 8.7f ;
+            totalFootprint =  routeModel.getTotalDistance() * CO2_PER_KM_SKYTRAIN ; //user chooses skytrain
         }
         //Converts double to float for use with graph
         //Rounds it off

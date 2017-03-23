@@ -13,6 +13,7 @@ public class VehicleModel implements CarbonFootprintComponent{
         SKYTRAIN
     }
 
+    //Differentiate transportation mode that user selects
     public static int TransportationModeToInt(TransportationMode mode){
         if(mode == TransportationMode.CAR){
             return 0;
