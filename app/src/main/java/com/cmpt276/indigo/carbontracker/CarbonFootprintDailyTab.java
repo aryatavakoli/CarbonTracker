@@ -3,6 +3,7 @@ package com.cmpt276.indigo.carbontracker;
 import android.app.DatePickerDialog;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,18 +35,10 @@ public class CarbonFootprintDailyTab extends Fragment {
 
         final View rootView = inflater.inflate(R.layout.activity_carbon_footprint_daily_tab, container, false);
 
-        carbonInterface = CarbonFootprintComponentCollection.getInstance();
-
-        journeys = carbonInterface.getJournies();
-        utilities = carbonInterface.getUtilities(getActivity());
-
-        final ArrayList<PieEntry> pieEntries = new ArrayList<>();
-
-        //clears Array
-        pieEntries.clear();
         final Calendar myCalendar = Calendar.getInstance();
 
         final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
+            ArrayList<PieEntry> pieEntries = new ArrayList<>();
 
             @Override
             public void onDateSet(DatePicker view, int year, int monthOfYear,
@@ -58,11 +51,15 @@ public class CarbonFootprintDailyTab extends Fragment {
                 displayDate(txt, today);
                 pieEntries.clear();
 
-                final float totalElectrcityEmissionsToday = getTotalElectrcityEmissionsToday(utilities,today);
-                final float totalNaturalGasEmissionsToday = getTotalNaturalGasEmissionsToday(utilities,today);
-                final float totalBusEmissionsToday = getTotalBusEmissionsToday(journeys,today);
-                final float totalSkytrainEmissionsToday = getTotalSkytrainEmissionsToday(journeys,today);
-                final float totalCarEmissionsToday = getTotalCarEmissionsToday(journeys,today);
+                carbonInterface = CarbonFootprintComponentCollection.getInstance();
+                journeys = carbonInterface.getJournies();
+                utilities = carbonInterface.getUtilities(getActivity());
+
+                float totalElectrcityEmissionsToday = getTotalElectrcityEmissionsToday(utilities,today);
+                float totalNaturalGasEmissionsToday = getTotalNaturalGasEmissionsToday(utilities,today);
+                float totalBusEmissionsToday = getTotalBusEmissionsToday(journeys,today);
+                float totalSkytrainEmissionsToday = getTotalSkytrainEmissionsToday(journeys,today);
+                float totalCarEmissionsToday = getTotalCarEmissionsToday(journeys,today);
 
                 populateGraph(
                         totalElectrcityEmissionsToday,
@@ -132,17 +129,18 @@ public class CarbonFootprintDailyTab extends Fragment {
             if (!utility.getStartDate().before(today) && !utility.getEndDate().after(today)) {
                 if (utility.getCompanyName() == UtilityModel.Company.FORTISBC) {
                     float total_emission = (float) (utility.calculateDailyCO2EmissionsInKg());
-                    totalElectrcityEmissionsToday = totalElectrcityEmissionsToday + total_emission;
+                    totalElectrcityEmissionsToday += total_emission;
                 }
             }
         }
+        Log.d("Hello", "Emission: " + totalElectrcityEmissionsToday);
         return totalElectrcityEmissionsToday;
     }
 
     private float getTotalNaturalGasEmissionsToday(ArrayList<UtilityModel> utilities, Date today) {
         float totalNaturalGasEmissionsToday = 0;
         for (UtilityModel utility : utilities) {
-            if (!utility.getStartDate().before(today) && !utility.getStartDate().after(today)) {
+            if (utility.getStartDate().before(today) && utility.getEndDate().after(today)) {
                 if (utility.getCompanyName() == UtilityModel.Company.FORTISBC) {
                     float total_emission = (float)  utility.calculateDailyCO2EmissionsInKg();
                     totalNaturalGasEmissionsToday = totalNaturalGasEmissionsToday + total_emission;
