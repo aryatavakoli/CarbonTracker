@@ -13,55 +13,98 @@ import com.cmpt276.indigo.carbontracker.carbon_tracker_model.CarbonFootprintComp
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.JourneyModel;
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.UtilityModel;
 import com.github.mikephil.charting.charts.PieChart;
-import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 
 public class CarbonFootprintDailyTab extends Fragment {
     ArrayList<JourneyModel> journeys;
     ArrayList<UtilityModel> utilities;
     CarbonFootprintComponentCollection carbonInterface;
+    Date today;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View rootView = inflater.inflate(R.layout.activity_carbon_footprint_daily_tab, container, false);
+        final View rootView = inflater.inflate(R.layout.activity_carbon_footprint_daily_tab, container, false);
 
         carbonInterface = CarbonFootprintComponentCollection.getInstance();
 
         journeys = carbonInterface.getJournies();
         utilities = carbonInterface.getUtilities(getActivity());
 
-        ArrayList<PieEntry> pieEntries = new ArrayList<>();
+        final ArrayList<PieEntry> pieEntries = new ArrayList<>();
 
-        float totalElectrcityEmissionsToday = getTotalElectrcityEmissionsToday(utilities);
-        float totalNaturalGasEmissionsToday = getTotalNaturalGasEmissionsToday(utilities);
-        float totalBusEmissionsToday = getTotalBusEmissionsToday(journeys);
-        float totalSkytrainEmissionsToday = getTotalSkytrainEmissionsToday(journeys);
-        float totalCarEmissionsToday = getTotalCarEmissionsToday(journeys);
+        final float totalElectrcityEmissionsToday = getTotalElectrcityEmissionsToday(utilities);
+        final float totalNaturalGasEmissionsToday = getTotalNaturalGasEmissionsToday(utilities);
+        final float totalBusEmissionsToday = getTotalBusEmissionsToday(journeys);
+        final float totalSkytrainEmissionsToday = getTotalSkytrainEmissionsToday(journeys);
+        final float totalCarEmissionsToday = getTotalCarEmissionsToday(journeys);
 
-        populateGraph(
-                totalElectrcityEmissionsToday,
-                totalNaturalGasEmissionsToday,
-                totalBusEmissionsToday,
-                totalSkytrainEmissionsToday,
-                totalCarEmissionsToday,
-                pieEntries);
 
-        createGraph(rootView, pieEntries);
 
         //clears Array
-        //pieEntries.clear();
+        pieEntries.clear();
+        final Calendar myCalendar = Calendar.getInstance();
 
+        final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
+
+            @Override
+            public void onDateSet(DatePicker view, int year, int monthOfYear,
+                                  int dayOfMonth) {
+                final Button txt = (Button) rootView.findViewById(R.id.refresh_on_date_pick);
+                myCalendar.set(Calendar.YEAR, year);
+                myCalendar.set(Calendar.MONTH, monthOfYear);
+                myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                today = myCalendar.getTime();
+                displayDate(txt, today);
+                pieEntries.clear();
+
+                populateGraph(
+                        totalElectrcityEmissionsToday,
+                        totalNaturalGasEmissionsToday,
+                        totalBusEmissionsToday,
+                        totalSkytrainEmissionsToday,
+                        totalCarEmissionsToday,
+                        pieEntries);
+
+                createGraph(rootView, pieEntries);
+
+
+            }
+
+        };
+        final Button txt = (Button) rootView.findViewById(R.id.refresh_on_date_pick);
+        txt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                new DatePickerDialog(getActivity(), date, myCalendar
+                        .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
+                        myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+            }
+        });
 
         return rootView;
     }
+
+    private void displayDate(Button btn, Date c) {
+        String date = calendarToString(c);
+        btn.setText(date);
+    }
+
+    private String calendarToString(Date c) {
+        SimpleDateFormat formatter = new SimpleDateFormat("MMM dd, yyyy");
+        return formatter.format(c.getTime());
+    }
+
 
     private void createGraph(View rootView, ArrayList<PieEntry> pieEntries) {
         PieChart pieChart = (PieChart) rootView.findViewById(R.id.daily_pie_graph);
