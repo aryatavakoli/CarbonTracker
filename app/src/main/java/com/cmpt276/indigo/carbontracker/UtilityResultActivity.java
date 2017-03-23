@@ -13,6 +13,10 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 
 import static java.lang.Math.round;
+/**
+ * Created by Arya on 2017-03-16.
+ * Implements Daily Pie Graph Tab
+ */
 
 public class UtilityResultActivity extends AppCompatActivity {
     UtilityModel newUtilities;

@@ -24,7 +24,10 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-
+/**
+ * Created by Arya on 2017-03-16.
+ * Implements Daily Pie Graph Tab
+ */
 public class CarbonFootprintDailyTab extends Fragment {
     ArrayList<JourneyModel> journeys;
     ArrayList<UtilityModel> utilities;

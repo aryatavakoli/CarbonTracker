@@ -28,7 +28,10 @@ import java.util.ArrayList;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-
+/**
+ * Created by Arya on 2017-03-16.
+ * Implements Daily monthly Graph Tab
+ */
 //change this
 public class CarbonFootprintMonthlyTab extends Fragment {
     public static final int NUMBEROFDAYS = 28;

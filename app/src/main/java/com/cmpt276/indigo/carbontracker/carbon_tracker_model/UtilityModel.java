@@ -6,6 +6,7 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * Created by Arya on 2017-03-16.
+ * Implements Utility Model
  */
 
 public class UtilityModel implements CarbonFootprintComponent {
