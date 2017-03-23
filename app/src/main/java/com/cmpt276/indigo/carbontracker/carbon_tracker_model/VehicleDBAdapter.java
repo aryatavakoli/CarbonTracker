@@ -10,8 +10,7 @@ import android.util.Log;
 import java.util.ArrayList;
 
 /**
- * Created by faranakpouya on 2017-03-18.
- * Implments adapter for Vehicledatabase
+ * Implements adapter for Vehicle table
  */
 
 public class VehicleDBAdapter {

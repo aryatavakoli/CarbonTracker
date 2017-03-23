@@ -12,8 +12,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 /**
- * Created by faranakpouya on 2017-03-22.
- * implements adapter for JourneyDatabase
+ * Implements adapter for Journey table
  */
 
 public class JourneyDBAdapter {

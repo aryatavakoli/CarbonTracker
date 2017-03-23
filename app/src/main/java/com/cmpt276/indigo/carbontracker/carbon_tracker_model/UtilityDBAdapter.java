@@ -12,8 +12,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 /**
- * Created by faranakpouya on 2017-03-18.
- * Implments adapter for Utilitydatabase
+ * Implements adapter for Utility table
  */
 
 public class UtilityDBAdapter {
