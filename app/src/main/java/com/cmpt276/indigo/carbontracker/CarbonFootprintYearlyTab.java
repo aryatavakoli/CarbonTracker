@@ -42,7 +42,7 @@ public class CarbonFootprintYearlyTab extends Fragment {
         View rootView = inflater.inflate(R.layout.activity_carbon_footprint_yearly_tab, container, false);
         carbonInterface = CarbonFootprintComponentCollection.getInstance();
 
-        journeys = carbonInterface.getJournies();
+        journeys = carbonInterface.getJournies(getActivity());
         utilities = carbonInterface.getUtilities(getActivity());
 
         createGraph(rootView, journeys, utilities);
@@ -50,11 +50,10 @@ public class CarbonFootprintYearlyTab extends Fragment {
         return rootView;
     }
 
-    private float getMonthCo2(int i) {
-        float totalJourneyCo2 = 0;
+    private double getMonthCo2(int i) {
+        double totalJourneyCo2 = 0;
         for (JourneyModel j : journeys){
-            Calendar c = Calendar.getInstance();
-            c.setTime(j.getCreationDate());
+            Calendar c = j.getCreationDate();
             if (c.get(Calendar.YEAR) == today.get(Calendar.YEAR) && (c.get(Calendar.MONTH) == i)){
                 totalJourneyCo2 = totalJourneyCo2 + j.getCo2Emission();
             }

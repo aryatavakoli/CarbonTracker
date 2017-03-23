@@ -56,18 +56,18 @@ public class CarbonFootprintDailyTab extends Fragment {
         journeys = carbonInterface.getJournies(getActivity());
         utilities = carbonInterface.getUtilities(getActivity());
 
-                float totalElectrcityEmissionsToday = getTotalElectrcityEmissionsToday(utilities,myCalendar);
-                float totalNaturalGasEmissionsToday = getTotalNaturalGasEmissionsToday(utilities,myCalendar);
-                float totalBusEmissionsToday = getTotalBusEmissionsToday(journeys,myCalendar);
-                float totalSkytrainEmissionsToday = getTotalSkytrainEmissionsToday(journeys,myCalendar);
-                float totalCarEmissionsToday = getTotalCarEmissionsToday(journeys,myCalendar);
+                double totalElectrcityEmissionsToday = getTotalElectrcityEmissionsToday(utilities,myCalendar);
+                double totalNaturalGasEmissionsToday = getTotalNaturalGasEmissionsToday(utilities,myCalendar);
+                double totalBusEmissionsToday = getTotalBusEmissionsToday(journeys,myCalendar);
+                double totalSkytrainEmissionsToday = getTotalSkytrainEmissionsToday(journeys,myCalendar);
+                double totalCarEmissionsToday = getTotalCarEmissionsToday(journeys,myCalendar);
 
                 populateGraph(
-                        totalElectrcityEmissionsToday,
-                        totalNaturalGasEmissionsToday,
-                        totalBusEmissionsToday,
-                        totalSkytrainEmissionsToday,
-                        totalCarEmissionsToday,
+                        (float)totalElectrcityEmissionsToday,
+                        (float)totalNaturalGasEmissionsToday,
+                        (float)totalBusEmissionsToday,
+                        (float)totalSkytrainEmissionsToday,
+                        (float)totalCarEmissionsToday,
                         pieEntries);
 
                 createGraph(rootView, pieEntries);
@@ -154,8 +154,8 @@ public class CarbonFootprintDailyTab extends Fragment {
     }
 
 
-    private float getTotalBusEmissionsToday(ArrayList<JourneyModel> journeys, Calendar today) {
-        float totalBusEmissionsToday = 0;
+    private double getTotalBusEmissionsToday(ArrayList<JourneyModel> journeys, Calendar today) {
+        double totalBusEmissionsToday = 0;
         for (JourneyModel journey : journeys) {
             if (!journey.getCreationDate().after(today.getTime()) && journey.getCreationDate().before(today.getTime())) {
                 if (journey.getVehicleModel().getTransportaionMode() == VehicleModel.TransportationMode.BUS) {
@@ -166,8 +166,8 @@ public class CarbonFootprintDailyTab extends Fragment {
         return totalBusEmissionsToday;
     }
 
-    private float getTotalSkytrainEmissionsToday(ArrayList<JourneyModel> journeys, Calendar today) {
-        float totalSkytrainEmissionsToday = 0;
+    private double getTotalSkytrainEmissionsToday(ArrayList<JourneyModel> journeys, Calendar today) {
+        double totalSkytrainEmissionsToday = 0;
         for (JourneyModel journey : journeys) {
             if (!journey.getCreationDate().after(today.getTime()) && journey.getCreationDate().before(today.getTime())) {
                 if (journey.getVehicleModel().getTransportaionMode() == VehicleModel.TransportationMode.SKYTRAIN) {
@@ -178,8 +178,8 @@ public class CarbonFootprintDailyTab extends Fragment {
         return totalSkytrainEmissionsToday;
     }
 
-    private float getTotalCarEmissionsToday(ArrayList<JourneyModel> journeys, Calendar today) {
-        float totalCarEmissionsToday = 0;
+    private double getTotalCarEmissionsToday(ArrayList<JourneyModel> journeys, Calendar today) {
+        double totalCarEmissionsToday = 0;
         for (JourneyModel journey : journeys) {
             if (!journey.getCreationDate().after(today.getTime()) && journey.getCreationDate().before(today.getTime())) {
                 if (journey.getVehicleModel().getTransportaionMode() == VehicleModel.TransportationMode.CAR) {

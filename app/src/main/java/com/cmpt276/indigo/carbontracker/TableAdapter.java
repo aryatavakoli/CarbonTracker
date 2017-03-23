@@ -79,7 +79,7 @@ class  TableAdapter extends BaseAdapter {
         routeName.setTextSize(13);
         totalDistance.setText((route.getTotalDistance()) + " km" + "");
         routeName.setTextSize(13);
-        date.setText(journey.getCreationDate()+ "");
+        date.setText(journey.getCreationDateString());
         date.setTextSize(13);
         co2.setText(journey.getCo2Emission()+ " Kg" +"");
         co2.setTextSize(13);
