@@ -13,6 +13,7 @@ import android.widget.DatePicker;
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.CarbonFootprintComponentCollection;
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.JourneyModel;
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.UtilityModel;
+import com.cmpt276.indigo.carbontracker.carbon_tracker_model.VehicleModel;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
@@ -125,43 +126,66 @@ public class CarbonFootprintDailyTab extends Fragment {
     private float getTotalElectrcityEmissionsToday(ArrayList<UtilityModel> utilities, Calendar today) {
         float totalElectrcityEmissionsToday = 0;
         for (UtilityModel utility : utilities) {
-            if (utility.getStartDate().before(today) && utility.getEndDate().after(today)) {
-                Log.d("Je", "If statement = true");
+            if (utility.getStartDate().before(today) && utility.getStartDate().after(today)) {
+                Log.d("Hello", "Emission true");
                 if (utility.getCompanyName() == UtilityModel.Company.BCHYDRO) {
                     float total_emission = (float) (utility.calculateDailyCO2EmissionsInKg());
                     totalElectrcityEmissionsToday += total_emission;
                 }
             }
         }
-        Log.d("Hello", "Emission: " + totalElectrcityEmissionsToday);
-        return totalElectrcityEmissionsToday;
-    }
+            Log.d("Hello", "Emission: " + totalElectrcityEmissionsToday);
+            return totalElectrcityEmissionsToday;
+        }
+
 
     private float getTotalNaturalGasEmissionsToday(ArrayList<UtilityModel> utilities, Calendar today) {
         float totalNaturalGasEmissionsToday = 0;
         for (UtilityModel utility : utilities) {
-            if (utility.getStartDate().before(today) && utility.getEndDate().after(today)) {
+            if (utility.getStartDate().before(today) && utility.getStartDate().after(today)) {
                 if (utility.getCompanyName() == UtilityModel.Company.FORTISBC) {
-                    float total_emission = (float)  utility.calculateDailyCO2EmissionsInKg();
-                    totalNaturalGasEmissionsToday = totalNaturalGasEmissionsToday + total_emission;
+                    float total_emission = (float) (utility.calculateDailyCO2EmissionsInKg());
+                    totalNaturalGasEmissionsToday += total_emission;
                 }
             }
         }
         return totalNaturalGasEmissionsToday;
     }
 
+
     private float getTotalBusEmissionsToday(ArrayList<JourneyModel> journeys, Calendar today) {
-        float totalBusEmissionsToday = 15;
+        float totalBusEmissionsToday = 0;
+        for (JourneyModel journey : journeys) {
+            if (!journey.getCreationDate().after(today.getTime()) && journey.getCreationDate().before(today.getTime())) {
+                if (journey.getVehicleModel().getTransportaionMode() == VehicleModel.TransportationMode.BUS) {
+                    totalBusEmissionsToday = totalBusEmissionsToday + journey.getCo2Emission();
+                }
+            }
+        }
         return totalBusEmissionsToday;
     }
 
     private float getTotalSkytrainEmissionsToday(ArrayList<JourneyModel> journeys, Calendar today) {
-        float totalSkytrainEmissionsToday = 20;
+        float totalSkytrainEmissionsToday = 0;
+        for (JourneyModel journey : journeys) {
+            if (!journey.getCreationDate().after(today.getTime()) && journey.getCreationDate().before(today.getTime())) {
+                if (journey.getVehicleModel().getTransportaionMode() == VehicleModel.TransportationMode.SKYTRAIN) {
+                    totalSkytrainEmissionsToday = totalSkytrainEmissionsToday + journey.getCo2Emission();
+                }
+            }
+        }
         return totalSkytrainEmissionsToday;
     }
 
     private float getTotalCarEmissionsToday(ArrayList<JourneyModel> journeys, Calendar today) {
-        float totalCarEmissionsToday = 25;
+        float totalCarEmissionsToday = 0;
+        for (JourneyModel journey : journeys) {
+            if (!journey.getCreationDate().after(today.getTime()) && journey.getCreationDate().before(today.getTime())) {
+                if (journey.getVehicleModel().getTransportaionMode() == VehicleModel.TransportationMode.CAR) {
+                    totalCarEmissionsToday = totalCarEmissionsToday + journey.getCo2Emission();
+                }
+            }
+        }
         return totalCarEmissionsToday;
     }
 }
