@@ -12,7 +12,7 @@
             android:layout_height="0dp" />
 
         <com.github.mikephil.charting.charts.BarChart
-            android:id="@+id/chart2"
+            android:id="@+id/bargraph2"
             android:layout_width="match_parent"
             android:layout_height="600dp" />
 
