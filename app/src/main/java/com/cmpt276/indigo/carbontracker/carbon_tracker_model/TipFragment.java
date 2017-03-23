@@ -182,6 +182,8 @@ public class TipFragment extends AppCompatDialogFragment {
         {
             messageList[9] = "";
         }
+
+
         messageList[10]="Today you had " + todayJournies + " journeys plan to do a number of errands in one trip rather than several trips and save both time and fuel";
         messageList[11]= "Your number of walking trip is" + walkNum + " and your car trip is " + carNUm +
         "You can try to walk more";
