@@ -126,7 +126,7 @@ public class CarbonFootprintDailyTab extends Fragment {
     private float getTotalElectrcityEmissionsToday(ArrayList<UtilityModel> utilities, Calendar today) {
         float totalElectrcityEmissionsToday = 0;
         for (UtilityModel utility : utilities) {
-            if (utility.getStartDate().equals(today)) {
+            if (utility.getStartDate().before(today) && utility.getEndDate().after(today)) {
                 Log.d("Hello", "Emission true");
                 if (utility.getCompanyName() == UtilityModel.Company.BCHYDRO) {
                     float total_emission = (float) (utility.calculateDailyCO2EmissionsInKg());
@@ -142,7 +142,7 @@ public class CarbonFootprintDailyTab extends Fragment {
     private float getTotalNaturalGasEmissionsToday(ArrayList<UtilityModel> utilities, Calendar today) {
         float totalNaturalGasEmissionsToday = 0;
         for (UtilityModel utility : utilities) {
-            if (utility.getStartDate().equals(today)) {
+            if (utility.getStartDate().before(today) && utility.getEndDate().after(today)) {
                 if (utility.getCompanyName() == UtilityModel.Company.FORTISBC) {
                     float total_emission = (float) (utility.calculateDailyCO2EmissionsInKg());
                     totalNaturalGasEmissionsToday += total_emission;

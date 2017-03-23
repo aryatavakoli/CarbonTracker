@@ -8,8 +8,8 @@ import java.util.Objects;
  */
 
 public class JourneyModel implements CarbonFootprintComponent{
-    public static final float CO2_PER_KM_BUS = 0.089f;
-    public static final float CO2_PER_KM_SKYTRAIN = 0.087f;
+    public static final float CO2_PER_KM_BUS = 0.0089f;
+    public static final float CO2_PER_KM_SKYTRAIN = 0.0087f;
     public static final float CO2_PER_KM_PEDESTRIAN = 0.0f;
     private VehicleModel vehicleModel;
     private RouteModel routeModel;

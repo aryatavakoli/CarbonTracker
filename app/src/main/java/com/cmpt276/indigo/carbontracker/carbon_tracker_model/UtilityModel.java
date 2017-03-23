@@ -10,7 +10,7 @@ import java.util.concurrent.TimeUnit;
 
 public class UtilityModel implements CarbonFootprintComponent {
     public static final String DATE_FORMAT = "yyyy-MMM-dd";
-    public static final double ELECTRICITY_FOOTPRINT_KG_PER_GJ = 2.5; //9000 Kg/GwH
+    public static final double ELECTRICITY_FOOTPRINT_KG_PER_GJ = 2.5; //9000 Kg/GWh
     public static final double GAS_FOOTPRINT_KG_PER_GJ = 51.6; // 51.6 Kg/Gj
     public static final int CONVERTOGIGAJOULES = 3600;
 
