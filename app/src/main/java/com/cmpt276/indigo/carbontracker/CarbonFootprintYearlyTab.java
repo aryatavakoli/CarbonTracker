@@ -1,5 +1,6 @@
 package com.cmpt276.indigo.carbontracker;
 
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -23,9 +24,10 @@ import com.github.mikephil.charting.utils.ColorTemplate;
 import java.util.ArrayList;
 
 public class CarbonFootprintYearlyTab extends Fragment {
-    public static final int NUMBEROFDAYS = 28;
+    public static final int NUMBEROFMONTHS = 12;
     ArrayList<JourneyModel> journeys;
     ArrayList<UtilityModel> utilities;
+
     CarbonFootprintComponentCollection carbonInterface;
     private BarChart mChart;
 
@@ -41,12 +43,14 @@ public class CarbonFootprintYearlyTab extends Fragment {
         journeys = carbonInterface.getJournies();
         utilities = carbonInterface.getUtilities(getActivity());
 
-        createGraph(rootView,journeys,utilities);
+
+        createGraph(rootView, journeys, utilities);
 
         return rootView;
     }
+
     //creates graph
-    private void createGraph(View rootView ,
+    private void createGraph(View rootView,
                              ArrayList<JourneyModel> journeys,
                              ArrayList<UtilityModel> utilities) {
 
@@ -57,11 +61,12 @@ public class CarbonFootprintYearlyTab extends Fragment {
 
         ArrayList<String> barLabels = new ArrayList<>();
         ArrayList<BarEntry> barEntries = new ArrayList<>();
+        //TODO: POPULATE ARRAY
+        double[] emissionsData = new double[12];
 
         //populates graph
         populateBarLabels(barLabels);
-
-        populateEntries(barEntries);
+        populateEntries(barEntries,emissionsData);
 
         //Xaxis properties
         XAxis xAxis = mChart.getXAxis();
@@ -90,7 +95,11 @@ public class CarbonFootprintYearlyTab extends Fragment {
         mChart.setFitBars(true);
     }
 
-    private void populateBarLabels( ArrayList<String> barLabels) {
+    private void populateEmissionsDataAtIndex(ArrayList<Float> emissionsData, int index, float value) {
+        emissionsData.add(value);
+    }
+
+    private void populateBarLabels(ArrayList<String> barLabels) {
         barLabels.add("Jan");
         barLabels.add("Feb");
         barLabels.add("Mar");
@@ -105,46 +114,9 @@ public class CarbonFootprintYearlyTab extends Fragment {
         barLabels.add("Dec");
     }
 
-    private void populateEntries(ArrayList<BarEntry> barEntries){
-        barEntries.add(new BarEntry(0, 50));
-        barEntries.add(new BarEntry(1, 60));
-        barEntries.add(new BarEntry(2, 70));
-        barEntries.add(new BarEntry(3, 80));
-        barEntries.add(new BarEntry(4, 90));
-        barEntries.add(new BarEntry(5, 100));
-        barEntries.add(new BarEntry(6, 110));
-        barEntries.add(new BarEntry(7, 120));
-        barEntries.add(new BarEntry(8, 130));
-        barEntries.add(new BarEntry(9, 140));
-        barEntries.add(new BarEntry(10, 150));
-        barEntries.add(new BarEntry(11, 160));
-
-
-    }
-
-    //TODO: Modify these to get bar chart data
-    public float getTotalElectrcityEmissions(ArrayList<UtilityModel> utilities) {
-        float totalElectrcity = 5;//sample data
-        return totalElectrcity;
-    }
-
-    public float getTotalNaturalGasEmissions(ArrayList<UtilityModel> utilities) {
-        float totalNaturalGasEmissions = 10;//sample
-        return totalNaturalGasEmissions;
-    }
-
-    public float getTotalBusEmissions(ArrayList<JourneyModel> journeys) {
-        float totalBusEmissions = 15;//sample
-        return totalBusEmissions;
-    }
-
-    public float getTotalSkytrainEmissions(ArrayList<JourneyModel> journeys) {
-        float totalSkytrainEmissions = 20;//sample
-        return totalSkytrainEmissions;
-    }
-
-    public float getTotalCarEmissions(ArrayList<JourneyModel> journeys) {
-        float totalCarEmissions = 25; //
-        return totalCarEmissions;
+    private void populateEntries(ArrayList<BarEntry> barEntries, double[] emissionsData) {
+        for (int i = 0; i < emissionsData.length; i++ ) {
+            barEntries.add(new BarEntry(i, (float) emissionsData[i]));
+        }
     }
 }

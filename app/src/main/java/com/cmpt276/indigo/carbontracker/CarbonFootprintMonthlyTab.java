@@ -130,9 +130,9 @@ public class CarbonFootprintMonthlyTab extends Fragment {
                                         ArrayList<String> barLabels,
                                         ArrayList<BarEntry> barEntries) {
             barEntries.add(new BarEntry(0, totalElectrcity));
-            barLabels.add("Electricity");
+            barLabels.add("Electric");
             barEntries.add(new BarEntry(1, totalNaturalGas));
-            barLabels.add("Natural Gas");
+            barLabels.add("GAS");
     }
 
     private void populateJourneyEntries(float totalBusEmissions,
