@@ -32,7 +32,7 @@ public class CarbonFootprintMainMenu extends AppCompatActivity {
             }
         });
     }
-
+//
     private void periodicDataBtn() {
         Button btn = (Button) findViewById(R.id.carbon_footprint_main_menu_periodic_data_btn);
         btn.setOnClickListener(new View.OnClickListener() {
