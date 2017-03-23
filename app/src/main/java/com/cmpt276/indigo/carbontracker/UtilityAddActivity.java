@@ -28,11 +28,11 @@ import java.util.Calendar;
 public class UtilityAddActivity extends AppCompatActivity {
     public static final int RESULT_DELETE = 15;
     CarbonFootprintComponentCollection carbonFootprintInterface;
-    Calendar startCalendar = Calendar.getInstance();
+    Calendar startCalendar = Calendar.getInstance(); //getting 2 calender instances one for start one for end
     Calendar endCalendar = Calendar.getInstance();
     UtilityModel currentUtility;
-    boolean editing = false;
-//    int duration;
+    boolean editing = false; //we are not in the editing mode
+
 
 
 
@@ -57,11 +57,13 @@ public class UtilityAddActivity extends AppCompatActivity {
     }
 
     private String calendarToString(Calendar c) {
+        //change date type to sting
         SimpleDateFormat formatter = new SimpleDateFormat("MMM dd, yyyy");
         return formatter.format(c.getTime());
     }
 
     private void gettingDate(final int id , final Calendar myCalendar){
+//        using a date picker for start and end of utility
 
         final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
 
@@ -91,6 +93,7 @@ public class UtilityAddActivity extends AppCompatActivity {
     }
 
     private void populateUIFromIntent(){
+//        if we are in the editing mode we have to show the data is already in the utility
         Intent intent = getIntent();
         currentUtility = (UtilityModel) intent.getSerializableExtra("utility");
         if (currentUtility != null){
@@ -161,6 +164,7 @@ public class UtilityAddActivity extends AppCompatActivity {
     }
 
     private void setupDeleteButton(){
+//        if we are in the editing mode and the user clicks on the delete button
         Button btnDelete = (Button) findViewById(R.id.utility_add_button_delete);
         if(!editing){
             btnDelete.setEnabled(false);
