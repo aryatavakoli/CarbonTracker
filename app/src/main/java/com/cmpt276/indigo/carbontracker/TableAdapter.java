@@ -15,7 +15,7 @@ import com.cmpt276.indigo.carbontracker.carbon_tracker_model.RouteModel;
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.VehicleModel;
 
 /*
-
+    Creates a table Adapter to inflate layout
  */
 
 class  TableAdapter extends BaseAdapter {

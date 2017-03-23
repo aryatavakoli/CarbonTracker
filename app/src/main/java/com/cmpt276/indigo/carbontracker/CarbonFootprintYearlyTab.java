@@ -24,6 +24,11 @@ import com.github.mikephil.charting.utils.ColorTemplate;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+/**
+ * Created by Arya on 2017-03-16.
+ * Implements Yearly Bar Graph Tab
+ */
+
 public class CarbonFootprintYearlyTab extends Fragment {
     public static final int NUMBEROFMONTHS = 12;
     ArrayList<JourneyModel> journeys;

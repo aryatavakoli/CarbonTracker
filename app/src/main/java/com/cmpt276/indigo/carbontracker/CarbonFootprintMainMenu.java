@@ -6,6 +6,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+/**
+ * Implements MainMenu Activity
+ */
 public class CarbonFootprintMainMenu extends AppCompatActivity {
 
     @Override

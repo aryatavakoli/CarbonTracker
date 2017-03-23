@@ -13,6 +13,7 @@ import java.util.Calendar;
 
 /**
  * Created by faranakpouya on 2017-03-22.
+ * implements adapter for JourneyDatabase
  */
 
 public class JourneyDBAdapter {
