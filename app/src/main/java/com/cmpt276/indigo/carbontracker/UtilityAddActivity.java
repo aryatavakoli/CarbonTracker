@@ -186,6 +186,8 @@ public class UtilityAddActivity extends AppCompatActivity {
     }
 
     private UtilityModel createUtility() {
+//        the following code checks if the user has entered all the required datas and they are all
+//        valid
 
         EditText editTextName = (EditText) findViewById(R.id.utility_add_editText_name);
         String name = editTextName.getText().toString();
