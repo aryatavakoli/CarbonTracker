@@ -56,6 +56,9 @@ public class CarbonFootprintDailyTab extends Fragment {
 
         createGraph(rootView, pieEntries);
 
+        //clears Array
+        //pieEntries.clear();
+
 
         return rootView;
     }
