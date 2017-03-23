@@ -40,14 +40,14 @@ public class UtilityModel implements CarbonFootprintComponent {
         return -1;
     }
 
-    private long id;
+    private long id; //index of the utility
     private Company companyName;
     private String name;
     private double totalEnergyConsumptionInGWh;
     private int numberOfOccupants;
     private boolean isDeleted;
-    private Calendar startDate;
-    private Calendar endDate;
+    private Calendar startDate; //start of the utility creation
+    private Calendar endDate; //end of utility creation
 
     public UtilityModel(long id,
                         Company company,

@@ -171,7 +171,7 @@ public class TipFragment extends AppCompatDialogFragment {
         messageList[6]= "during taking each of your " +  carNUm+
         " car tips try to Drive at an appropriate speed -" +
         " staying within the 70mph limit can bring savings of 10 per cent for your fuel bill compared to driving at 80mph.";
-        messageList[7]= "today yo your co2 emission was " + CO2usage + " CO2 emission per person in Canada" +
+        messageList[7]= "today your co2 emission was " + CO2usage + " CO2 emission per person in Canada" +
                 " is on average 14.68 metric tons per day";
         messageList[8]= "Remove unnecessary weight from your " + carNUm+" cars; this will cut down fuel consumption and carbon dioxide emissions";
         if(mostCo2Journey.getVehicleModel() != null) {
