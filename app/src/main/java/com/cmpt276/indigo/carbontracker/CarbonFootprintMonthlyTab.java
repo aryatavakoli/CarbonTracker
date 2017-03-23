@@ -55,7 +55,7 @@ public class CarbonFootprintMonthlyTab extends Fragment {
         journeys = carbonInterface.getJournies();
         utilities = carbonInterface.getUtilities(getActivity());
         last28.add(Calendar.DAY_OF_MONTH,-28);
-        tomorrow.add(Calendar.DAY_OF_MONTH,2);
+        tomorrow.add(Calendar.DAY_OF_MONTH,1);
 
 
 

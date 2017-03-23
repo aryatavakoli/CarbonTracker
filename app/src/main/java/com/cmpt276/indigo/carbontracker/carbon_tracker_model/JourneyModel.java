@@ -52,7 +52,6 @@ public class JourneyModel implements CarbonFootprintComponent{
         return co2Emission;
     }
 
-    //error handling
     public void setCo2Emission(float co2Emission){
         if(co2Emission < 0){
             throw new IllegalArgumentException("CO2 emission cannot be negative.");
@@ -90,12 +89,11 @@ public class JourneyModel implements CarbonFootprintComponent{
         {
             totalFootprint = 0;
         }
-        // update mode to calculate the convertedFootprint
-        if (vehicleModel.getName().equals("Walk/Bicycle")) {
+        if (vehicleModel.getTransportaionMode() == VehicleModel.TransportationMode.WALK_BIKE) {
             totalFootprint =  routeModel.getTotalDistance() * 0.0f ;
-        } else if (vehicleModel.getName().equals("Bus")) {
+        } else if (vehicleModel.getTransportaionMode() == VehicleModel.TransportationMode.BUS) {
             totalFootprint =  routeModel.getTotalDistance() * CO2_PER_KM_BUS;
-        } else if (vehicleModel.getName().equals("Skytrain")) {
+        } else if (vehicleModel.getTransportaionMode() == VehicleModel.TransportationMode.SKYTRAIN) {
             totalFootprint =  routeModel.getTotalDistance() * 8.7f ;
         }
         //Converts double to float for use with graph
