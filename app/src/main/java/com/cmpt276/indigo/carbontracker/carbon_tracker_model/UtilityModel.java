@@ -1,7 +1,5 @@
 package com.cmpt276.indigo.carbontracker.carbon_tracker_model;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.concurrent.TimeUnit;
@@ -15,7 +13,7 @@ public class UtilityModel implements CarbonFootprintComponent {
     public static final String DATE_FORMAT = "yyyy-MMM-dd";
     public static final double ELECTRICITY_FOOTPRINT_KG_PER_KWH = 0.009; // 9000; kg/Gwh //2.5 Kg/GJ
     public static final double GAS_FOOTPRINT_KG_PER_GJ = 51.6; // 51.6 Kg/Gj
-    public static final double CONVERTOGIGAJOULES = 0.0036;
+    public static final double CONVERT_KWH_TO_GJ = 0.0036; // 1Kwh = 0.0036 GJ
 
     public enum Company{
         BCHYDRO,
@@ -111,7 +109,7 @@ public class UtilityModel implements CarbonFootprintComponent {
                 break;
             //convert to GJ
             case BCHYDRO:
-                totalEnergyConsumptionInGJ = totalEnergyConsumptionInKWh * CONVERTOGIGAJOULES;
+                totalEnergyConsumptionInGJ = totalEnergyConsumptionInKWh * CONVERT_KWH_TO_GJ;
                 break;
         }
         return totalEnergyConsumptionInGJ;
