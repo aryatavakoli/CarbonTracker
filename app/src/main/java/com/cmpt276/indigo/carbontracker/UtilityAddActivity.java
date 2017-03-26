@@ -103,7 +103,7 @@ public class UtilityAddActivity extends AppCompatActivity {
             UtilityModel.Company company = currentUtility.getCompanyName();
             setSpinnerSelection(R.id.utility_add_spinner_company, company);
             EditText editConsumption = (EditText) findViewById(R.id.utility_add_editText_energy_consumption);
-            editConsumption.setText("" + currentUtility.getTotalEnergyConsumptionInGWH());
+            editConsumption.setText("" + currentUtility.getTotalEnergyConsumptionInKWh());
             EditText editNumberOfOccupents = (EditText) findViewById(R.id.utility_add_editText_num_ppl);
             editNumberOfOccupents.setText("" + currentUtility.getNumberOfOccupants());
             startCalendar = currentUtility.getStartDate();

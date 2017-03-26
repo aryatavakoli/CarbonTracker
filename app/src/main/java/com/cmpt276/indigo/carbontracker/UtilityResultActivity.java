@@ -7,7 +7,6 @@ import android.widget.TextView;
 
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.CarbonFootprintComponentCollection;
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.UtilityModel;
-import com.github.mikephil.charting.formatter.IFillFormatter;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -48,15 +47,15 @@ public class UtilityResultActivity extends AppCompatActivity {
 
         TextView energyDisplay = (TextView) findViewById(R.id.utility_result__total_energy_consumption);
         if(newUtilities.getCompanyName() == UtilityModel.Company.BCHYDRO) {
-            energyDisplay.setText(newUtilities.getTotalEnergyConsumptionInGWH() + " GWh");
+            energyDisplay.setText(round(newUtilities.getTotalEnergyConsumptionInKWh(),2) + " KWh");
         }
         else {
-            energyDisplay.setText(newUtilities.getTotalEnergyConsumptionInGJ() + " GJ");
+            energyDisplay.setText(round(newUtilities.getTotalEnergyConsumptionInGJ(),2) + " GJ");
         }
 
         newUtilities.calculateTotalEmissions();
         TextView emissionsDisplay = (TextView) findViewById(R.id.utility_result_total_emission);
-        emissionsDisplay.setText(newUtilities.getTotalCO2EmissionsInKg() + " Kg");
+        emissionsDisplay.setText(round(newUtilities.getTotalCO2EmissionsInKg(),2) + " Kg");
 
         TextView occupantsDisplay = (TextView) findViewById(R.id.utility_result_occupants);
         occupantsDisplay.setText(newUtilities.getNumberOfOccupants() + "");
@@ -66,30 +65,37 @@ public class UtilityResultActivity extends AppCompatActivity {
     private void fillPerDayUsageTexts() {
         TextView energyDisplay = (TextView) findViewById(R.id.utility_result_per_day_energy_consumption);
         if (newUtilities.getCompanyName() == UtilityModel.Company.BCHYDRO) {
-            energyDisplay.setText(round(newUtilities.calculateDailyEnergyConsumptionInGWH()) + " GWh");
+            energyDisplay.setText(round(newUtilities.calculateDailyEnergyConsumptionInKWh(),2) + " KWh");
         }
         else{
-            energyDisplay.setText(round(newUtilities.calculateDailyEnergyConsumptionInGJ()) + " GJ");
+            energyDisplay.setText(newUtilities.calculateDailyEnergyConsumptionInGJ() + " GJ");
         }
 
         TextView emissionsDisplay = (TextView) findViewById(R.id.utility_result_per_day_emissions);
-        emissionsDisplay.setText(round(newUtilities.calculateDailyCO2EmissionsInKg()) + " Kg");
+        emissionsDisplay.setText(round(newUtilities.calculateDailyCO2EmissionsInKg(),2) + " Kg");
     }
 
     private void fillPerPersonTexts() {
         TextView energyDisplay = (TextView) findViewById(R.id.utility_result_per_person_energy_consumption);
         if (newUtilities.getCompanyName() == UtilityModel.Company.BCHYDRO) {
-            energyDisplay.setText(round(newUtilities.getTotalEnergyConsumptionPerOccupantInGWH()) + " GWh");
+            energyDisplay.setText(round(newUtilities.getTotalEnergyConsumptionPerOccupantInKWh(),2) + " KWh");
         }
         else{
-            energyDisplay.setText(round(newUtilities.getTotalEnergyConsumptionPerOccupantInGJ()) + " GJ");
+            energyDisplay.setText(round(newUtilities.getTotalEnergyConsumptionPerOccupantInGJ(),2) + " GJ");
         }
 
 
         TextView emissionsDisplay = (TextView) findViewById(R.id.utility_result_per_person_emissions);
-        emissionsDisplay.setText(newUtilities.getTotalEmissionsPerOccupant() + " Kg");
+        emissionsDisplay.setText(round(newUtilities.getTotalEmissionsPerOccupant(),2) + " Kg");
     }
 
+    public static double round(double value, int places) {
+        if (places < 0) throw new IllegalArgumentException();
+
+        BigDecimal bd = new BigDecimal(value);
+        bd = bd.setScale(places, RoundingMode.HALF_UP);
+        return bd.doubleValue();
+    }
 
     private void fillTexts() {
         fillBillInformation();
