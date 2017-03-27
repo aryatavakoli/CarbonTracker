@@ -1,6 +1,7 @@
 package com.cmpt276.indigo.carbontracker;
 
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -29,6 +30,10 @@ public class RouteSelectActivity extends AppCompatActivity {
     private static final int ACTIVITY_RESULT_EDIT = 60;
     List<Integer> routePositionList;
     ArrayList<RouteModel> routes;
+    int selectItem;
+    int image = R.drawable.route;
+    CustomizedArrayAdapter adapter;
+    CustomizedArrayAdapterItem arrayAdapterItems[];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +63,28 @@ public class RouteSelectActivity extends AppCompatActivity {
         });
     }
 
+    private void setupList(){
+        Resources res = getResources();
+        ArrayList<RouteModel> routes = carbonFootprintInterface.getRoutes(this);
+        int routeSize = routes.size();
+        arrayAdapterItems = new CustomizedArrayAdapterItem[routeSize];
+        for (int i = 0; i < routeSize; i++){
+            arrayAdapterItems[i] = new CustomizedArrayAdapterItem(image, routes.get(i).getName(), "", "");
+        }
+        selectItem = -1;
+        adapter = new CustomizedArrayAdapter(this, arrayAdapterItems, getTitles(arrayAdapterItems));
+    }
+
+    private String[] getTitles(CustomizedArrayAdapterItem items[]){
+        if (items.length == 0){
+            return null;
+        }
+        String[] titles = new String[items.length];
+        for (int i = 0; i < items.length; i++){
+            titles[i] = items[i].getText1();
+        }
+        return titles;
+    }
 
     //sample for demonstartion purposes
     private void createListView() {
@@ -81,6 +108,7 @@ public class RouteSelectActivity extends AppCompatActivity {
     }
 
     private void populateRoutesList() {
+        setupList();
         ListView routeList = (ListView) findViewById(R.id.route_select_list);
         carbonFootprintInterface = CarbonFootprintComponentCollection.getInstance();
         routes = carbonFootprintInterface.getRoutes(this);
@@ -97,15 +125,15 @@ public class RouteSelectActivity extends AppCompatActivity {
             counter++;
         }
 
-        //Create array adapter
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(
-                this, //context
-                android.R.layout.simple_list_item_1,
-                routeNameList //arrayList
-        );
+//        //Create array adapter
+//        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(
+//                this, //context
+//                android.R.layout.simple_list_item_1,
+//                routeNameList //arrayList
+//        );
 
         //apply adapter ro listview
-        routeList.setAdapter(arrayAdapter);
+        routeList.setAdapter(adapter);
     }
 
     private void setupEditRouteLongPress() {
