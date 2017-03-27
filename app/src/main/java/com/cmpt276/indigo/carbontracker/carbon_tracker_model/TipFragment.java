@@ -90,7 +90,7 @@ public class TipFragment extends AppCompatDialogFragment {
         final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setMessage(messageList[messageIndex]);
         messageIndex ++;
-        if (messageIndex == 15)messageIndex = 0; //if we have reache dthe end of the arraylist go back to index 0
+        if (messageIndex == 15)messageIndex = 0; //if we have reached the end of the arraylist go back to index 0
         builder.setTitle("New Tip");
         builder.setNegativeButton("OK", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {

@@ -3,6 +3,7 @@ package com.cmpt276.indigo.carbontracker;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -20,6 +21,7 @@ import com.cmpt276.indigo.carbontracker.carbon_tracker_model.DuplicateComponentE
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.RouteModel;
 
 import java.net.NoRouteToHostException;
+import java.util.ArrayList;
 
 import static java.sql.Types.NULL;
 
@@ -32,6 +34,7 @@ public class RouteAddActivity extends AppCompatActivity {
     CarbonFootprintComponentCollection carbonFootprintInterface;
     private boolean editing = false;
     RouteModel currentRoute;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
