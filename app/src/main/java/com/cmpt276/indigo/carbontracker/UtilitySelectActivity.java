@@ -3,6 +3,8 @@ package com.cmpt276.indigo.carbontracker;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
@@ -16,6 +18,7 @@ import android.widget.ListView;
 import android.support.v4.view.GravityCompat;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.CarbonFootprintComponentCollection;
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.UtilityModel;
@@ -46,6 +49,7 @@ public class UtilitySelectActivity extends AppCompatActivity implements Navigati
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
+        setupBottomNavigation();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
@@ -57,6 +61,28 @@ public class UtilitySelectActivity extends AppCompatActivity implements Navigati
 //        startAddActivity();
         createListView();
         setupEditUtilityLongPress();
+    }
+
+    private void setupBottomNavigation(){
+        BottomNavigationView bottomNavigationView = (BottomNavigationView)findViewById(R.id.bottom_navigation);
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener(){
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item){
+                switch(item.getItemId())
+                {
+                    case R.id.action_add:
+                        Toast.makeText(UtilitySelectActivity.this, "Add", Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.action_edit:
+                        Toast.makeText(UtilitySelectActivity.this, "Edit", Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.action_remove:
+                        Toast.makeText(UtilitySelectActivity.this, "Remove", Toast.LENGTH_SHORT).show();
+                        break;
+                }
+                return true;
+            }
+        });
     }
 
     //sample for demonstartion purposes
