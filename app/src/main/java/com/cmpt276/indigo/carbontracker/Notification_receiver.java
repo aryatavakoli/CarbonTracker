@@ -46,7 +46,12 @@ class Notification_receiver extends BroadcastReceiver{
 
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(
                 context.NOTIFICATION_SERVICE);
-        Intent repeating_intent = new Intent(context,JourneyAddActivity.class);
+        Intent repeating_intent;
+        if(utilityAddedRecently){
+        repeating_intent = new Intent(context,JourneyAddActivity.class);}
+        else{
+            repeating_intent = new Intent(context,UtilityAddActivity.class);
+        }
         repeating_intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         PendingIntent pendingIntent = PendingIntent.getActivity(
                 context,
@@ -67,7 +72,7 @@ class Notification_receiver extends BroadcastReceiver{
                 .setContentInfo("Info");
         if (utilityAddedRecently){
             Calendar today = Calendar.getInstance();
-            int journeysMadeToday =0;
+            int journeysMadeToday = 0;
             for (JourneyModel journey : journeys){
                 if (journey.getCreationDate().equals(today)){
                     journeysMadeToday ++;
