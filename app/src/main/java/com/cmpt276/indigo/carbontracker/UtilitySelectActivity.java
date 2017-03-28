@@ -2,6 +2,7 @@ package com.cmpt276.indigo.carbontracker;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -21,6 +22,7 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.CarbonFootprintComponentCollection;
+import com.cmpt276.indigo.carbontracker.carbon_tracker_model.RouteModel;
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.UtilityModel;
 
 import java.util.ArrayList;
@@ -37,6 +39,10 @@ public class UtilitySelectActivity extends AppCompatActivity implements Navigati
 
     CarbonFootprintComponentCollection carbonFootprintInterface;
     ArrayList<UtilityModel> utilities;
+    int selectItem;
+    int image = R.drawable.utility;
+    CustomizedArrayAdapter adapter;
+    CustomizedArrayAdapterItem arrayAdapterItems[];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +59,7 @@ public class UtilitySelectActivity extends AppCompatActivity implements Navigati
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        //Allows for back button
+//        Allows for back button
 //      getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 //      getSupportActionBar().setDisplayShowHomeEnabled(true);
         carbonFootprintInterface = CarbonFootprintComponentCollection.getInstance();
@@ -61,6 +67,29 @@ public class UtilitySelectActivity extends AppCompatActivity implements Navigati
 //        startAddActivity();
         createListView();
         setupEditUtilityLongPress();
+    }
+
+    private void setupList(){
+        Resources res = getResources();
+        ArrayList<UtilityModel> utilities = carbonFootprintInterface.getUtilities(this);
+        int utilitiesSize = utilities.size();
+        arrayAdapterItems = new CustomizedArrayAdapterItem[utilitiesSize];
+        for (int i = 0; i < utilitiesSize; i++){
+            arrayAdapterItems[i] = new CustomizedArrayAdapterItem(image, utilities.get(i).getName(), "", "");
+        }
+        selectItem = -1;
+        adapter = new CustomizedArrayAdapter(this, arrayAdapterItems, getTitles(arrayAdapterItems));
+    }
+
+    private String[] getTitles(CustomizedArrayAdapterItem items[]){
+        if (items.length == 0){
+            return null;
+        }
+        String[] titles = new String[items.length];
+        for (int i = 0; i < items.length; i++){
+            titles[i] = items[i].getText1();
+        }
+        return titles;
     }
 
     private void setupBottomNavigation(){
@@ -107,6 +136,7 @@ public class UtilitySelectActivity extends AppCompatActivity implements Navigati
     }
 
     private void populateUtilitiesList() {
+        setupList();
         ListView utilitiesList = (ListView) findViewById(R.id.utilities_select_list);
         carbonFootprintInterface = CarbonFootprintComponentCollection.getInstance();
         utilities = carbonFootprintInterface.getUtilities(this);
@@ -129,7 +159,7 @@ public class UtilitySelectActivity extends AppCompatActivity implements Navigati
         );
 
         //apply adapter ro listview
-        utilitiesList.setAdapter(arrayAdapter);
+        utilitiesList.setAdapter(adapter);
     }
 
     private void setupEditUtilityLongPress() {
