@@ -3,6 +3,7 @@ package com.cmpt276.indigo.carbontracker;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -30,6 +31,10 @@ public class TransportationSelectActvitiy extends AppCompatActivity {
     CarbonFootprintComponentCollection carbonFootprintInterface;
     private static final int ACTIVITY_RESULT_ADD = 50;
     private static final int ACTIVITY_RESULT_EDIT = 100;
+    int selectItem;
+    int image = R.drawable.car;
+    CustomizedArrayAdapter adapter;
+    CustomizedArrayAdapterItem arrayAdapterItems[];
 
     ArrayList<VehicleModel> vehicles;
 
@@ -42,7 +47,7 @@ public class TransportationSelectActvitiy extends AppCompatActivity {
         //Allows for back button
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-
+        carbonFootprintInterface = CarbonFootprintComponentCollection.getInstance();
         startAddActivity();
         createListView();
         setupEditVehicleLongPress();
@@ -59,6 +64,29 @@ public class TransportationSelectActvitiy extends AppCompatActivity {
                 startActivityForResult(intent, ACTIVITY_RESULT_ADD);
             }
         });
+    }
+
+    private void setupList(){
+        Resources res = getResources();
+        vehicles = carbonFootprintInterface.getVehicles(this);
+        int vehicleSize = vehicles.size();
+        arrayAdapterItems = new CustomizedArrayAdapterItem[vehicleSize];
+        for (int i = 0; i < vehicleSize; i++){
+            arrayAdapterItems[i] = new CustomizedArrayAdapterItem(image, vehicles.get(i).getName(), "", "");
+        }
+        selectItem = -1;
+        adapter = new CustomizedArrayAdapter(this, arrayAdapterItems, getTitles(arrayAdapterItems));
+    }
+
+    private String[] getTitles(CustomizedArrayAdapterItem items[]){
+        if (items.length == 0){
+            return null;
+        }
+        String[] titles = new String[items.length];
+        for (int i = 0; i < items.length; i++){
+            titles[i] = items[i].getText1();
+        }
+        return titles;
     }
 
     //sample for demonstartion purposes
@@ -81,6 +109,7 @@ public class TransportationSelectActvitiy extends AppCompatActivity {
     }
 
     private void populateVehiclesList() {
+        setupList();
         ListView carList = (ListView) findViewById(R.id.transportation_select_list);
         carbonFootprintInterface = CarbonFootprintComponentCollection.getInstance();
         vehicles = carbonFootprintInterface.getVehicles(this);
@@ -93,15 +122,15 @@ public class TransportationSelectActvitiy extends AppCompatActivity {
             counter++;
         }
 
-        //Create array adapter
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(
-                this, //context
-                android.R.layout.simple_list_item_1,
-                vehicle_nameList //arrayList
-        );
+//        //Create array adapter
+//        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(
+//                this, //context
+//                android.R.layout.simple_list_item_1,
+//                vehicle_nameList //arrayList
+//        );
 
         //apply adapter ro listview
-        carList.setAdapter(arrayAdapter);
+        carList.setAdapter(adapter);
     }
 
     private void setupEditVehicleLongPress() {
