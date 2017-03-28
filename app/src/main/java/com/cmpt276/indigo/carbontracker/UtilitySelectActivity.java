@@ -38,7 +38,6 @@ public class UtilitySelectActivity extends AppCompatActivity {
         //Allows for back button
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-
         carbonFootprintInterface = CarbonFootprintComponentCollection.getInstance();
 
         startAddActivity();

@@ -11,7 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 /**
- * Created by faranakpouya on 2017-03-26.
+ *  Implements array adapter to customized each item in the list.
  */
 
 public class CustomizedArrayAdapter extends ArrayAdapter<String>{
@@ -35,11 +35,13 @@ public class CustomizedArrayAdapter extends ArrayAdapter<String>{
         LayoutInflater layoutInFlater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View row = layoutInFlater.inflate(R.layout.customized_list_row, parent, false);
         ImageView images = (ImageView) row.findViewById(R.id.icon);
-        TextView titleTextView = (TextView) row.findViewById(R.id.text);
+        TextView titleTextView = (TextView) row.findViewById(R.id.text1);
         TextView descriptionTextView = (TextView) row.findViewById(R.id.text2);
+        TextView dateTextView = (TextView) row.findViewById(R.id.text3);
         images.setImageResource(items[position].getImage());
         titleTextView.setText(items[position].getText1());
         descriptionTextView.setText(items[position].getText2());
+        dateTextView.setText(items[position].getText3());
         if(position == selectedItem) {
             LinearLayout rowLayout = (LinearLayout)row.findViewById(R.id.list_item_layout);
             if(Build.VERSION.SDK_INT >= 16){

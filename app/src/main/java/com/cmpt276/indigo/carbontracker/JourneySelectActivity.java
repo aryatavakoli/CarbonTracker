@@ -1,6 +1,7 @@
 package com.cmpt276.indigo.carbontracker;
 
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentManager;
@@ -32,6 +33,11 @@ public class JourneySelectActivity extends AppCompatActivity {
     private static final int ACTIVITY_RESULT_ADD = 50;
     private static final int ACTIVITY_RESULT_EDIT = 100;
 
+    int selectItem;
+    int image = R.drawable.skytrain;
+    CustomizedArrayAdapter adapter;
+    CustomizedArrayAdapterItem arrayAdapterItems[];
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,7 +46,7 @@ public class JourneySelectActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-
+        carbonFootprintInterface = CarbonFootprintComponentCollection.getInstance();
         startAddActivity();
         createListView();
         setupEditVehicleLongPress();
@@ -55,6 +61,33 @@ public class JourneySelectActivity extends AppCompatActivity {
                 startActivityForResult(intent, ACTIVITY_RESULT_ADD);
             }
         });
+    }
+
+    private void setupList(){
+        Resources res = getResources();
+        journies = carbonFootprintInterface.getJournies(this);
+        int journiesSize = journies.size();
+        arrayAdapterItems = new CustomizedArrayAdapterItem[journiesSize];
+        for (int i = 0; i < journiesSize; i++){
+            arrayAdapterItems[i] = new CustomizedArrayAdapterItem(
+                    image,
+                    journies.get(i).getVehicleModel().getName(),
+                    journies.get(i).getRouteModel().getName(),
+                    journies.get(i).getCreationDateString());
+        }
+        selectItem = -1;
+        adapter = new CustomizedArrayAdapter(this, arrayAdapterItems, getTitles(arrayAdapterItems));
+    }
+
+    private String[] getTitles(CustomizedArrayAdapterItem items[]){
+        if (items.length == 0){
+            return null;
+        }
+        String[] titles = new String[items.length];
+        for (int i = 0; i < items.length; i++){
+            titles[i] = items[i].getText1();
+        }
+        return titles;
     }
 
     private void createListView() {
@@ -76,6 +109,7 @@ public class JourneySelectActivity extends AppCompatActivity {
     }
 
     private void populateJourneyList() {
+        setupList();
         ListView journeyList = (ListView) findViewById(R.id.journey_select_list);
         carbonFootprintInterface = CarbonFootprintComponentCollection.getInstance();
         journies = carbonFootprintInterface.getJournies(this);
@@ -88,12 +122,12 @@ public class JourneySelectActivity extends AppCompatActivity {
         }
 
         //Create array adapter
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(
-                this, //context
-                android.R.layout.simple_list_item_1,
-                journey_nameList //arrayList
-        );
-        journeyList.setAdapter(arrayAdapter);
+//        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(
+//                this, //context
+//                android.R.layout.simple_list_item_1,
+//                journey_nameList //arrayList
+//        );
+        journeyList.setAdapter(adapter);
     }
 
     private void setupEditVehicleLongPress() { //we can edit the vehicle or delte

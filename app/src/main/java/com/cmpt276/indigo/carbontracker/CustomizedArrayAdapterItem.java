@@ -1,7 +1,7 @@
 package com.cmpt276.indigo.carbontracker;
 
 /**
- * Created by faranakpouya on 2017-03-26.
+ *
  */
 
 public class CustomizedArrayAdapterItem {
