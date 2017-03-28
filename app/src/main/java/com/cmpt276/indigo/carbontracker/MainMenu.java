@@ -48,7 +48,7 @@ public class MainMenu extends Activity {
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
         calendar.set(Calendar.HOUR_OF_DAY, 18);
-        calendar.set(Calendar.MINUTE, 10);
+        calendar.set(Calendar.MINUTE, 58);
         calendar.set(Calendar.SECOND, 00);
         Intent intent = new Intent(getApplicationContext(),Notification_receiver.class);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), REQUEST_CODE,intent,
