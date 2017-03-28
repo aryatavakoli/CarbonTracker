@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.cmpt276.indigo.carbontracker">
+    <uses-permission android:name="com.android.alarm.permission.SET_ALARM"/>
+
 
     <application
         android:allowBackup="true"
@@ -119,6 +121,8 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.cmpt276.indigo.carbontracker.MainMenu" />
         </activity>
+        <receiver android:name=".Notification_receiver"/>
+
     </application>
 
 </manifest>
