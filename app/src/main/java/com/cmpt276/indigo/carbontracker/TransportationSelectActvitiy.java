@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -18,6 +20,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.CarbonFootprintComponent;
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.CarbonFootprintComponentCollection;
@@ -50,6 +53,7 @@ public class TransportationSelectActvitiy extends AppCompatActivity implements N
         setContentView(R.layout.activity_transportation_select);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        setupBottomNavigation();
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -88,6 +92,31 @@ public class TransportationSelectActvitiy extends AppCompatActivity implements N
             titles[i] = items[i].getText1();
         }
         return titles;
+    }
+
+    private void setupBottomNavigation(){
+        BottomNavigationView bottomNavigationView = (BottomNavigationView)findViewById(R.id.bottom_navigation);
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener(){
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item){
+                Intent intent = new Intent(TransportationSelectActvitiy.this, TransportationAddActivity.class);
+                switch(item.getItemId())
+                {
+                    case R.id.action_add:
+                        startActivityForResult(intent, ACTIVITY_RESULT_ADD);
+                        Toast.makeText(TransportationSelectActvitiy.this, "Add", Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.action_edit:
+                        startActivityForResult(intent, ACTIVITY_RESULT_EDIT);
+                        Toast.makeText(TransportationSelectActvitiy.this, "Edit", Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.action_remove:
+                        Toast.makeText(TransportationSelectActvitiy.this, "Remove", Toast.LENGTH_SHORT).show();
+                        break;
+                }
+                return true;
+            }
+        });
     }
 
     //sample for demonstartion purposes

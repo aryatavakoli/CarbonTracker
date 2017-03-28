@@ -97,12 +97,15 @@ public class UtilitySelectActivity extends AppCompatActivity implements Navigati
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener(){
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item){
+                Intent intent = new Intent(UtilitySelectActivity.this, UtilityAddActivity.class);
                 switch(item.getItemId())
                 {
                     case R.id.action_add:
+                        startActivityForResult(intent, ACTIVITY_RESULT_ADD);
                         Toast.makeText(UtilitySelectActivity.this, "Add", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.action_edit:
+                        startActivityForResult(intent, ACTIVITY_RESULT_EDIT);
                         Toast.makeText(UtilitySelectActivity.this, "Edit", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.action_remove:

@@ -3,6 +3,8 @@ package com.cmpt276.indigo.carbontracker;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -16,6 +18,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.CarbonFootprintComponentCollection;
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.JourneyModel;
@@ -87,6 +90,31 @@ public class RouteSelectActivity extends AppCompatActivity implements Navigation
             titles[i] = items[i].getText1();
         }
         return titles;
+    }
+
+    private void setupBottomNavigation(){
+        BottomNavigationView bottomNavigationView = (BottomNavigationView)findViewById(R.id.bottom_navigation);
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener(){
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item){
+                Intent intent = new Intent(RouteSelectActivity.this, RouteAddActivity.class);
+                switch(item.getItemId())
+                {
+                    case R.id.action_add:
+                        startActivityForResult(intent, ACTIVITY_RESULT_ADD);
+                        Toast.makeText(RouteSelectActivity.this, "Add", Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.action_edit:
+                        startActivityForResult(intent, ACTIVITY_RESULT_EDIT);
+                        Toast.makeText(RouteSelectActivity.this, "Edit", Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.action_remove:
+                        Toast.makeText(RouteSelectActivity.this, "Remove", Toast.LENGTH_SHORT).show();
+                        break;
+                }
+                return true;
+            }
+        });
     }
 
     //sample for demonstartion purposes
