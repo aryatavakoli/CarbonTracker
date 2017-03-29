@@ -41,6 +41,7 @@ public class TransportationSelectActvitiy extends AppCompatActivity implements N
     private static final int ACTIVITY_RESULT_ADD = 50;
     private static final int ACTIVITY_RESULT_EDIT = 100;
     int selectItem;
+    private int selectedItemIndex;
     int image = R.drawable.car;
     CustomizedArrayAdapter adapter;
     CustomizedArrayAdapterItem arrayAdapterItems[];
@@ -50,6 +51,7 @@ public class TransportationSelectActvitiy extends AppCompatActivity implements N
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        selectedItemIndex = -1;
         setContentView(R.layout.activity_transportation_select);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -68,7 +70,7 @@ public class TransportationSelectActvitiy extends AppCompatActivity implements N
         carbonFootprintInterface = CarbonFootprintComponentCollection.getInstance();
 //        startAddActivity();
         createListView();
-        setupEditVehicleLongPress();
+//        setupEditVehicleLongPress();
     }
 
     private void setupList(){
@@ -104,19 +106,35 @@ public class TransportationSelectActvitiy extends AppCompatActivity implements N
                 {
                     case R.id.action_add:
                         startActivityForResult(intent, ACTIVITY_RESULT_ADD);
-                        Toast.makeText(TransportationSelectActvitiy.this, "Add", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.action_edit:
                         startActivityForResult(intent, ACTIVITY_RESULT_EDIT);
-                        Toast.makeText(TransportationSelectActvitiy.this, "Edit", Toast.LENGTH_SHORT).show();
+                        editItem();
                         break;
                     case R.id.action_remove:
-                        Toast.makeText(TransportationSelectActvitiy.this, "Remove", Toast.LENGTH_SHORT).show();
+                        removeItem();
                         break;
                 }
                 return true;
             }
         });
+        setBottomNavigationItemsStatus();
+    }
+
+    private void editItem(){
+        if(selectedItemIndex > -1) {
+            VehicleModel vehicle = vehicles.get(selectedItemIndex);
+            idOfVehicleEditing = vehicle.getId();
+            Intent intent = TransportationAddActivity.makeIntentForEditVehicle(TransportationSelectActvitiy.this, vehicle);
+            startActivityForResult(intent, ACTIVITY_RESULT_EDIT); //open the edit activity
+        }
+    }
+
+    private void removeItem() {
+        if(selectedItemIndex > -1){
+            carbonFootprintInterface.remove(this, vehicles.get(selectedItemIndex));
+            populateVehiclesList();
+        }
     }
 
     //sample for demonstartion purposes
@@ -128,14 +146,33 @@ public class TransportationSelectActvitiy extends AppCompatActivity implements N
         carList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = getIntent();
-                // Passing selected vehicle to the caller activity
-                VehicleModel selectedVehicle = vehicles.get(position);
-                intent.putExtra("vehicle", selectedVehicle);
-                setResult(RESULT_OK, intent);
-                finish();
+                selectedItemIndex = position;
+                adapter.setSelected(position);
+                adapter.notifyDataSetChanged();
+                setBottomNavigationItemsStatus();
+//                Intent intent = getIntent();
+//                // Passing selected vehicle to the caller activity
+//                VehicleModel selectedVehicle = vehicles.get(position);
+//                intent.putExtra("vehicle", selectedVehicle);
+//                setResult(RESULT_OK, intent);
+//                finish();
             }
         });
+    }
+
+    private void setBottomNavigationItemsStatus() {
+        BottomNavigationView bottomNavigationView = (BottomNavigationView)findViewById(R.id.bottom_navigation);
+        Menu menu = bottomNavigationView.getMenu();
+        MenuItem edit = menu.findItem(R.id.action_edit);
+        MenuItem remove = menu.findItem(R.id.action_remove);
+        if(selectedItemIndex < 0){
+            edit.setEnabled(false);
+            remove.setEnabled(false);
+        }
+        else{
+            edit.setEnabled(true);
+            remove.setEnabled(true);
+        }
     }
 
     private void populateVehiclesList() {
