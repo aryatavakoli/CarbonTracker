@@ -37,6 +37,7 @@ public class JourneySelectActivity extends AppCompatActivity implements Navigati
     ArrayList<JourneyModel> journies;
     ArrayList<VehicleModel> vehicles;
     ArrayList<RouteModel> routes;
+    private int selectedItemIndex;
     private long idOfJourneyEditing = -1;
     CarbonFootprintComponentCollection carbonFootprintInterface;
     private static final int ACTIVITY_RESULT_ADD = 50;
@@ -50,6 +51,8 @@ public class JourneySelectActivity extends AppCompatActivity implements Navigati
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        selectedItemIndex = -1;
+
         setContentView(R.layout.activity_journey_select);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -67,7 +70,7 @@ public class JourneySelectActivity extends AppCompatActivity implements Navigati
         carbonFootprintInterface = CarbonFootprintComponentCollection.getInstance();
 //        startAddActivity();
         createListView();
-        setupEditVehicleLongPress();
+//        setupEditVehicleLongPress();
     }
 
 //    private void startAddActivity() { //launching the add activity
@@ -80,6 +83,21 @@ public class JourneySelectActivity extends AppCompatActivity implements Navigati
 //            }
 //        });
 //    }
+
+    private void setBottomNavigationItemsStatus() {
+        BottomNavigationView bottomNavigationView = (BottomNavigationView)findViewById(R.id.bottom_navigation);
+        Menu menu = bottomNavigationView.getMenu();
+        MenuItem edit = menu.findItem(R.id.action_edit);
+        MenuItem remove = menu.findItem(R.id.action_remove);
+        if(selectedItemIndex < 0){
+            edit.setEnabled(false);
+            remove.setEnabled(false);
+        }
+        else{
+            edit.setEnabled(true);
+            remove.setEnabled(true);
+        }
+    }
 
     private void setupList(){
         Resources res = getResources();
@@ -118,35 +136,57 @@ public class JourneySelectActivity extends AppCompatActivity implements Navigati
                 {
                     case R.id.action_add:
                         startActivityForResult(intent, ACTIVITY_RESULT_ADD);
-                        Toast.makeText(JourneySelectActivity.this, "Add", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.action_edit:
                         startActivityForResult(intent, ACTIVITY_RESULT_EDIT);
-                        Toast.makeText(JourneySelectActivity.this, "Edit", Toast.LENGTH_SHORT).show();
+                        editItem();
                         break;
                     case R.id.action_remove:
-                        Toast.makeText(JourneySelectActivity.this, "Remove", Toast.LENGTH_SHORT).show();
+                        removeItem();
                         break;
                 }
                 return true;
             }
         });
+        setBottomNavigationItemsStatus();
+    }
+
+    private void editItem(){
+        if(selectedItemIndex > -1) {
+            JourneyModel journeyModel = journies.get(selectedItemIndex);
+            idOfJourneyEditing = journeyModel.getId();
+            Intent intent = JourneyAddActivity.makeIntentForEditJourney(JourneySelectActivity.this, journeyModel);
+            startActivityForResult(intent, ACTIVITY_RESULT_EDIT); //open the edit activity
+        }
+    }
+
+    private void removeItem() {
+        if(selectedItemIndex > -1){
+            carbonFootprintInterface.remove(this, journies.get(selectedItemIndex));
+            populateJourneyList();
+        }
     }
 
     private void createListView() {
         //set reference to listview
-        ListView carList = (ListView) findViewById(R.id.journey_select_list);
+        final ListView journeyList = (ListView) findViewById(R.id.journey_select_list);
         populateJourneyList();
         //handle click for each element in listview
-        carList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        journeyList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                selectedItemIndex = position;
+                adapter.setSelected(position);
+                adapter.notifyDataSetChanged();
+                setBottomNavigationItemsStatus();
+                /*
                 Intent intent = getIntent();
                 // Passing selected vehicle to the caller activity
                 JourneyModel selectedJourney = journies.get(position);
                 intent.putExtra("journey", selectedJourney);
                 setResult(RESULT_OK, intent);
                 finish();
+                */
             }
         });
     }

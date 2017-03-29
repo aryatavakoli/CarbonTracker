@@ -2,9 +2,11 @@ package com.cmpt276.indigo.carbontracker;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.content.ClipData;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.design.internal.BottomNavigationItemView;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
@@ -65,7 +67,6 @@ public class JourneyAddActivity extends AppCompatActivity implements NavigationV
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
-        setupBottomNavigation();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
@@ -82,7 +83,9 @@ public class JourneyAddActivity extends AppCompatActivity implements NavigationV
         routeSelectBtn();
         selectCreate();
         gettingDate();
-        deleteBtn();
+//        deleteBtn();
+
+        setupBottomNavigation();
     }
 
     private void setupBottomNavigation(){
@@ -102,6 +105,12 @@ public class JourneyAddActivity extends AppCompatActivity implements NavigationV
                 return true;
             }
         });
+        if(isEdit){
+            Menu menu = bottomNavigationView.getMenu();
+            MenuItem addItem = menu.findItem(R.id.action_add);
+            addItem.setTitle("Update");
+            addItem.setIcon(R.drawable.ic_update);
+        }
     }
 
     private void populateUIFromIntent() {
@@ -242,29 +251,29 @@ public class JourneyAddActivity extends AppCompatActivity implements NavigationV
             }
         });
     }
-
-    /**
-     * delete the journey
-     */
-    private void deleteBtn() {
-        Button btn = (Button) findViewById(R.id.journey_menu_delete_btn);
-        if(!isEdit){
-            btn.setEnabled(false);
-        }
-        final Context context = this;
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (newJourney != null) {
-                    // delete the select journey
-                    carbonFootprintInterface.remove(context, newJourney);
-                    setResult(RESULT_DELETE);
-                    // finish this activity and back
-                    finish();
-                }
-            }
-        });
-    }
+//
+//    /**
+//     * delete the journey
+//     */
+//    private void deleteBtn() {
+//        Button btn = (Button) findViewById(R.id.journey_menu_delete_btn);
+//        if(!isEdit){
+//            btn.setEnabled(false);
+//        }
+//        final Context context = this;
+//        btn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if (newJourney != null) {
+//                    // delete the select journey
+//                    carbonFootprintInterface.remove(context, newJourney);
+//                    setResult(RESULT_DELETE);
+//                    // finish this activity and back
+//                    finish();
+//                }
+//            }
+//        });
+//    }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == RESULT_OK) {
