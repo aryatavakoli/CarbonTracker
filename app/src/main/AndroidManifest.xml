@@ -29,7 +29,8 @@
         <activity
             android:name=".TransportationAddActivity"
             android:label="@string/title_activity_transportation_add_actvitiy"
-            android:parentActivityName=".TransportationSelectActvitiy">
+            android:parentActivityName=".TransportationSelectActvitiy"
+            android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.cmpt276.indigo.carbontracker.TransportationSelectActvitiy" />
@@ -46,7 +47,8 @@
         <activity
             android:name=".RouteAddActivity"
             android:label="@string/title_activity_add_route_actvitiy"
-            android:parentActivityName=".RouteSelectActivity">
+            android:parentActivityName=".RouteSelectActivity"
+            android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.cmpt276.indigo.carbontracker.RouteSelectActivity" />
@@ -54,7 +56,8 @@
         <activity
             android:name=".JourneyAddActivity"
             android:label="@string/title_activity_journey_menu"
-            android:parentActivityName=".MainMenu">
+            android:parentActivityName=".MainMenu"
+            android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.cmpt276.indigo.carbontracker.JourneySelectActivity" />
@@ -90,7 +93,8 @@
         <activity
             android:name=".UtilityAddActivity"
             android:label="@string/utlity_add"
-            android:parentActivityName=".UtilitySelectActivity">
+            android:parentActivityName=".UtilitySelectActivity"
+            android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.cmpt276.indigo.carbontracker.UtilitySelectActivity" />
