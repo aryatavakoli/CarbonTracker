@@ -64,13 +64,8 @@ public class TransportationSelectActvitiy extends AppCompatActivity implements N
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        //Allows for back button
-//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-//        getSupportActionBar().setDisplayShowHomeEnabled(true);
         carbonFootprintInterface = CarbonFootprintComponentCollection.getInstance();
-//        startAddActivity();
         createListView();
-//        setupEditVehicleLongPress();
     }
 
     private void setupList(){
@@ -200,34 +195,12 @@ public class TransportationSelectActvitiy extends AppCompatActivity implements N
             counter++;
         }
 
-//        //Create array adapter
-//        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(
-//                this, //context
-//                android.R.layout.simple_list_item_1,
-//                vehicle_nameList //arrayList
-//        );
-
         //apply adapter ro listview
         carList.setAdapter(adapter);
     }
 
-    private void setupEditVehicleLongPress() {
-        ListView list = (ListView) findViewById(R.id.transportation_select_list);
-        list.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                VehicleModel vehicle = vehicles.get(position);
-                idOfVehicleEditing = vehicle.getId();
-                Intent intent = TransportationAddActivity.makeIntentForEditVehicle(TransportationSelectActvitiy.this, vehicle);
-                startActivityForResult(intent, ACTIVITY_RESULT_EDIT);
-                return true;
-            }
-        });
-    }
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data){
-
         if(resultCode == RESULT_OK){
             switch (requestCode){
                 case ACTIVITY_RESULT_ADD:
@@ -240,12 +213,11 @@ public class TransportationSelectActvitiy extends AppCompatActivity implements N
                     populateVehiclesList();
                     break;
             }
-
         }
         else if (resultCode == TransportationAddActivity.RESULT_DELETE){
             populateVehiclesList();
         }
-
+        setBottomNavigationItemsStatus();
     }
 
     @Override

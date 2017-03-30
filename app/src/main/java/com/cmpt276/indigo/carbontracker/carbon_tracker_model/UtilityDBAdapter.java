@@ -76,6 +76,7 @@ public class UtilityDBAdapter {
 
     // Open the database connection.
     public UtilityDBAdapter open() {
+ //       dropTable();
         db = myDBHelper.getWritableDatabase();
         ensureTableExists();
         return this;

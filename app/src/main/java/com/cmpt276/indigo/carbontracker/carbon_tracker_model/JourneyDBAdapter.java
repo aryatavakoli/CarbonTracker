@@ -69,6 +69,7 @@ public class JourneyDBAdapter {
 
     // Open the database connection.
     public JourneyDBAdapter open() {
+//        dropTable();
         db = myDBHelper.getWritableDatabase();
         ensureTableExists();
         return this;

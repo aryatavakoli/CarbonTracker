@@ -68,6 +68,7 @@ public class RouteDBAdapter {
 
     // Open the database connection.
     public RouteDBAdapter open() {
+ //       dropTable();
         db = myDBHelper.getWritableDatabase();
         ensureTableExists();
         return this;

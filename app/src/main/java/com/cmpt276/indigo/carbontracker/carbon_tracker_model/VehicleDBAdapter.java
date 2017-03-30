@@ -86,6 +86,7 @@ public class VehicleDBAdapter {
 
     // Open the database connection.
     public VehicleDBAdapter open() {
+ //       dropTable();
         db = myDBHelper.getWritableDatabase();
         ensureTableExists();
         return this;
