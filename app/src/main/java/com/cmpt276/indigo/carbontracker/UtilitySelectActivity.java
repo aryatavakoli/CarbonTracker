@@ -24,6 +24,7 @@ import android.widget.Toast;
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.CarbonFootprintComponentCollection;
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.RouteModel;
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.UtilityModel;
+import com.cmpt276.indigo.carbontracker.carbon_tracker_model.VehicleModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,6 +41,7 @@ public class UtilitySelectActivity extends AppCompatActivity implements Navigati
     CarbonFootprintComponentCollection carbonFootprintInterface;
     ArrayList<UtilityModel> utilities;
     int selectItem;
+    private int selectedItemIndex;
     int image = R.drawable.utility;
     CustomizedArrayAdapter adapter;
     CustomizedArrayAdapterItem arrayAdapterItems[];
@@ -47,6 +49,7 @@ public class UtilitySelectActivity extends AppCompatActivity implements Navigati
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        selectedItemIndex = -1;
         setContentView(R.layout.activity_utility_select);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -83,7 +86,7 @@ public class UtilitySelectActivity extends AppCompatActivity implements Navigati
 
     private String[] getTitles(CustomizedArrayAdapterItem items[]){
         if (items.length == 0){
-            return null;
+            return new String[0];
         }
         String[] titles = new String[items.length];
         for (int i = 0; i < items.length; i++){
@@ -106,15 +109,47 @@ public class UtilitySelectActivity extends AppCompatActivity implements Navigati
                         break;
                     case R.id.action_edit:
                         startActivityForResult(intent, ACTIVITY_RESULT_EDIT);
-                        Toast.makeText(UtilitySelectActivity.this, "Edit", Toast.LENGTH_SHORT).show();
+                        editItem();
                         break;
                     case R.id.action_remove:
-                        Toast.makeText(UtilitySelectActivity.this, "Remove", Toast.LENGTH_SHORT).show();
+                        removeItem();
                         break;
                 }
                 return true;
             }
         });
+        setBottomNavigationItemsStatus();
+    }
+
+    private void editItem(){
+        if(selectedItemIndex > -1) {
+            UtilityModel utility = utilities.get(selectedItemIndex);
+            indexOfUtilityEditing = utility.getId();
+            Intent intent = UtilityAddActivity.makeIntentForEditUtility(UtilitySelectActivity.this, utility);
+            startActivityForResult(intent, ACTIVITY_RESULT_EDIT); //open the edit activity
+        }
+    }
+
+    private void removeItem() {
+        if(selectedItemIndex > -1){
+            carbonFootprintInterface.remove(this, utilities.get(selectedItemIndex));
+            populateUtilitiesList();
+        }
+    }
+
+    private void setBottomNavigationItemsStatus() {
+        BottomNavigationView bottomNavigationView = (BottomNavigationView)findViewById(R.id.bottom_navigation);
+        Menu menu = bottomNavigationView.getMenu();
+        MenuItem edit = menu.findItem(R.id.action_edit);
+        MenuItem remove = menu.findItem(R.id.action_remove);
+        if(selectedItemIndex < 0){
+            edit.setEnabled(false);
+            remove.setEnabled(false);
+        }
+        else{
+            edit.setEnabled(true);
+            remove.setEnabled(true);
+        }
     }
 
     //sample for demonstartion purposes

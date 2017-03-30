@@ -87,7 +87,7 @@ public class TransportationSelectActvitiy extends AppCompatActivity implements N
 
     private String[] getTitles(CustomizedArrayAdapterItem items[]){
         if (items.length == 0){
-            return null;
+            return new String[0];
         }
         String[] titles = new String[items.length];
         for (int i = 0; i < items.length; i++){

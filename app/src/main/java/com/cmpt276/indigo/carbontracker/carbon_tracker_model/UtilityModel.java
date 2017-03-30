@@ -183,7 +183,7 @@ public class UtilityModel implements CarbonFootprintComponent {
 
     public int calculateBillingPeriodInDays(){
         long msDiff = endDate.getTimeInMillis() - startDate.getTimeInMillis();
-        return (int)TimeUnit.MILLISECONDS.toDays(msDiff);
+        return (int)(TimeUnit.MILLISECONDS.toDays(msDiff) + 1);
     }
 
     public double getTotalEmissionsPerOccupant() {
