@@ -236,7 +236,6 @@ public class UtilitySelectActivity extends AppCompatActivity implements Navigati
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data){
-
         if(resultCode == RESULT_OK){
             switch (requestCode) {
                 case ACTIVITY_RESULT_ADD:
@@ -253,7 +252,7 @@ public class UtilitySelectActivity extends AppCompatActivity implements Navigati
         else if (resultCode == UtilityAddActivity.RESULT_DELETE){
             populateUtilitiesList();
         }
-
+        setBottomNavigationItemsStatus();
     }
 
     @Override
