@@ -30,7 +30,7 @@
         app:itemBackground="@color/colorPrimary"
         app:itemIconTint="@drawable/bottom_nav_item_color_state"
         app:itemTextColor="@drawable/bottom_nav_item_color_state"
-        app:menu="@menu/bottom_nav_menu_transporation_select"
+        app:menu="@menu/bottom_nav_menu_component_select"
         app:popupTheme="@style/AppTheme.PopupOverlay"
         app:layout_anchorGravity="bottom|center_horizontal"
         android:layout_gravity="bottom|center_horizontal"/>

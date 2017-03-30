@@ -69,10 +69,11 @@ public class UtilitySelectActivity extends AppCompatActivity implements Navigati
 
 //        startAddActivity();
         createListView();
-        setupEditUtilityLongPress();
+//        setupEditUtilityLongPress();
     }
 
     private void setupList(){
+        selectedItemIndex = -1;
         Resources res = getResources();
         ArrayList<UtilityModel> utilities = carbonFootprintInterface.getUtilities(this);
         int utilitiesSize = utilities.size();
@@ -105,14 +106,15 @@ public class UtilitySelectActivity extends AppCompatActivity implements Navigati
                 {
                     case R.id.action_add:
                         startActivityForResult(intent, ACTIVITY_RESULT_ADD);
-                        Toast.makeText(UtilitySelectActivity.this, "Add", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.action_edit:
-                        startActivityForResult(intent, ACTIVITY_RESULT_EDIT);
                         editItem();
                         break;
                     case R.id.action_delete:
                         removeItem();
+                        break;
+                    case R.id.action_select:
+                        onSelectUtility();
                         break;
                 }
                 return true;
@@ -139,18 +141,30 @@ public class UtilitySelectActivity extends AppCompatActivity implements Navigati
         }
     }
 
+    private void onSelectUtility(){
+        Intent intent = getIntent();
+        // Passing selected vehicle to the caller activity
+        UtilityModel utility = utilities.get(selectedItemIndex);
+        intent.putExtra("utility", utility);
+        setResult(RESULT_OK, intent);
+        finish();
+    }
+
     private void setBottomNavigationItemsStatus() {
         BottomNavigationView bottomNavigationView = (BottomNavigationView)findViewById(R.id.bottom_navigation);
         Menu menu = bottomNavigationView.getMenu();
         MenuItem edit = menu.findItem(R.id.action_edit);
         MenuItem remove = menu.findItem(R.id.action_delete);
+        MenuItem select = menu.findItem(R.id.action_select);
         if(selectedItemIndex < 0){
             edit.setEnabled(false);
             remove.setEnabled(false);
+            select.setEnabled(false);
         }
         else{
             edit.setEnabled(true);
             remove.setEnabled(true);
+            select.setEnabled(true);
         }
     }
 
@@ -165,12 +179,16 @@ public class UtilitySelectActivity extends AppCompatActivity implements Navigati
         utilitiesList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(getBaseContext(), UtilityResultActivity.class);
-                // Passing selected Utilities to the caller activity
-                UtilityModel selectedUtility = carbonFootprintInterface.getUtilities(context).get(position);
-                intent.putExtra("utility", selectedUtility);
-                setResult(RESULT_OK, intent);
-                startActivity(intent);
+                selectedItemIndex = position;
+                adapter.setSelected(position);
+                adapter.notifyDataSetChanged();
+                setBottomNavigationItemsStatus();
+//                Intent intent = new Intent(getBaseContext(), UtilityResultActivity.class);
+//                // Passing selected Utilities to the caller activity
+//                UtilityModel selectedUtility = carbonFootprintInterface.getUtilities(context).get(position);
+//                intent.putExtra("utility", selectedUtility);
+//                setResult(RESULT_OK, intent);
+//                startActivity(intent);
             }
         });
     }

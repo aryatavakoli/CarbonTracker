@@ -23,6 +23,7 @@ import android.widget.Toast;
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.CarbonFootprintComponentCollection;
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.JourneyModel;
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.RouteModel;
+import com.cmpt276.indigo.carbontracker.carbon_tracker_model.UtilityModel;
 
 
 import java.util.ArrayList;
@@ -40,6 +41,7 @@ public class RouteSelectActivity extends AppCompatActivity implements Navigation
     List<Integer> routePositionList;
     ArrayList<RouteModel> routes;
     int selectItem;
+    private int selectedItemIndex;
     int image = R.drawable.route;
     CustomizedArrayAdapter adapter;
     CustomizedArrayAdapterItem arrayAdapterItems[];
@@ -47,6 +49,7 @@ public class RouteSelectActivity extends AppCompatActivity implements Navigation
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        selectedItemIndex = -1;
         setContentView(R.layout.activity_route_select);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -102,19 +105,48 @@ public class RouteSelectActivity extends AppCompatActivity implements Navigation
                 {
                     case R.id.action_add:
                         startActivityForResult(intent, ACTIVITY_RESULT_ADD);
-                        Toast.makeText(RouteSelectActivity.this, "Add", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.action_edit:
-                        startActivityForResult(intent, ACTIVITY_RESULT_EDIT);
-                        Toast.makeText(RouteSelectActivity.this, "Edit", Toast.LENGTH_SHORT).show();
+                        editItem();
                         break;
                     case R.id.action_delete:
-                        Toast.makeText(RouteSelectActivity.this, "Remove", Toast.LENGTH_SHORT).show();
+                        removeItem();
+                        break;
+                    case R.id.action_select:
+                        onSelectRoute();
                         break;
                 }
                 return true;
             }
         });
+        setBottomNavigationItemsStatus();
+    }
+
+    private void editItem(){
+        if(selectedItemIndex > -1) {
+            RouteModel route = routes.get(selectedItemIndex);
+            indexOfRouteEditing = route.getId();
+            Intent intent = RouteAddActivity.makeIntentForEditRoute(RouteSelectActivity.this, route);
+            startActivityForResult(intent, ACTIVITY_RESULT_EDIT); //open the edit activity
+        }
+    }
+
+    private void removeItem() {
+        if(selectedItemIndex > -1){
+            carbonFootprintInterface.remove(this, routes.get(selectedItemIndex));
+            selectedItemIndex = -1;
+            setBottomNavigationItemsStatus();
+            populateRoutesList();
+        }
+    }
+
+    private void onSelectRoute(){
+        Intent intent = getIntent();
+        // Passing selected vehicle to the caller activity
+        RouteModel route = routes.get(selectedItemIndex);
+        intent.putExtra("route", route);
+        setResult(RESULT_OK, intent);
+        finish();
     }
 
     //sample for demonstartion purposes
@@ -127,13 +159,17 @@ public class RouteSelectActivity extends AppCompatActivity implements Navigation
         routeList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = getIntent();
-                // Passing selected route to the caller activity
-                int realPosition = routePositionList.get(position);
-                RouteModel selectedRoute = routes.get(realPosition);
-                intent.putExtra("route", selectedRoute);
-                setResult(RESULT_OK, intent);
-                finish();
+                selectedItemIndex = position;
+                adapter.setSelected(position);
+                adapter.notifyDataSetChanged();
+                setBottomNavigationItemsStatus();
+//                Intent intent = getIntent();
+//                // Passing selected route to the caller activity
+//                int realPosition = routePositionList.get(position);
+//                RouteModel selectedRoute = routes.get(realPosition);
+//                intent.putExtra("route", selectedRoute);
+//                setResult(RESULT_OK, intent);
+//                finish();
             }
         });
     }
@@ -165,6 +201,24 @@ public class RouteSelectActivity extends AppCompatActivity implements Navigation
 
         //apply adapter ro listview
         routeList.setAdapter(adapter);
+    }
+
+    private void setBottomNavigationItemsStatus() {
+        BottomNavigationView bottomNavigationView = (BottomNavigationView)findViewById(R.id.bottom_navigation);
+        Menu menu = bottomNavigationView.getMenu();
+        MenuItem edit = menu.findItem(R.id.action_edit);
+        MenuItem remove = menu.findItem(R.id.action_delete);
+        MenuItem select = menu.findItem(R.id.action_select);
+        if(selectedItemIndex < 0){
+            edit.setEnabled(false);
+            remove.setEnabled(false);
+            select.setEnabled(false);
+        }
+        else{
+            edit.setEnabled(true);
+            remove.setEnabled(true);
+            select.setEnabled(true);
+        }
     }
 
     private void setupEditRouteLongPress() {
