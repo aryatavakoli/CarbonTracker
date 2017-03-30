@@ -88,14 +88,14 @@ public class JourneySelectActivity extends AppCompatActivity implements Navigati
         BottomNavigationView bottomNavigationView = (BottomNavigationView)findViewById(R.id.bottom_navigation);
         Menu menu = bottomNavigationView.getMenu();
         MenuItem edit = menu.findItem(R.id.action_edit);
-        MenuItem remove = menu.findItem(R.id.action_remove);
+        MenuItem delete = menu.findItem(R.id.action_delete);
         if(selectedItemIndex < 0){
             edit.setEnabled(false);
-            remove.setEnabled(false);
+            delete.setEnabled(false);
         }
         else{
             edit.setEnabled(true);
-            remove.setEnabled(true);
+            delete.setEnabled(true);
         }
     }
 
@@ -141,7 +141,7 @@ public class JourneySelectActivity extends AppCompatActivity implements Navigati
                         startActivityForResult(intent, ACTIVITY_RESULT_EDIT);
                         editItem();
                         break;
-                    case R.id.action_remove:
+                    case R.id.action_delete:
                         removeItem();
                         break;
                 }
@@ -163,6 +163,8 @@ public class JourneySelectActivity extends AppCompatActivity implements Navigati
     private void removeItem() {
         if(selectedItemIndex > -1){
             carbonFootprintInterface.remove(this, journies.get(selectedItemIndex));
+            selectedItemIndex = -1;
+            setBottomNavigationItemsStatus();
             populateJourneyList();
         }
     }

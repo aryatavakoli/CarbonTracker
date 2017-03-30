@@ -109,16 +109,6 @@
     </TableLayout>
 
     <Button
-        android:text="@string/create"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_toEndOf="@+id/journey_menu_select_transport_btn"
-        android:layout_marginBottom="28dp"
-        android:id="@+id/journey_menu_create_btn"
-        android:theme="@style/GreenButton"/>
-
-    <Button
         android:text="@string/select_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

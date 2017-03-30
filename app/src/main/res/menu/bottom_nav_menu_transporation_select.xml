@@ -3,11 +3,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
+        android:id="@+id/action_select"
+        android:enabled="true"
+        android:icon="@drawable/ic_select"
+        android:title="Select"
+        />
+
+    <item
         android:id="@+id/action_edit"
         android:enabled="true"
         android:icon="@drawable/ic_edit"
         android:title="Edit"
-        android:showAsAction="ifRoom"
         />
 
     <item
@@ -15,7 +21,6 @@
         android:enabled="true"
         android:icon="@drawable/ic_add"
         android:title="Add"
-        android:showAsAction="ifRoom"
         />
 
     <item
@@ -23,6 +28,5 @@
         android:enabled="true"
         android:icon="@drawable/ic_delete"
         android:title="Delete"
-        android:showAsAction="ifRoom"
         />
 </menu>

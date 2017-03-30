@@ -74,6 +74,7 @@ public class TransportationSelectActvitiy extends AppCompatActivity implements N
     }
 
     private void setupList(){
+        selectedItemIndex = -1;
         Resources res = getResources();
         vehicles = carbonFootprintInterface.getVehicles(this);
         int vehicleSize = vehicles.size();
@@ -108,11 +109,13 @@ public class TransportationSelectActvitiy extends AppCompatActivity implements N
                         startActivityForResult(intent, ACTIVITY_RESULT_ADD);
                         break;
                     case R.id.action_edit:
-                        startActivityForResult(intent, ACTIVITY_RESULT_EDIT);
                         editItem();
                         break;
-                    case R.id.action_remove:
+                    case R.id.action_delete:
                         removeItem();
+                        break;
+                    case R.id.action_select:
+                        onSelectTransportation();
                         break;
                 }
                 return true;
@@ -133,8 +136,19 @@ public class TransportationSelectActvitiy extends AppCompatActivity implements N
     private void removeItem() {
         if(selectedItemIndex > -1){
             carbonFootprintInterface.remove(this, vehicles.get(selectedItemIndex));
+            selectedItemIndex = -1;
+            setBottomNavigationItemsStatus();
             populateVehiclesList();
         }
+    }
+
+    private void onSelectTransportation(){
+        Intent intent = getIntent();
+        // Passing selected vehicle to the caller activity
+        VehicleModel selectedVehicle = vehicles.get(selectedItemIndex);
+        intent.putExtra("vehicle", selectedVehicle);
+        setResult(RESULT_OK, intent);
+        finish();
     }
 
     //sample for demonstartion purposes
@@ -150,12 +164,6 @@ public class TransportationSelectActvitiy extends AppCompatActivity implements N
                 adapter.setSelected(position);
                 adapter.notifyDataSetChanged();
                 setBottomNavigationItemsStatus();
-//                Intent intent = getIntent();
-//                // Passing selected vehicle to the caller activity
-//                VehicleModel selectedVehicle = vehicles.get(position);
-//                intent.putExtra("vehicle", selectedVehicle);
-//                setResult(RESULT_OK, intent);
-//                finish();
             }
         });
     }
@@ -164,14 +172,17 @@ public class TransportationSelectActvitiy extends AppCompatActivity implements N
         BottomNavigationView bottomNavigationView = (BottomNavigationView)findViewById(R.id.bottom_navigation);
         Menu menu = bottomNavigationView.getMenu();
         MenuItem edit = menu.findItem(R.id.action_edit);
-        MenuItem remove = menu.findItem(R.id.action_remove);
+        MenuItem remove = menu.findItem(R.id.action_delete);
+        MenuItem select = menu.findItem(R.id.action_select);
         if(selectedItemIndex < 0){
             edit.setEnabled(false);
             remove.setEnabled(false);
+            select.setEnabled(false);
         }
         else{
             edit.setEnabled(true);
             remove.setEnabled(true);
+            select.setEnabled(true);
         }
     }
 

@@ -81,7 +81,6 @@ public class JourneyAddActivity extends AppCompatActivity implements NavigationV
         populateUIFromIntent();
         transportSelectBtn();
         routeSelectBtn();
-        selectCreate();
         gettingDate();
 //        deleteBtn();
 
@@ -96,20 +95,44 @@ public class JourneyAddActivity extends AppCompatActivity implements NavigationV
                 switch(item.getItemId())
                 {
                     case R.id.action_add:
+                        if (isRouteSelected && isVehicleSelected) {
+                            // is in edit mode
+                            if (isEdit) {
+                                Intent intent = getIntent();
+                                intent.putExtra("journey", newJourney);
+                                setResult(RESULT_OK, intent);
+                                finish();
+                            } else if (!addJourney(newJourney)) {
+                                break;
+                            }
+                            Intent intent = new Intent();
+                            intent.putExtra("journey", newJourney);
+                            setResult(Activity.RESULT_OK, intent);
+                            Toast.makeText(JourneyAddActivity.this, "Journey Created!", Toast.LENGTH_SHORT).show();
+                            showTipDialog();
+                        }
+                        else{
+                            Toast.makeText(JourneyAddActivity.this,"Please select Route and Vehicle",Toast.LENGTH_SHORT).show();
+                        }
                         break;
-                    case R.id.action_edit:
+                    case R.id.action_cancel:
+                        finish();
                         break;
-                    case R.id.action_remove:
+                    case R.id.action_delete:
                         break;
                 }
                 return true;
             }
         });
+        Menu menu = bottomNavigationView.getMenu();
         if(isEdit){
-            Menu menu = bottomNavigationView.getMenu();
             MenuItem addItem = menu.findItem(R.id.action_add);
             addItem.setTitle("Update");
             addItem.setIcon(R.drawable.ic_update);
+        }
+        else{
+            MenuItem deleteItem = menu.findItem(R.id.action_delete);
+            deleteItem.setEnabled(false);
         }
     }
 
@@ -153,38 +176,6 @@ public class JourneyAddActivity extends AppCompatActivity implements NavigationV
                 new DatePickerDialog(JourneyAddActivity.this, date, myCalendar
                         .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
                         myCalendar.get(Calendar.DAY_OF_MONTH)).show();
-            }
-        });
-    }
-
-    /**
-     * create or edit
-     */
-    private void selectCreate() {
-        Button btn = (Button) findViewById(R.id.journey_menu_create_btn);
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (isRouteSelected && isVehicleSelected) {
-                    // is in edit mode
-                    if (isEdit) {
-                        Intent intent = getIntent();
-                        intent.putExtra("journey", newJourney);
-                        setResult(RESULT_OK, intent);
-                        finish();
-                    } else if (!addJourney(newJourney)) {
-                        return;
-                    }
-                    Intent intent = new Intent();
-                    intent.putExtra("journey", newJourney);
-                    setResult(Activity.RESULT_OK, intent);
-                    Toast.makeText(JourneyAddActivity.this, "Journey Created!", Toast.LENGTH_SHORT).show();
-                    showTipDialog();
-                }
-                else{
-                    Toast.makeText(JourneyAddActivity.this,"Please select Route and Vehicle",Toast.LENGTH_SHORT).show();
-                    return;
-                }
             }
         });
     }

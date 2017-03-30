@@ -58,8 +58,6 @@ public class TransportationAddActivity extends AppCompatActivity implements Navi
         navigationView.setNavigationItemSelectedListener(this);
         setupDropdownList();
         populateUIFromIntent();
-        setupOkButton();
-        setupDeleteButton();
 
         setupBottomNavigation();
     }
@@ -73,20 +71,27 @@ public class TransportationAddActivity extends AppCompatActivity implements Navi
                 switch(item.getItemId())
                 {
                     case R.id.action_add:
+                        onAddClick();
                         break;
-                    case R.id.action_edit:
+                    case R.id.action_cancel:
+                        finish();
                         break;
-                    case R.id.action_remove:
+                    case R.id.action_delete:
+                        onClickDelete();
                         break;
                 }
                 return true;
             }
         });
-        if(editing) {
-            Menu menu = bottomNavigationView.getMenu();
+        Menu menu = bottomNavigationView.getMenu();
+        if(editing){
             MenuItem addItem = menu.findItem(R.id.action_add);
             addItem.setTitle("Update");
             addItem.setIcon(R.drawable.ic_update);
+        }
+        else{
+            MenuItem deleteItem = menu.findItem(R.id.action_delete);
+            deleteItem.setEnabled(false);
         }
     }
 
@@ -133,55 +138,40 @@ public class TransportationAddActivity extends AppCompatActivity implements Navi
         makeSpinner.setSelection(positionOfMake);
     }
 
-    private void setupOkButton() {
-        Button btnOK = (Button) findViewById(R.id.add_transport_ok_btn);
-        btnOK.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //Try to get data from transportation add UI and create a vehicle object
-                VehicleModel vehicle = createVehicleObject();
-                if (vehicle == null){
-                    return;
-                }
-                //adding and replacing vehicle when a user is editing
-                if(editing){
-                    Intent intent = getIntent();
-                    //Passing the vehicle object to the TransportationActivity
-                    intent.putExtra("vehicle", vehicle);
-                    setResult(RESULT_OK, intent);
-                    finish();
-                }
-                //adding vehicle to collection if it is not duplicate and user is not editing
-                else if(!addVehicle(vehicle)){
-                    return;
-                }
-                else{
-                    Toast.makeText(TransportationAddActivity.this, "Vehicle Added!", Toast.LENGTH_SHORT).show();
-                }
-                Intent intent = getIntent();
-                //Passing the vehicle object to the TransportationActivity
-                intent.putExtra("vehicle", vehicle);
-                setResult(RESULT_OK, intent);
-                finish();
-            }
-        });
+    private void onAddClick(){
+        //Try to get data from transportation add UI and create a vehicle object
+        VehicleModel vehicle = createVehicleObject();
+        if (vehicle == null){
+            return;
+        }
+        //adding and replacing vehicle when a user is editing
+        if(editing){
+            Intent intent = getIntent();
+            //Passing the vehicle object to the TransportationActivity
+            intent.putExtra("vehicle", vehicle);
+            setResult(RESULT_OK, intent);
+            finish();
+        }
+        //adding vehicle to collection if it is not duplicate and user is not editing
+        else if(!addVehicle(vehicle)){
+            return;
+        }
+        else{
+            Toast.makeText(TransportationAddActivity.this, "Vehicle Added!", Toast.LENGTH_SHORT).show();
+        }
+        Intent intent = getIntent();
+        //Passing the vehicle object to the TransportationActivity
+        intent.putExtra("vehicle", vehicle);
+        setResult(RESULT_OK, intent);
+        finish();
     }
 
-    private void setupDeleteButton(){
-        Button btnDelete = (Button) findViewById(R.id.add_transport_delete_btn);
-        if(!editing){
-            btnDelete.setEnabled(false);
-        }
-        btnDelete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //Removing vehicle from collection if it is on the list
-                removeVehicle(currentVehicle);
-                setResult(RESULT_DELETE);
-                Toast.makeText(TransportationAddActivity.this, "Vehicle Deleted!", Toast.LENGTH_SHORT).show();
-                finish();
-            }
-        });
+    private void onClickDelete(){
+        //Removing vehicle from collection if it is on the list
+        removeVehicle(currentVehicle);
+        setResult(RESULT_DELETE);
+        Toast.makeText(TransportationAddActivity.this, "Vehicle Deleted!", Toast.LENGTH_SHORT).show();
+        finish();
     }
 
     private VehicleModel createVehicleObject(){

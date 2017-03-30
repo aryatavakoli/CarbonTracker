@@ -3,10 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/action_edit"
+        android:id="@+id/action_cancel"
         android:enabled="true"
-        android:icon="@drawable/ic_edit"
-        android:title="Edit"
+        android:icon="@drawable/ic_cancel"
+        android:title="Cancel"
         android:showAsAction="ifRoom"
         />
 

@@ -108,7 +108,7 @@ public class RouteSelectActivity extends AppCompatActivity implements Navigation
                         startActivityForResult(intent, ACTIVITY_RESULT_EDIT);
                         Toast.makeText(RouteSelectActivity.this, "Edit", Toast.LENGTH_SHORT).show();
                         break;
-                    case R.id.action_remove:
+                    case R.id.action_delete:
                         Toast.makeText(RouteSelectActivity.this, "Remove", Toast.LENGTH_SHORT).show();
                         break;
                 }

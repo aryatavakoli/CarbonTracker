@@ -80,19 +80,24 @@ public class UtilityAddActivity extends AppCompatActivity implements NavigationV
                 {
                     case R.id.action_add:
                         break;
-                    case R.id.action_edit:
+                    case R.id.action_cancel:
+                        finish();
                         break;
-                    case R.id.action_remove:
+                    case R.id.action_delete:
                         break;
                 }
                 return true;
             }
         });
-        if(editing) {
-            Menu menu = bottomNavigationView.getMenu();
+        Menu menu = bottomNavigationView.getMenu();
+        if(editing){
             MenuItem addItem = menu.findItem(R.id.action_add);
             addItem.setTitle("Update");
             addItem.setIcon(R.drawable.ic_update);
+        }
+        else{
+            MenuItem deleteItem = menu.findItem(R.id.action_delete);
+            deleteItem.setEnabled(false);
         }
     }
 

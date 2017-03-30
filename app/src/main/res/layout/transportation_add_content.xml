@@ -144,24 +144,4 @@
         </TableRow>
     </TableLayout>
 
-    <Button
-        android:text="@string/ok"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/add_transport_ok_btn"
-        android:theme="@style/GreenButton"
-        android:layout_below="@+id/tableLayout"
-        android:layout_alignParentEnd="true" />
-
-    <Button
-        android:text="@string/delete"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/add_transport_delete_btn"
-        android:textAllCaps="false"
-        android:theme="@style/GreenButton"
-        android:layout_alignBaseline="@+id/add_transport_ok_btn"
-        android:layout_alignBottom="@+id/add_transport_ok_btn"
-        android:layout_toStartOf="@+id/add_transport_ok_btn" />
-
 </RelativeLayout>
