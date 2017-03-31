@@ -30,15 +30,12 @@ import java.util.List;
  */
 public class JourneySelectActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
     ArrayList<JourneyModel> journies;
-    ArrayList<TransportationModel> vehicles;
-    ArrayList<RouteModel> routes;
     private int selectedItemIndex;
     private long idOfJourneyEditing = -1;
     CarbonFootprintComponentCollection carbonFootprintInterface;
     private static final int ACTIVITY_RESULT_ADD = 50;
     private static final int ACTIVITY_RESULT_EDIT = 100;
 
-    int selectItem;
     int image = R.drawable.skytrain;
     CustomizedArrayAdapter adapter;
     CustomizedArrayAdapterItem arrayAdapterItems[];
@@ -60,24 +57,9 @@ public class JourneySelectActivity extends AppCompatActivity implements Navigati
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-//        getSupportActionBar().setDisplayShowHomeEnabled(true);
         carbonFootprintInterface = CarbonFootprintComponentCollection.getInstance();
-//        startAddActivity();
         createListView();
-//        setupEditVehicleLongPress();
     }
-
-//    private void startAddActivity() { //launching the add activity
-//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent = new Intent(JourneySelectActivity.this, JourneyAddActivity.class);
-//                startActivityForResult(intent, ACTIVITY_RESULT_ADD);
-//            }
-//        });
-//    }
 
     private void setBottomNavigationItemsStatus() {
         BottomNavigationView bottomNavigationView = (BottomNavigationView)findViewById(R.id.bottom_navigation);
@@ -105,7 +87,6 @@ public class JourneySelectActivity extends AppCompatActivity implements Navigati
                     journies.get(i).getRouteModel().getName(),
                     journies.get(i).getCreationDateString());
         }
-        selectItem = -1;
         adapter = new CustomizedArrayAdapter(this, arrayAdapterItems, getTitles(arrayAdapterItems));
     }
 
@@ -165,14 +146,6 @@ public class JourneySelectActivity extends AppCompatActivity implements Navigati
                 adapter.setSelected(position);
                 adapter.notifyDataSetChanged();
                 setBottomNavigationItemsStatus();
-                /*
-                Intent intent = getIntent();
-                // Passing selected vehicle to the caller activity
-                JourneyModel selectedJourney = journies.get(position);
-                intent.putExtra("journey", selectedJourney);
-                setResult(RESULT_OK, intent);
-                finish();
-                */
             }
         });
     }
@@ -189,28 +162,8 @@ public class JourneySelectActivity extends AppCompatActivity implements Navigati
                     "   Route: " + v.getRouteModel().getName() +
                     "   Date: " + v.getCreationDateString());
         }
-
-        //Create array adapter
-//        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(
-//                this, //context
-//                android.R.layout.simple_list_item_1,
-//                journey_nameList //arrayList
-//        );
+        adapter.setSelected(selectedItemIndex);
         journeyList.setAdapter(adapter);
-    }
-
-    private void setupEditVehicleLongPress() { //we can edit the vehicle or delte
-        ListView list = (ListView) findViewById(R.id.journey_select_list);
-        list.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                JourneyModel journeyModel  = journies.get(position);
-                idOfJourneyEditing = journeyModel.getId();
-                Intent intent = JourneyAddActivity.makeIntentForEditJourney(JourneySelectActivity.this, journeyModel);
-                startActivityForResult(intent, ACTIVITY_RESULT_EDIT); //open the edit activity
-                return true;
-            }
-        });
     }
 
     @Override
@@ -231,6 +184,7 @@ public class JourneySelectActivity extends AppCompatActivity implements Navigati
 
         }
         else if (resultCode == JourneyAddActivity.RESULT_DELETE){
+            selectedItemIndex = -1;
             populateJourneyList();
         }
 
