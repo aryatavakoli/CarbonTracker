@@ -95,6 +95,7 @@ public class JourneyAddActivity extends AppCompatActivity implements NavigationV
                             } else if (!addJourney(newJourney)) {
                                 break;
                             }
+
                             Intent intent = new Intent();
                             intent.putExtra("journey", newJourney);
                             setResult(Activity.RESULT_OK, intent);
@@ -339,16 +340,4 @@ public class JourneyAddActivity extends AppCompatActivity implements NavigationV
     }
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
 
