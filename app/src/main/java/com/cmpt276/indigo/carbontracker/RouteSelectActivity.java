@@ -40,7 +40,6 @@ public class RouteSelectActivity extends AppCompatActivity implements Navigation
     private static final int ACTIVITY_RESULT_EDIT = 60;
     List<Integer> routePositionList;
     ArrayList<RouteModel> routes;
-    int selectItem;
     private int selectedItemIndex;
     int image = R.drawable.route;
     CustomizedArrayAdapter adapter;
@@ -80,7 +79,6 @@ public class RouteSelectActivity extends AppCompatActivity implements Navigation
         for (int i = 0; i < routeSize; i++){
             arrayAdapterItems[i] = new CustomizedArrayAdapterItem(image, routes.get(i).getName(), "", "");
         }
-        selectItem = -1;
         adapter = new CustomizedArrayAdapter(this, arrayAdapterItems, getTitles(arrayAdapterItems));
     }
 
@@ -179,14 +177,7 @@ public class RouteSelectActivity extends AppCompatActivity implements Navigation
             }
             counter++;
         }
-
-//        //Create array adapter
-//        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(
-//                this, //context
-//                android.R.layout.simple_list_item_1,
-//                routeNameList //arrayList
-//        );
-
+        adapter.setSelected(selectedItemIndex);
         //apply adapter ro listview
         routeList.setAdapter(adapter);
     }
@@ -239,6 +230,7 @@ public class RouteSelectActivity extends AppCompatActivity implements Navigation
 
         }
         else if (resultCode == RouteAddActivity.RESULT_DELETE){
+            selectedItemIndex = -1;
             populateRoutesList();
         }
         setBottomNavigationItemsStatus();
@@ -257,7 +249,6 @@ public class RouteSelectActivity extends AppCompatActivity implements Navigation
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.nav_drawer, menu);
         return true;
     }
 

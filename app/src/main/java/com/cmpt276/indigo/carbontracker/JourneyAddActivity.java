@@ -40,7 +40,6 @@ import java.util.List;
 
 public class JourneyAddActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
     public static final int RESULT_DELETE = 15;
-    public static final int DATE_SELECT = 52;
     ArrayList<JourneyModel> journies;
     ArrayList<TransportationModel> vehicles;
     ArrayList<RouteModel> routes;
@@ -49,7 +48,6 @@ public class JourneyAddActivity extends AppCompatActivity implements NavigationV
     public static final int ROUTE_SELECT = 57;
     boolean isRouteSelected, isVehicleSelected;
     CarbonFootprintComponentCollection carbonFootprintInterface;
-    List<Integer> journey_positionList;
     public double carbonEmission;
 
     private boolean isEdit = false;// if in edit mode or not
@@ -67,9 +65,6 @@ public class JourneyAddActivity extends AppCompatActivity implements NavigationV
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        //Allows for backbutton
-//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-//        getSupportActionBar().setDisplayShowHomeEnabled(true);
         newJourney = new JourneyModel(); // The journey the user is creating
         carbonFootprintInterface = CarbonFootprintComponentCollection.getInstance();
         journies = carbonFootprintInterface.getJournies(this);
@@ -79,8 +74,6 @@ public class JourneyAddActivity extends AppCompatActivity implements NavigationV
         transportSelectBtn();
         routeSelectBtn();
         gettingDate();
-//        deleteBtn();
-
         setupBottomNavigation();
     }
 
@@ -116,6 +109,7 @@ public class JourneyAddActivity extends AppCompatActivity implements NavigationV
                         finish();
                         break;
                     case R.id.action_delete:
+                        removeItem();
                         break;
                 }
                 return true;
@@ -130,6 +124,16 @@ public class JourneyAddActivity extends AppCompatActivity implements NavigationV
         else{
             MenuItem deleteItem = menu.findItem(R.id.action_delete);
             deleteItem.setEnabled(false);
+        }
+    }
+
+    private void removeItem() {
+        if (newJourney != null) {
+            // delete the select journey
+            carbonFootprintInterface.remove(this, newJourney);
+            setResult(RESULT_DELETE);
+            // finish this activity and back
+            finish();
         }
     }
 
@@ -246,29 +250,6 @@ public class JourneyAddActivity extends AppCompatActivity implements NavigationV
             }
         });
     }
-//
-//    /**
-//     * delete the journey
-//     */
-//    private void deleteBtn() {
-//        Button btn = (Button) findViewById(R.id.journey_menu_delete_btn);
-//        if(!isEdit){
-//            btn.setEnabled(false);
-//        }
-//        final Context context = this;
-//        btn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                if (newJourney != null) {
-//                    // delete the select journey
-//                    carbonFootprintInterface.remove(context, newJourney);
-//                    setResult(RESULT_DELETE);
-//                    // finish this activity and back
-//                    finish();
-//                }
-//            }
-//        });
-//    }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == RESULT_OK) {
@@ -297,7 +278,7 @@ public class JourneyAddActivity extends AppCompatActivity implements NavigationV
         intent.putExtra("journey", journeyModel);
         return intent;
     }
-    private void showTipDialog() { //open a dialoge and pass the arraylist to the tipfragment to use them
+    private void showTipDialog() { //open a dialog and pass the arraylist to the tipfragment to use them
         FragmentManager manager = getSupportFragmentManager();
         TipFragment dialog = new TipFragment();
         dialog.setCancelable(false);
@@ -305,8 +286,6 @@ public class JourneyAddActivity extends AppCompatActivity implements NavigationV
         dialog.setVehicles(vehicles);
         dialog.setJournies(journies);
         dialog.setRoutes(routes);
-
-
     }
 
     @Override
@@ -322,7 +301,6 @@ public class JourneyAddActivity extends AppCompatActivity implements NavigationV
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.nav_drawer, menu);
         return true;
     }
 

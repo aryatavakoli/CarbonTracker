@@ -65,9 +65,6 @@ public class RouteAddActivity extends AppCompatActivity implements NavigationVie
         toggle.syncState();
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        setupOKButton();
-        setupDeleteButton();
-
         setupBottomNavigation();
     }
 
@@ -76,15 +73,16 @@ public class RouteAddActivity extends AppCompatActivity implements NavigationVie
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener(){
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item){
-                Intent intent = new Intent(RouteAddActivity.this, RouteSelectActivity.class);
                 switch(item.getItemId())
                 {
                     case R.id.action_add:
+                        onAddClick();
                         break;
                     case R.id.action_cancel:
                         finish();
                         break;
                     case R.id.action_delete:
+                        onClickDelete();
                         break;
                 }
                 return true;
@@ -100,6 +98,14 @@ public class RouteAddActivity extends AppCompatActivity implements NavigationVie
             MenuItem deleteItem = menu.findItem(R.id.action_delete);
             deleteItem.setEnabled(false);
         }
+    }
+
+    private void onClickDelete(){
+        //Removing vehicle from collection if it is on the list
+        removeRoute(currentRoute);
+        setResult(RESULT_DELETE);
+        Toast.makeText(RouteAddActivity.this, "Route Deleted!", Toast.LENGTH_SHORT).show();
+        finish();
     }
 
     private void populateUIFromIntent() { //If the user wants to edit the pot this function gets the value from the
@@ -161,61 +167,53 @@ public class RouteAddActivity extends AppCompatActivity implements NavigationVie
         }
     }
 
-    private void setupOKButton() {
-        Button btn = (Button) findViewById(R.id.add_route_ok_btn);
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                EditText editTextName = (EditText) findViewById(R.id.add_route_editText_nickname);
+    private void onAddClick() {
+        EditText editTextName = (EditText) findViewById(R.id.add_route_editText_nickname);
 
-                if (editTextName.getText().toString().length() == 0) {
-                    Toast.makeText(RouteAddActivity.this, "Please enter a route name.", Toast.LENGTH_SHORT)
-                            .show();
-                    return;
+        if (editTextName.getText().toString().length() == 0) {
+            Toast.makeText(RouteAddActivity.this, "Please enter a route name.", Toast.LENGTH_SHORT)
+                    .show();
+            return;
 
-                }
+        }
 
-                EditText editTextHighway = (EditText) findViewById(R.id.add_route_editText_highway_distance);
+        EditText editTextHighway = (EditText) findViewById(R.id.add_route_editText_highway_distance);
 
-                if (editTextHighway.getText().toString().length() == 0) {
-                    Toast.makeText(RouteAddActivity.this, "Please enter a highway distance.", Toast.LENGTH_SHORT)
-                            .show();
-                    return;
+        if (editTextHighway.getText().toString().length() == 0) {
+            Toast.makeText(RouteAddActivity.this, "Please enter a highway distance.", Toast.LENGTH_SHORT)
+                    .show();
+            return;
 
-                }
+        }
 
-                EditText editTextCity = (EditText) findViewById(R.id.add_route_editText_city_distance);
-                if (editTextCity.getText().toString().length() == 0) {
-                    Toast.makeText(RouteAddActivity.this, "Please enter a city distance.", Toast.LENGTH_SHORT)
-                            .show();
-                    return;
-                }
-                RouteModel newRoute = createRoute();
+        EditText editTextCity = (EditText) findViewById(R.id.add_route_editText_city_distance);
+        if (editTextCity.getText().toString().length() == 0) {
+            Toast.makeText(RouteAddActivity.this, "Please enter a city distance.", Toast.LENGTH_SHORT)
+                    .show();
+            return;
+        }
+        RouteModel newRoute = createRoute();
 
-                if (editing) {
-                    Intent intent = getIntent();
-                    //Passing the route object to the RouteActivity
-                        intent.putExtra("route", newRoute);
-                        setResult(RESULT_OK, intent);
-                        finish();
-                }
+        if (editing) {
+            Intent intent = getIntent();
+            //Passing the route object to the RouteActivity
+            intent.putExtra("route", newRoute);
+            setResult(RESULT_OK, intent);
+            finish();
+        }
 
-                //adding route to collection if it is not duplicate and user is not editing
-                else if (!addRoute(newRoute)) {
-                    return;
-                }
-                else{
-                    Toast.makeText(RouteAddActivity.this, "Route Added!", Toast.LENGTH_SHORT).show();
-                }
-                Intent intent = new Intent();
-                intent.putExtra("route", newRoute);
-                setResult(Activity.RESULT_OK, intent);
+        //adding route to collection if it is not duplicate and user is not editing
+        else if (!addRoute(newRoute)) {
+            return;
+        }
+        else{
+            Toast.makeText(RouteAddActivity.this, "Route Added!", Toast.LENGTH_SHORT).show();
+        }
+        Intent intent = new Intent();
+        intent.putExtra("route", newRoute);
+        setResult(Activity.RESULT_OK, intent);
 
-                finish();
-
-            }
-
-        });
+        finish();
     }
 
     private RouteModel createRoute() {
@@ -249,29 +247,11 @@ public class RouteAddActivity extends AppCompatActivity implements NavigationVie
         return true;
     }
 
-
-    private void setupDeleteButton(){
-        Button btnDelete = (Button) findViewById(R.id.add_route_delete_btn);
-        if(!editing){
-            btnDelete.setEnabled(false);
-        }
-        btnDelete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                removeRoute(currentRoute);
-                setResult(RESULT_DELETE);
-                Toast.makeText(RouteAddActivity.this, "Route Deleted!", Toast.LENGTH_SHORT).show();
-                finish();
-            }
-        });
-    }
-
     boolean removeRoute(RouteModel route){
         if(!carbonFootprintInterface.remove(this, route)) {
             Toast.makeText(RouteAddActivity.this, "Failed to delete!!", Toast.LENGTH_LONG).show();
             return false;
         }
-        Toast.makeText(RouteAddActivity.this, "deleting completed", Toast.LENGTH_LONG).show();
         return true;
     }
 
@@ -300,7 +280,6 @@ public class RouteAddActivity extends AppCompatActivity implements NavigationVie
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.nav_drawer, menu);
         return true;
     }
 

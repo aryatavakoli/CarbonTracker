@@ -44,9 +44,6 @@ public class TransportationAddActivity extends AppCompatActivity implements Navi
         setContentView(R.layout.activity_transportation_add);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        //Allows for backbutton
-//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-//        getSupportActionBar().setDisplayShowHomeEnabled(true);
         carbonFootprintInterface = CarbonFootprintComponentCollection.getInstance();
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -57,7 +54,6 @@ public class TransportationAddActivity extends AppCompatActivity implements Navi
         navigationView.setNavigationItemSelectedListener(this);
         setupDropdownList();
         populateUIFromIntent();
-
         setupBottomNavigation();
     }
 
@@ -429,8 +425,6 @@ public class TransportationAddActivity extends AppCompatActivity implements Navi
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.nav_drawer, menu);
         return true;
     }
 
