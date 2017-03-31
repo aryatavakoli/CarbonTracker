@@ -12,7 +12,7 @@ import android.widget.TextView;
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.CarbonFootprintComponentCollection;
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.JourneyModel;
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.RouteModel;
-import com.cmpt276.indigo.carbontracker.carbon_tracker_model.VehicleModel;
+import com.cmpt276.indigo.carbontracker.carbon_tracker_model.TransportationModel;
 
 /*
     Creates a table Adapter to inflate layout
@@ -58,7 +58,7 @@ class  TableAdapter extends BaseAdapter {
 
         JourneyModel journey = (JourneyModel) this.getItem(position);
 
-        VehicleModel vehicles = journey.getVehicleModel();
+        TransportationModel vehicles = journey.getTransportationModel();
 
         RouteModel route = journey.getRouteModel();
 

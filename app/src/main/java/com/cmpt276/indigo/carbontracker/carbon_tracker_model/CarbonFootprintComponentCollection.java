@@ -4,10 +4,7 @@ import android.content.Context;
 import android.database.Cursor;
 
 import java.io.InputStream;
-import java.lang.reflect.Array;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
@@ -20,7 +17,7 @@ public class CarbonFootprintComponentCollection {
 
     private ArrayList<JourneyModel> journies;
     private ArrayList<String> vehicleMakes;
-    private ArrayList<VehicleModel> readVehicles;
+    private ArrayList<TransportationModel> readVehicles;
     private static CarbonFootprintComponentCollection instance = new CarbonFootprintComponentCollection();
 
     public static CarbonFootprintComponentCollection getInstance(){
@@ -32,9 +29,9 @@ public class CarbonFootprintComponentCollection {
         vehicleMakes = new ArrayList<>();
     }
 
-    public ArrayList<VehicleModel> getVehicles(Context context) {
-        VehicleDBAdapter vehicleDBAdapter = new VehicleDBAdapter(context);
-        return vehicleDBAdapter.getAllVehicles();
+    public ArrayList<TransportationModel> getVehicles(Context context) {
+        TransportationDBAdapter transportationDBAdapter = new TransportationDBAdapter(context);
+        return transportationDBAdapter.getAllVehicles();
     }
 
     public ArrayList<RouteModel> getRoutes(Context context) {
@@ -56,11 +53,11 @@ public class CarbonFootprintComponentCollection {
     //Throw an exception if component cannot be casted to a valid type
     public void add(Context context, CarbonFootprintComponent component){
         validateComponentDuplication(context, component);
-        if (component instanceof VehicleModel){
-            VehicleDBAdapter vehicleDBAdapter = new VehicleDBAdapter(context);
-            vehicleDBAdapter.open();
-            vehicleDBAdapter.insertRow((VehicleModel)component);
-            vehicleDBAdapter.close();
+        if (component instanceof TransportationModel){
+            TransportationDBAdapter transportationDBAdapter = new TransportationDBAdapter(context);
+            transportationDBAdapter.open();
+            transportationDBAdapter.insertRow((TransportationModel)component);
+            transportationDBAdapter.close();
         }
         else if (component instanceof RouteModel){
             RouteDBAdapter routeDBAdapter = new RouteDBAdapter(context);
@@ -87,9 +84,9 @@ public class CarbonFootprintComponentCollection {
 
     //Edit an existing component to replace it with the passed argument
     private <E extends CarbonFootprintComponent> void edit(ArrayList<E> list, CarbonFootprintComponent component, Context context){
-        if (component instanceof VehicleModel){
-//            VehicleModel vehicle = (VehicleModel) component;
-//            VehicleDBAdapter vehicleDBAdapter = new VehicleDBAdapter(context);
+        if (component instanceof TransportationModel){
+//            TransportationModel vehicle = (TransportationModel) component;
+//            TransportationDBAdapter vehicleDBAdapter = new TransportationDBAdapter(context);
 //            vehicleDBAdapter.open();
 //            vehicleDBAdapter.updateRow(vehicle);
 //            vehicleDBAdapter.close();
@@ -103,12 +100,12 @@ public class CarbonFootprintComponentCollection {
     //edit component from one of arrayList based on its underlying type
     //Throw an exception if component cannot be casted to a valid type or found
     public void edit(Context context, CarbonFootprintComponent component){
-        if (component instanceof VehicleModel){
-            VehicleModel vehicle = (VehicleModel) component;
-            VehicleDBAdapter vehicleDBAdapter = new VehicleDBAdapter(context);
-            vehicleDBAdapter.open();
-            vehicleDBAdapter.updateRow(vehicle);
-            vehicleDBAdapter.close();
+        if (component instanceof TransportationModel){
+            TransportationModel vehicle = (TransportationModel) component;
+            TransportationDBAdapter transportationDBAdapter = new TransportationDBAdapter(context);
+            transportationDBAdapter.open();
+            transportationDBAdapter.updateRow(vehicle);
+            transportationDBAdapter.close();
         }
         else if (component instanceof RouteModel){
             RouteModel route = (RouteModel) component;
@@ -140,14 +137,14 @@ public class CarbonFootprintComponentCollection {
     //Throw an exception if component cannot be casted to a valid type
     public boolean remove(Context context, CarbonFootprintComponent component){
         boolean result = false;
-        if (component instanceof VehicleModel){
-            VehicleModel vehicle = (VehicleModel) component;
+        if (component instanceof TransportationModel){
+            TransportationModel vehicle = (TransportationModel) component;
             if(vehicle.getId() > -1){
                 vehicle.setIsDeleted(true);
-                VehicleDBAdapter vehicleDBAdapter = new VehicleDBAdapter(context);
-                vehicleDBAdapter.open();
-                result = vehicleDBAdapter.updateRow(vehicle);
-                vehicleDBAdapter.close();
+                TransportationDBAdapter transportationDBAdapter = new TransportationDBAdapter(context);
+                transportationDBAdapter.open();
+                result = transportationDBAdapter.updateRow(vehicle);
+                transportationDBAdapter.close();
             }
             else
             {
@@ -212,17 +209,17 @@ public class CarbonFootprintComponentCollection {
     //Throw an exception if the component is not valid
     private void validateComponentDuplication(Context context, CarbonFootprintComponent component){
         // check from database
-        if (component instanceof VehicleModel){
-            VehicleModel vehicleModel = (VehicleModel)component;
-            VehicleDBAdapter vehicleDBAdapter = new VehicleDBAdapter(context);
-            vehicleDBAdapter.open();
-            Cursor c = vehicleDBAdapter.getName(vehicleModel.getName());
+        if (component instanceof TransportationModel){
+            TransportationModel transportationModel = (TransportationModel)component;
+            TransportationDBAdapter transportationDBAdapter = new TransportationDBAdapter(context);
+            transportationDBAdapter.open();
+            Cursor c = transportationDBAdapter.getName(transportationModel.getName());
             if(c.getCount() > 0)
             {
-                vehicleDBAdapter.close();
+                transportationDBAdapter.close();
                 throw new DuplicateComponentException();
             }
-            vehicleDBAdapter.close();
+            transportationDBAdapter.close();
             return;
         }
         else if (component instanceof RouteModel){
@@ -288,7 +285,7 @@ public class CarbonFootprintComponentCollection {
 
     private void extractMakes() {
         Set<String> makesSet = new HashSet<>();
-        for(VehicleModel v : readVehicles){
+        for(TransportationModel v : readVehicles){
             makesSet.add(v.getMake());
         }
         vehicleMakes = new ArrayList<>(makesSet);
@@ -297,7 +294,7 @@ public class CarbonFootprintComponentCollection {
 
     private ArrayList<String> extractModels(String make) {
         Set<String> modelsSet = new HashSet<>();
-        for(VehicleModel v : readVehicles){
+        for(TransportationModel v : readVehicles){
             if(v.getMake().equals(make)){
                 modelsSet.add(v.getModel());
             }
@@ -309,7 +306,7 @@ public class CarbonFootprintComponentCollection {
 
     private ArrayList<String> extractYears(String make, String model) {
         Set<String> yearsSet = new HashSet<>();
-        for(VehicleModel v : readVehicles){
+        for(TransportationModel v : readVehicles){
             if(v.getMake().equals(make) && v.getModel().equals(model)){
                 yearsSet.add(v.getYear());
             }
@@ -321,7 +318,7 @@ public class CarbonFootprintComponentCollection {
 
     private ArrayList<String> extractTransmission(String make, String model, String year) {
         Set<String> transmissionSet = new HashSet<>();
-        for(VehicleModel v : readVehicles){
+        for(TransportationModel v : readVehicles){
             if(v.getMake().equals(make) && v.getModel().equals(model) && v.getYear().equals(year)){
                 transmissionSet.add(v.getTransmisson());
             }
@@ -332,7 +329,7 @@ public class CarbonFootprintComponentCollection {
     }
     private ArrayList<String> extractEngineDisplacement(String make, String model, String year, String Transmission) {
         Set<String> engineDisplacementSet = new HashSet<>();
-        for(VehicleModel v : readVehicles){
+        for(TransportationModel v : readVehicles){
             if(v.getMake().equals(make) && v.getModel().equals(model) && v.getYear().equals(year) && v.getTransmisson().equals(Transmission)){
                 engineDisplacementSet.add(v.getEngineDisplacment());
             }
@@ -342,11 +339,11 @@ public class CarbonFootprintComponentCollection {
         return vehicleEngineDisplacements;
     }
 
-    public void populateCarFuelData(VehicleModel vehicleModel){
-        for(VehicleModel v : readVehicles){
-            if(v.getMake().equals(vehicleModel.getMake()) && v.getModel().equals(vehicleModel.getModel()) &&
-                v.getYear().equals(vehicleModel.getYear())){
-                vehicleModel.copyFuelData(v);
+    public void populateCarFuelData(TransportationModel transportationModel){
+        for(TransportationModel v : readVehicles){
+            if(v.getMake().equals(transportationModel.getMake()) && v.getModel().equals(transportationModel.getModel()) &&
+                v.getYear().equals(transportationModel.getYear())){
+                transportationModel.copyFuelData(v);
                 return;
             }
         }

@@ -2,7 +2,6 @@ package com.cmpt276.indigo.carbontracker.carbon_tracker_model;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.Objects;
 /*
     Implements JourneyModel that describes a journey object
@@ -15,7 +14,7 @@ public class JourneyModel implements CarbonFootprintComponent{
     public static final String DATE_FORMAT = "yyyy-MMM-dd";
 
     private long id;
-    private VehicleModel vehicleModel;
+    private TransportationModel transportationModel;
     private RouteModel routeModel;
     private double co2Emission;
     private Calendar creationDate;
@@ -23,7 +22,7 @@ public class JourneyModel implements CarbonFootprintComponent{
 
     public JourneyModel(){
         setId(-1);
-        setVehicleModel(null);
+        setTransportationModel(null);
         setRouteModel(null);
         setCo2Emission(0.0);
         setCreationDate(Calendar.getInstance());
@@ -31,13 +30,13 @@ public class JourneyModel implements CarbonFootprintComponent{
     }
 
     public JourneyModel(long id,
-                        VehicleModel vehicle,
+                        TransportationModel vehicle,
                         RouteModel route,
                         float co2Emission,
                         Calendar creationDate,
                         boolean isDeleted){
         setId(id);
-        setVehicleModel(vehicle);
+        setTransportationModel(vehicle);
         setRouteModel(route);
         setCo2Emission(co2Emission);
         setCreationDate(creationDate);
@@ -52,8 +51,8 @@ public class JourneyModel implements CarbonFootprintComponent{
         this.creationDate = creationDate;
     }
 
-    public VehicleModel getVehicleModel() {
-        return vehicleModel;
+    public TransportationModel getTransportationModel() {
+        return transportationModel;
     }
 
     public RouteModel getRouteModel() {
@@ -64,8 +63,8 @@ public class JourneyModel implements CarbonFootprintComponent{
         this.routeModel = routeModel;
     }
 
-    public void setVehicleModel(VehicleModel vehicleModel) {
-        this.vehicleModel = vehicleModel;
+    public void setTransportationModel(TransportationModel transportationModel) {
+        this.transportationModel = transportationModel;
     }
 
     public double getCo2Emission(){
@@ -94,10 +93,10 @@ public class JourneyModel implements CarbonFootprintComponent{
     public void calculateEmissions() {
 
         double totalFootprint = 0;
-        if(vehicleModel != null && routeModel != null){
-            String fuelType = vehicleModel.getPrimaryFuelType();
-            double highwayMileageKmPerLitre = vehicleModel.getHighwayMileage();
-            double cityMileageKmPerLitre = vehicleModel.getCityMileage();
+        if(transportationModel != null && routeModel != null){
+            String fuelType = transportationModel.getPrimaryFuelType();
+            double highwayMileageKmPerLitre = transportationModel.getHighwayMileage();
+            double cityMileageKmPerLitre = transportationModel.getCityMileage();
 
             double highwayDistanceInKm = routeModel.getHighwayDistance();
             double cityDistanceInKm = routeModel.getCityDistance();
@@ -107,22 +106,22 @@ public class JourneyModel implements CarbonFootprintComponent{
                     + (highwayDistanceInKm / highwayMileageKmPerLitre);
             if (fuelType.contains("Gasoline") || Objects.equals(fuelType, "Regular") || Objects.equals(fuelType, "Premium"))
             {
-                totalFootprint = (VehicleModel.GASOLINE_FOOTPRINT_KG_PER_LITRE) * litres;
+                totalFootprint = (TransportationModel.GASOLINE_FOOTPRINT_KG_PER_LITRE) * litres;
             }
             //Diesel
             else if (Objects.equals(fuelType, "Diesel"))
             {
-                totalFootprint = (VehicleModel.DIESEL_FOOTPRINT_KG_PER_LITRE) * litres;
+                totalFootprint = (TransportationModel.DIESEL_FOOTPRINT_KG_PER_LITRE) * litres;
             }
             else if (Objects.equals(fuelType, "Electricity") || Objects.equals(fuelType,"Electric") )
             {
                 totalFootprint = 0;
             }
-            if (vehicleModel.getTransportaionMode() == VehicleModel.TransportationMode.WALK_BIKE) {
+            if (transportationModel.getTransportaionMode() == TransportationModel.TransportationMode.WALK_BIKE) {
                 totalFootprint =  routeModel.getTotalDistance() * CO2_PER_KM_PEDESTRIAN ; //user chooses walk or bike
-            } else if (vehicleModel.getTransportaionMode() == VehicleModel.TransportationMode.BUS) {
+            } else if (transportationModel.getTransportaionMode() == TransportationModel.TransportationMode.BUS) {
                 totalFootprint =  routeModel.getTotalDistance() * CO2_PER_KM_BUS; //user chooses bus
-            } else if (vehicleModel.getTransportaionMode() == VehicleModel.TransportationMode.SKYTRAIN) {
+            } else if (transportationModel.getTransportaionMode() == TransportationModel.TransportationMode.SKYTRAIN) {
                 totalFootprint =  routeModel.getTotalDistance() * CO2_PER_KM_SKYTRAIN ; //user chooses skytrain
             }
         }

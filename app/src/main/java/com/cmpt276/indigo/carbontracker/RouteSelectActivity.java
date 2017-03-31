@@ -241,7 +241,7 @@ public class RouteSelectActivity extends AppCompatActivity implements Navigation
         else if (resultCode == RouteAddActivity.RESULT_DELETE){
             populateRoutesList();
         }
-
+        setBottomNavigationItemsStatus();
     }
 
     @Override

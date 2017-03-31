@@ -18,12 +18,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.cmpt276.indigo.carbontracker.carbon_tracker_model.VehicleModel;
+import com.cmpt276.indigo.carbontracker.carbon_tracker_model.TransportationModel;
 
 import java.util.ArrayList;
 
@@ -36,8 +35,8 @@ public class TransportationAddActivity extends AppCompatActivity implements Navi
     public static final int RESULT_DELETE = 200;
     CarbonFootprintComponentCollection carbonFootprintInterface;
     private boolean editing = false;
-    VehicleModel currentVehicle;
-    VehicleModel.TransportationMode transportationModes[];
+    TransportationModel currentVehicle;
+    TransportationModel.TransportationMode transportationModes[];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,7 +96,7 @@ public class TransportationAddActivity extends AppCompatActivity implements Navi
 
     private void populateUIFromIntent() {
         Intent intent = getIntent();
-        currentVehicle = (VehicleModel) intent.getSerializableExtra("vehicle");
+        currentVehicle = (TransportationModel) intent.getSerializableExtra("vehicle");
         if (currentVehicle != null){
             editing = true;
             EditText editName = (EditText) findViewById(R.id.add_transport_editText_nickname);
@@ -108,7 +107,7 @@ public class TransportationAddActivity extends AppCompatActivity implements Navi
             String year =  currentVehicle.getYear();
             String transmission = currentVehicle.getTransmisson();
             String engineDisplacement = currentVehicle.getEngineDisplacment();
-            VehicleModel.TransportationMode transportationMode = currentVehicle.getTransportaionMode();
+            TransportationModel.TransportationMode transportationMode = currentVehicle.getTransportaionMode();
 
             setSpinnerSelection(R.id.add_transport_dropdown_make, carbonFootprintInterface.getVehicleMakes(), make);
             setSpinnerSelection(R.id.add_transport_dropdown_model, carbonFootprintInterface.getVehicleModel(make), model);
@@ -140,7 +139,7 @@ public class TransportationAddActivity extends AppCompatActivity implements Navi
 
     private void onAddClick(){
         //Try to get data from transportation add UI and create a vehicle object
-        VehicleModel vehicle = createVehicleObject();
+        TransportationModel vehicle = createVehicleObject();
         if (vehicle == null){
             return;
         }
@@ -157,7 +156,7 @@ public class TransportationAddActivity extends AppCompatActivity implements Navi
             return;
         }
         else{
-            Toast.makeText(TransportationAddActivity.this, "Vehicle Added!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(TransportationAddActivity.this, "Transportation Added!", Toast.LENGTH_SHORT).show();
         }
         Intent intent = getIntent();
         //Passing the vehicle object to the TransportationActivity
@@ -170,17 +169,17 @@ public class TransportationAddActivity extends AppCompatActivity implements Navi
         //Removing vehicle from collection if it is on the list
         removeVehicle(currentVehicle);
         setResult(RESULT_DELETE);
-        Toast.makeText(TransportationAddActivity.this, "Vehicle Deleted!", Toast.LENGTH_SHORT).show();
+        Toast.makeText(TransportationAddActivity.this, "Transportation Deleted!", Toast.LENGTH_SHORT).show();
         finish();
     }
 
-    private VehicleModel createVehicleObject(){
+    private TransportationModel createVehicleObject(){
         //Try to get data from transportation add UI
         EditText nickNameEditText = (EditText) findViewById(R.id.add_transport_editText_nickname);
         String name = nickNameEditText.getText().toString();
 
         if (name.length() == 0) {
-            Toast.makeText(TransportationAddActivity.this, "Please enter a vehicle name.", Toast.LENGTH_SHORT)
+            Toast.makeText(TransportationAddActivity.this, "Please enter a transportation name.", Toast.LENGTH_SHORT)
                     .show();
             return null;
         }
@@ -192,7 +191,7 @@ public class TransportationAddActivity extends AppCompatActivity implements Navi
         String year = null;
         String transmission = null;
         String engineDisplacement = null;
-        if(transportationModes[selectedTransportationModeIndex] == VehicleModel.TransportationMode.CAR){
+        if(transportationModes[selectedTransportationModeIndex] == TransportationModel.TransportationMode.CAR){
             Spinner vehicleMakeSpinner = (Spinner) findViewById(R.id.add_transport_dropdown_make);
             make = vehicleMakeSpinner.getSelectedItem().toString();
             if (make == null){
@@ -224,7 +223,7 @@ public class TransportationAddActivity extends AppCompatActivity implements Navi
             }
         }
         //Creating vehicle object to pass it to vehicle activity to be added to the list.
-        VehicleModel vehicle = new VehicleModel(-1, name, make, model, year, transmission , engineDisplacement, 0, 0, "", transportationModes[selectedTransportationModeIndex], false);
+        TransportationModel vehicle = new TransportationModel(-1, name, make, model, year, transmission , engineDisplacement, 0, 0, "", transportationModes[selectedTransportationModeIndex], false);
 
         // setting fuel efficiency data
         carbonFootprintInterface.populateCarFuelData(vehicle);
@@ -236,19 +235,19 @@ public class TransportationAddActivity extends AppCompatActivity implements Navi
         return new Intent(packageContext, TransportationAddActivity.class);
     }
 
-    public static Intent makeIntentForEditVehicle(Context packageContext, VehicleModel vehicle) {
+    public static Intent makeIntentForEditVehicle(Context packageContext, TransportationModel vehicle) {
         Intent intent = makeIntentForNewVehicle(packageContext);
         intent.putExtra("vehicle", vehicle);
         return intent;
     }
 
-    boolean addVehicle(VehicleModel vehicle){
+    boolean addVehicle(TransportationModel vehicle){
         try{
             carbonFootprintInterface.add(this, vehicle);
         }
         catch(DuplicateComponentException e){
             if(!editing) {
-                Toast.makeText(TransportationAddActivity.this, "This vehicle already exist.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(TransportationAddActivity.this, "This transportation already exist.", Toast.LENGTH_SHORT).show();
             }
             return false;
         }
@@ -256,7 +255,7 @@ public class TransportationAddActivity extends AppCompatActivity implements Navi
     }
 
     //remove(hide) vehicle from the list
-    void removeVehicle(VehicleModel vehicle){
+    void removeVehicle(TransportationModel vehicle){
         carbonFootprintInterface.remove(this, vehicle);
     }
 
@@ -280,13 +279,13 @@ public class TransportationAddActivity extends AppCompatActivity implements Navi
     }
 
     private void setupTransportationModelDropdownList() {
-        transportationModes = VehicleModel.TransportationMode.values();
+        transportationModes = TransportationModel.TransportationMode.values();
         Spinner transportationModelSpinner = (Spinner)findViewById(R.id.add_transport_dropdown_transportation_mode);
         transportationModelSpinner.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, transportationModes));
         transportationModelSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if(transportationModes[position] != VehicleModel.TransportationMode.CAR){
+                if(transportationModes[position] != TransportationModel.TransportationMode.CAR){
                     // disable all other fields
                     enableNonCarFields(false);
                 }

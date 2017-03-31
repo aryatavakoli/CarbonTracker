@@ -1,13 +1,10 @@
 package com.cmpt276.indigo.carbontracker;
 
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -18,14 +15,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
-import com.cmpt276.indigo.carbontracker.carbon_tracker_model.CarbonFootprintComponent;
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.CarbonFootprintComponentCollection;
-import com.cmpt276.indigo.carbontracker.carbon_tracker_model.JourneyModel;
-import com.cmpt276.indigo.carbontracker.carbon_tracker_model.VehicleModel;
+import com.cmpt276.indigo.carbontracker.carbon_tracker_model.TransportationModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,7 +39,7 @@ public class TransportationSelectActvitiy extends AppCompatActivity implements N
     CustomizedArrayAdapter adapter;
     CustomizedArrayAdapterItem arrayAdapterItems[];
 
-    ArrayList<VehicleModel> vehicles;
+    ArrayList<TransportationModel> vehicles;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -123,7 +116,7 @@ public class TransportationSelectActvitiy extends AppCompatActivity implements N
 
     private void editItem(){
         if(selectedItemIndex > -1) {
-            VehicleModel vehicle = vehicles.get(selectedItemIndex);
+            TransportationModel vehicle = vehicles.get(selectedItemIndex);
             idOfVehicleEditing = vehicle.getId();
             Intent intent = TransportationAddActivity.makeIntentForEditVehicle(TransportationSelectActvitiy.this, vehicle);
             startActivityForResult(intent, ACTIVITY_RESULT_EDIT); //open the edit activity
@@ -133,7 +126,7 @@ public class TransportationSelectActvitiy extends AppCompatActivity implements N
     private void onSelectTransportation(){
         Intent intent = getIntent();
         // Passing selected vehicle to the caller activity
-        VehicleModel selectedVehicle = vehicles.get(selectedItemIndex);
+        TransportationModel selectedVehicle = vehicles.get(selectedItemIndex);
         intent.putExtra("vehicle", selectedVehicle);
         setResult(RESULT_OK, intent);
         finish();
@@ -180,7 +173,7 @@ public class TransportationSelectActvitiy extends AppCompatActivity implements N
         List<String> vehicle_nameList = new ArrayList<>();
         //Add elements
         int counter = 0;
-        for(VehicleModel v: vehicles){
+        for(TransportationModel v: vehicles){
             vehicle_nameList.add(v.getName());
             counter++;
         }
@@ -201,7 +194,7 @@ public class TransportationSelectActvitiy extends AppCompatActivity implements N
         list.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                VehicleModel vehicle = vehicles.get(position);
+                TransportationModel vehicle = vehicles.get(position);
                 idOfVehicleEditing = vehicle.getId();
                 Intent intent = TransportationAddActivity.makeIntentForEditVehicle(TransportationSelectActvitiy.this, vehicle);
                 startActivityForResult(intent, ACTIVITY_RESULT_EDIT);
@@ -219,7 +212,7 @@ public class TransportationSelectActvitiy extends AppCompatActivity implements N
                     populateVehiclesList();
                     break;
                 case ACTIVITY_RESULT_EDIT:
-                    VehicleModel modifiedVehicle = (VehicleModel) data.getSerializableExtra("vehicle");
+                    TransportationModel modifiedVehicle = (TransportationModel) data.getSerializableExtra("vehicle");
                     modifiedVehicle.setId(idOfVehicleEditing);
                     carbonFootprintInterface.edit(this, modifiedVehicle);
                     populateVehiclesList();
@@ -230,7 +223,7 @@ public class TransportationSelectActvitiy extends AppCompatActivity implements N
         else if (resultCode == TransportationAddActivity.RESULT_DELETE){
             populateVehiclesList();
         }
-
+        setBottomNavigationItemsStatus();
     }
 
     @Override
