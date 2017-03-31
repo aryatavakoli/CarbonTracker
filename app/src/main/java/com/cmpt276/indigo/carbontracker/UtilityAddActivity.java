@@ -99,7 +99,7 @@ public class UtilityAddActivity extends AppCompatActivity implements NavigationV
         //Removing vehicle from collection if it is on the list
         removeUtility(currentUtility);
         setResult(RESULT_DELETE);
-        Toast.makeText(UtilityAddActivity.this, "Utility Deleted!", Toast.LENGTH_SHORT).show();
+        Toast.makeText(UtilityAddActivity.this, R.string.utility_deleted, Toast.LENGTH_SHORT).show();
         finish();
     }
 
@@ -122,7 +122,7 @@ public class UtilityAddActivity extends AppCompatActivity implements NavigationV
             return;
         }
         else {
-            Toast.makeText(UtilityAddActivity.this, "Utility Added!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(UtilityAddActivity.this, R.string.utility_added, Toast.LENGTH_SHORT).show();
         }
         Intent intent = new Intent();
         intent.putExtra("utility", newUtility);
@@ -220,7 +220,7 @@ public class UtilityAddActivity extends AppCompatActivity implements NavigationV
         String name = editTextName.getText().toString();
 
         if (editTextName.getText().toString().length() == 0) {
-            Toast.makeText(UtilityAddActivity.this, "Please enter a Utility name.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(UtilityAddActivity.this, R.string.please_enter_a_utility_name, Toast.LENGTH_SHORT).show();
             return null;
         }
 
@@ -228,27 +228,27 @@ public class UtilityAddActivity extends AppCompatActivity implements NavigationV
         UtilityModel.Company company = (UtilityModel.Company) spinnerCompany.getSelectedItem();
 
         if (company == null) {
-            Toast.makeText(UtilityAddActivity.this, "Company should be selected", Toast.LENGTH_SHORT).show();
+            Toast.makeText(UtilityAddActivity.this, R.string.company_should_be_selected, Toast.LENGTH_SHORT).show();
             return null;
         }
         if (startCalendar == null || endCalendar == null) {
-            Toast.makeText(UtilityAddActivity.this, "Please select start and end days.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(UtilityAddActivity.this, R.string.please_select_start_and_end_days, Toast.LENGTH_SHORT).show();
             return null;
         } else if (endCalendar.getTimeInMillis() < startCalendar.getTimeInMillis()) {
-            Toast.makeText(UtilityAddActivity.this, "End date cannot be before start date.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(UtilityAddActivity.this, R.string.end_date_cannot_be_before_start_date, Toast.LENGTH_SHORT).show();
             return null;
         }
 
         EditText editTextEnergy = (EditText) findViewById(R.id.utility_add_editText_energy_consumption);
         if (editTextEnergy.getText().toString().length() == 0) {
-            Toast.makeText(UtilityAddActivity.this, "Please enter Energy Consumption", Toast.LENGTH_SHORT).show();
+            Toast.makeText(UtilityAddActivity.this, R.string.please_enter_energy_consumption, Toast.LENGTH_SHORT).show();
             return null;
         }
         double energy = Double.parseDouble(editTextEnergy.getText().toString());
 
         EditText editTextPeople = (EditText) findViewById(R.id.utility_add_editText_num_ppl);
         if (editTextPeople.getText().toString().length() == 0) {
-            Toast.makeText(UtilityAddActivity.this, "Please enter Occupants", Toast.LENGTH_SHORT).show();
+            Toast.makeText(UtilityAddActivity.this, R.string.please_enter_occupants, Toast.LENGTH_SHORT).show();
             return null;
         }
         int occupants = Integer.parseInt(editTextPeople.getText().toString());
@@ -262,7 +262,7 @@ public class UtilityAddActivity extends AppCompatActivity implements NavigationV
         }
         catch(DuplicateComponentException e){
             if(!editing) {
-                Toast.makeText(UtilityAddActivity.this, "This Utility already exists.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(UtilityAddActivity.this, R.string.this_utility_already_exists, Toast.LENGTH_SHORT).show();
             }
             return false;
         }

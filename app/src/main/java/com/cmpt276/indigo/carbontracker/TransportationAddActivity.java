@@ -152,7 +152,7 @@ public class TransportationAddActivity extends AppCompatActivity implements Navi
             return;
         }
         else{
-            Toast.makeText(TransportationAddActivity.this, "Transportation Added!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(TransportationAddActivity.this, R.string.transportation_added, Toast.LENGTH_SHORT).show();
         }
         Intent intent = getIntent();
         //Passing the vehicle object to the TransportationActivity
@@ -165,7 +165,7 @@ public class TransportationAddActivity extends AppCompatActivity implements Navi
         //Removing vehicle from collection if it is on the list
         removeVehicle(currentVehicle);
         setResult(RESULT_DELETE);
-        Toast.makeText(TransportationAddActivity.this, "Transportation Deleted!", Toast.LENGTH_SHORT).show();
+        Toast.makeText(TransportationAddActivity.this, R.string.transportation_deleted, Toast.LENGTH_SHORT).show();
         finish();
     }
 
@@ -175,7 +175,7 @@ public class TransportationAddActivity extends AppCompatActivity implements Navi
         String name = nickNameEditText.getText().toString();
 
         if (name.length() == 0) {
-            Toast.makeText(TransportationAddActivity.this, "Please enter a transportation name.", Toast.LENGTH_SHORT)
+            Toast.makeText(TransportationAddActivity.this, R.string.please_enter_a_transportation_name, Toast.LENGTH_SHORT)
                     .show();
             return null;
         }
@@ -191,31 +191,31 @@ public class TransportationAddActivity extends AppCompatActivity implements Navi
             Spinner vehicleMakeSpinner = (Spinner) findViewById(R.id.add_transport_dropdown_make);
             make = vehicleMakeSpinner.getSelectedItem().toString();
             if (make == null){
-                Toast.makeText(TransportationAddActivity.this, "Vehicle make should be selected", Toast.LENGTH_SHORT).show();
+                Toast.makeText(TransportationAddActivity.this, R.string.vehicle_make_shoud_be_selected, Toast.LENGTH_SHORT).show();
             }
 
             Spinner vehicleModelSpinner = (Spinner) findViewById(R.id.add_transport_dropdown_model);
             model = vehicleModelSpinner.getSelectedItem().toString();
             if (model == null){
-                Toast.makeText(TransportationAddActivity.this, "Vehicle model should be selected", Toast.LENGTH_SHORT).show();
+                Toast.makeText(TransportationAddActivity.this, R.string.vehicle_model_should_be_selected, Toast.LENGTH_SHORT).show();
             }
 
             Spinner vehicleYearSpinner = (Spinner) findViewById(R.id.add_transport_dropdown_year);
             year = vehicleYearSpinner.getSelectedItem().toString();
             if (year == null){
-                Toast.makeText(TransportationAddActivity.this, "Vehicle year should be selected", Toast.LENGTH_SHORT).show();
+                Toast.makeText(TransportationAddActivity.this, R.string.vehicle_year_should_be_selected, Toast.LENGTH_SHORT).show();
             }
 
             Spinner vehicleTransmissionSpinner = (Spinner) findViewById(R.id.add_transport_dropdown_transmission);
             transmission = vehicleTransmissionSpinner.getSelectedItem().toString();
             if (transmission == null){
-                Toast.makeText(TransportationAddActivity.this, "Vehicle transmission should be selected", Toast.LENGTH_SHORT).show();
+                Toast.makeText(TransportationAddActivity.this, R.string.vehicle_transmission_should_be_selected, Toast.LENGTH_SHORT).show();
             }
 
             Spinner vehicleEngineDisplacementSpinner = (Spinner) findViewById(R.id.add_transport_dropdown_engine_displacement);
             engineDisplacement = (String) vehicleEngineDisplacementSpinner.getSelectedItem();
             if (engineDisplacement == null){
-                Toast.makeText(TransportationAddActivity.this, "Engine Displacement should be selected", Toast.LENGTH_SHORT).show();
+                Toast.makeText(TransportationAddActivity.this, R.string.engine_displacement_should_be_selected, Toast.LENGTH_SHORT).show();
             }
         }
         //Creating vehicle object to pass it to vehicle activity to be added to the list.
