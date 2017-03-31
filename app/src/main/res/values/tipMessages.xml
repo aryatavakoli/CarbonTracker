@@ -19,7 +19,7 @@
         <item>"this is one of the tips16"</item>
 
     </string-array>
-    <string-array name="vehicle">
+    <string-array name="Transportation">
         <item>Car</item>
         <item>Walk/Bicycle</item>
         <item>Bus</item>

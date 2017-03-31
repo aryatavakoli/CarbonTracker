@@ -89,7 +89,7 @@ public class JourneyDBAdapter {
     public long insertRow(JourneyModel journey) {
         // Create row's data:
         ContentValues initialValues = new ContentValues();
-        initialValues.put(KEY_TRANSPORTATION_ID, journey.getVehicleModel().getId());
+        initialValues.put(KEY_TRANSPORTATION_ID, journey.getTransportationModel().getId());
         initialValues.put(KEY_ROUTE_id, journey.getRouteModel().getId());
         initialValues.put(KEY_CO2_EMISSION, journey.getCo2Emission());
         initialValues.put(KEY_CREATE_DATE, journey.getCreationDateString());
@@ -116,7 +116,7 @@ public class JourneyDBAdapter {
         c.close();
     }
 
-    private JourneyModel makeJourney(Cursor cursor, VehicleDBAdapter vehicleDBAdapter, RouteDBAdapter routeDBAdapter){
+    private JourneyModel makeJourney(Cursor cursor, TransportationDBAdapter transportationDBAdapter, RouteDBAdapter routeDBAdapter){
         boolean isDeleted = cursor.getInt(JourneyDBAdapter.COL_IS_DELETED) > 0;
         long id = (long) cursor.getInt(JourneyDBAdapter.COL_ROWID);
         long transportationID = (long)cursor.getInt(JourneyDBAdapter.COL_TRANSPORTATION_ID);
@@ -131,22 +131,22 @@ public class JourneyDBAdapter {
         catch(Exception e){
 
         }
-        VehicleModel vehicleModel = vehicleDBAdapter.getVehicle(transportationID);
+        TransportationModel transportationModel = transportationDBAdapter.getVehicle(transportationID);
         RouteModel routeModel = routeDBAdapter.getRoute(routeID);
-        if(vehicleModel  == null) {
+        if(transportationModel == null) {
             throw new IllegalArgumentException("Vehicle could not be found in database");
         }
         if(routeModel == null) {
             throw new IllegalArgumentException("Route could not be found in database");
         }
-        return new JourneyModel(id, vehicleModel, routeModel, co2Emission, createDate, isDeleted);
+        return new JourneyModel(id, transportationModel, routeModel, co2Emission, createDate, isDeleted);
     }
 
     public ArrayList<JourneyModel> getAllJournies() {
         open();
-        VehicleDBAdapter vehicleDBAdapter = new VehicleDBAdapter(context);
+        TransportationDBAdapter transportationDBAdapter = new TransportationDBAdapter(context);
         RouteDBAdapter routeDBAdapter = new RouteDBAdapter(context);
-        vehicleDBAdapter.open();
+        transportationDBAdapter.open();
         routeDBAdapter.open();
 
         Cursor cursor = getAllRows();
@@ -154,13 +154,13 @@ public class JourneyDBAdapter {
         if (cursor.moveToFirst()) {
             do {
                 // Process the data:
-                JourneyModel journeyModel = makeJourney(cursor, vehicleDBAdapter, routeDBAdapter);
+                JourneyModel journeyModel = makeJourney(cursor, transportationDBAdapter, routeDBAdapter);
                 if(journeyModel != null && !journeyModel.getIsDeleted()) {
                     journies.add(journeyModel);
                 }
             } while(cursor.moveToNext());
         }
-        vehicleDBAdapter.close();
+        transportationDBAdapter.close();
         routeDBAdapter.close();
         close();
         return journies;
@@ -205,7 +205,7 @@ public class JourneyDBAdapter {
         String where = KEY_ROWID + "=" + journey.getId();
         // Create row's data:
         ContentValues newValues = new ContentValues();
-        newValues.put(KEY_TRANSPORTATION_ID, journey.getVehicleModel().getId());
+        newValues.put(KEY_TRANSPORTATION_ID, journey.getTransportationModel().getId());
         newValues.put(KEY_ROUTE_id, journey.getRouteModel().getId());
         newValues.put(KEY_CO2_EMISSION, journey.getCo2Emission());
         newValues.put(KEY_CREATE_DATE, journey.getCreationDateString());

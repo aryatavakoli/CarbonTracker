@@ -9,9 +9,8 @@ import android.view.ViewGroup;
 import java.util.Calendar;
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.CarbonFootprintComponentCollection;
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.JourneyModel;
-import com.cmpt276.indigo.carbontracker.carbon_tracker_model.RouteModel;
+import com.cmpt276.indigo.carbontracker.carbon_tracker_model.TransportationModel;
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.UtilityModel;
-import com.cmpt276.indigo.carbontracker.carbon_tracker_model.VehicleModel;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
@@ -23,10 +22,6 @@ import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.util.ArrayList;
-
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 /**
  * Created by Arya on 2017-03-16.
@@ -185,7 +180,7 @@ public class CarbonFootprintMonthlyTab extends Fragment {
         double totalBusEmissions = 0;//sample
         for (JourneyModel journey : journeys) {
             if (journey.getCreationDate().after(last28) && journey.getCreationDate().before(tomorrow)) {
-                if (journey.getVehicleModel().getTransportaionMode() == VehicleModel.TransportationMode.BUS) {
+                if (journey.getTransportationModel().getTransportaionMode() == TransportationModel.TransportationMode.BUS) {
                     totalBusEmissions = totalBusEmissions + journey.getCo2Emission();
                 }
             }
@@ -197,7 +192,7 @@ public class CarbonFootprintMonthlyTab extends Fragment {
         double totalSkytrainEmissions = 0;//sample
         for (JourneyModel journey : journeys) {
             if (journey.getCreationDate().after(last28) && journey.getCreationDate().before(tomorrow)) {
-                if (journey.getVehicleModel().getTransportaionMode() == VehicleModel.TransportationMode.SKYTRAIN) {
+                if (journey.getTransportationModel().getTransportaionMode() == TransportationModel.TransportationMode.SKYTRAIN) {
                     totalSkytrainEmissions = totalSkytrainEmissions + journey.getCo2Emission();
                 }
             }
@@ -210,7 +205,7 @@ public class CarbonFootprintMonthlyTab extends Fragment {
         double totalCarEmissions = 0; //
         for (JourneyModel journey : journeys) {
             if (journey.getCreationDate().after(last28) && journey.getCreationDate().before(tomorrow)) {
-                if (journey.getVehicleModel().getTransportaionMode() == VehicleModel.TransportationMode.CAR) {
+                if (journey.getTransportationModel().getTransportaionMode() == TransportationModel.TransportationMode.CAR) {
                     totalCarEmissions = totalCarEmissions + journey.getCo2Emission();
                 }
             }

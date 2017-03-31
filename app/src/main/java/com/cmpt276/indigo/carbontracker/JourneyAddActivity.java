@@ -2,11 +2,9 @@ package com.cmpt276.indigo.carbontracker;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
-import android.content.ClipData;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
-import android.support.design.internal.BottomNavigationItemView;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
@@ -29,8 +27,7 @@ import com.cmpt276.indigo.carbontracker.carbon_tracker_model.DuplicateComponentE
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.JourneyModel;
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.RouteModel;
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.TipFragment;
-import com.cmpt276.indigo.carbontracker.carbon_tracker_model.UtilityModel;
-import com.cmpt276.indigo.carbontracker.carbon_tracker_model.VehicleModel;
+import com.cmpt276.indigo.carbontracker.carbon_tracker_model.TransportationModel;
 
 import java.util.Calendar;
 
@@ -45,7 +42,7 @@ public class JourneyAddActivity extends AppCompatActivity implements NavigationV
     public static final int RESULT_DELETE = 15;
     public static final int DATE_SELECT = 52;
     ArrayList<JourneyModel> journies;
-    ArrayList<VehicleModel> vehicles;
+    ArrayList<TransportationModel> vehicles;
     ArrayList<RouteModel> routes;
     JourneyModel newJourney;
     public static final int TRANSPORTATION_SELECT = 56;
@@ -112,7 +109,7 @@ public class JourneyAddActivity extends AppCompatActivity implements NavigationV
                             showTipDialog();
                         }
                         else{
-                            Toast.makeText(JourneyAddActivity.this,"Please select Route and Vehicle",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(JourneyAddActivity.this,"Please select Route and Transportation",Toast.LENGTH_SHORT).show();
                         }
                         break;
                     case R.id.action_cancel:
@@ -209,7 +206,7 @@ public class JourneyAddActivity extends AppCompatActivity implements NavigationV
 
         if (isVehicleSelected) {
             TextView carDisplay = (TextView) findViewById(R.id.journey_menu_text_current_vehicle);
-            carDisplay.setText(newJourney.getVehicleModel().getName() + "");
+            carDisplay.setText(newJourney.getTransportationModel().getName() + "");
         }
         if (isRouteSelected) {
             TextView routeDisplay = (TextView) findViewById(R.id.journey_menu_text_current_route);
@@ -270,8 +267,8 @@ public class JourneyAddActivity extends AppCompatActivity implements NavigationV
         if (resultCode == RESULT_OK) {
             switch (requestCode) {
                 case TRANSPORTATION_SELECT:
-                    VehicleModel vehicle = (VehicleModel) data.getSerializableExtra("vehicle");
-                    newJourney.setVehicleModel(vehicle);
+                    TransportationModel vehicle = (TransportationModel) data.getSerializableExtra("vehicle");
+                    newJourney.setTransportationModel(vehicle);
                     isVehicleSelected = true;
                     break;
                 case ROUTE_SELECT:
