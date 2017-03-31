@@ -69,7 +69,7 @@ public class RouteSelectActivity extends AppCompatActivity implements Navigation
         carbonFootprintInterface = CarbonFootprintComponentCollection.getInstance();
         //startAddActivity();
         createListView();
-        setupEditRouteLongPress();
+//        setupEditRouteLongPress();
     }
 
     private void setupList(){
@@ -256,7 +256,7 @@ public class RouteSelectActivity extends AppCompatActivity implements Navigation
         else if (resultCode == RouteAddActivity.RESULT_DELETE){
             populateRoutesList();
         }
-
+        setBottomNavigationItemsStatus();
     }
 
     @Override

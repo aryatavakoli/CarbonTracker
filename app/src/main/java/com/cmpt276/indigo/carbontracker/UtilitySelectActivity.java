@@ -253,7 +253,7 @@ public class UtilitySelectActivity extends AppCompatActivity implements Navigati
         else if (resultCode == UtilityAddActivity.RESULT_DELETE){
             populateUtilitiesList();
         }
-
+    setBottomNavigationItemsStatus();
     }
 
     @Override
