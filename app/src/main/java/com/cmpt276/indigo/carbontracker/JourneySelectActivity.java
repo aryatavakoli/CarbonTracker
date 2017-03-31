@@ -181,13 +181,11 @@ public class JourneySelectActivity extends AppCompatActivity implements Navigati
                     populateJourneyList();
                     break;
             }
-
         }
         else if (resultCode == JourneyAddActivity.RESULT_DELETE){
             selectedItemIndex = -1;
             populateJourneyList();
         }
-
     }
 
     @Override

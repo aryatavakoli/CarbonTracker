@@ -33,7 +33,6 @@ public class TransportationSelectActvitiy extends AppCompatActivity implements N
     CarbonFootprintComponentCollection carbonFootprintInterface;
     private static final int ACTIVITY_RESULT_ADD = 50;
     private static final int ACTIVITY_RESULT_EDIT = 100;
-    int selectItem;
     private int selectedItemIndex;
     int image = R.drawable.car;
     CustomizedArrayAdapter adapter;
@@ -57,13 +56,8 @@ public class TransportationSelectActvitiy extends AppCompatActivity implements N
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        //Allows for back button
-//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-//        getSupportActionBar().setDisplayShowHomeEnabled(true);
         carbonFootprintInterface = CarbonFootprintComponentCollection.getInstance();
-//        startAddActivity();
         createListView();
-//        setupEditVehicleLongPress();
     }
 
     private void setupList(){
@@ -75,7 +69,6 @@ public class TransportationSelectActvitiy extends AppCompatActivity implements N
         for (int i = 0; i < vehicleSize; i++){
             arrayAdapterItems[i] = new CustomizedArrayAdapterItem(image, vehicles.get(i).getName(), "", "");
         }
-        selectItem = -1;
         adapter = new CustomizedArrayAdapter(this, arrayAdapterItems, getTitles(arrayAdapterItems));
     }
 
@@ -177,30 +170,9 @@ public class TransportationSelectActvitiy extends AppCompatActivity implements N
             vehicle_nameList.add(v.getName());
             counter++;
         }
-
-//        //Create array adapter
-//        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(
-//                this, //context
-//                android.R.layout.simple_list_item_1,
-//                vehicle_nameList //arrayList
-//        );
-
+        adapter.setSelected(selectedItemIndex);
         //apply adapter ro listview
         carList.setAdapter(adapter);
-    }
-
-    private void setupEditVehicleLongPress() {
-        ListView list = (ListView) findViewById(R.id.transportation_select_list);
-        list.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                TransportationModel vehicle = vehicles.get(position);
-                idOfVehicleEditing = vehicle.getId();
-                Intent intent = TransportationAddActivity.makeIntentForEditVehicle(TransportationSelectActvitiy.this, vehicle);
-                startActivityForResult(intent, ACTIVITY_RESULT_EDIT);
-                return true;
-            }
-        });
     }
 
     @Override
@@ -221,6 +193,7 @@ public class TransportationSelectActvitiy extends AppCompatActivity implements N
 
         }
         else if (resultCode == TransportationAddActivity.RESULT_DELETE){
+            selectedItemIndex = -1;
             populateVehiclesList();
         }
         setBottomNavigationItemsStatus();
@@ -238,7 +211,6 @@ public class TransportationSelectActvitiy extends AppCompatActivity implements N
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         return true;
     }
 

@@ -36,7 +36,6 @@ public class UtilitySelectActivity extends AppCompatActivity implements Navigati
 
     CarbonFootprintComponentCollection carbonFootprintInterface;
     ArrayList<UtilityModel> utilities;
-    int selectItem;
     private int selectedItemIndex;
     int image = R.drawable.utility;
     CustomizedArrayAdapter adapter;
@@ -58,14 +57,8 @@ public class UtilitySelectActivity extends AppCompatActivity implements Navigati
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-//        Allows for back button
-//      getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-//      getSupportActionBar().setDisplayShowHomeEnabled(true);
         carbonFootprintInterface = CarbonFootprintComponentCollection.getInstance();
-
-//        startAddActivity();
         createListView();
-//        setupEditUtilityLongPress();
     }
 
     private void setupList(){
@@ -77,7 +70,6 @@ public class UtilitySelectActivity extends AppCompatActivity implements Navigati
         for (int i = 0; i < utilitiesSize; i++){
             arrayAdapterItems[i] = new CustomizedArrayAdapterItem(image, utilities.get(i).getName(), "", "");
         }
-        selectItem = -1;
         adapter = new CustomizedArrayAdapter(this, arrayAdapterItems, getTitles(arrayAdapterItems));
     }
 
@@ -164,12 +156,6 @@ public class UtilitySelectActivity extends AppCompatActivity implements Navigati
                 adapter.setSelected(position);
                 adapter.notifyDataSetChanged();
                 setBottomNavigationItemsStatus();
-//                Intent intent = new Intent(getBaseContext(), UtilityResultActivity.class);
-//                // Passing selected Utilities to the caller activity
-//                UtilityModel selectedUtility = carbonFootprintInterface.getUtilities(context).get(position);
-//                intent.putExtra("utility", selectedUtility);
-//                setResult(RESULT_OK, intent);
-//                startActivity(intent);
             }
         });
     }
@@ -196,7 +182,7 @@ public class UtilitySelectActivity extends AppCompatActivity implements Navigati
                 android.R.layout.simple_list_item_1,
                 utilityNameList //arrayList
         );
-
+        adapter.setSelected(selectedItemIndex);
         //apply adapter ro listview
         utilitiesList.setAdapter(adapter);
     }
@@ -231,6 +217,7 @@ public class UtilitySelectActivity extends AppCompatActivity implements Navigati
             }
         }
         else if (resultCode == UtilityAddActivity.RESULT_DELETE){
+            selectedItemIndex = -1;
             populateUtilitiesList();
         }
         setBottomNavigationItemsStatus();
