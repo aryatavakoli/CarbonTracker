@@ -62,8 +62,6 @@ public class UtilitySelectActivity extends AppCompatActivity implements Navigati
     }
 
     private void setupList(){
-        selectedItemIndex = -1;
-        Resources res = getResources();
         ArrayList<UtilityModel> utilities = carbonFootprintInterface.getUtilities(this);
         int utilitiesSize = utilities.size();
         arrayAdapterItems = new CustomizedArrayAdapterItem[utilitiesSize];

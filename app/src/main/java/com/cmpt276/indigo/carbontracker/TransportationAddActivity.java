@@ -54,7 +54,6 @@ public class TransportationAddActivity extends AppCompatActivity implements Navi
         navigationView.setNavigationItemSelectedListener(this);
         setupDropdownList();
         populateUIFromIntent();
-
         setupBottomNavigation();
     }
 

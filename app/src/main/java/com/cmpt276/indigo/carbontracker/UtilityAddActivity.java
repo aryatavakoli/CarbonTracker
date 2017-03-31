@@ -42,9 +42,6 @@ public class UtilityAddActivity extends AppCompatActivity implements NavigationV
     UtilityModel currentUtility;
     boolean editing = false; //we are not in the editing mode
 
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,18 +53,14 @@ public class UtilityAddActivity extends AppCompatActivity implements NavigationV
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
-        setupBottomNavigation();
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-//        getSupportActionBar().setDisplayShowHomeEnabled(true);
         carbonFootprintInterface = CarbonFootprintComponentCollection.getInstance();
         loadSpinner();
         populateUIFromIntent();
         gettingDate(R.id.StartDatebtn, startCalendar);
         gettingDate(R.id.endDateBtn, endCalendar);
-        setupOKButton();
-        setupDeleteButton();
+        setupBottomNavigation();
     }
 
     private void setupBottomNavigation(){
@@ -75,15 +68,16 @@ public class UtilityAddActivity extends AppCompatActivity implements NavigationV
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener(){
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item){
-                Intent intent = new Intent(UtilityAddActivity.this, UtilitySelectActivity.class);
                 switch(item.getItemId())
                 {
                     case R.id.action_add:
+                        onAddClick();
                         break;
                     case R.id.action_cancel:
                         finish();
                         break;
                     case R.id.action_delete:
+                        onClickDelete();
                         break;
                 }
                 return true;
@@ -99,6 +93,41 @@ public class UtilityAddActivity extends AppCompatActivity implements NavigationV
             MenuItem deleteItem = menu.findItem(R.id.action_delete);
             deleteItem.setEnabled(false);
         }
+    }
+
+    private void onClickDelete(){
+        //Removing vehicle from collection if it is on the list
+        removeUtility(currentUtility);
+        setResult(RESULT_DELETE);
+        Toast.makeText(UtilityAddActivity.this, "Utility Deleted!", Toast.LENGTH_SHORT).show();
+        finish();
+    }
+
+    private void onAddClick() {
+        //Try to get data from utility add UI and create a utility object
+        UtilityModel newUtility = createUtility();
+        if(newUtility == null){
+            return;
+        }
+        //adding and replacing route when a user is editing
+        if (editing){
+            Intent intent = getIntent();
+            //Passing the utility object to the TransportationActivity
+            intent.putExtra("utility", newUtility);
+            setResult(RESULT_OK, intent);
+            finish();
+        }
+        //adding Utility to collection if it is not duplicate
+        else if (!addUtility(newUtility)) {
+            return;
+        }
+        else {
+            Toast.makeText(UtilityAddActivity.this, "Utility Added!", Toast.LENGTH_SHORT).show();
+        }
+        Intent intent = new Intent();
+        intent.putExtra("utility", newUtility);
+        setResult(Activity.RESULT_OK, intent);
+        finish();
     }
 
     private void displayDate(Button btn, Calendar c) {
@@ -179,57 +208,6 @@ public class UtilityAddActivity extends AppCompatActivity implements NavigationV
         spinnerCompany.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, UtilityModel.Company.values()));
     }
 
-    private void setupOKButton() {
-        Button btn = (Button) findViewById(R.id.utility_add_button_ok);
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //Try to get data from utility add UI and create a utility object
-                UtilityModel newUtility = createUtility();
-                if(newUtility == null){
-                    return;
-                }
-                //adding and replacing route when a user is editing
-                if (editing){
-                    Intent intent = getIntent();
-                    //Passing the utility object to the TransportationActivity
-                    intent.putExtra("utility", newUtility);
-                    setResult(RESULT_OK, intent);
-                    finish();
-                }
-                //adding Utility to collection if it is not duplicate
-                else if (!addUtility(newUtility)) {
-                    return;
-                }
-                else {
-                    Toast.makeText(UtilityAddActivity.this, "Utility Added!", Toast.LENGTH_SHORT).show();
-                }
-                Intent intent = new Intent();
-                intent.putExtra("utility", newUtility);
-                setResult(Activity.RESULT_OK, intent);
-                finish();
-            }
-
-        });
-    }
-
-    private void setupDeleteButton(){
-//        if we are in the editing mode and the user clicks on the delete button
-        Button btnDelete = (Button) findViewById(R.id.utility_add_button_delete);
-        if(!editing){
-            btnDelete.setEnabled(false);
-        }
-        btnDelete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-            removeUtility(currentUtility);
-            setResult(RESULT_DELETE);
-            Toast.makeText(UtilityAddActivity.this, "Utility Deleted!", Toast.LENGTH_SHORT).show();
-            finish();
-            }
-        });
-    }
-
     //remove(hide) utility from the list
     void removeUtility(UtilityModel utility){
         carbonFootprintInterface.remove(this, utility);
@@ -238,7 +216,6 @@ public class UtilityAddActivity extends AppCompatActivity implements NavigationV
     private UtilityModel createUtility() {
 //        the following code checks if the user has entered all the required datas and they are all
 //        valid
-
         EditText editTextName = (EditText) findViewById(R.id.utility_add_editText_name);
         String name = editTextName.getText().toString();
 
