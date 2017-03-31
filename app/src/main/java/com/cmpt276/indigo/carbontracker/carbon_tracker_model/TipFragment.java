@@ -16,11 +16,11 @@ import java.util.Calendar;
 public class TipFragment extends AppCompatDialogFragment {
     CarbonFootprintComponentCollection carbonFootprintInterface;
 
-    public ArrayList<VehicleModel> getVehicles() {
+    public ArrayList<TransportationModel> getVehicles() {
         return vehicles;
     }
 
-    public void setVehicles(ArrayList<VehicleModel> vehicles) {
+    public void setVehicles(ArrayList<TransportationModel> vehicles) {
         this.vehicles = vehicles;
     }
 
@@ -56,7 +56,7 @@ public class TipFragment extends AppCompatDialogFragment {
         this.messageList = messageList;
     }
 
-    ArrayList<VehicleModel> vehicles;
+    ArrayList<TransportationModel> vehicles;
     ArrayList<RouteModel> routes;
     ArrayList<JourneyModel> journies;
     String[] messageList = new String[15];
@@ -138,26 +138,26 @@ public class TipFragment extends AppCompatDialogFragment {
             if (v.getCreationDate().equals(today)){
                 todayJournies ++;
             }
-            if (v.getCo2Emission() >  mostCarbonEmission && v.getVehicleModel().getTransportaionMode() == VehicleModel.TransportationMode.CAR){
+            if (v.getCo2Emission() >  mostCarbonEmission && v.getTransportationModel().getTransportaionMode() == TransportationModel.TransportationMode.CAR){
                  mostCarbonEmission = v.getCo2Emission();
                  mostCo2Journey = v;
             }
 
             CO2usage =  CO2usage + v.getCo2Emission();
-            if (v.getVehicleModel().getTransportaionMode()== VehicleModel.TransportationMode.CAR) {
+            if (v.getTransportationModel().getTransportaionMode()== TransportationModel.TransportationMode.CAR) {
                 carNUm++;
                 CO2Car =  CO2Car + v.getCo2Emission();
             }
-            if (v.getRouteModel().getTotalDistance() <10 && v.getVehicleModel().getTransportaionMode() != VehicleModel.TransportationMode.WALK_BIKE)  {
+            if (v.getRouteModel().getTotalDistance() <10 && v.getTransportationModel().getTransportaionMode() != TransportationModel.TransportationMode.WALK_BIKE)  {
                 shortDistanceTrips ++;
             }
-            if (v.getVehicleModel().getTransportaionMode() == VehicleModel.TransportationMode.WALK_BIKE){
+            if (v.getTransportationModel().getTransportaionMode() == TransportationModel.TransportationMode.WALK_BIKE){
                 walkNum++;
                 distanceWalked += v.getRouteModel().getTotalDistance();
 
             }
             if ((v.getRouteModel().getHighwayDistance() < v.getRouteModel().getCityDistance()) &&
-                    v.getVehicleModel().getTransportaionMode() == VehicleModel.TransportationMode.CAR){
+                    v.getTransportationModel().getTransportaionMode() == TransportationModel.TransportationMode.CAR){
                 cityNum ++;
             }
         }
@@ -174,8 +174,8 @@ public class TipFragment extends AppCompatDialogFragment {
         messageList[7]= "today your co2 emission was " + CO2usage + " CO2 emission per person in Canada" +
                 " is on average 14.68 metric tons per day";
         messageList[8]= "Remove unnecessary weight from your " + carNUm+" cars; this will cut down fuel consumption and carbon dioxide emissions";
-        if(mostCo2Journey.getVehicleModel() != null) {
-            messageList[9] = "your journey " + mostCo2Journey + " uses the most amount of CO2 with the" + mostCo2Journey.getVehicleModel().getName() +
+        if(mostCo2Journey.getTransportationModel() != null) {
+            messageList[9] = "your journey " + mostCo2Journey + " uses the most amount of CO2 with the" + mostCo2Journey.getTransportationModel().getName() +
                     ". Try to avoid this journey if it is possible";
         }
         else

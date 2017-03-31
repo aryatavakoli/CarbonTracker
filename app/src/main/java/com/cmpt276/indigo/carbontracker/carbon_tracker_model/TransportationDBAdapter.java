@@ -13,7 +13,7 @@ import java.util.ArrayList;
  * Implements adapter for Vehicle table
  */
 
-public class VehicleDBAdapter {
+public class TransportationDBAdapter {
 
     // For logging:
     private static final String TAG = "VechicleDBAdapter";
@@ -79,13 +79,13 @@ public class VehicleDBAdapter {
     private SQLiteDatabase db;
 
 
-    public VehicleDBAdapter(Context ctx) {
+    public TransportationDBAdapter(Context ctx) {
         this.context = ctx;
         myDBHelper = new DatabaseHelper(context);
     }
 
     // Open the database connection.
-    public VehicleDBAdapter open() {
+    public TransportationDBAdapter open() {
         db = myDBHelper.getWritableDatabase();
         ensureTableExists();
         return this;
@@ -103,7 +103,7 @@ public class VehicleDBAdapter {
     }
 
     // Add a new set of values to the database.
-    public long insertRow(VehicleModel vehicle) {
+    public long insertRow(TransportationModel vehicle) {
         // Create row's data:
         ContentValues initialValues = new ContentValues();
         initialValues.put(KEY_NAME, vehicle.getName());
@@ -115,7 +115,7 @@ public class VehicleDBAdapter {
         initialValues.put(KEY_CITY_MILEAGE, vehicle.getCityMileage());
         initialValues.put(KEY_HIGHWAY_MILEAGE, vehicle.getHighwayMileage());
         initialValues.put(KEY_PRIMARY_FUEL_TYPE, vehicle.getPrimaryFuelType());
-        initialValues.put(KEY_TRANSPORTATION_MODE, VehicleModel.TransportationModeToInt(vehicle.getTransportaionMode()));
+        initialValues.put(KEY_TRANSPORTATION_MODE, TransportationModel.TransportationModeToInt(vehicle.getTransportaionMode()));
         initialValues.put(KEY_IS_DELETED, vehicle.getIsDeleted());
         // Insert it into the database.
         vehicle.setId(db.insert(DATABASE_TABLE, null, initialValues));
@@ -139,7 +139,7 @@ public class VehicleDBAdapter {
         c.close();
     }
 
-    private VehicleModel makeVehicle(Cursor cursor){
+    private TransportationModel makeVehicle(Cursor cursor){
         boolean isDeleted = cursor.getInt(COL_IS_DELETED) > 0;
         long id = (long)cursor.getInt(COL_ROWID);
         String name = cursor.getString(COL_NAME);
@@ -151,21 +151,21 @@ public class VehicleDBAdapter {
         double cityMileage = cursor.getDouble(COL_CITY_MILEAGE);
         double highwayMileage = cursor.getDouble(COL_HIGHWAY_MILEAGE);
         String primaryFuelType = cursor.getString(COL_PRIMARY_FUEL_TYPE);
-        VehicleModel.TransportationMode transportationMode = VehicleModel.IntToTransportaionMode(cursor.getInt(VehicleDBAdapter.COL_TRANSPORTATION_MODE));
+        TransportationModel.TransportationMode transportationMode = TransportationModel.IntToTransportaionMode(cursor.getInt(TransportationDBAdapter.COL_TRANSPORTATION_MODE));
 
-        return new VehicleModel(id, name, make, model, year, transmission, engineDisplacement, cityMileage, highwayMileage, primaryFuelType, transportationMode, isDeleted);
+        return new TransportationModel(id, name, make, model, year, transmission, engineDisplacement, cityMileage, highwayMileage, primaryFuelType, transportationMode, isDeleted);
     }
 
-    public ArrayList<VehicleModel> getAllVehicles() {
+    public ArrayList<TransportationModel> getAllVehicles() {
         open();
         Cursor cursor = getAllRows();
-        ArrayList<VehicleModel> vehicles = new ArrayList<>();
+        ArrayList<TransportationModel> vehicles = new ArrayList<>();
         if (cursor.moveToFirst()) {
             do {
                 // Process the data:
-                VehicleModel vehicleModel = makeVehicle(cursor);
-                if(vehicleModel != null && !vehicleModel.getIsDeleted()) {
-                    vehicles.add(vehicleModel);
+                TransportationModel transportationModel = makeVehicle(cursor);
+                if(transportationModel != null && !transportationModel.getIsDeleted()) {
+                    vehicles.add(transportationModel);
                 }
             } while(cursor.moveToNext());
         }
@@ -184,13 +184,13 @@ public class VehicleDBAdapter {
         return c;
     }
 
-    public VehicleModel getVehicle(long rowId) {
+    public TransportationModel getVehicle(long rowId) {
         Cursor cursor = getRow(rowId);
         if (cursor.moveToFirst()) {
             do {
                 // Process the data:
-                VehicleModel vehicleModel = makeVehicle(cursor);
-                return vehicleModel;
+                TransportationModel transportationModel = makeVehicle(cursor);
+                return transportationModel;
             } while(cursor.moveToNext());
         }
         return null;
@@ -220,7 +220,7 @@ public class VehicleDBAdapter {
     }
 
     // Change an existing row to be equal to new data.
-    public boolean updateRow(VehicleModel vehicle) {
+    public boolean updateRow(TransportationModel vehicle) {
         String where = KEY_ROWID + "=" + vehicle.getId();
         // Create row's data:
         ContentValues newValues = new ContentValues();
@@ -232,7 +232,7 @@ public class VehicleDBAdapter {
         newValues.put(KEY_CITY_MILEAGE, vehicle.getCityMileage());
         newValues.put(KEY_HIGHWAY_MILEAGE, vehicle.getHighwayMileage());
         newValues.put(KEY_PRIMARY_FUEL_TYPE, vehicle.getPrimaryFuelType());
-        newValues.put(KEY_TRANSPORTATION_MODE, VehicleModel.TransportationModeToInt(vehicle.getTransportaionMode()));
+        newValues.put(KEY_TRANSPORTATION_MODE, TransportationModel.TransportationModeToInt(vehicle.getTransportaionMode()));
         newValues.put(KEY_IS_DELETED, vehicle.getIsDeleted());
         // Insert it into the database.
         return db.update(DATABASE_TABLE, newValues, where, null) != 0;

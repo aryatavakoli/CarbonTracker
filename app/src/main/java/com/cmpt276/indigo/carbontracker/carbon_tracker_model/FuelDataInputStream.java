@@ -19,7 +19,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
-import java.util.List;
 
 public class FuelDataInputStream {
 
@@ -29,11 +28,11 @@ public class FuelDataInputStream {
         return instance;
     }
 
-    ArrayList<VehicleModel> readDataFile(InputStream is){
+    ArrayList<TransportationModel> readDataFile(InputStream is){
         BufferedReader reader = new BufferedReader(
                 new InputStreamReader(is, Charset.forName("UTF-8"))
         );
-        ArrayList<VehicleModel> vehicleData = new ArrayList<>();
+        ArrayList<TransportationModel> vehicleData = new ArrayList<>();
         String line = "";
         try {
             reader.readLine();
@@ -41,7 +40,7 @@ public class FuelDataInputStream {
                 //split by columns
                 String[] token = line.split(",");
                 //read the data
-                VehicleModel data = new VehicleModel();
+                TransportationModel data = new TransportationModel();
                 data.setMake(token[46]);
                 data.setModel(token[47]);
                 data.setYear(token[63]);

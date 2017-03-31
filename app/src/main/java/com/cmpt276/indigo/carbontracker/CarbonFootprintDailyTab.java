@@ -13,7 +13,7 @@ import android.widget.DatePicker;
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.CarbonFootprintComponentCollection;
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.JourneyModel;
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.UtilityModel;
-import com.cmpt276.indigo.carbontracker.carbon_tracker_model.VehicleModel;
+import com.cmpt276.indigo.carbontracker.carbon_tracker_model.TransportationModel;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
@@ -23,7 +23,6 @@ import com.github.mikephil.charting.utils.ColorTemplate;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 
 /**
  * Created by Arya on 2017-03-16.
@@ -175,7 +174,7 @@ public class CarbonFootprintDailyTab extends Fragment {
         double totalBusEmissionsToday = 0;
         for (JourneyModel journey : journeys) {
             if (isSameDay(journey.getCreationDate(), today)) {
-                if (journey.getVehicleModel().getTransportaionMode() == VehicleModel.TransportationMode.BUS) {
+                if (journey.getTransportationModel().getTransportaionMode() == TransportationModel.TransportationMode.BUS) {
                     totalBusEmissionsToday = totalBusEmissionsToday + journey.getCo2Emission();
                 }
             }
@@ -187,7 +186,7 @@ public class CarbonFootprintDailyTab extends Fragment {
         double totalSkytrainEmissionsToday = 0;
         for (JourneyModel journey : journeys) {
             if (isSameDay(journey.getCreationDate(), today)) {
-                if (journey.getVehicleModel().getTransportaionMode() == VehicleModel.TransportationMode.SKYTRAIN) {
+                if (journey.getTransportationModel().getTransportaionMode() == TransportationModel.TransportationMode.SKYTRAIN) {
                     totalSkytrainEmissionsToday = totalSkytrainEmissionsToday + journey.getCo2Emission();
                 }
             }
@@ -200,7 +199,7 @@ public class CarbonFootprintDailyTab extends Fragment {
         for (JourneyModel journey : journeys) {
             //if (!journey.getCreationDate().after(today.getTime()) && journey.getCreationDate().before(today.getTime())) {
             if (isSameDay(journey.getCreationDate(), today)) {
-                if (journey.getVehicleModel().getTransportaionMode() == VehicleModel.TransportationMode.CAR) {
+                if (journey.getTransportationModel().getTransportaionMode() == TransportationModel.TransportationMode.CAR) {
                     totalCarEmissionsToday = totalCarEmissionsToday + journey.getCo2Emission();
                 }
             }

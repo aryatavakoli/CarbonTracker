@@ -1,10 +1,10 @@
 package com.cmpt276.indigo.carbontracker.carbon_tracker_model;
 
 /*
-    Implements VehicleModel that describes a vehicle object
+    Implements TransportationModel that describes a vehicle object
  */
 
-public class VehicleModel implements CarbonFootprintComponent{
+public class TransportationModel implements CarbonFootprintComponent{
 
     public enum TransportationMode {
         CAR,
@@ -59,7 +59,7 @@ public class VehicleModel implements CarbonFootprintComponent{
     private TransportationMode transportaionMode;
     private boolean isDeleted;          // when a Car is deleted, we should hide it instead of removing it
 
-    public VehicleModel(){
+    public TransportationModel(){
         id = -1;
         name = new String();
         make = new String();
@@ -74,8 +74,8 @@ public class VehicleModel implements CarbonFootprintComponent{
         isDeleted = false;
     }
 
-    public VehicleModel(long id, String name, String make, String model, String year, String transmission, String engineDisplacment,
-                        double cityMileage, double highwayMileage, String primaryFuelType, TransportationMode transportaionMode, boolean isDeleted){
+    public TransportationModel(long id, String name, String make, String model, String year, String transmission, String engineDisplacment,
+                               double cityMileage, double highwayMileage, String primaryFuelType, TransportationMode transportaionMode, boolean isDeleted){
         this.id = id;
         this.name = name;
         this.make = make;
@@ -191,7 +191,7 @@ public class VehicleModel implements CarbonFootprintComponent{
 
     @Override
     public String toString() {
-        return "VehicleModel{" +
+        return "TransportationModel{" +
                 "name='" + name + '\'' +
                 ", make='" + make + '\'' +
                 ", model='" + model + '\'' +
@@ -213,10 +213,10 @@ public class VehicleModel implements CarbonFootprintComponent{
         if (this == other){
             return true;
         }
-        if (!(other instanceof VehicleModel)){
+        if (!(other instanceof TransportationModel)){
             return false;
         }
-        VehicleModel o = (VehicleModel) other;
+        TransportationModel o = (TransportationModel) other;
         // a deleted object should never be compared to other components
         if(o.isDeleted || this.isDeleted){
             return false;
@@ -224,7 +224,7 @@ public class VehicleModel implements CarbonFootprintComponent{
         return this.name.equals(o.name);
     }
 
-    public void copyFuelData(VehicleModel other){
+    public void copyFuelData(TransportationModel other){
         this.transmisson = other.transmisson;
         this.engineDisplacment = other.engineDisplacment; // in cubic inches
         this.cityMileage = other.cityMileage; // Gallon per mile mileage city

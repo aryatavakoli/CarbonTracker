@@ -5,9 +5,7 @@ import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -17,15 +15,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.CarbonFootprintComponentCollection;
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.JourneyModel;
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.RouteModel;
-import com.cmpt276.indigo.carbontracker.carbon_tracker_model.TipFragment;
-import com.cmpt276.indigo.carbontracker.carbon_tracker_model.VehicleModel;
+import com.cmpt276.indigo.carbontracker.carbon_tracker_model.TransportationModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +30,7 @@ import java.util.List;
  */
 public class JourneySelectActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
     ArrayList<JourneyModel> journies;
-    ArrayList<VehicleModel> vehicles;
+    ArrayList<TransportationModel> vehicles;
     ArrayList<RouteModel> routes;
     private int selectedItemIndex;
     private long idOfJourneyEditing = -1;
@@ -107,7 +102,7 @@ public class JourneySelectActivity extends AppCompatActivity implements Navigati
         for (int i = 0; i < journiesSize; i++){
             arrayAdapterItems[i] = new CustomizedArrayAdapterItem(
                     image,
-                    journies.get(i).getVehicleModel().getName(),
+                    journies.get(i).getTransportationModel().getName(),
                     journies.get(i).getRouteModel().getName(),
                     journies.get(i).getCreationDateString());
         }
@@ -138,7 +133,6 @@ public class JourneySelectActivity extends AppCompatActivity implements Navigati
                         startActivityForResult(intent, ACTIVITY_RESULT_ADD);
                         break;
                     case R.id.action_edit:
-                        startActivityForResult(intent, ACTIVITY_RESULT_EDIT);
                         editItem();
                         break;
                     case R.id.action_delete:
@@ -201,7 +195,7 @@ public class JourneySelectActivity extends AppCompatActivity implements Navigati
         // putting vehicles in list
         List<String> journey_nameList = new ArrayList<>();
         for(JourneyModel v: journies){
-            journey_nameList.add("Car: " + v.getVehicleModel().getName() +
+            journey_nameList.add("Car: " + v.getTransportationModel().getName() +
                     "   Route: " + v.getRouteModel().getName() +
                     "   Date: " + v.getCreationDateString());
         }
