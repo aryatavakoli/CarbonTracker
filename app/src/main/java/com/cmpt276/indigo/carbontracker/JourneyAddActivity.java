@@ -145,34 +145,41 @@ public class JourneyAddActivity extends AppCompatActivity implements NavigationV
             // update the view
             fillJourneyTexts();
             fillCarbonFootprintText();
+            gettingDate();
         }
     }
 
     //sets date to one journey including year month and day
     private void gettingDate() {
 
-        final Calendar myCalendar = Calendar.getInstance();
+        Calendar myCalendar = Calendar.getInstance();
+        if (isEdit){
+            myCalendar =  newJourney.getCreationDate();
+        }
 
+        final Calendar finalMyCalendar = myCalendar;
         final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
 
             @Override
             public void onDateSet(DatePicker view, int year, int monthOfYear,
                                   int dayOfMonth) {
-                myCalendar.set(Calendar.YEAR, year);
-                myCalendar.set(Calendar.MONTH, monthOfYear);
-                myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-                newJourney.setCreationDate(myCalendar);
+                finalMyCalendar.set(Calendar.YEAR, year);
+                finalMyCalendar.set(Calendar.MONTH, monthOfYear);
+                finalMyCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                newJourney.setCreationDate(finalMyCalendar);
+
             }
 
         };
         Button txt = (Button) findViewById(R.id.journey_menu_select_date_btn);
 //        if the user select the date button a date picker will pop up
+        final Calendar finalMyCalendar1 = myCalendar;
         txt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new DatePickerDialog(JourneyAddActivity.this, date, myCalendar
-                        .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
-                        myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+                new DatePickerDialog(JourneyAddActivity.this, date, finalMyCalendar1
+                        .get(Calendar.YEAR), finalMyCalendar1.get(Calendar.MONTH),
+                        finalMyCalendar1.get(Calendar.DAY_OF_MONTH)).show();
             }
         });
     }

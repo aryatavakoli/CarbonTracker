@@ -136,7 +136,6 @@ public class CarbonFootprintDailyTab extends Fragment {
             if(skytrain / total > MIN_PERCENTAGE) {
                 pieEntries.add(new PieEntry(skytrain, "Skytrain"));
             }
-            //pieEntries.add(new PieEntry(0f, "Walk/bike"));
         }
     }
 
@@ -197,7 +196,6 @@ public class CarbonFootprintDailyTab extends Fragment {
     private double getTotalCarEmissionsToday(ArrayList<JourneyModel> journeys, Calendar today) {
         double totalCarEmissionsToday = 0;
         for (JourneyModel journey : journeys) {
-            //if (!journey.getCreationDate().after(today.getTime()) && journey.getCreationDate().before(today.getTime())) {
             if (isSameDay(journey.getCreationDate(), today)) {
                 if (journey.getTransportationModel().getTransportaionMode() == TransportationModel.TransportationMode.CAR) {
                     totalCarEmissionsToday = totalCarEmissionsToday + journey.getCo2Emission();
@@ -210,8 +208,8 @@ public class CarbonFootprintDailyTab extends Fragment {
     public boolean isSameDay(Calendar cal1, Calendar cal2) {
         if (cal1 == null || cal2 == null)
             return false;
-        return (cal1.get(Calendar.ERA) == cal2.get(Calendar.ERA)
-                && cal1.get(Calendar.YEAR) == cal2.get(Calendar.YEAR)
+        return (//cal1.get(Calendar.ERA) == cal2.get(Calendar.ERA)
+                 cal1.get(Calendar.YEAR) == cal2.get(Calendar.YEAR)
                 && cal1.get(Calendar.DAY_OF_YEAR) == cal2.get(Calendar.DAY_OF_YEAR));
     }
 }
