@@ -3,10 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/action_edit"
+        android:id="@+id/action_cancel"
         android:enabled="true"
-        android:icon="@drawable/ic_edit"
-        android:title="Edit"
+        android:icon="@drawable/ic_cancel"
+        android:title="Cancel"
         android:showAsAction="ifRoom"
         />
 
@@ -19,10 +19,11 @@
         />
 
     <item
-        android:id="@+id/action_delete"
+        android:id="@+id/action_edit"
         android:enabled="true"
-        android:icon="@drawable/ic_delete"
-        android:title="Delete"
+        android:icon="@drawable/ic_edit"
+        android:title="Edit"
         android:showAsAction="ifRoom"
         />
+
 </menu>

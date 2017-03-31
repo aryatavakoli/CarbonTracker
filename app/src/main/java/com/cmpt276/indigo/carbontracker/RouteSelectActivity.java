@@ -109,9 +109,6 @@ public class RouteSelectActivity extends AppCompatActivity implements Navigation
                     case R.id.action_edit:
                         editItem();
                         break;
-                    case R.id.action_delete:
-                        removeItem();
-                        break;
                     case R.id.action_select:
                         onSelectRoute();
                         break;
@@ -128,15 +125,6 @@ public class RouteSelectActivity extends AppCompatActivity implements Navigation
             indexOfRouteEditing = route.getId();
             Intent intent = RouteAddActivity.makeIntentForEditRoute(RouteSelectActivity.this, route);
             startActivityForResult(intent, ACTIVITY_RESULT_EDIT); //open the edit activity
-        }
-    }
-
-    private void removeItem() {
-        if(selectedItemIndex > -1){
-            carbonFootprintInterface.remove(this, routes.get(selectedItemIndex));
-            selectedItemIndex = -1;
-            setBottomNavigationItemsStatus();
-            populateRoutesList();
         }
     }
 
@@ -207,16 +195,13 @@ public class RouteSelectActivity extends AppCompatActivity implements Navigation
         BottomNavigationView bottomNavigationView = (BottomNavigationView)findViewById(R.id.bottom_navigation);
         Menu menu = bottomNavigationView.getMenu();
         MenuItem edit = menu.findItem(R.id.action_edit);
-        MenuItem remove = menu.findItem(R.id.action_delete);
         MenuItem select = menu.findItem(R.id.action_select);
         if(selectedItemIndex < 0){
             edit.setEnabled(false);
-            remove.setEnabled(false);
             select.setEnabled(false);
         }
         else{
             edit.setEnabled(true);
-            remove.setEnabled(true);
             select.setEnabled(true);
         }
     }

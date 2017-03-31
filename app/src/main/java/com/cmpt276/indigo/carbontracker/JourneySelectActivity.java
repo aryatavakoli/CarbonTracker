@@ -88,14 +88,13 @@ public class JourneySelectActivity extends AppCompatActivity implements Navigati
         BottomNavigationView bottomNavigationView = (BottomNavigationView)findViewById(R.id.bottom_navigation);
         Menu menu = bottomNavigationView.getMenu();
         MenuItem edit = menu.findItem(R.id.action_edit);
-        MenuItem delete = menu.findItem(R.id.action_delete);
+        MenuItem cancel = menu.findItem(R.id.action_cancel);
+        cancel.setEnabled(true);
         if(selectedItemIndex < 0){
             edit.setEnabled(false);
-            delete.setEnabled(false);
         }
         else{
             edit.setEnabled(true);
-            delete.setEnabled(true);
         }
     }
 
@@ -138,11 +137,10 @@ public class JourneySelectActivity extends AppCompatActivity implements Navigati
                         startActivityForResult(intent, ACTIVITY_RESULT_ADD);
                         break;
                     case R.id.action_edit:
-                        startActivityForResult(intent, ACTIVITY_RESULT_EDIT);
                         editItem();
                         break;
-                    case R.id.action_delete:
-                        removeItem();
+                    case R.id.action_cancel:
+                        finish();
                         break;
                 }
                 return true;
@@ -157,15 +155,6 @@ public class JourneySelectActivity extends AppCompatActivity implements Navigati
             idOfJourneyEditing = journeyModel.getId();
             Intent intent = JourneyAddActivity.makeIntentForEditJourney(JourneySelectActivity.this, journeyModel);
             startActivityForResult(intent, ACTIVITY_RESULT_EDIT); //open the edit activity
-        }
-    }
-
-    private void removeItem() {
-        if(selectedItemIndex > -1){
-            carbonFootprintInterface.remove(this, journies.get(selectedItemIndex));
-            selectedItemIndex = -1;
-            setBottomNavigationItemsStatus();
-            populateJourneyList();
         }
     }
 

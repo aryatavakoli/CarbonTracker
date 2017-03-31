@@ -110,9 +110,6 @@ public class UtilitySelectActivity extends AppCompatActivity implements Navigati
                     case R.id.action_edit:
                         editItem();
                         break;
-                    case R.id.action_delete:
-                        removeItem();
-                        break;
                     case R.id.action_select:
                         onSelectUtility();
                         break;
@@ -132,15 +129,6 @@ public class UtilitySelectActivity extends AppCompatActivity implements Navigati
         }
     }
 
-    private void removeItem() {
-        if(selectedItemIndex > -1){
-            carbonFootprintInterface.remove(this, utilities.get(selectedItemIndex));
-            selectedItemIndex = -1;
-            setBottomNavigationItemsStatus();
-            populateUtilitiesList();
-        }
-    }
-
     private void onSelectUtility(){
         Intent intent = getIntent();
         // Passing selected vehicle to the caller activity
@@ -154,16 +142,13 @@ public class UtilitySelectActivity extends AppCompatActivity implements Navigati
         BottomNavigationView bottomNavigationView = (BottomNavigationView)findViewById(R.id.bottom_navigation);
         Menu menu = bottomNavigationView.getMenu();
         MenuItem edit = menu.findItem(R.id.action_edit);
-        MenuItem remove = menu.findItem(R.id.action_delete);
         MenuItem select = menu.findItem(R.id.action_select);
         if(selectedItemIndex < 0){
             edit.setEnabled(false);
-            remove.setEnabled(false);
             select.setEnabled(false);
         }
         else{
             edit.setEnabled(true);
-            remove.setEnabled(true);
             select.setEnabled(true);
         }
     }

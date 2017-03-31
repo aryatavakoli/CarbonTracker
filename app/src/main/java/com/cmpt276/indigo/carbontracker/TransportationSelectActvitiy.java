@@ -111,9 +111,6 @@ public class TransportationSelectActvitiy extends AppCompatActivity implements N
                     case R.id.action_edit:
                         editItem();
                         break;
-                    case R.id.action_delete:
-                        removeItem();
-                        break;
                     case R.id.action_select:
                         onSelectTransportation();
                         break;
@@ -130,15 +127,6 @@ public class TransportationSelectActvitiy extends AppCompatActivity implements N
             idOfVehicleEditing = vehicle.getId();
             Intent intent = TransportationAddActivity.makeIntentForEditVehicle(TransportationSelectActvitiy.this, vehicle);
             startActivityForResult(intent, ACTIVITY_RESULT_EDIT); //open the edit activity
-        }
-    }
-
-    private void removeItem() {
-        if(selectedItemIndex > -1){
-            carbonFootprintInterface.remove(this, vehicles.get(selectedItemIndex));
-            selectedItemIndex = -1;
-            setBottomNavigationItemsStatus();
-            populateVehiclesList();
         }
     }
 
@@ -172,16 +160,13 @@ public class TransportationSelectActvitiy extends AppCompatActivity implements N
         BottomNavigationView bottomNavigationView = (BottomNavigationView)findViewById(R.id.bottom_navigation);
         Menu menu = bottomNavigationView.getMenu();
         MenuItem edit = menu.findItem(R.id.action_edit);
-        MenuItem remove = menu.findItem(R.id.action_delete);
         MenuItem select = menu.findItem(R.id.action_select);
         if(selectedItemIndex < 0){
             edit.setEnabled(false);
-            remove.setEnabled(false);
             select.setEnabled(false);
         }
         else{
             edit.setEnabled(true);
-            remove.setEnabled(true);
             select.setEnabled(true);
         }
     }
