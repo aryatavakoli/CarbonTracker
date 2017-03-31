@@ -65,7 +65,7 @@ public class JourneyAddActivity extends AppCompatActivity implements NavigationV
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        newJourney = null; // The journey the user is creating
+        newJourney = new JourneyModel(); // The journey the user is creating
         carbonFootprintInterface = CarbonFootprintComponentCollection.getInstance();
         journies = carbonFootprintInterface.getJournies(this);
         routes = carbonFootprintInterface.getRoutes(this);
