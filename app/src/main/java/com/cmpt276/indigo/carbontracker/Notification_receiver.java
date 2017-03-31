@@ -7,6 +7,9 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.NotificationCompat;
+import android.util.Log;
+import android.widget.Toast;
+
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.CarbonFootprintComponentCollection;
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.JourneyModel;
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.UtilityModel;
@@ -30,6 +33,7 @@ class Notification_receiver extends BroadcastReceiver{
     ArrayList<UtilityModel> utilities;
     boolean utilityAddedRecently;
     Calendar last45Days = Calendar.getInstance();
+    Calendar today = Calendar.getInstance();
     @Override
     public void onReceive(Context context, Intent intent) {
         utilityAddedRecently = false;
@@ -37,8 +41,12 @@ class Notification_receiver extends BroadcastReceiver{
         carbonFootprintInterface = CarbonFootprintComponentCollection.getInstance();
         journeys = carbonFootprintInterface.getJournies(context);
         utilities = carbonFootprintInterface.getUtilities(context);
+        Log.i("utility siiiiiiiize",utilities.size() + "");
         for (UtilityModel utility : utilities){
-            if (utility.getStartDate().after(last45Days.getTime() )){
+            Log.i("utility staaaaaaaaaart",utility.getStartDateString());
+            Log.i("utility eeeeeeeeeeend",utility.getEndDateString());
+            Log.i("4555555555555555",last45Days.getTime() + "");
+            if (utility.getStartDate().after(last45Days.getTime()) && utility.getEndDate().before(today.getTime())){
                 utilityAddedRecently = true;
             }
         }
@@ -70,15 +78,17 @@ class Notification_receiver extends BroadcastReceiver{
                 .setContentIntent(pendingIntent)
                 .setAutoCancel(true)
                 .setContentInfo("Info");
-        if (utilityAddedRecently){
+        if (utilityAddedRecently == false){
             Calendar today = Calendar.getInstance();
             int journeysMadeToday = 0;
+            Log.i("jooooourneyyyyy size",journeys.size() + "");
             for (JourneyModel journey : journeys){
-                if (journey.getCreationDate().equals(today)){
+                Log.i("journey daaaaaaate",journey.getCreationDateString());
+                if (isSameDay( journey.getCreationDate(), today)){
                     journeysMadeToday ++;
 
                 }
-            }
+           }
 
             builder.setContentText("You entered " + journeysMadeToday+ " journeys today; want to enter more?");
         }
@@ -91,5 +101,14 @@ class Notification_receiver extends BroadcastReceiver{
 
 
 
+    }
+
+
+    public boolean isSameDay(Calendar cal1, Calendar cal2) {
+        if (cal1 == null || cal2 == null)
+            return false;
+        return (//cal1.get(Calendar.ERA) == cal2.get(Calendar.ERA)
+                cal1.get(Calendar.YEAR) == cal2.get(Calendar.YEAR)
+                        && cal1.get(Calendar.DAY_OF_YEAR) == cal2.get(Calendar.DAY_OF_YEAR));
     }
 }

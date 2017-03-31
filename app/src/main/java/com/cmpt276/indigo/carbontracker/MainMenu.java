@@ -47,8 +47,8 @@ public class MainMenu extends Activity {
     private void showNotification() {
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
-        calendar.set(Calendar.HOUR_OF_DAY, 21);
-        calendar.set(Calendar.MINUTE, 00);
+        calendar.set(Calendar.HOUR_OF_DAY, 13);
+        calendar.set(Calendar.MINUTE, 42);
         calendar.set(Calendar.SECOND, 00);
         Intent intent = new Intent(getApplicationContext(),Notification_receiver.class);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), REQUEST_CODE,intent,

@@ -95,6 +95,7 @@ public class JourneyAddActivity extends AppCompatActivity implements NavigationV
                             } else if (!addJourney(newJourney)) {
                                 break;
                             }
+
                             Intent intent = new Intent();
                             intent.putExtra("journey", newJourney);
                             setResult(Activity.RESULT_OK, intent);
@@ -170,7 +171,6 @@ public class JourneyAddActivity extends AppCompatActivity implements NavigationV
                 finalMyCalendar.set(Calendar.YEAR, year);
                 finalMyCalendar.set(Calendar.MONTH, monthOfYear);
                 finalMyCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-                newJourney.setCreationDate(finalMyCalendar);
 
             }
 
@@ -186,6 +186,7 @@ public class JourneyAddActivity extends AppCompatActivity implements NavigationV
                         finalMyCalendar1.get(Calendar.DAY_OF_MONTH)).show();
             }
         });
+        newJourney.setCreationDate(finalMyCalendar);
     }
 
     boolean addJourney(JourneyModel journeyModel){
@@ -266,6 +267,7 @@ public class JourneyAddActivity extends AppCompatActivity implements NavigationV
             }
             fillJourneyTexts();
             fillCarbonFootprintText();
+            gettingDate();
         }
     }
 
@@ -338,16 +340,4 @@ public class JourneyAddActivity extends AppCompatActivity implements NavigationV
     }
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
 
