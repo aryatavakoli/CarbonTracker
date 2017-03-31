@@ -7,11 +7,15 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.CarbonFootprintComponentCollection;
 
@@ -24,6 +28,7 @@ import java.util.Calendar;
 public class MainMenu extends Activity {
     public static final int JOURNEY_SELECT = 300;
     public static final int REQUEST_CODE = 100;
+    public static final String CHECK_BOX_STATUS = "CheckBoxStatus";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,8 +46,33 @@ public class MainMenu extends Activity {
         journeyViewBtn();
         utilitesCreateBtn();
         showNotification();
+        setCheckboxCallBack();
 
     }
+    public void SavePreferences(String key, Boolean bool){
+        SharedPreferences sharedPreferences = getSharedPreferences("CheckStatus",MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean(key, bool);
+        editor.apply();
+    }
+
+    private void setCheckboxCallBack() {
+        CheckBox checkBox = (CheckBox) findViewById(R.id.main_menu_checkbox);
+        checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (buttonView.isChecked()) {
+                    Log.d("Should be True", " " + isChecked);
+                    SavePreferences(CHECK_BOX_STATUS,isChecked);
+                }
+                else {
+                    Log.d("Should be False", " " + isChecked);
+                    SavePreferences(CHECK_BOX_STATUS,isChecked);
+                }
+            }
+        });
+    }
+
 
     private void showNotification() {
         Calendar calendar = Calendar.getInstance();

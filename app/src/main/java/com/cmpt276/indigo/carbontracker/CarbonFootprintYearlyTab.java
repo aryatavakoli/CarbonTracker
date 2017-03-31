@@ -1,8 +1,6 @@
 package com.cmpt276.indigo.carbontracker;
 
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -61,7 +59,7 @@ public class CarbonFootprintYearlyTab extends Fragment {
         for (JourneyModel j : journeys){
             Calendar c = j.getCreationDate();
             if (c.get(Calendar.YEAR) == today.get(Calendar.YEAR) && (c.get(Calendar.MONTH) == i)){
-                totalJourneyCo2 = totalJourneyCo2 + j.getCo2Emission();
+                totalJourneyCo2 = totalJourneyCo2 + j.getCo2EmissionInKG();
             }
 
         }

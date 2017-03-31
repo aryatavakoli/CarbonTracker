@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
@@ -18,6 +19,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,7 +34,6 @@ import com.cmpt276.indigo.carbontracker.carbon_tracker_model.TransportationModel
 import java.util.Calendar;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /*
     implments journey UI
@@ -203,12 +204,21 @@ public class JourneyAddActivity extends AppCompatActivity implements NavigationV
 
     //display co2emission
     private void fillCarbonFootprintText() {
-        newJourney.calculateEmissions();
-        carbonEmission = newJourney.getCo2Emission();
+        TextView footprintDisplay = (TextView) findViewById(R.id.journey_menu_text_current_footprint);
+        SharedPreferences sharedPreferences = getSharedPreferences("CheckStatus",MODE_PRIVATE);
+        Boolean isChecked = sharedPreferences.getBoolean(MainMenu.CHECK_BOX_STATUS,false);
         if (isRouteSelected && isVehicleSelected){
-            TextView footprintDisplay = (TextView) findViewById(R.id.journey_menu_text_current_footprint);
-            String value = String.format("%." + 2 + "f", carbonEmission);
-            footprintDisplay.setText(value + " Kg" + "");
+            if (isChecked) {
+                carbonEmission = newJourney.getCo2EmissionInBreaths();
+                String value = String.format("%." + 2 + "f", carbonEmission);
+                footprintDisplay.setText(value + " Human Breaths/Month" + "");
+            }
+            else{
+                carbonEmission = newJourney.getCo2EmissionInKG();
+                String value = String.format("%." + 2 + "f", carbonEmission);
+                footprintDisplay.setText(value + " Kg" + "");
+            }
+
         }
     }
 

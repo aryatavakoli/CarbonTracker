@@ -91,7 +91,7 @@ public class JourneyDBAdapter {
         ContentValues initialValues = new ContentValues();
         initialValues.put(KEY_TRANSPORTATION_ID, journey.getTransportationModel().getId());
         initialValues.put(KEY_ROUTE_id, journey.getRouteModel().getId());
-        initialValues.put(KEY_CO2_EMISSION, journey.getCo2Emission());
+        initialValues.put(KEY_CO2_EMISSION, journey.getCo2EmissionInKG());
         initialValues.put(KEY_CREATE_DATE, journey.getCreationDateString());
         initialValues.put(KEY_IS_DELETED, journey.getIsDeleted());
         // Insert it into the database.
@@ -207,7 +207,7 @@ public class JourneyDBAdapter {
         ContentValues newValues = new ContentValues();
         newValues.put(KEY_TRANSPORTATION_ID, journey.getTransportationModel().getId());
         newValues.put(KEY_ROUTE_id, journey.getRouteModel().getId());
-        newValues.put(KEY_CO2_EMISSION, journey.getCo2Emission());
+        newValues.put(KEY_CO2_EMISSION, journey.getCo2EmissionInKG());
         newValues.put(KEY_CREATE_DATE, journey.getCreationDateString());
         newValues.put(KEY_IS_DELETED, journey.getIsDeleted());
         // Insert it into the database.

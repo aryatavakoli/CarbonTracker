@@ -181,7 +181,7 @@ public class CarbonFootprintMonthlyTab extends Fragment {
         for (JourneyModel journey : journeys) {
             if (journey.getCreationDate().after(last28) && journey.getCreationDate().before(tomorrow)) {
                 if (journey.getTransportationModel().getTransportaionMode() == TransportationModel.TransportationMode.BUS) {
-                    totalBusEmissions = totalBusEmissions + journey.getCo2Emission();
+                    totalBusEmissions = totalBusEmissions + journey.getCo2EmissionInKG();
                 }
             }
         }
@@ -193,7 +193,7 @@ public class CarbonFootprintMonthlyTab extends Fragment {
         for (JourneyModel journey : journeys) {
             if (journey.getCreationDate().after(last28) && journey.getCreationDate().before(tomorrow)) {
                 if (journey.getTransportationModel().getTransportaionMode() == TransportationModel.TransportationMode.SKYTRAIN) {
-                    totalSkytrainEmissions = totalSkytrainEmissions + journey.getCo2Emission();
+                    totalSkytrainEmissions = totalSkytrainEmissions + journey.getCo2EmissionInKG();
                 }
             }
         }
@@ -206,7 +206,7 @@ public class CarbonFootprintMonthlyTab extends Fragment {
         for (JourneyModel journey : journeys) {
             if (journey.getCreationDate().after(last28) && journey.getCreationDate().before(tomorrow)) {
                 if (journey.getTransportationModel().getTransportaionMode() == TransportationModel.TransportationMode.CAR) {
-                    totalCarEmissions = totalCarEmissions + journey.getCo2Emission();
+                    totalCarEmissions = totalCarEmissions + journey.getCo2EmissionInKG();
                 }
             }
         }

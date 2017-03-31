@@ -39,4 +39,12 @@
         android:layout_below="@+id/main_menu_carbonfootprint_btn"
         android:layout_centerHorizontal="true" />
 
+    <CheckBox
+        android:id="@+id/main_menu_checkbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:text="Convert CO2 to Human Related Units" />
+
 </RelativeLayout>
