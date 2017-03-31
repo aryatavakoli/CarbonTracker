@@ -211,7 +211,7 @@ public class JourneyAddActivity extends AppCompatActivity implements NavigationV
             if (isChecked) {
                 carbonEmission = newJourney.getCo2EmissionInBreaths();
                 String value = String.format("%." + 2 + "f", carbonEmission);
-                footprintDisplay.setText(value + " Human Breaths/Month" + "");
+                footprintDisplay.setText(value + " Breaths/Day" + "");
             }
             else{
                 carbonEmission = newJourney.getCo2EmissionInKG();

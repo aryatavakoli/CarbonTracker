@@ -1,6 +1,7 @@
 package com.cmpt276.indigo.carbontracker;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
@@ -36,6 +37,7 @@ public class UtilityResultActivity extends AppCompatActivity {
     }
 
     private void fillBillInformation() {
+
         TextView nameDisplay = (TextView) findViewById(R.id.utility_result_name);
         nameDisplay.setText(newUtilities.getName() + "");
 
@@ -53,16 +55,28 @@ public class UtilityResultActivity extends AppCompatActivity {
             energyDisplay.setText(round(newUtilities.getTotalEnergyConsumptionInGJ(),2) + " GJ");
         }
 
-        newUtilities.calculateTotalEmissions();
-        TextView emissionsDisplay = (TextView) findViewById(R.id.utility_result_total_emission);
-        emissionsDisplay.setText(round(newUtilities.getTotalCO2EmissionsInKg(),2) + " Kg");
+        //Check checkbox status
+        SharedPreferences sharedPreferences = getSharedPreferences("CheckStatus",MODE_PRIVATE);
+        Boolean isChecked = sharedPreferences.getBoolean(MainMenu.CHECK_BOX_STATUS,false);
 
+        TextView emissionsDisplay = (TextView) findViewById(R.id.utility_result_total_emission);
         TextView occupantsDisplay = (TextView) findViewById(R.id.utility_result_occupants);
+        if (isChecked){
+            emissionsDisplay.setText(round(newUtilities.getTotalCO2EmissionsInBreaths(),2) + " Breaths/Day");
+        }
+        else{
+            emissionsDisplay.setText(round(newUtilities.getTotalCO2EmissionsInKg(),2) + " Kg");
+        }
+
+
         occupantsDisplay.setText(newUtilities.getNumberOfOccupants() + "");
     }
 
 
     private void fillPerDayUsageTexts() {
+        SharedPreferences sharedPreferences = getSharedPreferences("CheckStatus",MODE_PRIVATE);
+        Boolean isChecked = sharedPreferences.getBoolean(MainMenu.CHECK_BOX_STATUS,false);
+
         TextView energyDisplay = (TextView) findViewById(R.id.utility_result_per_day_energy_consumption);
         if (newUtilities.getCompanyName() == UtilityModel.Company.BCHYDRO) {
             energyDisplay.setText(round(newUtilities.calculateDailyEnergyConsumptionInKWh(),2) + " KWh");
@@ -72,10 +86,18 @@ public class UtilityResultActivity extends AppCompatActivity {
         }
 
         TextView emissionsDisplay = (TextView) findViewById(R.id.utility_result_per_day_emissions);
-        emissionsDisplay.setText(round(newUtilities.calculateDailyCO2EmissionsInKg(),2) + " Kg");
+        if (isChecked){
+            emissionsDisplay.setText(round(newUtilities.getDailyCO2EmissionsInBreaths(),2) + " Breaths/Day");
+        }
+        else{
+            emissionsDisplay.setText(round(newUtilities.getDailyCO2EmissionsInKg(),2) + " Kg");
+        }
     }
 
     private void fillPerPersonTexts() {
+        SharedPreferences sharedPreferences = getSharedPreferences("CheckStatus",MODE_PRIVATE);
+        Boolean isChecked = sharedPreferences.getBoolean(MainMenu.CHECK_BOX_STATUS,false);
+
         TextView energyDisplay = (TextView) findViewById(R.id.utility_result_per_person_energy_consumption);
         if (newUtilities.getCompanyName() == UtilityModel.Company.BCHYDRO) {
             energyDisplay.setText(round(newUtilities.getTotalEnergyConsumptionPerOccupantInKWh(),2) + " KWh");
@@ -84,9 +106,13 @@ public class UtilityResultActivity extends AppCompatActivity {
             energyDisplay.setText(round(newUtilities.getTotalEnergyConsumptionPerOccupantInGJ(),2) + " GJ");
         }
 
-
         TextView emissionsDisplay = (TextView) findViewById(R.id.utility_result_per_person_emissions);
-        emissionsDisplay.setText(round(newUtilities.getTotalEmissionsPerOccupant(),2) + " Kg");
+        if (isChecked) {
+            emissionsDisplay.setText(round(newUtilities.getTotalEmissionsPerOccupantInBreaths(),2) + " Breaths/Day");
+        }
+        else{
+            emissionsDisplay.setText(round(newUtilities.getTotalEmissionsPerOccupantInKG(),2) + " Kg");
+        }
     }
 
     public static double round(double value, int places) {

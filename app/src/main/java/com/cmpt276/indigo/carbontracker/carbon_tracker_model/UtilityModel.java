@@ -14,6 +14,7 @@ public class UtilityModel implements CarbonFootprintComponent {
     public static final double ELECTRICITY_FOOTPRINT_KG_PER_KWH = 0.009; // 9000; kg/Gwh //2.5 Kg/GJ
     public static final double GAS_FOOTPRINT_KG_PER_GJ = 51.6; // 51.6 Kg/Gj
     public static final double CONVERT_KWH_TO_GJ = 0.0036; // 1Kwh = 0.0036 GJ
+    public static final double CO2_HUMAN_BREATHS_IN_KG_PER_DAY = 0.850;
 
     public enum Company{
         BCHYDRO,
@@ -119,6 +120,10 @@ public class UtilityModel implements CarbonFootprintComponent {
         return calculateTotalEmissions();
     }
 
+    public double getTotalCO2EmissionsInBreaths() {
+        return getTotalCO2EmissionsInKg()/ CO2_HUMAN_BREATHS_IN_KG_PER_DAY;
+    }
+
     public double calculateDailyEnergyConsumptionInGJ() {
         return getTotalEnergyConsumptionInGJ() / calculateBillingPeriodInDays();
     }
@@ -127,8 +132,12 @@ public class UtilityModel implements CarbonFootprintComponent {
         return getTotalEnergyConsumptionInKWh() / calculateBillingPeriodInDays();
     }
 
-    public double calculateDailyCO2EmissionsInKg() {
+    public double getDailyCO2EmissionsInKg() {
         return calculateTotalEmissions() / calculateBillingPeriodInDays();
+    }
+
+    public double getDailyCO2EmissionsInBreaths() {
+        return getTotalCO2EmissionsInBreaths() / calculateBillingPeriodInDays();
     }
 
     public boolean getIsDeleted() {
@@ -186,8 +195,12 @@ public class UtilityModel implements CarbonFootprintComponent {
         return (int)(TimeUnit.MILLISECONDS.toDays(msDiff) + 1);
     }
 
-    public double getTotalEmissionsPerOccupant() {
-        return  calculateTotalEmissions()/numberOfOccupants;
+    public double getTotalEmissionsPerOccupantInKG() {
+        return  getTotalCO2EmissionsInKg()/numberOfOccupants;
+    }
+
+    public double getTotalEmissionsPerOccupantInBreaths() {
+        return  getTotalCO2EmissionsInBreaths()/numberOfOccupants;
     }
 
     public double getTotalEnergyConsumptionPerOccupantInGJ() {

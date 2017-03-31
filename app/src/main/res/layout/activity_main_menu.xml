@@ -45,6 +45,6 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:text="Convert CO2 to Human Related Units" />
+        android:text="Convert Kg of CO2 to Human Breaths/Day" />
 
 </RelativeLayout>

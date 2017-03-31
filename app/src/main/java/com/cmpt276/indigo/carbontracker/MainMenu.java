@@ -8,6 +8,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -35,7 +36,6 @@ public class MainMenu extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
 
-
         // process might be killed off while paused and the app is in the background.
         // In that case, the flag will be false when the activity is recreated by
         // the system when the user tries to bring the app back to the foreground/
@@ -49,6 +49,7 @@ public class MainMenu extends Activity {
         setCheckboxCallBack();
 
     }
+
     public void SavePreferences(String key, Boolean bool){
         SharedPreferences sharedPreferences = getSharedPreferences("CheckStatus",MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();

@@ -11,7 +11,7 @@ public class JourneyModel implements CarbonFootprintComponent{
     public static final double CO2_PER_KM_BUS = 0.0089;
     public static final double CO2_PER_KM_SKYTRAIN = 0.0087;
     public static final double CO2_PER_KM_PEDESTRIAN = 0.0;
-    public static final double CO2_HUMAN_BREATHS_IN_KG_PER_MONTH = 25.9; // 850g/day
+    public static final double CO2_HUMAN_BREATHS_IN_KG_PER_DAY = 0.850;
     public static final String DATE_FORMAT = "yyyy-MMM-dd";
 
     private long id;
@@ -74,7 +74,7 @@ public class JourneyModel implements CarbonFootprintComponent{
     }
 
     public double getCo2EmissionInBreaths(){
-       return getCo2EmissionInKG() / CO2_HUMAN_BREATHS_IN_KG_PER_MONTH;
+       return getCo2EmissionInKG() / CO2_HUMAN_BREATHS_IN_KG_PER_DAY;
     }
 
     //error handling
