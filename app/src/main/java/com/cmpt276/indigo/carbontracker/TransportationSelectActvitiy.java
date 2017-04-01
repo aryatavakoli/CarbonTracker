@@ -61,8 +61,6 @@ public class TransportationSelectActvitiy extends AppCompatActivity implements N
     }
 
     private void setupList(){
-        selectedItemIndex = -1;
-        Resources res = getResources();
         vehicles = carbonFootprintInterface.getVehicles(this);
         int vehicleSize = vehicles.size();
         arrayAdapterItems = new CustomizedArrayAdapterItem[vehicleSize];
