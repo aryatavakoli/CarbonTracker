@@ -73,8 +73,8 @@ public class UtilityDBAdapter {
                     + KEY_START_DATE + " date not null, "
                     + KEY_END_DATE + " date not null, "
                     + KEY_IS_DELETED + " boolean not null,"
-                    + KEY_UNITS + " Units not null"
-                    + KEY_EMISSION_IN_UNITS + "double not null"
+                    + KEY_UNITS + " Units not null,"
+                    + KEY_EMISSION_IN_UNITS + " double not null"
                     + ");";
 
     // Context of application who uses us.
