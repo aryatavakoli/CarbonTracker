@@ -6,6 +6,9 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatDialogFragment;
+
+import com.cmpt276.indigo.carbontracker.R;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -91,7 +94,7 @@ public class TipFragment extends AppCompatDialogFragment {
         builder.setMessage(messageList[messageIndex]);
         messageIndex ++;
         if (messageIndex == 15)messageIndex = 0; //if we have reached the end of the arraylist go back to index 0
-        builder.setTitle("New Tip");
+        builder.setTitle(R.string.new_tip);
         builder.setNegativeButton("OK", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 getActivity().finish();
@@ -99,7 +102,7 @@ public class TipFragment extends AppCompatDialogFragment {
             }
 
         });
-        builder.setPositiveButton("next tip", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton(R.string.next_tip, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
 //                if the user wants to see another tip we call anotheer dialod
                 FragmentManager manager = getFragmentManager();
@@ -161,22 +164,22 @@ public class TipFragment extends AppCompatDialogFragment {
                 cityNum ++;
             }
         }
-        messageList[0]= "You had "+ carNUm+ " car trips today. You might be able to cut that down by combining trips tomorrow.";
-        messageList[1]= "You generate "+ CO2usage  + " of CO2 . Shorter showers might help cut down emissions from hot water heater.";
-        messageList[2]= "Overall you had " + CO2usage + " kgs of carbon which " + CO2Car + " of it belongs to your car trips";
-        messageList[3]= "You have " + shortDistanceTrips +" trips with total distance of less than 10km you can try walking or biking these routes";
-        messageList[4]= "You have Walked/Biked " + distanceWalked +  "kms in total of " + walkNum +" walk/bike trips you had" ;
-        messageList[5]= "In " + cityNum + " of your car journeys highway distance was less than city distance" +
-                " if it is not necessary try to avoid driving in city and traffics because it produces more CO2 ";
-        messageList[6]= "during taking each of your " +  carNUm+
-        " car tips try to Drive at an appropriate speed -" +
-        " staying within the 70mph limit can bring savings of 10 per cent for your fuel bill compared to driving at 80mph.";
-        messageList[7]= "today your co2 emission was " + CO2usage + " CO2 emission per person in Canada" +
-                " is on average 14.68 metric tons per day";
-        messageList[8]= "Remove unnecessary weight from your " + carNUm+" cars; this will cut down fuel consumption and carbon dioxide emissions";
+        messageList[0]= getString(R.string.you_had)+ carNUm+ getString(R.string.car_trips_today_you_might_be_able_to_cut);
+        messageList[1]= getString(R.string.you_generate)+ CO2usage  + getString(R.string.of_co2_shorter_shower_might_help);
+        messageList[2]= getString(R.string.overall_you_had) + CO2usage + getString(R.string.kgs_of_carbon_which) + CO2Car + getString(R.string.of_it_belongs_to_your_car_trips);
+        messageList[3]= getString(R.string.you_have) + shortDistanceTrips +getString(R.string.trips_with_total_distance_of_less_than);
+        messageList[4]= getString(R.string.you_have_walked_biked) + distanceWalked +  getString(R.string.kms_in_total_of) + walkNum +getString(R.string.walk_or_bike_trips_you_had) ;
+        messageList[5]= getString(R.string.in_) + cityNum + getString(R.string.of_your_car_journeys_highway_diatance_was_less_than_city) +
+                getString(R.string.if_it_is_not_necessary_try_to_avoid);
+        messageList[6]= getString(R.string.during_taking_each_of_your) +  carNUm+
+        getString(R.string.car_tips_try_to_drive_at_an_appropriate_speed) +
+        getString(R.string.staying_within_the_70mph_limit_can_bring_saving);
+        messageList[7]= getString(R.string.today_your_co2_emission_was) + CO2usage + getString(R.string.co2_emission_per_person_in_canada) +
+                getString(R.string.is_on_average_);
+        messageList[8]= getString(R.string.remove_unnecessary_weight_from_your) + carNUm+getString(R.string.cars_this_will_cut_down_fuel_consumption);
         if(mostCo2Journey.getTransportationModel() != null) {
-            messageList[9] = "your journey " + mostCo2Journey + " uses the most amount of CO2 with the" + mostCo2Journey.getTransportationModel().getName() +
-                    ". Try to avoid this journey if it is possible";
+            messageList[9] = getString(R.string.your_journey_) + mostCo2Journey + getString(R.string.uses_the_most_amount_of_co2_with_the) + mostCo2Journey.getTransportationModel().getName() +
+                    getString(R.string.try_to_avoid_this_journey_if);
         }
         else
         {
@@ -184,12 +187,12 @@ public class TipFragment extends AppCompatDialogFragment {
         }
 
 
-        messageList[10]="Today you had " + todayJournies + " journeys plan to do a number of errands in one trip rather than several trips and save both time and fuel";
-        messageList[11]= "Your number of walking trip is" + walkNum + " and your car trip is " + carNUm +
-        "You can try to walk more";
-        messageList[12]= "if you are using one of your " + carNUm+ " cars you have created today Minimise fuel wasted in idling by stopping the engine whenever your car is stopped or held up for an extended period of time.";
-        messageList[13]= "while driving one of your " + carNUm+ " cars listen to the radio for traffic slowdown warnings";
-        messageList[14]= " If you are taking one of your " + carNUm + " trips, don't keep it on idle. Appliances running on standby power consume a great deal of energy, unnecessarily.";
+        messageList[10]=getString(R.string.today_you_had_) + todayJournies + getString(R.string.journeys_plan_to_do_a_number_of_errands);
+        messageList[11]= getString(R.string.your_number_of_walking_trip_is) + walkNum + getString(R.string.and_your_car_trip_is) + carNUm +
+        getString(R.string.you_can_try_to_walk_more);
+        messageList[12]= getString(R.string.if_you_are_using_one_of_your) + carNUm+ getString(R.string.cars_you_have_created_today_minimise);
+        messageList[13]= getString(R.string.while_driving_one_of_your) + carNUm+ getString(R.string.cars_listen_to_the_radio_for_traffic_slowdown);
+        messageList[14]= getString(R.string.if_you_are_taking_one_of_your) + carNUm + getString(R.string.trips_dont_keep_it_on_idle);
     }
 }
 
