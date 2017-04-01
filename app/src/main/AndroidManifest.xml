@@ -73,7 +73,7 @@
         </activity>
         <activity
             android:name=".JourneySelectActivity"
-            android:label="Select Journey"
+            android:label="@string/select_journey"
             android:parentActivityName=".MainMenu"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data

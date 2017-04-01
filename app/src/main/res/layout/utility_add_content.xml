@@ -27,7 +27,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Bill Name: " />
+                android:text="@string/bill_name_utility_add" />
 
             <EditText
                 android:id="@+id/utility_add_editText_name"
@@ -47,7 +47,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Company: " />
+                android:text="@string/company_utility_add" />
 
             <Spinner
                 android:id="@+id/utility_add_spinner_company"
@@ -64,7 +64,7 @@
                 android:id="@+id/textView6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Start Date" />
+                android:text="@string/start_date" />
 
             <Button
                 android:id="@+id/StartDatebtn"
@@ -82,7 +82,7 @@
                 android:id="@+id/textView4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="End Date" />
+                android:text="@string/end_date" />
 
             <Button
                 android:id="@+id/endDateBtn"
@@ -100,7 +100,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Energy Consumption " />
+                android:text="@string/energy_consumption_add" />
 
             <EditText
                 android:id="@+id/utility_add_editText_energy_consumption"
@@ -108,7 +108,7 @@
                 android:layout_height="wrap_content"
                 android:backgroundTint="@android:color/holo_green_light"
                 android:ems="10"
-                android:hint="As Written on Bill"
+                android:hint="@string/as_written_on_bill"
                 android:inputType="numberDecimal"
                 android:textCursorDrawable="@drawable/cursor_color" />
         </TableRow>
@@ -120,7 +120,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Occupants: " />
+                android:text="@string/occupants" />
 
             <EditText
                 android:id="@+id/utility_add_editText_num_ppl"
@@ -128,7 +128,7 @@
                 android:layout_height="wrap_content"
                 android:backgroundTint="@android:color/holo_green_light"
                 android:ems="10"
-                android:hint="# of People"
+                android:hint="@string/of_people"
                 android:inputType="number"
                 android:textCursorDrawable="@drawable/cursor_color" />
         </TableRow>
