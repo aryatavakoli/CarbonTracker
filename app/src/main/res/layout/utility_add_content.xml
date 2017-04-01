@@ -11,127 +11,159 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.cmpt276.indigo.carbontracker.UtilitySelectActivity"
-    tools:showIn="@layout/utility_list_app_bar">
+    tools:showIn="@layout/utility_add_app_bar">
 
-    <TableLayout
-        android:id="@+id/utility_add_table_layout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true">
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:scrollbars="none"
+        android:layout_weight="1">
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+        <TableLayout
+            android:id="@+id/utility_add_table_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true"
+            android:stretchColumns="*">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/bill_name_utility_add" />
-
-            <EditText
-                android:id="@+id/utility_add_editText_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@android:color/holo_green_light"
-                android:ems="10"
-                android:hint="Nickname"
-                android:inputType="textNoSuggestions|textPersonName"
-                android:textCursorDrawable="@drawable/cursor_color" />
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/company_utility_add" />
-
-            <Spinner
-                android:id="@+id/utility_add_spinner_company"
+            <TableRow
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="match_parent">
 
-        </TableRow>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/bill_name_utility_add" />
+            </TableRow>
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
 
-            <TextView
-                android:id="@+id/textView6"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/start_date" />
+                <EditText
+                    android:id="@+id/utility_add_editText_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/transportation_add_comp_bottom_margin"
+                    android:backgroundTint="@android:color/holo_green_light"
+                    android:ems="10"
+                    android:hint="Nickname"
+                    android:inputType="textNoSuggestions|textPersonName"
+                    android:textCursorDrawable="@drawable/cursor_color" />
+            </TableRow>
 
-            <Button
-                android:id="@+id/StartDatebtn"
-                style="@style/Widget.AppCompat.Button.Borderless"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="start" />
-        </TableRow>
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/company_utility_add" />
+            </TableRow>
 
-            <TextView
-                android:id="@+id/textView4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/end_date" />
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
 
-            <Button
-                android:id="@+id/endDateBtn"
-                style="@style/Widget.AppCompat.Button.Borderless"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="End" />
+                <Spinner
+                    android:id="@+id/utility_add_spinner_company"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/transportation_add_comp_bottom_margin" />
 
-        </TableRow>
+            </TableRow>
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" >
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/energy_consumption_add" />
+                <TextView
+                    android:id="@+id/textView6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/start_date" />
 
-            <EditText
-                android:id="@+id/utility_add_editText_energy_consumption"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@android:color/holo_green_light"
-                android:ems="10"
-                android:hint="@string/as_written_on_bill"
-                android:inputType="numberDecimal"
-                android:textCursorDrawable="@drawable/cursor_color" />
-        </TableRow>
+                <Button
+                    android:id="@+id/StartDatebtn"
+                    style="@style/Widget.AppCompat.Button.Borderless"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="start" />
+            </TableRow>
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/occupants" />
+                <TextView
+                    android:id="@+id/textView4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/end_date" />
 
-            <EditText
-                android:id="@+id/utility_add_editText_num_ppl"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@android:color/holo_green_light"
-                android:ems="10"
-                android:hint="@string/of_people"
-                android:inputType="number"
-                android:textCursorDrawable="@drawable/cursor_color" />
-        </TableRow>
-    </TableLayout>
 
+                <Button
+                    android:id="@+id/endDateBtn"
+                    style="@style/Widget.AppCompat.Button.Borderless"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/transportation_add_comp_bottom_margin"
+                    android:text="End" />
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/energy_consumption_add" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <EditText
+                    android:id="@+id/utility_add_editText_energy_consumption"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/transportation_add_comp_bottom_margin"
+                    android:backgroundTint="@android:color/holo_green_light"
+                    android:ems="10"
+                    android:hint="@string/as_written_on_bill"
+                    android:inputType="numberDecimal"
+                    android:textCursorDrawable="@drawable/cursor_color" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/occupants" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <EditText
+                    android:id="@+id/utility_add_editText_num_ppl"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@android:color/holo_green_light"
+                    android:ems="10"
+                    android:hint="@string/of_people"
+                    android:inputType="number"
+                    android:textCursorDrawable="@drawable/cursor_color" />
+            </TableRow>
+        </TableLayout>
+    </ScrollView>
 </RelativeLayout>

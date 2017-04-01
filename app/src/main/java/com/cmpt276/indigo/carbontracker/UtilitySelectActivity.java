@@ -116,12 +116,12 @@ public class UtilitySelectActivity extends AppCompatActivity implements Navigati
     }
 
     private void onSelectUtility(){
-        Intent intent = getIntent();
-        // Passing selected vehicle to the caller activity
-        UtilityModel utility = utilities.get(selectedItemIndex);
-        intent.putExtra("utility", utility);
+        Intent intent = new Intent(getBaseContext(), UtilityResultActivity.class);
+        // Passing selected Utilities to the caller activity
+        UtilityModel selectedUtility = carbonFootprintInterface.getUtilities(this).get(selectedItemIndex);
+        intent.putExtra("utility", selectedUtility);
         setResult(RESULT_OK, intent);
-        finish();
+        startActivity(intent);
     }
 
     private void setBottomNavigationItemsStatus() {
