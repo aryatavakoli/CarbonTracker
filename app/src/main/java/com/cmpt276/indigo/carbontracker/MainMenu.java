@@ -72,11 +72,13 @@ public class MainMenu extends Activity {
         editor.apply();
     }
 
-    private boolean LoadPreferences(){
+    public boolean LoadPreferences(){
         SharedPreferences preferences = getApplicationContext().getSharedPreferences(CHECK_STATUS,MODE_PRIVATE);
         boolean value = preferences.getBoolean(CHECK_BOX_STATUS, false);
         return value;
     }
+
+    //TODO: SWTICH UNITS
     private void setCheckboxCallBack() {
         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
