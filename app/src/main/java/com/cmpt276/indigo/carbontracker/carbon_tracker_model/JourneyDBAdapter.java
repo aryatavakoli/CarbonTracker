@@ -150,7 +150,14 @@ public class JourneyDBAdapter {
         if(routeModel == null) {
             throw new IllegalArgumentException("Route could not be found in database");
         }
-        return new JourneyModel(id, transportationModel, routeModel, co2Emission, createDate, isDeleted, units);
+        return new JourneyModel(
+                id,
+                transportationModel,
+                routeModel,
+                co2Emission,
+                createDate,
+                isDeleted,
+                units);
     }
 
     public ArrayList<JourneyModel> getAllJournies() {
