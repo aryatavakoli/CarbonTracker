@@ -35,15 +35,15 @@
             android:layout_height="match_parent" >
 
             <EditText
+                android:id="@+id/add_route_editText_nickname"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:inputType="textPersonName"
-                android:ems="10"
-                android:id="@+id/add_route_editText_nickname"
-                android:hint="@string/nickname"
+                android:layout_marginBottom="@dimen/transportation_add_comp_bottom_margin"
                 android:backgroundTint="@android:color/holo_green_light"
-                android:textCursorDrawable="@drawable/cursor_color"
-                android:textAppearance="@android:style/TextAppearance.Material.Medium"/>
+                android:ems="10"
+                android:hint="@string/nickname"
+                android:inputType="textPersonName"
+                android:textCursorDrawable="@drawable/cursor_color" />
         </TableRow>
 
         <TableRow
@@ -61,15 +61,15 @@
             android:layout_height="match_parent" >
 
             <EditText
+                android:id="@+id/add_route_editText_highway_distance"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/transportation_add_comp_bottom_margin"
+                android:backgroundTint="@android:color/holo_green_light"
                 android:ems="10"
-                android:id="@+id/add_route_editText_highway_distance"
                 android:hint="@string/distance_km"
                 android:inputType="number"
-                android:backgroundTint="@android:color/holo_green_light"
-                android:textCursorDrawable="@drawable/cursor_color"
-                android:textAppearance="@android:style/TextAppearance.Material.Medium"/>
+                android:textCursorDrawable="@drawable/cursor_color" />
         </TableRow>
 
         <TableRow
@@ -87,15 +87,15 @@
             android:layout_height="match_parent" >
 
             <EditText
+                android:id="@+id/add_route_editText_city_distance"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/transportation_add_comp_bottom_margin"
+                android:backgroundTint="@android:color/holo_green_light"
                 android:ems="10"
-                android:id="@+id/add_route_editText_city_distance"
                 android:hint="@string/distance_km"
                 android:inputType="number"
-                android:backgroundTint="@android:color/holo_green_light"
-                android:textCursorDrawable="@drawable/cursor_color"
-                android:textAppearance="@android:style/TextAppearance.Material.Medium"/>
+                android:textCursorDrawable="@drawable/cursor_color" />
         </TableRow>
 
         <TableRow
