@@ -120,7 +120,7 @@ public class UtilityDBAdapter {
         initialValues.put(KEY_END_DATE, utility.getEndDateString());
         initialValues.put(KEY_IS_DELETED, utility.getIsDeleted());
         initialValues.put(KEY_UNITS, UtilityModel.UnitsToInt(utility.getUnits()));
-        initialValues.put(KEY_EMISSION_IN_UNITS, UtilityModel.UnitsToInt(utility.getUnits()));
+        initialValues.put(KEY_EMISSION_IN_UNITS, utility.getTotalCarbonEmissionsInSpecifiedUnits());
         // Insert it into the database.
         utility.setId(db.insert(DATABASE_TABLE, null, initialValues));
         return utility.getId();

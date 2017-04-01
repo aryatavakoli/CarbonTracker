@@ -44,7 +44,7 @@ public class JourneyDBAdapter {
             KEY_CO2_EMISSION,
             KEY_CREATE_DATE,
             KEY_IS_DELETED,
-            KEY_UNITS,
+            KEY_UNITS
     };
 
     // DB info: it's name, and the table we are using (just one).
@@ -103,8 +103,6 @@ public class JourneyDBAdapter {
         initialValues.put(KEY_CO2_EMISSION, journey.getCo2EmissionInSpecifiedUnits());
         initialValues.put(KEY_CREATE_DATE, journey.getCreationDateString());
         initialValues.put(KEY_IS_DELETED, journey.getIsDeleted());
-        initialValues.put(KEY_UNITS, journey.getIsDeleted());
-        initialValues.put(KEY_IS_DELETED, journey.getIsDeleted());
         initialValues.put(KEY_UNITS, JourneyModel.UnitsToInt(journey.getUnits()));
         // Insert it into the database.
         journey.setId(db.insert(DATABASE_TABLE, null, initialValues));
@@ -133,7 +131,7 @@ public class JourneyDBAdapter {
         long id = (long) cursor.getInt(JourneyDBAdapter.COL_ROWID);
         long transportationID = (long)cursor.getInt(JourneyDBAdapter.COL_TRANSPORTATION_ID);
         long routeID = (long)cursor.getInt(JourneyDBAdapter.COL_ROUTE_id);
-        float co2Emission = cursor.getFloat(JourneyDBAdapter.COL_CO2_EMISSION);
+        double co2Emission = cursor.getDouble(JourneyDBAdapter.COL_CO2_EMISSION);
         JourneyModel.Units units = JourneyModel.IntToUnits(cursor.getInt(JourneyDBAdapter.COL_UNITS));
         Calendar createDate = Calendar.getInstance();
         SimpleDateFormat formatter = new SimpleDateFormat(UtilityModel.DATE_FORMAT);

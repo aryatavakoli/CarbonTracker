@@ -40,7 +40,7 @@ public class JourneyModel implements CarbonFootprintComponent{
     public JourneyModel(long id,
                         TransportationModel vehicle,
                         RouteModel route,
-                        float Co2EmissionInSpecifiedUnits,
+                        double Co2EmissionInSpecifiedUnits,
                         Calendar creationDate,
                         boolean isDeleted,
                         Units units){
