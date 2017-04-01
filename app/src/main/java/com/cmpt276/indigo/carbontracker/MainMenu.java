@@ -33,7 +33,19 @@ public class MainMenu extends Activity {
     public static final String CHECK_BOX_STATUS = "CheckBoxStatus";
     public static final String CHECK_STATUS = "CheckStatus";
     private CheckBox checkBox;
-    CarbonFootprintComponentCollection carbonFootprintInterface;
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        SavePreferences(CHECK_BOX_STATUS, checkBox.isChecked());
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        checkBox.setChecked(LoadPreferences());
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,7 +74,7 @@ public class MainMenu extends Activity {
 
     private boolean LoadPreferences(){
         SharedPreferences preferences = getApplicationContext().getSharedPreferences(CHECK_STATUS,MODE_PRIVATE);
-        boolean value = preferences.getBoolean("CHECK_BOX_STATUS", false);
+        boolean value = preferences.getBoolean(CHECK_BOX_STATUS, false);
         return value;
     }
     private void setCheckboxCallBack() {

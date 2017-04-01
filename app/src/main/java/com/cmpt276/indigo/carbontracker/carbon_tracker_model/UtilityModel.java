@@ -73,6 +73,7 @@ public class UtilityModel implements CarbonFootprintComponent {
         return -1;
     }
 
+
     private long id; //index of the utility
     private Company companyName;
     private String name;
@@ -83,6 +84,19 @@ public class UtilityModel implements CarbonFootprintComponent {
     private Calendar endDate; //end of utility creation
     private Units units;
     private double totalCarbonEmissionsInSpecifiedUnits;
+
+    public  UtilityModel(){
+        setId(-1);
+        setCompanyName(Company.BCHYDRO);
+        setName(null);
+        setTotalEnergyConsumptionInKWh(0);
+        setNumberOfOccupants(0);
+        setIsDeleted(false);
+        setStartDate(Calendar.getInstance());
+        setEndDate(Calendar.getInstance());
+        setUnits(Units.KILOGRAMS);
+        setTotalCarbonEmissionsInSpecifiedUnits(0);
+    }
 
     public UtilityModel(long id,
                         Company company,
