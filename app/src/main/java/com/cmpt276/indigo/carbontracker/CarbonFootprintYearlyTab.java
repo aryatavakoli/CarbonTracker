@@ -67,7 +67,7 @@ public class CarbonFootprintYearlyTab extends Fragment {
         for (UtilityModel u : utilities){
             Calendar c = Calendar.getInstance();
             if ( u.getStartDate().get(Calendar.MONTH) == i && c.get(Calendar.YEAR) == today.get(Calendar.YEAR)){
-                totalUtilityCo2 = totalUtilityCo2 + u.getDailyCO2EmissionsInKg();
+                totalUtilityCo2 = totalUtilityCo2 + u.getDailyCO2EmissionsInSpecifiedUnits();
             }
         }
 

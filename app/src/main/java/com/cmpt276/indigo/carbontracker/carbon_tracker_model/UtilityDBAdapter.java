@@ -31,6 +31,8 @@ public class UtilityDBAdapter {
     public static final String KEY_START_DATE = "start_date";
     public static final String KEY_END_DATE = "end_date";
     public static final String KEY_IS_DELETED = "is_deleted";
+    public static final String KEY_UNITS = "units";
+    public static final String KEY_EMISSION_IN_UNITS = "emission_in_units";
 
     public static final int COL_NAME = 1;
     public static final int COL_COMPANY = 2;
@@ -39,9 +41,20 @@ public class UtilityDBAdapter {
     public static final int COL_START_DATE = 5;
     public static final int COL_END_DATE = 6;
     public static final int COL_IS_DELETED = 7;
+    public static final int COL_UNITS= 8;
+    public static final int COL_EMISSION_IN_UNITS = 9;
 
     public static final String[] ALL_KEYS = new String[] {
-            KEY_ROWID, KEY_NAME, KEY_COMPANY, KEY_TOTAL_ENERGY_CONSUMPTION_IN_GWH, KEY_NUMBER_OF_OCCUPANTS, KEY_START_DATE, KEY_END_DATE, KEY_IS_DELETED
+            KEY_ROWID,
+            KEY_NAME,
+            KEY_COMPANY,
+            KEY_TOTAL_ENERGY_CONSUMPTION_IN_GWH,
+            KEY_NUMBER_OF_OCCUPANTS,
+            KEY_START_DATE,
+            KEY_END_DATE,
+            KEY_IS_DELETED,
+            KEY_UNITS,
+            KEY_EMISSION_IN_UNITS
     };
 
     // DB info: it's name, and the table we are using (just one).
@@ -59,7 +72,9 @@ public class UtilityDBAdapter {
                     + KEY_NUMBER_OF_OCCUPANTS + " integer not null, "
                     + KEY_START_DATE + " date not null, "
                     + KEY_END_DATE + " date not null, "
-                    + KEY_IS_DELETED + " boolean not null"
+                    + KEY_IS_DELETED + " boolean not null,"
+                    + KEY_UNITS + " Units not null"
+                    + KEY_EMISSION_IN_UNITS + "double not null"
                     + ");";
 
     // Context of application who uses us.
@@ -104,6 +119,8 @@ public class UtilityDBAdapter {
         initialValues.put(KEY_START_DATE, utility.getStartDateString());
         initialValues.put(KEY_END_DATE, utility.getEndDateString());
         initialValues.put(KEY_IS_DELETED, utility.getIsDeleted());
+        initialValues.put(KEY_UNITS, UtilityModel.UnitsToInt(utility.getUnits()));
+        initialValues.put(KEY_EMISSION_IN_UNITS, UtilityModel.UnitsToInt(utility.getUnits()));
         // Insert it into the database.
         utility.setId(db.insert(DATABASE_TABLE, null, initialValues));
         return utility.getId();
@@ -133,6 +150,7 @@ public class UtilityDBAdapter {
         UtilityModel.Company company = UtilityModel.IntToCompany(cursor.getInt(UtilityDBAdapter.COL_COMPANY));
         double totalEnergyConsumptionInGWh = cursor.getDouble(UtilityDBAdapter.COL_TOTAL_ENERGY_CONSUMPTION_IN_GWH);
         int numberOfOccupants = cursor.getInt((UtilityDBAdapter.COL_NUMBER_OF_OCCUPANTS));
+        UtilityModel.Units units = UtilityModel.IntToUnits(cursor.getInt(UtilityDBAdapter.COL_UNITS));
 
         Calendar startDate = Calendar.getInstance();
         Calendar endDate = Calendar.getInstance();
@@ -145,7 +163,16 @@ public class UtilityDBAdapter {
         catch(Exception e){
 
         }
-        return new UtilityModel(id, company, name, totalEnergyConsumptionInGWh, numberOfOccupants, startDate, endDate, isDeleted);
+        return new UtilityModel(
+                id,
+                company,
+                name,
+                totalEnergyConsumptionInGWh,
+                numberOfOccupants,
+                startDate,
+                endDate,
+                isDeleted,
+                units);
     }
 
     public ArrayList<UtilityModel> getAllUtilities() {
@@ -211,6 +238,7 @@ public class UtilityDBAdapter {
         newValues.put(KEY_START_DATE, utility.getStartDateString());
         newValues.put(KEY_END_DATE, utility.getEndDateString());
         newValues.put(KEY_IS_DELETED, utility.getIsDeleted());
+        newValues.put(KEY_UNITS, UtilityModel.UnitsToInt(utility.getUnits()));
         // Insert it into the database.
         return db.update(DATABASE_TABLE, newValues, where, null) != 0;
     }

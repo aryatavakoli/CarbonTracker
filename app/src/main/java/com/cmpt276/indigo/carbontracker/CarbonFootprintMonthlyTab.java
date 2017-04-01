@@ -155,7 +155,7 @@ public class CarbonFootprintMonthlyTab extends Fragment {
         for (UtilityModel utility : utilities){
             if (utility.getStartDate().before(tomorrow) && utility.getStartDate().after(last28)) {
                 if (utility.getCompanyName() == UtilityModel.Company.BCHYDRO) {
-                    float total_emission = (float) (utility.getNumberOfOccupants() * utility.getTotalEmissionsPerOccupantInKG());
+                    float total_emission = (float) (utility.getNumberOfOccupants() * utility.getTotalEmissionsPerOccupantInSpecifiedUnits());
                     totalElectrcity = totalElectrcity + total_emission;
                 }
             }
@@ -168,7 +168,7 @@ public class CarbonFootprintMonthlyTab extends Fragment {
         for (UtilityModel utility : utilities) {
             if (utility.getStartDate().before(tomorrow) && utility.getStartDate().after(last28)) {
                 if (utility.getCompanyName() == UtilityModel.Company.FORTISBC) {
-                    float total_emission = (float) (utility.getNumberOfOccupants() * utility.getTotalEmissionsPerOccupantInKG());
+                    float total_emission = (float) (utility.getNumberOfOccupants() * utility.getTotalEmissionsPerOccupantInSpecifiedUnits());
                     totalNaturalGasEmissions = totalNaturalGasEmissions + total_emission;
                 }
             }

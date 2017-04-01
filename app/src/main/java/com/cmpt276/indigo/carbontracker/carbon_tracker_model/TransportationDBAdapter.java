@@ -47,7 +47,18 @@ public class TransportationDBAdapter {
     public static final int COL_IS_DELETED = 11;
 
     public static final String[] ALL_KEYS = new String[] {
-            KEY_ROWID, KEY_NAME, KEY_MAKE, KEY_MODEL, KEY_YEAR, KEY_TRANSMISSION, KEY_ENGINE_DISPLACEMENT, KEY_CITY_MILEAGE, KEY_HIGHWAY_MILEAGE, KEY_PRIMARY_FUEL_TYPE, KEY_TRANSPORTATION_MODE, KEY_IS_DELETED
+            KEY_ROWID,
+            KEY_NAME,
+            KEY_MAKE,
+            KEY_MODEL,
+            KEY_YEAR,
+            KEY_TRANSMISSION,
+            KEY_ENGINE_DISPLACEMENT,
+            KEY_CITY_MILEAGE,
+            KEY_HIGHWAY_MILEAGE,
+            KEY_PRIMARY_FUEL_TYPE,
+            KEY_TRANSPORTATION_MODE,
+            KEY_IS_DELETED
     };
 
     // DB info: it's name, and the table we are using (just one).
@@ -153,7 +164,19 @@ public class TransportationDBAdapter {
         String primaryFuelType = cursor.getString(COL_PRIMARY_FUEL_TYPE);
         TransportationModel.TransportationMode transportationMode = TransportationModel.IntToTransportaionMode(cursor.getInt(TransportationDBAdapter.COL_TRANSPORTATION_MODE));
 
-        return new TransportationModel(id, name, make, model, year, transmission, engineDisplacement, cityMileage, highwayMileage, primaryFuelType, transportationMode, isDeleted);
+        return new TransportationModel(
+                id,
+                name,
+                make,
+                model,
+                year,
+                transmission,
+                engineDisplacement,
+                cityMileage,
+                highwayMileage,
+                primaryFuelType,
+                transportationMode,
+                isDeleted);
     }
 
     public ArrayList<TransportationModel> getAllVehicles() {

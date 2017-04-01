@@ -16,9 +16,20 @@ public class UtilityModel implements CarbonFootprintComponent {
     public static final double CONVERT_KWH_TO_GJ = 0.0036; // 1Kwh = 0.0036 GJ
     public static final double CO2_HUMAN_BREATHS_IN_KG_PER_DAY = 0.850;
 
+
+    public void setTotalCarbonEmissionsInSpecifiedUnits(double totalCarbonEmissionsInSpecifiedUnits) {
+        this.totalCarbonEmissionsInSpecifiedUnits = totalCarbonEmissionsInSpecifiedUnits;
+    }
+
+
     public enum Company{
         BCHYDRO,
         FORTISBC
+    }
+
+    public enum Units{
+        KILOGRAMS,
+        BREATHS
     }
 
     public static Company IntToCompany(int number) {
@@ -31,11 +42,32 @@ public class UtilityModel implements CarbonFootprintComponent {
         return Company.BCHYDRO;
     }
 
+
     public static int CompanyToInt(Company company) {
         if(company == Company.BCHYDRO){
             return 0;
         }
         else if(company == Company.FORTISBC) {
+            return 1;
+        }
+        return -1;
+    }
+
+    public static Units IntToUnits(int number) {
+        if(number == 0){
+            return Units.KILOGRAMS;
+        }
+        else if(number == 1) {
+            return Units.BREATHS;
+        }
+        return Units.KILOGRAMS;
+    }
+
+    public static int UnitsToInt(Units unit) {
+        if(unit == Units.KILOGRAMS){
+            return 0;
+        }
+        else if(unit == Units.BREATHS) {
             return 1;
         }
         return -1;
@@ -49,6 +81,8 @@ public class UtilityModel implements CarbonFootprintComponent {
     private boolean isDeleted;
     private Calendar startDate; //start of the utility creation
     private Calendar endDate; //end of utility creation
+    private Units units;
+    private double totalCarbonEmissionsInSpecifiedUnits;
 
     public UtilityModel(long id,
                         Company company,
@@ -57,7 +91,8 @@ public class UtilityModel implements CarbonFootprintComponent {
                         int numberOfOccupants,
                         Calendar startDate,
                         Calendar endDate,
-                        boolean isDeleted){
+                        boolean isDeleted,
+                        Units units){
         setId(id);
         setCompanyName(company);
         setName(name);
@@ -66,6 +101,7 @@ public class UtilityModel implements CarbonFootprintComponent {
         setStartDate(startDate);
         setEndDate(endDate);
         setIsDeleted(isDeleted);
+        setUnits(units);
     }
 
     public long getId() {
@@ -116,12 +152,14 @@ public class UtilityModel implements CarbonFootprintComponent {
         return totalEnergyConsumptionInGJ;
     }
 
-    public double getTotalCO2EmissionsInKg() {
-        return calculateTotalEmissions();
-    }
-
-    public double getTotalCO2EmissionsInBreaths() {
-        return getTotalCO2EmissionsInKg()/ CO2_HUMAN_BREATHS_IN_KG_PER_DAY;
+    public double getTotalCarbonEmissionsInSpecifiedUnits() {
+        if (units == Units.KILOGRAMS){
+            totalCarbonEmissionsInSpecifiedUnits = calculateTotalEmissionsInKg();
+        }
+        else if (units == Units.BREATHS){
+            totalCarbonEmissionsInSpecifiedUnits = calculateTotalEmissionsInKg()/ CO2_HUMAN_BREATHS_IN_KG_PER_DAY;
+        }
+        return totalCarbonEmissionsInSpecifiedUnits;
     }
 
     public double calculateDailyEnergyConsumptionInGJ() {
@@ -132,14 +170,9 @@ public class UtilityModel implements CarbonFootprintComponent {
         return getTotalEnergyConsumptionInKWh() / calculateBillingPeriodInDays();
     }
 
-    public double getDailyCO2EmissionsInKg() {
-        return calculateTotalEmissions() / calculateBillingPeriodInDays();
+    public double getDailyCO2EmissionsInSpecifiedUnits() {
+        return getTotalCarbonEmissionsInSpecifiedUnits() / calculateBillingPeriodInDays();
     }
-
-    public double getDailyCO2EmissionsInBreaths() {
-        return getTotalCO2EmissionsInBreaths() / calculateBillingPeriodInDays();
-    }
-
     public boolean getIsDeleted() {
         return isDeleted;
     }
@@ -174,7 +207,7 @@ public class UtilityModel implements CarbonFootprintComponent {
         this.endDate = endDay;
     }
 
-    public double calculateTotalEmissions(){
+    public double calculateTotalEmissionsInKg(){
         double totalCO2EmissionsInKg;
         switch (companyName){
             case BCHYDRO:
@@ -195,12 +228,8 @@ public class UtilityModel implements CarbonFootprintComponent {
         return (int)(TimeUnit.MILLISECONDS.toDays(msDiff) + 1);
     }
 
-    public double getTotalEmissionsPerOccupantInKG() {
-        return  getTotalCO2EmissionsInKg()/numberOfOccupants;
-    }
-
-    public double getTotalEmissionsPerOccupantInBreaths() {
-        return  getTotalCO2EmissionsInBreaths()/numberOfOccupants;
+    public double getTotalEmissionsPerOccupantInSpecifiedUnits() {
+        return  getTotalCarbonEmissionsInSpecifiedUnits()/numberOfOccupants;
     }
 
     public double getTotalEnergyConsumptionPerOccupantInGJ() {
@@ -217,6 +246,14 @@ public class UtilityModel implements CarbonFootprintComponent {
 
     public void setNumberOfOccupants(int numberOfOccupants) {
         this.numberOfOccupants = numberOfOccupants;
+    }
+
+    public Units getUnits() {
+        return units;
+    }
+
+    public void setUnits(Units units) {
+        this.units = units;
     }
 
 

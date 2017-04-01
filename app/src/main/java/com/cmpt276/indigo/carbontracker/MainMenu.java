@@ -19,6 +19,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.CarbonFootprintComponentCollection;
+import com.cmpt276.indigo.carbontracker.carbon_tracker_model.UtilityModel;
 
 import java.io.InputStream;
 import java.util.Calendar;
@@ -30,12 +31,14 @@ public class MainMenu extends Activity {
     public static final int JOURNEY_SELECT = 300;
     public static final int REQUEST_CODE = 100;
     public static final String CHECK_BOX_STATUS = "CheckBoxStatus";
-
+    public static final String CHECK_STATUS = "CheckStatus";
+    private CheckBox checkBox;
+    CarbonFootprintComponentCollection carbonFootprintInterface;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
-
+        checkBox = (CheckBox) findViewById(R.id.main_menu_checkbox);
         // process might be killed off while paused and the app is in the background.
         // In that case, the flag will be false when the activity is recreated by
         // the system when the user tries to bring the app back to the foreground/
@@ -50,30 +53,28 @@ public class MainMenu extends Activity {
 
     }
 
-    public void SavePreferences(String key, Boolean bool){
-        SharedPreferences sharedPreferences = getSharedPreferences("CheckStatus",MODE_PRIVATE);
+    private void SavePreferences(String key, Boolean bool){
+        SharedPreferences sharedPreferences = getSharedPreferences(CHECK_STATUS,MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putBoolean(key, bool);
         editor.apply();
     }
 
+    private boolean LoadPreferences(){
+        SharedPreferences preferences = getApplicationContext().getSharedPreferences(CHECK_STATUS,MODE_PRIVATE);
+        boolean value = preferences.getBoolean("CHECK_BOX_STATUS", false);
+        return value;
+    }
     private void setCheckboxCallBack() {
-        CheckBox checkBox = (CheckBox) findViewById(R.id.main_menu_checkbox);
+
         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (buttonView.isChecked()) {
-                    Log.d("Should be True", " " + isChecked);
-                    SavePreferences(CHECK_BOX_STATUS,isChecked);
-                }
-                else {
-                    Log.d("Should be False", " " + isChecked);
-                    SavePreferences(CHECK_BOX_STATUS,isChecked);
-                }
+                Log.d("Should be True", " " + isChecked);
+                SavePreferences(CHECK_BOX_STATUS,isChecked);
             }
         });
     }
-
 
     private void showNotification() {
         Calendar calendar = Calendar.getInstance();
@@ -90,9 +91,6 @@ public class MainMenu extends Activity {
                 calendar.getTimeInMillis(),
                 AlarmManager.INTERVAL_DAY,
                 pendingIntent);
-
-
-
     }
 
 
