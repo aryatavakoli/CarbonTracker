@@ -253,7 +253,7 @@ public class UtilityAddActivity extends AppCompatActivity implements NavigationV
         }
         int occupants = Integer.parseInt(editTextPeople.getText().toString());
 
-        return new UtilityModel(-1, company, name, energy, occupants, startCalendar, endCalendar, false, UtilityModel.Units.KILOGRAMS);
+        return new UtilityModel(-1, company, name, energy, occupants, startCalendar, endCalendar, false, UtilityModel.Units.KILOGRAMS, 0);
     }
 
     boolean addUtility(UtilityModel utility){

@@ -132,21 +132,21 @@ public class TipFragment extends AppCompatDialogFragment {
         int cityNum = 0;
         double mostCarbonEmission= 0;
         int todayJournies =0;
-        if (journies.size() > 0)   mostCarbonEmission = journies.get(0).getCo2EmissionInKG();
+        if (journies.size() > 0)   mostCarbonEmission = journies.get(0).getCo2EmissionInSpecifiedUnits();
         JourneyModel mostCo2Journey = new JourneyModel();
         for(JourneyModel v: journies){
             if (v.getCreationDate().equals(today)){
                 todayJournies ++;
             }
-            if (v.getCo2EmissionInKG() >  mostCarbonEmission && v.getTransportationModel().getTransportaionMode() == TransportationModel.TransportationMode.CAR){
-                 mostCarbonEmission = v.getCo2EmissionInKG();
+            if (v.getCo2EmissionInSpecifiedUnits() >  mostCarbonEmission && v.getTransportationModel().getTransportaionMode() == TransportationModel.TransportationMode.CAR){
+                 mostCarbonEmission = v.getCo2EmissionInSpecifiedUnits();
                  mostCo2Journey = v;
             }
 
-            CO2usage =  CO2usage + v.getCo2EmissionInKG();
+            CO2usage =  CO2usage + v.getCo2EmissionInSpecifiedUnits();
             if (v.getTransportationModel().getTransportaionMode()== TransportationModel.TransportationMode.CAR) {
                 carNUm++;
-                CO2Car =  CO2Car + v.getCo2EmissionInKG();
+                CO2Car =  CO2Car + v.getCo2EmissionInSpecifiedUnits();
             }
             if (v.getRouteModel().getTotalDistance() <10 && v.getTransportationModel().getTransportaionMode() != TransportationModel.TransportationMode.WALK_BIKE)  {
                 shortDistanceTrips ++;

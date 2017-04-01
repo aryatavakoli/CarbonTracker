@@ -59,7 +59,7 @@ public class CarbonFootprintYearlyTab extends Fragment {
         for (JourneyModel j : journeys){
             Calendar c = j.getCreationDate();
             if (c.get(Calendar.YEAR) == today.get(Calendar.YEAR) && (c.get(Calendar.MONTH) == i)){
-                totalJourneyCo2 = totalJourneyCo2 + j.getCo2EmissionInKG();
+                totalJourneyCo2 = totalJourneyCo2 + j.getCo2EmissionInSpecifiedUnits();
             }
 
         }

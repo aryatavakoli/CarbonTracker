@@ -41,7 +41,7 @@ public class CarbonFootprintJourneyGraphTab extends Fragment {
 
         for (int i = 0; i < journeys.size(); i++) {
             pieEntriesLabels.add(journeys.get(i).getRouteModel().getName());
-            pieEntries.add(new PieEntry((float)journeys.get(i).getCo2EmissionInKG(), pieEntriesLabels.get(i)));
+            pieEntries.add(new PieEntry((float)journeys.get(i).getCo2EmissionInSpecifiedUnits(), pieEntriesLabels.get(i)));
         }
 
         PieDataSet dataSets = new PieDataSet(pieEntries,null);

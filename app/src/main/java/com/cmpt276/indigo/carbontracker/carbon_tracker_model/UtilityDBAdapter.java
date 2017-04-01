@@ -241,7 +241,7 @@ public class UtilityDBAdapter {
         newValues.put(KEY_END_DATE, utility.getEndDateString());
         newValues.put(KEY_IS_DELETED, utility.getIsDeleted());
         newValues.put(KEY_UNITS, UtilityModel.UnitsToInt(utility.getUnits()));
-        newValues.put(KEY_EMISSION_IN_UNITS, utility.getDailyCO2EmissionsInSpecifiedUnits());
+        newValues.put(KEY_EMISSION_IN_UNITS, utility.getTotalCarbonEmissionsInSpecifiedUnits());
         // Insert it into the database.
         return db.update(DATABASE_TABLE, newValues, where, null) != 0;
     }

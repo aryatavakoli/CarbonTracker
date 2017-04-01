@@ -205,20 +205,10 @@ public class JourneyAddActivity extends AppCompatActivity implements NavigationV
     //display co2emission
     private void fillCarbonFootprintText() {
         TextView footprintDisplay = (TextView) findViewById(R.id.journey_menu_text_current_footprint);
-        SharedPreferences sharedPreferences = getSharedPreferences("CheckStatus",MODE_PRIVATE);
-        Boolean isChecked = sharedPreferences.getBoolean(MainMenu.CHECK_BOX_STATUS,false);
         if (isRouteSelected && isVehicleSelected){
-            if (isChecked) {
-                carbonEmission = newJourney.getCo2EmissionInBreaths();
-                String value = String.format("%." + 2 + "f", carbonEmission);
-                footprintDisplay.setText(value + " Breaths/Day" + "");
-            }
-            else{
-                carbonEmission = newJourney.getCo2EmissionInKG();
-                String value = String.format("%." + 2 + "f", carbonEmission);
-                footprintDisplay.setText(value + " Kg" + "");
-            }
-
+            carbonEmission = newJourney.getCo2EmissionInSpecifiedUnits();
+            String value = String.format("%." + 2 + "f", carbonEmission);
+            footprintDisplay.setText(value + " Specify Unitss" + "");
         }
     }
 
