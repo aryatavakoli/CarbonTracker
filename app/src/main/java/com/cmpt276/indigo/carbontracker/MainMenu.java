@@ -78,7 +78,6 @@ public class MainMenu extends Activity {
         return value;
     }
     private void setCheckboxCallBack() {
-
         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
