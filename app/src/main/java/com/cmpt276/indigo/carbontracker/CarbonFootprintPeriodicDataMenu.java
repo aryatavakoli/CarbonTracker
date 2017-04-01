@@ -91,11 +91,11 @@ public class CarbonFootprintPeriodicDataMenu extends AppCompatActivity {
         public CharSequence getPageTitle(int position) {
             switch (position) {
                 case 0:
-                    return "1 Day";
+                    return getString(R.string.one_day);
                 case 1:
-                    return "4 Weeks";
+                    return getString(R.string.four_weeks);
                 case 2:
-                    return "1 Year";
+                    return getString(R.string.one_year);
             }
             return null;
         }
