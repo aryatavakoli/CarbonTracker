@@ -92,7 +92,8 @@ public class UtilityModel implements CarbonFootprintComponent {
                         Calendar startDate,
                         Calendar endDate,
                         boolean isDeleted,
-                        Units units){
+                        Units units,
+                        double totalCarbonEmissionsInSpecifiedUnits){
         setId(id);
         setCompanyName(company);
         setName(name);
@@ -102,6 +103,7 @@ public class UtilityModel implements CarbonFootprintComponent {
         setEndDate(endDate);
         setIsDeleted(isDeleted);
         setUnits(units);
+        setTotalCarbonEmissionsInSpecifiedUnits(totalCarbonEmissionsInSpecifiedUnits);
     }
 
     public long getId() {

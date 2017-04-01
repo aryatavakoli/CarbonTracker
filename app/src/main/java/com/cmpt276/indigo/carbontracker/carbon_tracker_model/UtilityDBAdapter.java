@@ -151,6 +151,7 @@ public class UtilityDBAdapter {
         double totalEnergyConsumptionInGWh = cursor.getDouble(UtilityDBAdapter.COL_TOTAL_ENERGY_CONSUMPTION_IN_GWH);
         int numberOfOccupants = cursor.getInt((UtilityDBAdapter.COL_NUMBER_OF_OCCUPANTS));
         UtilityModel.Units units = UtilityModel.IntToUnits(cursor.getInt(UtilityDBAdapter.COL_UNITS));
+        double totalEmissionInUnits = cursor.getDouble(UtilityDBAdapter.COL_EMISSION_IN_UNITS);
 
         Calendar startDate = Calendar.getInstance();
         Calendar endDate = Calendar.getInstance();
@@ -172,7 +173,8 @@ public class UtilityDBAdapter {
                 startDate,
                 endDate,
                 isDeleted,
-                units);
+                units,
+                totalEmissionInUnits);
     }
 
     public ArrayList<UtilityModel> getAllUtilities() {
@@ -239,6 +241,7 @@ public class UtilityDBAdapter {
         newValues.put(KEY_END_DATE, utility.getEndDateString());
         newValues.put(KEY_IS_DELETED, utility.getIsDeleted());
         newValues.put(KEY_UNITS, UtilityModel.UnitsToInt(utility.getUnits()));
+        newValues.put(KEY_EMISSION_IN_UNITS, utility.getDailyCO2EmissionsInSpecifiedUnits());
         // Insert it into the database.
         return db.update(DATABASE_TABLE, newValues, where, null) != 0;
     }
