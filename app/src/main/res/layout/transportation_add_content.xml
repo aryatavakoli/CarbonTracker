@@ -33,6 +33,7 @@
                 android:text="@string/transportation_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:id="@+id/add_transportation_nickname_tv"
                 android:textAppearance="@android:style/TextAppearance.Material.Medium" />
 
         </TableRow>
@@ -63,6 +64,7 @@
                 android:text="@string/transporation_mode"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:id="@+id/add_transportation_mode_tv"
                 android:textAppearance="@android:style/TextAppearance.Material.Medium" />
 
         </TableRow>
@@ -87,6 +89,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/make"
+                android:id="@+id/add_transportation_make_tv"
                 android:textAppearance="@android:style/TextAppearance.Material.Medium" />
 
         </TableRow>
@@ -112,6 +115,7 @@
                 android:text="@string/model"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:id="@+id/add_transportation_model_tv"
                 android:textAppearance="@android:style/TextAppearance.Material.Medium" />
 
         </TableRow>
@@ -135,6 +139,7 @@
                 android:text="@string/year"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:id="@+id/add_transportation_year_tv"
                 android:textAppearance="@android:style/TextAppearance.Material.Medium" />
 
         </TableRow>
@@ -159,6 +164,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/transmission"
+                android:id="@+id/add_transportation_transmission_tv"
                 android:textAppearance="@android:style/TextAppearance.Material.Medium" />
 
         </TableRow>
@@ -180,10 +186,10 @@
             android:layout_height="match_parent" >
 
             <TextView
-                android:id="@+id/textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/engine_displacement"
+                android:id="@+id/add_transportation_engine_tv"
                 android:textAppearance="@android:style/TextAppearance.Material.Medium" />
 
         </TableRow>

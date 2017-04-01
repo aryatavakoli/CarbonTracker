@@ -20,9 +20,12 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.TransportationModel;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -62,7 +65,6 @@ public class TransportationAddActivity extends AppCompatActivity implements Navi
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener(){
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item){
-                Intent intent = new Intent(TransportationAddActivity.this, TransportationSelectActvitiy.class);
                 switch(item.getItemId())
                 {
                     case R.id.action_add:
@@ -262,16 +264,29 @@ public class TransportationAddActivity extends AppCompatActivity implements Navi
     }
 
     private void enableNonCarFields(boolean enable) {
+        int visible = enable ? View.VISIBLE : View.INVISIBLE;
+
+        TextView makeText = (TextView) findViewById(R.id.add_transportation_make_tv);
+        makeText.setVisibility(visible);
+        TextView modelText = (TextView)findViewById(R.id.add_transportation_model_tv);
+        modelText.setVisibility(visible);
+        TextView yearText = (TextView)findViewById(R.id.add_transportation_year_tv);
+        yearText.setVisibility(visible);
+        TextView transmissionText = (TextView)findViewById(R.id.add_transportation_transmission_tv);
+        transmissionText.setVisibility(visible);
+        TextView engineDisplacementText = (TextView)findViewById(R.id.add_transportation_engine_tv);
+        engineDisplacementText.setVisibility(visible);
+
         Spinner makeSpinner = (Spinner)findViewById(R.id.add_transport_dropdown_make);
-        makeSpinner.setEnabled(enable);
+        makeSpinner.setVisibility(visible);
         Spinner modelSpinner = (Spinner)findViewById(R.id.add_transport_dropdown_model);
-        modelSpinner.setEnabled(enable);
+        modelSpinner.setVisibility(visible);
         Spinner yearSpinner = (Spinner)findViewById(R.id.add_transport_dropdown_year);
-        yearSpinner.setEnabled(enable);
+        yearSpinner.setVisibility(visible);
         Spinner transmissionSpinner = (Spinner)findViewById(R.id.add_transport_dropdown_transmission);
-        transmissionSpinner.setEnabled(enable);
+        transmissionSpinner.setVisibility(visible);
         Spinner engineDisplacementSpinner = (Spinner)findViewById(R.id.add_transport_dropdown_engine_displacement);
-        engineDisplacementSpinner.setEnabled(enable);
+        engineDisplacementSpinner.setVisibility(visible);
     }
 
     private void setupTransportationModelDropdownList() {
@@ -295,7 +310,7 @@ public class TransportationAddActivity extends AppCompatActivity implements Navi
 
             }
         });
-        transportationModelSpinner.setSelection(0);
+        transportationModelSpinner.setSelection(2);
         enableNonCarFields(true);
     }
 
