@@ -11,50 +11,73 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.cmpt276.indigo.carbontracker.TransportationSelectActvitiy"
-    tools:showIn="@layout/transportation_list_app_bar">
+    tools:showIn="@layout/transportation_add_app_bar">
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:scrollbars="none"
+        android:layout_weight="1">
 
     <TableLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/tableLayout">
+        android:id="@+id/tableLayout"
+        android:stretchColumns="*">
 
         <TableRow
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <TextView
                 android:text="@string/transportation_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:id="@+id/add_transportation_nickname_tv"
                 android:textAppearance="@android:style/TextAppearance.Material.Medium" />
-
-            <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:inputType="textPersonName"
-                android:ems="10"
-                android:id="@+id/add_transport_editText_nickname"
-                android:hint="@string/nickname"
-                style="@style/Widget.AppCompat.EditText"
-                android:backgroundTint="@android:color/holo_green_light"
-                android:textCursorDrawable="@drawable/cursor_color"/>
 
         </TableRow>
 
         <TableRow
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <EditText
+                android:id="@+id/add_transport_editText_nickname"
+                style="@style/Widget.AppCompat.EditText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/transportation_add_comp_bottom_margin"
+                android:backgroundTint="@android:color/holo_green_light"
+                android:ems="10"
+                android:hint="@string/nickname"
+                android:inputType="textPersonName"
+                android:textCursorDrawable="@drawable/cursor_color" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
             android:layout_height="wrap_content" >
 
             <TextView
                 android:text="@string/transporation_mode"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:id="@+id/add_transportation_mode_tv"
                 android:textAppearance="@android:style/TextAppearance.Material.Medium" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
 
             <Spinner
                 android:id="@+id/add_transport_dropdown_transportation_mode"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/transportation_add_comp_bottom_margin" />
 
         </TableRow>
 
@@ -66,63 +89,95 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/make"
+                android:id="@+id/add_transportation_make_tv"
                 android:textAppearance="@android:style/TextAppearance.Material.Medium" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
 
 
             <Spinner
                 android:id="@+id/add_transport_dropdown_make"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/transportation_add_comp_bottom_margin" />
 
         </TableRow>
 
         <TableRow
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content" >
 
             <TextView
                 android:text="@string/model"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:id="@+id/add_transportation_model_tv"
                 android:textAppearance="@android:style/TextAppearance.Material.Medium" />
 
-            <Spinner
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/add_transport_dropdown_model" />
         </TableRow>
 
         <TableRow
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <Spinner
+                android:id="@+id/add_transport_dropdown_model"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/transportation_add_comp_bottom_margin" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
             android:layout_height="wrap_content" >
 
             <TextView
                 android:text="@string/year"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:id="@+id/add_transportation_year_tv"
                 android:textAppearance="@android:style/TextAppearance.Material.Medium" />
-
-            <Spinner
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/add_transport_dropdown_year" />
 
         </TableRow>
 
         <TableRow
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <Spinner
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/add_transport_dropdown_year"
+                android:layout_marginBottom="@dimen/transportation_add_comp_bottom_margin"/>
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/transmission"
+                android:id="@+id/add_transportation_transmission_tv"
                 android:textAppearance="@android:style/TextAppearance.Material.Medium" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
 
             <Spinner
                 android:id="@+id/add_transport_dropdown_transmission"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/transportation_add_comp_bottom_margin"/>
 
         </TableRow>
 
@@ -131,17 +186,24 @@
             android:layout_height="match_parent" >
 
             <TextView
-                android:id="@+id/textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/engine_displacement"
+                android:id="@+id/add_transportation_engine_tv"
                 android:textAppearance="@android:style/TextAppearance.Material.Medium" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
 
             <Spinner
                 android:id="@+id/add_transport_dropdown_engine_displacement"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/transportation_add_comp_bottom_margin"/>
         </TableRow>
     </TableLayout>
-
+    </ScrollView>
 </RelativeLayout>
