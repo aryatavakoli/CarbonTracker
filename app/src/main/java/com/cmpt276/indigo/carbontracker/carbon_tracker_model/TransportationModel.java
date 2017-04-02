@@ -58,6 +58,7 @@ public class TransportationModel implements CarbonFootprintComponent{
     private String primaryFuelType;
     private TransportationMode transportaionMode;
     private boolean isDeleted;          // when a Car is deleted, we should hide it instead of removing it
+    private String imageName;
 
     public TransportationModel(){
         id = -1;
@@ -72,10 +73,12 @@ public class TransportationModel implements CarbonFootprintComponent{
         primaryFuelType = new String();
         transportaionMode = TransportationMode.CAR;
         isDeleted = false;
+        imageName = "";
     }
 
     public TransportationModel(long id, String name, String make, String model, String year, String transmission, String engineDisplacment,
-                               double cityMileage, double highwayMileage, String primaryFuelType, TransportationMode transportaionMode, boolean isDeleted){
+                               double cityMileage, double highwayMileage, String primaryFuelType, TransportationMode transportaionMode,
+                               String image, boolean isDeleted){
         this.id = id;
         this.name = name;
         this.make = make;
@@ -87,6 +90,7 @@ public class TransportationModel implements CarbonFootprintComponent{
         this.highwayMileage = highwayMileage;
         this.primaryFuelType = primaryFuelType;
         this.transportaionMode = transportaionMode;
+        this.imageName = image;
         this.isDeleted = isDeleted;
     }
 
@@ -114,6 +118,10 @@ public class TransportationModel implements CarbonFootprintComponent{
         return transportaionMode;
     }
 
+    public String getImageName(){
+        return imageName;
+    }
+
     public void setId(long id) {
         this.id = id;
     }
@@ -136,6 +144,10 @@ public class TransportationModel implements CarbonFootprintComponent{
 
     public void setTransportaionMode(TransportationMode transportaionMode) {
         this.transportaionMode = transportaionMode;
+    }
+
+    public void setImageName(String imageName){
+        this.imageName = imageName;
     }
 
     public String getEngineDisplacment() {
