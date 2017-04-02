@@ -30,26 +30,14 @@ public class SideNavigationManager {
         else if (id == R.id.nav_journey_list) {
             switchToJourneyList(activity);
         }
-        else if (id == R.id.nav_journey_add) {
-            switchToJourneyAdd(activity);
-        }
         else if (id == R.id.nav_route_list) {
             switchToRouteList(activity);
-        }
-        else if (id == R.id.nav_route_add) {
-            switchToRouteAdd(activity);
         }
         else if (id == R.id.nav_transportation_list) {
             switchToTransportationList(activity);
         }
-        else if (id == R.id.nav_transportation_add) {
-            switchToTransportationAdd(activity);
-        }
         else if (id == R.id.nav_utility_list) {
             switchToUtilityList(activity);
-        }
-        else if (id == R.id.nav_utility_add) {
-            switchToUtilityAdd(activity);
         }
         DrawerLayout drawer = (DrawerLayout) activity.findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

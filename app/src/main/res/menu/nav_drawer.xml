@@ -19,33 +19,17 @@
             android:icon="@drawable/ic_back"
             android:title="Journey List" />
         <item
-            android:id="@+id/nav_journey_add"
-            android:icon="@drawable/bicycle"
-            android:title="Add Journey" />
-        <item
             android:id="@+id/nav_transportation_list"
             android:icon="@drawable/bicycle"
             android:title="Transportation List" />
-        <item
-            android:id="@+id/nav_transportation_add"
-            android:icon="@drawable/bicycle"
-            android:title="Add Transportation" />
         <item
             android:id="@+id/nav_route_list"
             android:icon="@drawable/route"
             android:title="Route List" />
         <item
-            android:id="@+id/nav_route_add"
-            android:icon="@drawable/route"
-            android:title="Add Route" />
-        <item
             android:id="@+id/nav_utility_list"
             android:icon="@drawable/utility"
             android:title="Utility List" />
-        <item
-            android:id="@+id/nav_utility_add"
-            android:icon="@drawable/utility"
-            android:title="Add Utility" />
     </group>
 
 </menu>
