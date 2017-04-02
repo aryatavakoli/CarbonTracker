@@ -34,7 +34,6 @@ public class TransportationSelectActvitiy extends AppCompatActivity implements N
     private static final int ACTIVITY_RESULT_ADD = 50;
     private static final int ACTIVITY_RESULT_EDIT = 100;
     private int selectedItemIndex;
-    int image = R.drawable.car;
     CustomizedArrayAdapter adapter;
     CustomizedArrayAdapterItem arrayAdapterItems[];
 
@@ -65,7 +64,11 @@ public class TransportationSelectActvitiy extends AppCompatActivity implements N
         int vehicleSize = vehicles.size();
         arrayAdapterItems = new CustomizedArrayAdapterItem[vehicleSize];
         for (int i = 0; i < vehicleSize; i++){
-            arrayAdapterItems[i] = new CustomizedArrayAdapterItem(image, vehicles.get(i).getName(), "", "");
+            int imageID = TransportationImageSelect.getImageResource(vehicles.get(i).getImageName());
+            if(imageID == -1){
+                imageID = R.drawable.car;
+            }
+            arrayAdapterItems[i] = new CustomizedArrayAdapterItem(imageID, vehicles.get(i).getName(), "", "");
         }
         adapter = new CustomizedArrayAdapter(this, arrayAdapterItems, getTitles(arrayAdapterItems));
     }

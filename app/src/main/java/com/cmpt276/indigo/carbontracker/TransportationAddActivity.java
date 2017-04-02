@@ -40,6 +40,7 @@ public class TransportationAddActivity extends AppCompatActivity implements Navi
     private boolean editing = false;
     TransportationModel currentVehicle;
     TransportationModel.TransportationMode transportationModes[];
+    private String imageName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +59,7 @@ public class TransportationAddActivity extends AppCompatActivity implements Navi
         setupDropdownList();
         populateUIFromIntent();
         setupBottomNavigation();
+        imageName = "";
     }
 
     private void setupBottomNavigation(){
@@ -221,7 +223,7 @@ public class TransportationAddActivity extends AppCompatActivity implements Navi
             }
         }
         //Creating vehicle object to pass it to vehicle activity to be added to the list.
-        TransportationModel vehicle = new TransportationModel(-1, name, make, model, year, transmission , engineDisplacement, 0, 0, "", transportationModes[selectedTransportationModeIndex], false);
+        TransportationModel vehicle = new TransportationModel(-1, name, make, model, year, transmission , engineDisplacement, 0, 0, "", transportationModes[selectedTransportationModeIndex], imageName, false);
 
         // setting fuel efficiency data
         carbonFootprintInterface.populateCarFuelData(vehicle);
@@ -440,6 +442,7 @@ public class TransportationAddActivity extends AppCompatActivity implements Navi
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.add_transportation_add_image, menu);
         return true;
     }
 
@@ -451,12 +454,27 @@ public class TransportationAddActivity extends AppCompatActivity implements Navi
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.add_image) {
+            startActivityForResult(TransportationImageSelect.makeIntent(TransportationAddActivity.this), TransportationImageSelect.TRANSPORTATION_IMAGE_SELECT_CALL_CODE);
             return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data){
+        if(resultCode == RESULT_OK){
+            String image = data.getStringExtra(TransportationImageSelect.IMAGE_EXCHANGE_NAME);
+            if(image != null){
+                imageName = image;
+                if(currentVehicle != null){
+                    currentVehicle.setImageName(image);
+                }
+            }
+        }
+    }
+
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
