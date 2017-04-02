@@ -3,6 +3,7 @@
     <string name="title_activity_transportation_select_actvitiy">Select Transportation</string>
     <string name="title_activity_carbon_foot_print">Carbon Footprint</string>
     <string name="title_activity_transportation_add_actvitiy">Add Transportation</string>
+    <string name="title_activity_transportation_add_image_actvitiy">Add Transportation Image</string>
     <string name="title_activity_route_select">Select Route</string>
     <string name="title_activity_add_route_actvitiy">Add Route</string>
     <string name="title_activity_result_actvitiy">Your Carbon Footprint</string>
@@ -170,4 +171,5 @@
     <string name="as_written_on_bill">As Written on Bill</string>
     <string name="company_utility_add">Company:</string>
     <string name="bill_name_utility_add">Bill Name:</string>
+    <string name="add_image">Add Image</string>
 </resources>
