@@ -3,17 +3,49 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_camera"
+            android:id="@+id/nav_home"
+            android:icon="@drawable/ic_home"
+            android:title="Home" />
+        <item
+            android:id="@+id/nav_back"
+            android:icon="@drawable/ic_back"
+            android:title="Back" />
+        <item
+            android:id="@+id/nav_carbon_footprint"
+            android:icon="@drawable/utility"
+            android:title="Carbon Footprint" />
+        <item
+            android:id="@+id/nav_journey_list"
+            android:icon="@drawable/ic_back"
+            android:title="Journey List" />
+        <item
+            android:id="@+id/nav_journey_add"
             android:icon="@drawable/bicycle"
-            android:title="Import" />
+            android:title="Add Journey" />
         <item
-            android:id="@+id/nav_gallery"
-            android:icon="@drawable/bus"
-            android:title="Gallery" />
+            android:id="@+id/nav_transportation_list"
+            android:icon="@drawable/bicycle"
+            android:title="Transportation List" />
         <item
-            android:id="@+id/nav_slideshow"
-            android:icon="@drawable/car"
-            android:title="Slideshow" />
+            android:id="@+id/nav_transportation_add"
+            android:icon="@drawable/bicycle"
+            android:title="Add Transportation" />
+        <item
+            android:id="@+id/nav_route_list"
+            android:icon="@drawable/route"
+            android:title="Route List" />
+        <item
+            android:id="@+id/nav_route_add"
+            android:icon="@drawable/route"
+            android:title="Add Route" />
+        <item
+            android:id="@+id/nav_utility_list"
+            android:icon="@drawable/utility"
+            android:title="Utility List" />
+        <item
+            android:id="@+id/nav_utility_add"
+            android:icon="@drawable/utility"
+            android:title="Add Utility" />
     </group>
 
 </menu>

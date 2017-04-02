@@ -116,6 +116,9 @@ public class MainMenu extends Activity {
         }
     }
 
+    public static Intent makeIntent(Context packageContext) {
+        return new Intent(packageContext, MainMenu.class);
+    }
 }
 
 
