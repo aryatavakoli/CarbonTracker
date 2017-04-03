@@ -96,14 +96,15 @@ public class JourneyAddActivity extends AppCompatActivity implements NavigationV
                             } else if (!addJourney(newJourney)) {
                                 break;
                             }
+
                             Intent intent = new Intent();
                             intent.putExtra("journey", newJourney);
                             setResult(Activity.RESULT_OK, intent);
-                            Toast.makeText(JourneyAddActivity.this, "Journey Created!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(JourneyAddActivity.this, R.string.journey_created, Toast.LENGTH_SHORT).show();
                             showTipDialog();
                         }
                         else{
-                            Toast.makeText(JourneyAddActivity.this,"Please select Route and Transportation",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(JourneyAddActivity.this, R.string.please_select_route_and_transportation,Toast.LENGTH_SHORT).show();
                         }
                         break;
                     case R.id.action_cancel:
@@ -171,7 +172,6 @@ public class JourneyAddActivity extends AppCompatActivity implements NavigationV
                 finalMyCalendar.set(Calendar.YEAR, year);
                 finalMyCalendar.set(Calendar.MONTH, monthOfYear);
                 finalMyCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-                newJourney.setCreationDate(finalMyCalendar);
 
             }
 
@@ -187,6 +187,7 @@ public class JourneyAddActivity extends AppCompatActivity implements NavigationV
                         finalMyCalendar1.get(Calendar.DAY_OF_MONTH)).show();
             }
         });
+        newJourney.setCreationDate(finalMyCalendar);
     }
 
     boolean addJourney(JourneyModel journeyModel){
@@ -195,7 +196,7 @@ public class JourneyAddActivity extends AppCompatActivity implements NavigationV
         }
         catch(DuplicateComponentException e){
             if(!isEdit) {
-                Toast.makeText(JourneyAddActivity.this, "This Journey already exists.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(JourneyAddActivity.this, R.string.this_journey_already_exists, Toast.LENGTH_SHORT).show();
             }
             return false;
         }
@@ -266,6 +267,7 @@ public class JourneyAddActivity extends AppCompatActivity implements NavigationV
             }
             fillJourneyTexts();
             fillCarbonFootprintText();
+            gettingDate();
         }
     }
 
@@ -338,16 +340,4 @@ public class JourneyAddActivity extends AppCompatActivity implements NavigationV
     }
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
 

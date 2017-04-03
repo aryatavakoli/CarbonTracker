@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.cmpt276.indigo.carbontracker">
-    <uses-permission android:name="com.android.alarm.permission.SET_ALARM"/>
 
+    <uses-permission android:name="com.android.alarm.permission.SET_ALARM" />
 
     <application
         android:allowBackup="true"
@@ -73,7 +73,7 @@
         </activity>
         <activity
             android:name=".JourneySelectActivity"
-            android:label="Select Journey"
+            android:label="@string/select_journey"
             android:parentActivityName=".MainMenu"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
@@ -111,12 +111,11 @@
             android:name=".CarbonFootprintPeriodicDataMenu"
             android:label="@string/emissions_by_period"
             android:parentActivityName=".CarbonFootprintMainMenu"
-            android:theme="@style/AppTheme.NoActionBar" >
+            android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.cmpt276.indigo.carbontracker.CarbonFootprintMainMenu" />
         </activity>
-
         <activity
             android:name=".CarbonFootprintMainMenu"
             android:label="@string/data_menu_title"
@@ -125,8 +124,18 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.cmpt276.indigo.carbontracker.MainMenu" />
         </activity>
-        <receiver android:name=".Notification_receiver"/>
 
+        <receiver android:name=".Notification_receiver" />
+
+        <activity android:name=".TransportationImageSelect"
+            android:label="@string/title_activity_transportation_add_actvitiy"
+            android:parentActivityName=".TransportationAddActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.cmpt276.indigo.carbontracker.TransportationAddActivity" />
+
+        </activity>
     </application>
 
 </manifest>

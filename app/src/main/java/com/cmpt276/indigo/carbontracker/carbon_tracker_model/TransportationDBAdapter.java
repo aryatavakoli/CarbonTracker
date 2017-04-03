@@ -32,6 +32,7 @@ public class TransportationDBAdapter {
     public static final String KEY_HIGHWAY_MILEAGE = "highway_mileage";
     public static final String KEY_PRIMARY_FUEL_TYPE = "primary_fuel_type";
     public static final String KEY_TRANSPORTATION_MODE = "transportation_mode";
+    public static final String KEY_IMAGE = "image";
     public static final String KEY_IS_DELETED = "is_deleted";
 
     public static final int COL_NAME = 1;
@@ -44,7 +45,8 @@ public class TransportationDBAdapter {
     public static final int COL_HIGHWAY_MILEAGE = 8;
     public static final int COL_PRIMARY_FUEL_TYPE = 9;
     public static final int COL_TRANSPORTATION_MODE = 10;
-    public static final int COL_IS_DELETED = 11;
+    public static final int COL_IMAGE_NAME = 11;
+    public static final int COL_IS_DELETED = 12;
 
     public static final String[] ALL_KEYS = new String[] {
             KEY_ROWID,
@@ -58,6 +60,7 @@ public class TransportationDBAdapter {
             KEY_HIGHWAY_MILEAGE,
             KEY_PRIMARY_FUEL_TYPE,
             KEY_TRANSPORTATION_MODE,
+            KEY_IMAGE,
             KEY_IS_DELETED
     };
 
@@ -80,6 +83,7 @@ public class TransportationDBAdapter {
                     + KEY_HIGHWAY_MILEAGE + " double, "
                     + KEY_PRIMARY_FUEL_TYPE + " text, "
                     + KEY_TRANSPORTATION_MODE + " integer, "
+                    + KEY_IMAGE + " text, "
                     + KEY_IS_DELETED + " boolean not null"
                     + ");";
 
@@ -127,6 +131,7 @@ public class TransportationDBAdapter {
         initialValues.put(KEY_HIGHWAY_MILEAGE, vehicle.getHighwayMileage());
         initialValues.put(KEY_PRIMARY_FUEL_TYPE, vehicle.getPrimaryFuelType());
         initialValues.put(KEY_TRANSPORTATION_MODE, TransportationModel.TransportationModeToInt(vehicle.getTransportaionMode()));
+        initialValues.put(KEY_IMAGE, vehicle.getImageName());
         initialValues.put(KEY_IS_DELETED, vehicle.getIsDeleted());
         // Insert it into the database.
         vehicle.setId(db.insert(DATABASE_TABLE, null, initialValues));
@@ -162,21 +167,10 @@ public class TransportationDBAdapter {
         double cityMileage = cursor.getDouble(COL_CITY_MILEAGE);
         double highwayMileage = cursor.getDouble(COL_HIGHWAY_MILEAGE);
         String primaryFuelType = cursor.getString(COL_PRIMARY_FUEL_TYPE);
+        String image = cursor.getString(COL_IMAGE_NAME);
         TransportationModel.TransportationMode transportationMode = TransportationModel.IntToTransportaionMode(cursor.getInt(TransportationDBAdapter.COL_TRANSPORTATION_MODE));
 
-        return new TransportationModel(
-                id,
-                name,
-                make,
-                model,
-                year,
-                transmission,
-                engineDisplacement,
-                cityMileage,
-                highwayMileage,
-                primaryFuelType,
-                transportationMode,
-                isDeleted);
+        return new TransportationModel(id, name, make, model, year, transmission, engineDisplacement, cityMileage, highwayMileage, primaryFuelType, transportationMode, image, isDeleted);
     }
 
     public ArrayList<TransportationModel> getAllVehicles() {
@@ -256,6 +250,7 @@ public class TransportationDBAdapter {
         newValues.put(KEY_HIGHWAY_MILEAGE, vehicle.getHighwayMileage());
         newValues.put(KEY_PRIMARY_FUEL_TYPE, vehicle.getPrimaryFuelType());
         newValues.put(KEY_TRANSPORTATION_MODE, TransportationModel.TransportationModeToInt(vehicle.getTransportaionMode()));
+        newValues.put(KEY_IMAGE, vehicle.getImageName());
         newValues.put(KEY_IS_DELETED, vehicle.getIsDeleted());
         // Insert it into the database.
         return db.update(DATABASE_TABLE, newValues, where, null) != 0;

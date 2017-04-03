@@ -22,7 +22,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:text="Bill Information"
+                android:text="@string/bill_information"
                 android:textAlignment="center"
                 android:textAppearance="@android:style/TextAppearance.Material.Title" />
         </TableRow>
@@ -34,7 +34,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Bill Name: " />
+                android:text="@string/bill_name" />
 
             <TextView
                 android:id="@+id/utility_result_name"
@@ -50,7 +50,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Company: " />
+                android:text="@string/company_" />
 
             <TextView
                 android:id="@+id/utility_result_company"
@@ -66,7 +66,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Billing Days: " />
+                android:text="@string/billing_days" />
 
             <TextView
                 android:id="@+id/utility_result_billing_days"
@@ -82,7 +82,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Total Energy Consumption: " />
+                android:text="@string/total_energy_consumption" />
 
             <TextView
                 android:id="@+id/utility_result__total_energy_consumption"
@@ -98,7 +98,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Total Carbon Emissions: " />
+                android:text="@string/total_carbon_emissions" />
 
             <TextView
                 android:id="@+id/utility_result_total_emission"
@@ -114,7 +114,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Number of Occupants" />
+                android:text="@string/number_of_occupants" />
 
             <TextView
                 android:id="@+id/utility_result_occupants"
@@ -141,7 +141,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Per-Day Usage"
+                android:text="@string/per_day_usage"
                 android:textAlignment="center"
                 android:textAppearance="@android:style/TextAppearance.Material.Title" />
         </TableRow>
@@ -153,7 +153,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Energy Consumption: " />
+                android:text="@string/energy_consumption" />
 
             <TextView
                 android:id="@+id/utility_result_per_day_energy_consumption"
@@ -169,7 +169,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Carbon Emissions: " />
+                android:text="@string/carbon_emissions" />
 
             <TextView
                 android:id="@+id/utility_result_per_day_emissions"
@@ -196,7 +196,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Per-Person Usage"
+                android:text="@string/per_person_usage"
                 android:textAlignment="center"
                 android:textAppearance="@android:style/TextAppearance.Material.Title" />
         </TableRow>
@@ -208,7 +208,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Energy Consumption: " />
+                android:text="@string/energy_consumption_" />
 
             <TextView
                 android:id="@+id/utility_result_per_person_energy_consumption"
@@ -224,7 +224,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Carbon Emissions: " />
+                android:text="@string/carbon_emissions_" />
 
             <TextView
                 android:id="@+id/utility_result_per_person_emissions"

@@ -72,7 +72,6 @@ public class RouteSelectActivity extends AppCompatActivity implements Navigation
     }
 
     private void setupList(){
-        Resources res = getResources();
         ArrayList<RouteModel> routes = carbonFootprintInterface.getRoutes(this);
         int routeSize = routes.size();
         arrayAdapterItems = new CustomizedArrayAdapterItem[routeSize];

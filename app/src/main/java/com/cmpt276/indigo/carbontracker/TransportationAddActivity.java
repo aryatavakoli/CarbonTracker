@@ -20,9 +20,12 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.TransportationModel;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -37,6 +40,7 @@ public class TransportationAddActivity extends AppCompatActivity implements Navi
     private boolean editing = false;
     TransportationModel currentVehicle;
     TransportationModel.TransportationMode transportationModes[];
+    private String imageName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +59,7 @@ public class TransportationAddActivity extends AppCompatActivity implements Navi
         setupDropdownList();
         populateUIFromIntent();
         setupBottomNavigation();
+        imageName = "";
     }
 
     private void setupBottomNavigation(){
@@ -62,7 +67,6 @@ public class TransportationAddActivity extends AppCompatActivity implements Navi
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener(){
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item){
-                Intent intent = new Intent(TransportationAddActivity.this, TransportationSelectActvitiy.class);
                 switch(item.getItemId())
                 {
                     case R.id.action_add:
@@ -152,7 +156,7 @@ public class TransportationAddActivity extends AppCompatActivity implements Navi
             return;
         }
         else{
-            Toast.makeText(TransportationAddActivity.this, "Transportation Added!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(TransportationAddActivity.this, R.string.transportation_added, Toast.LENGTH_SHORT).show();
         }
         Intent intent = getIntent();
         //Passing the vehicle object to the TransportationActivity
@@ -165,7 +169,7 @@ public class TransportationAddActivity extends AppCompatActivity implements Navi
         //Removing vehicle from collection if it is on the list
         removeVehicle(currentVehicle);
         setResult(RESULT_DELETE);
-        Toast.makeText(TransportationAddActivity.this, "Transportation Deleted!", Toast.LENGTH_SHORT).show();
+        Toast.makeText(TransportationAddActivity.this, R.string.transportation_deleted, Toast.LENGTH_SHORT).show();
         finish();
     }
 
@@ -175,7 +179,7 @@ public class TransportationAddActivity extends AppCompatActivity implements Navi
         String name = nickNameEditText.getText().toString();
 
         if (name.length() == 0) {
-            Toast.makeText(TransportationAddActivity.this, "Please enter a transportation name.", Toast.LENGTH_SHORT)
+            Toast.makeText(TransportationAddActivity.this, R.string.please_enter_a_transportation_name, Toast.LENGTH_SHORT)
                     .show();
             return null;
         }
@@ -191,35 +195,35 @@ public class TransportationAddActivity extends AppCompatActivity implements Navi
             Spinner vehicleMakeSpinner = (Spinner) findViewById(R.id.add_transport_dropdown_make);
             make = vehicleMakeSpinner.getSelectedItem().toString();
             if (make == null){
-                Toast.makeText(TransportationAddActivity.this, "Vehicle make should be selected", Toast.LENGTH_SHORT).show();
+                Toast.makeText(TransportationAddActivity.this, R.string.vehicle_make_shoud_be_selected, Toast.LENGTH_SHORT).show();
             }
 
             Spinner vehicleModelSpinner = (Spinner) findViewById(R.id.add_transport_dropdown_model);
             model = vehicleModelSpinner.getSelectedItem().toString();
             if (model == null){
-                Toast.makeText(TransportationAddActivity.this, "Vehicle model should be selected", Toast.LENGTH_SHORT).show();
+                Toast.makeText(TransportationAddActivity.this, R.string.vehicle_model_should_be_selected, Toast.LENGTH_SHORT).show();
             }
 
             Spinner vehicleYearSpinner = (Spinner) findViewById(R.id.add_transport_dropdown_year);
             year = vehicleYearSpinner.getSelectedItem().toString();
             if (year == null){
-                Toast.makeText(TransportationAddActivity.this, "Vehicle year should be selected", Toast.LENGTH_SHORT).show();
+                Toast.makeText(TransportationAddActivity.this, R.string.vehicle_year_should_be_selected, Toast.LENGTH_SHORT).show();
             }
 
             Spinner vehicleTransmissionSpinner = (Spinner) findViewById(R.id.add_transport_dropdown_transmission);
             transmission = vehicleTransmissionSpinner.getSelectedItem().toString();
             if (transmission == null){
-                Toast.makeText(TransportationAddActivity.this, "Vehicle transmission should be selected", Toast.LENGTH_SHORT).show();
+                Toast.makeText(TransportationAddActivity.this, R.string.vehicle_transmission_should_be_selected, Toast.LENGTH_SHORT).show();
             }
 
             Spinner vehicleEngineDisplacementSpinner = (Spinner) findViewById(R.id.add_transport_dropdown_engine_displacement);
             engineDisplacement = (String) vehicleEngineDisplacementSpinner.getSelectedItem();
             if (engineDisplacement == null){
-                Toast.makeText(TransportationAddActivity.this, "Engine Displacement should be selected", Toast.LENGTH_SHORT).show();
+                Toast.makeText(TransportationAddActivity.this, R.string.engine_displacement_should_be_selected, Toast.LENGTH_SHORT).show();
             }
         }
         //Creating vehicle object to pass it to vehicle activity to be added to the list.
-        TransportationModel vehicle = new TransportationModel(-1, name, make, model, year, transmission , engineDisplacement, 0, 0, "", transportationModes[selectedTransportationModeIndex], false);
+        TransportationModel vehicle = new TransportationModel(-1, name, make, model, year, transmission , engineDisplacement, 0, 0, "", transportationModes[selectedTransportationModeIndex], imageName, false);
 
         // setting fuel efficiency data
         carbonFootprintInterface.populateCarFuelData(vehicle);
@@ -262,16 +266,29 @@ public class TransportationAddActivity extends AppCompatActivity implements Navi
     }
 
     private void enableNonCarFields(boolean enable) {
+        int visible = enable ? View.VISIBLE : View.INVISIBLE;
+
+        TextView makeText = (TextView) findViewById(R.id.add_transportation_make_tv);
+        makeText.setVisibility(visible);
+        TextView modelText = (TextView)findViewById(R.id.add_transportation_model_tv);
+        modelText.setVisibility(visible);
+        TextView yearText = (TextView)findViewById(R.id.add_transportation_year_tv);
+        yearText.setVisibility(visible);
+        TextView transmissionText = (TextView)findViewById(R.id.add_transportation_transmission_tv);
+        transmissionText.setVisibility(visible);
+        TextView engineDisplacementText = (TextView)findViewById(R.id.add_transportation_engine_tv);
+        engineDisplacementText.setVisibility(visible);
+
         Spinner makeSpinner = (Spinner)findViewById(R.id.add_transport_dropdown_make);
-        makeSpinner.setEnabled(enable);
+        makeSpinner.setVisibility(visible);
         Spinner modelSpinner = (Spinner)findViewById(R.id.add_transport_dropdown_model);
-        modelSpinner.setEnabled(enable);
+        modelSpinner.setVisibility(visible);
         Spinner yearSpinner = (Spinner)findViewById(R.id.add_transport_dropdown_year);
-        yearSpinner.setEnabled(enable);
+        yearSpinner.setVisibility(visible);
         Spinner transmissionSpinner = (Spinner)findViewById(R.id.add_transport_dropdown_transmission);
-        transmissionSpinner.setEnabled(enable);
+        transmissionSpinner.setVisibility(visible);
         Spinner engineDisplacementSpinner = (Spinner)findViewById(R.id.add_transport_dropdown_engine_displacement);
-        engineDisplacementSpinner.setEnabled(enable);
+        engineDisplacementSpinner.setVisibility(visible);
     }
 
     private void setupTransportationModelDropdownList() {
@@ -295,7 +312,7 @@ public class TransportationAddActivity extends AppCompatActivity implements Navi
 
             }
         });
-        transportationModelSpinner.setSelection(0);
+        transportationModelSpinner.setSelection(2);
         enableNonCarFields(true);
     }
 
@@ -425,6 +442,7 @@ public class TransportationAddActivity extends AppCompatActivity implements Navi
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.add_transportation_add_image, menu);
         return true;
     }
 
@@ -436,12 +454,27 @@ public class TransportationAddActivity extends AppCompatActivity implements Navi
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.add_image) {
+            startActivityForResult(TransportationImageSelect.makeIntent(TransportationAddActivity.this), TransportationImageSelect.TRANSPORTATION_IMAGE_SELECT_CALL_CODE);
             return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data){
+        if(resultCode == RESULT_OK){
+            String image = data.getStringExtra(TransportationImageSelect.IMAGE_EXCHANGE_NAME);
+            if(image != null){
+                imageName = image;
+                if(currentVehicle != null){
+                    currentVehicle.setImageName(image);
+                }
+            }
+        }
+    }
+
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override

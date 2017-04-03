@@ -104,7 +104,7 @@ public class RouteAddActivity extends AppCompatActivity implements NavigationVie
         //Removing vehicle from collection if it is on the list
         removeRoute(currentRoute);
         setResult(RESULT_DELETE);
-        Toast.makeText(RouteAddActivity.this, "Route Deleted!", Toast.LENGTH_SHORT).show();
+        Toast.makeText(RouteAddActivity.this, R.string.route_deleted, Toast.LENGTH_SHORT).show();
         finish();
     }
 
@@ -171,7 +171,7 @@ public class RouteAddActivity extends AppCompatActivity implements NavigationVie
         EditText editTextName = (EditText) findViewById(R.id.add_route_editText_nickname);
 
         if (editTextName.getText().toString().length() == 0) {
-            Toast.makeText(RouteAddActivity.this, "Please enter a route name.", Toast.LENGTH_SHORT)
+            Toast.makeText(RouteAddActivity.this, R.string.please_enter_a_route_name, Toast.LENGTH_SHORT)
                     .show();
             return;
 
@@ -180,7 +180,7 @@ public class RouteAddActivity extends AppCompatActivity implements NavigationVie
         EditText editTextHighway = (EditText) findViewById(R.id.add_route_editText_highway_distance);
 
         if (editTextHighway.getText().toString().length() == 0) {
-            Toast.makeText(RouteAddActivity.this, "Please enter a highway distance.", Toast.LENGTH_SHORT)
+            Toast.makeText(RouteAddActivity.this, R.string.please_enter_a_highway_distance, Toast.LENGTH_SHORT)
                     .show();
             return;
 
@@ -188,7 +188,7 @@ public class RouteAddActivity extends AppCompatActivity implements NavigationVie
 
         EditText editTextCity = (EditText) findViewById(R.id.add_route_editText_city_distance);
         if (editTextCity.getText().toString().length() == 0) {
-            Toast.makeText(RouteAddActivity.this, "Please enter a city distance.", Toast.LENGTH_SHORT)
+            Toast.makeText(RouteAddActivity.this, R.string.please_enter_a_city_distance, Toast.LENGTH_SHORT)
                     .show();
             return;
         }
@@ -207,7 +207,7 @@ public class RouteAddActivity extends AppCompatActivity implements NavigationVie
             return;
         }
         else{
-            Toast.makeText(RouteAddActivity.this, "Route Added!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(RouteAddActivity.this, R.string.route_added, Toast.LENGTH_SHORT).show();
         }
         Intent intent = new Intent();
         intent.putExtra("route", newRoute);
@@ -240,7 +240,7 @@ public class RouteAddActivity extends AppCompatActivity implements NavigationVie
         }
         catch(DuplicateComponentException e){
             if(!editing) {
-                Toast.makeText(RouteAddActivity.this, "This route already exists.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(RouteAddActivity.this, R.string.this_route_already_exists, Toast.LENGTH_SHORT).show();
             }
             return false;
         }
@@ -249,7 +249,7 @@ public class RouteAddActivity extends AppCompatActivity implements NavigationVie
 
     boolean removeRoute(RouteModel route){
         if(!carbonFootprintInterface.remove(this, route)) {
-            Toast.makeText(RouteAddActivity.this, "Failed to delete!!", Toast.LENGTH_LONG).show();
+            Toast.makeText(RouteAddActivity.this, R.string.failed_to_delete, Toast.LENGTH_LONG).show();
             return false;
         }
         return true;

@@ -11,7 +11,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.cmpt276.indigo.carbontracker.TransportationSelectActvitiy"
-    tools:showIn="@layout/transportation_list_app_bar">
+    tools:showIn="@layout/route_add_app_bar">
 
     <TableLayout
         android:layout_width="wrap_content"
@@ -27,17 +27,23 @@
             <TextView
                 android:text="@string/route_name"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"/>
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
 
             <EditText
+                android:id="@+id/add_route_editText_nickname"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:inputType="textPersonName"
-                android:ems="10"
-                android:id="@+id/add_route_editText_nickname"
-                android:hint="@string/nickname"
+                android:layout_marginBottom="@dimen/transportation_add_comp_bottom_margin"
                 android:backgroundTint="@android:color/holo_green_light"
-                android:textCursorDrawable="@drawable/cursor_color"/>
+                android:ems="10"
+                android:hint="@string/nickname"
+                android:inputType="textPersonName"
+                android:textCursorDrawable="@drawable/cursor_color" />
         </TableRow>
 
         <TableRow
@@ -47,17 +53,23 @@
             <TextView
                 android:text="@string/highway_distance"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"/>
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
 
             <EditText
+                android:id="@+id/add_route_editText_highway_distance"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/transportation_add_comp_bottom_margin"
+                android:backgroundTint="@android:color/holo_green_light"
                 android:ems="10"
-                android:id="@+id/add_route_editText_highway_distance"
                 android:hint="@string/distance_km"
                 android:inputType="number"
-                android:backgroundTint="@android:color/holo_green_light"
-                android:textCursorDrawable="@drawable/cursor_color"/>
+                android:textCursorDrawable="@drawable/cursor_color" />
         </TableRow>
 
         <TableRow
@@ -67,17 +79,23 @@
             <TextView
                 android:text="@string/city_distance"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"/>
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
 
             <EditText
+                android:id="@+id/add_route_editText_city_distance"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/transportation_add_comp_bottom_margin"
+                android:backgroundTint="@android:color/holo_green_light"
                 android:ems="10"
-                android:id="@+id/add_route_editText_city_distance"
                 android:hint="@string/distance_km"
                 android:inputType="number"
-                android:backgroundTint="@android:color/holo_green_light"
-                android:textCursorDrawable="@drawable/cursor_color"/>
+                android:textCursorDrawable="@drawable/cursor_color" />
         </TableRow>
 
         <TableRow
@@ -87,13 +105,18 @@
             <TextView
                 android:text="@string/total_distance"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"/>
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
 
             <TextView
                 android:text="@string/n_a"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/add_route_textview_total_distance" />
+                android:id="@+id/add_route_textview_total_distance"/>
 
         </TableRow>
 
