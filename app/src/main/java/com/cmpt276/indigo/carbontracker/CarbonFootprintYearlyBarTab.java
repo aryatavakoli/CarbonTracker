@@ -29,6 +29,8 @@ import java.util.Calendar;
 
 public class CarbonFootprintYearlyBarTab extends Fragment {
     public static final int NUMBEROFMONTHS = 12;
+    public static final double AVERAGE_DAILY_CO2_PER_PERSON_IN_KG = 56.44; //20.6 metric tonnes per capita / 365
+    public static final double AVERAGE_DAILY_CO2_PER_PERSON_TO_MEET_PARIS_ACCORD = 50.63; //18.48 metric tonnes per capita / 365
     ArrayList<JourneyModel> journeys;
     ArrayList<UtilityModel> utilities;
     Calendar today = Calendar.getInstance();
