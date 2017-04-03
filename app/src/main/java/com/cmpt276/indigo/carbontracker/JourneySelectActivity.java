@@ -36,7 +36,6 @@ public class JourneySelectActivity extends AppCompatActivity implements Navigati
     private static final int ACTIVITY_RESULT_ADD = 50;
     private static final int ACTIVITY_RESULT_EDIT = 100;
 
-    int image = R.drawable.skytrain;
     CustomizedArrayAdapter adapter;
     CustomizedArrayAdapterItem arrayAdapterItems[];
 
@@ -81,8 +80,12 @@ public class JourneySelectActivity extends AppCompatActivity implements Navigati
         int journiesSize = journies.size();
         arrayAdapterItems = new CustomizedArrayAdapterItem[journiesSize];
         for (int i = 0; i < journiesSize; i++){
+            int imageID = TransportationImageSelect.getImageResource(journies.get(i).getTransportationModel().getImageName());
+            if(imageID == -1){
+                imageID = R.drawable.car;
+            }
             arrayAdapterItems[i] = new CustomizedArrayAdapterItem(
-                    image,
+                    imageID,
                     journies.get(i).getTransportationModel().getName(),
                     journies.get(i).getRouteModel().getName(),
                     journies.get(i).getCreationDateString());
