@@ -34,6 +34,8 @@ public class CarbonFootprintPieGraphsMenu extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
@@ -88,7 +90,7 @@ public class CarbonFootprintPieGraphsMenu extends AppCompatActivity {
                 case 0:
                     return "1 Day";
                 case 1:
-                    return "28 Dayss";
+                    return "28 Days";
                 case 2:
                     return "365 Days";
             }
