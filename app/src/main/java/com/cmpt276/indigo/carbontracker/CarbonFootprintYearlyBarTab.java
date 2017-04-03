@@ -27,8 +27,10 @@ import java.util.Calendar;
  * Implements Yearly Bar Graph Tab
  */
 
-public class CarbonFootprintYearlyTab extends Fragment {
+public class CarbonFootprintYearlyBarTab extends Fragment {
     public static final int NUMBEROFMONTHS = 12;
+    public static final double AVERAGE_DAILY_CO2_PER_PERSON_IN_KG = 56.44; //20.6 metric tonnes per capita / 365
+    public static final double AVERAGE_DAILY_CO2_PER_PERSON_TO_MEET_PARIS_ACCORD = 50.63; //18.48 metric tonnes per capita / 365
     ArrayList<JourneyModel> journeys;
     ArrayList<UtilityModel> utilities;
     Calendar today = Calendar.getInstance();
@@ -42,7 +44,7 @@ public class CarbonFootprintYearlyTab extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.activity_carbon_footprint_yearly_tab, container, false);
+        View rootView = inflater.inflate(R.layout.activity_carbon_footprint_yearly_bar_tab, container, false);
         carbonInterface = CarbonFootprintComponentCollection.getInstance();
 
         journeys = carbonInterface.getJournies(getActivity());

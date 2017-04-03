@@ -29,7 +29,7 @@ import java.util.Calendar;
  * Implements Daily Pie Graph Tab
  */
 
-public class CarbonFootprintDailyTab extends Fragment {
+public class CarbonFootprintDailyPieGraph extends Fragment {
     public static final double MIN_PERCENTAGE = 0.01;
     ArrayList<JourneyModel> journeys;
     ArrayList<UtilityModel> utilities;
