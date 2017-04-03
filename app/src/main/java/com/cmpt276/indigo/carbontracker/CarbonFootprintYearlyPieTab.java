@@ -45,6 +45,9 @@ public class CarbonFootprintYearlyPieTab extends Fragment {
 
         journeys = carbonInterface.getJournies(getActivity());
         utilities = carbonInterface.getUtilities(getActivity());
+        last365.add(Calendar.DAY_OF_MONTH,-365);
+        tomorrow.add(Calendar.DAY_OF_MONTH,1);
+
 
         createGraph(rootView,journeys,utilities);
 
