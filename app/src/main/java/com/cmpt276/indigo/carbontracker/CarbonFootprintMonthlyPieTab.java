@@ -36,8 +36,6 @@ public class CarbonFootprintMonthlyPieTab extends Fragment {
     Calendar today = Calendar.getInstance();
     Calendar last28 = Calendar.getInstance();
     Calendar tomorrow = Calendar.getInstance();
-    private PieChart pieChart;
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -59,8 +57,7 @@ public class CarbonFootprintMonthlyPieTab extends Fragment {
                              ArrayList<JourneyModel> journeys,
                              ArrayList<UtilityModel> utilities) {
 
-        pieChart = (PieChart) rootView.findViewById(R.id.monthly_pie_chart);
-        pieChart.getDescription().setEnabled(false);
+        PieChart pieChart = (PieChart) rootView.findViewById(R.id.monthly_pie_chart);
 
         ArrayList<PieEntry> pieEntries = new ArrayList<>();
 

@@ -172,6 +172,6 @@
     <string name="company_utility_add">Company:</string>
     <string name="bill_name_utility_add">Bill Name:</string>
     <string name="add_image">Add Image</string>
-    <string name="title_activity_carbon_footprint_pie_graphs_menu">CarbonFootprintPieGraphsMenu
+    <string name="title_activity_carbon_footprint_pie_graphs_menu">Pie Graphs
     </string>
 </resources>
