@@ -85,6 +85,7 @@ public class MainMenu extends Activity {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 Log.d("Should be True", " " + isChecked);
                 SavePreferences(CHECK_BOX_STATUS,isChecked);
+                UtilityModel.setUnits(UtilityModel.Units.BREATHS);
             }
         });
     }

@@ -82,7 +82,7 @@ public class UtilityModel implements CarbonFootprintComponent {
     private boolean isDeleted;
     private Calendar startDate; //start of the utility creation
     private Calendar endDate; //end of utility creation
-    private Units units;
+    private static Units units;
     private double totalCarbonEmissionsInSpecifiedUnits;
 
     public  UtilityModel(){
@@ -268,8 +268,8 @@ public class UtilityModel implements CarbonFootprintComponent {
         return units;
     }
 
-    public void setUnits(Units units) {
-        this.units = units;
+    public static void setUnits(Units units) {
+        UtilityModel.units = units;
     }
 
 
