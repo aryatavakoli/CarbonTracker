@@ -108,7 +108,7 @@
                 android:value="com.cmpt276.indigo.carbontracker.UtilitySelectActivity" />
         </activity>
         <activity
-            android:name=".CarbonFootprintPeriodicDataMenu"
+            android:name=".CarbonFootprintBarGraphsMenu"
             android:label="@string/emissions_by_period"
             android:parentActivityName=".CarbonFootprintMainMenu"
             android:theme="@style/AppTheme.NoActionBar">
@@ -127,14 +127,23 @@
 
         <receiver android:name=".Notification_receiver" />
 
-        <activity android:name=".TransportationImageSelect"
+        <activity
+            android:name=".TransportationImageSelect"
             android:label="@string/title_activity_transportation_add_actvitiy"
             android:parentActivityName=".TransportationAddActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.cmpt276.indigo.carbontracker.TransportationAddActivity" />
-
+        </activity>
+        <activity
+            android:name=".CarbonFootprintPieGraphsMenu"
+            android:label="@string/title_activity_carbon_footprint_pie_graphs_menu"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:parentActivityName=".CarbonFootprintMainMenu">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.cmpt276.indigo.carbontracker.CarbonFootprintMainMenu" />
         </activity>
     </application>
 
