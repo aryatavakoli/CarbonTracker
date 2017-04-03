@@ -15,7 +15,7 @@ import android.os.Bundle;
  * Implements PeriodicData Graph Menu Tabbed Activity
  */
 
-public class CarbonFootprintPeriodicDataMenu extends AppCompatActivity {
+public class CarbonFootprintBarGraphsMenu extends AppCompatActivity {
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -70,11 +70,9 @@ public class CarbonFootprintPeriodicDataMenu extends AppCompatActivity {
             switch (position)
             {
                 case 0:
-                    return new CarbonFootprintDailyTab();
+                    return new CarbonFootprintMonthlyBarTab();
                 case 1:
-                    return new CarbonFootprintMonthlyTab();
-                case 2:
-                    return new CarbonFootprintYearlyTab();
+                    return new CarbonFootprintYearlyBarTab();
 
                 default:
                     return null;
@@ -84,17 +82,15 @@ public class CarbonFootprintPeriodicDataMenu extends AppCompatActivity {
         @Override
         public int getCount() {
             // Show 3 total pages.
-            return 3;
+            return 2;
         }
 
         @Override
         public CharSequence getPageTitle(int position) {
             switch (position) {
                 case 0:
-                    return getString(R.string.one_day);
-                case 1:
                     return getString(R.string.four_weeks);
-                case 2:
+                case 1:
                     return getString(R.string.one_year);
             }
             return null;

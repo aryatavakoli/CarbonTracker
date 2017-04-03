@@ -29,7 +29,7 @@ import java.util.Calendar;
  * Implements Yearly Bar Graph Tab
  */
 
-public class CarbonFootprintYearlyTab extends Fragment {
+public class CarbonFootprintYearlyBarTab extends Fragment {
     public static final int NUMBEROFMONTHS = 12;
     ArrayList<JourneyModel> journeys;
     ArrayList<UtilityModel> utilities;

@@ -28,7 +28,7 @@ import java.util.ArrayList;
  * Implements Daily monthly Graph Tab
  */
 //change this
-public class CarbonFootprintMonthlyTab extends Fragment {
+public class CarbonFootprintMonthlyBarTab extends Fragment {
     public static final int NUMBEROFDAYS = 28;
     ArrayList<JourneyModel> journeys;
     ArrayList<UtilityModel> utilities;

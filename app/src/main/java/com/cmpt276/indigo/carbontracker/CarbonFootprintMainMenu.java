@@ -19,7 +19,8 @@ public class CarbonFootprintMainMenu extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         journeyDataBtn();
-        periodicDataBtn();
+        periodicBarGraphBtn();
+        periodicPieGraphBtn();
     }
 
     private void journeyDataBtn() {
@@ -33,12 +34,22 @@ public class CarbonFootprintMainMenu extends AppCompatActivity {
         });
     }
 //
-    private void periodicDataBtn() {
+    private void periodicBarGraphBtn() {
         Button btn = (Button) findViewById(R.id.carbon_footprint_main_menu_periodic_data_btn);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(CarbonFootprintMainMenu.this, CarbonFootprintPeriodicDataMenu.class);
+                Intent intent = new Intent(CarbonFootprintMainMenu.this, CarbonFootprintBarGraphsMenu.class);
+                startActivity(intent );
+            }
+        });
+    }
+    private void periodicPieGraphBtn() {
+        Button btn = (Button) findViewById(R.id.carbon_footprint_main_menu_periodic_pie_graph_btn);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(CarbonFootprintMainMenu.this, CarbonFootprintPieGraphsMenu.class);
                 startActivity(intent );
             }
         });

@@ -149,7 +149,7 @@
     <string name="one_year">1 Year</string>
     <string name="co2_footprint_of_all_journey">CO2 Footprint of All Journeys</string>
     <string name="journey_footprint">Journey Footprint</string>
-    <string name="periodic_emissions">Periodic Emissions</string>
+    <string name="periodic_emissions">Periodic Bar Graphs</string>
     <string name="bill_information">Bill Information</string>
     <string name="bill_name">Bill Name:</string>
     <string name="company_">Company:</string>
@@ -172,4 +172,6 @@
     <string name="company_utility_add">Company:</string>
     <string name="bill_name_utility_add">Bill Name:</string>
     <string name="add_image">Add Image</string>
+    <string name="title_activity_carbon_footprint_pie_graphs_menu">CarbonFootprintPieGraphsMenu
+    </string>
 </resources>
