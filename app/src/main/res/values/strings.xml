@@ -9,7 +9,7 @@
     <string name="title_activity_result_actvitiy">Your Carbon Footprint</string>
     <string name="main_menu">Main Menu</string>
     <string name="create_journey">Create a New Journey</string>
-    <string name="view_carbon_footprint">View Carbon Footprint Data</string>
+    <string name="view_carbon_footprint">View CO₂ Data</string>
     <string name="total_carbon_footprint">Total Carbon Footprint</string>
     <string name="route_name">Route Name:</string>
     <string name="nickname">Nickname</string>
@@ -29,7 +29,7 @@
     <string name="car_name">Car</string>
     <string name="route_Nickname">Route</string>
     <string name="creation_date">Date</string>
-    <string name="co2">CO2</string>
+    <string name="co2">CO₂</string>
     <string name="total_distance_table">Total Distance</string>
     <string name="title_activity_carbon_footprint_menu">Carbon Footprint Data</string>
     <string name="action_settings">Settings</string>
@@ -107,7 +107,7 @@
     <string name="you_had">You had</string>
     <string name="car_trips_today_you_might_be_able_to_cut">car trips today. You might be able to cut that down by combining trips tomorrow.</string>
     <string name="you_generate">You generate</string>
-    <string name="of_co2_shorter_shower_might_help">of CO2 . Shorter showers might help cut down emissions from hot water heater.</string>
+    <string name="of_co2_shorter_shower_might_help">of CO₂ . Shorter showers might help cut down emissions from hot water heater.</string>
     <string name="overall_you_had">Overall you had</string>
     <string name="kgs_of_carbon_which">kgs of carbon which</string>
     <string name="of_it_belongs_to_your_car_trips">of it belongs to your car trips</string>
@@ -122,13 +122,13 @@
     <string name="during_taking_each_of_your">during taking each of your</string>
     <string name="car_tips_try_to_drive_at_an_appropriate_speed">car tips try to Drive at an appropriate speed -</string>
     <string name="staying_within_the_70mph_limit_can_bring_saving">staying within the 70mph limit can bring savings of 10 per cent for your fuel bill compared to driving at 80mph.</string>
-    <string name="today_your_co2_emission_was">today your co2 emission was</string>
-    <string name="co2_emission_per_person_in_canada">CO2 emission per person in Canada</string>
+    <string name="today_your_co2_emission_was">today your CO₂ emission was</string>
+    <string name="co2_emission_per_person_in_canada">CO₂ emission per person in Canada</string>
     <string name="is_on_average_">is on average 14.68 metric tons per day</string>
     <string name="remove_unnecessary_weight_from_your">Remove unnecessary weight from your</string>
     <string name="cars_this_will_cut_down_fuel_consumption">cars; this will cut down fuel consumption and carbon dioxide emissions</string>
     <string name="your_journey_">your journey</string>
-    <string name="uses_the_most_amount_of_co2_with_the">uses the most amount of CO2 with the</string>
+    <string name="uses_the_most_amount_of_co2_with_the">uses the most amount of CO₂ with the</string>
     <string name="try_to_avoid_this_journey_if">. Try to avoid this journey if it is possible</string>
     <string name="today_you_had_">Today you had</string>
     <string name="journeys_plan_to_do_a_number_of_errands">journeys plan to do a number of errands in one trip rather than several trips and save both time and fuel</string>
@@ -147,7 +147,7 @@
     <string name="one_day">1 Day</string>
     <string name="four_weeks">4 Weeks</string>
     <string name="one_year">1 Year</string>
-    <string name="co2_footprint_of_all_journey">CO2 Footprint of All Journeys</string>
+    <string name="co2_footprint_of_all_journey">CO₂ Footprint of All Journeys</string>
     <string name="journey_footprint">Journey Footprint</string>
     <string name="periodic_emissions">Periodic Bar Graphs</string>
     <string name="bill_information">Bill Information</string>
