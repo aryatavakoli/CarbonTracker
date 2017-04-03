@@ -69,7 +69,7 @@
     <string name="title_emssions_summary">Utility Emissions Summary</string>
     <string name="title_activity_carbon_footprint_daily_menu">CarbonFootprintDailyMenu</string>
     <string name="tap_and_hold_to_edit_utilities_bill">Tap and Hold to Edit Utilities Bill</string>
-    <string name="emissions_by_period">Emissions by Period</string>
+    <string name="emissions_by_period">Bar Graphs</string>
     <string name="data_menu_title">Data Menu</string>
     <string name="transporation_mode">Transporation Mode</string>
     <string name="choose_date">Choose Date</string>
