@@ -26,4 +26,14 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:theme="@style/GreenButton"/>
+
+    <Button
+        android:id="@+id/carbon_footprint_main_menu_periodic_pie_graph_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="91dp"
+        android:text="Periodic Pie Graphs"
+        android:theme="@style/GreenButton"/>
 </RelativeLayout>
