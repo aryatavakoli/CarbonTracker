@@ -57,7 +57,7 @@ public class UtilityResultActivity extends AppCompatActivity {
         TextView emissionsDisplay = (TextView) findViewById(R.id.utility_result_total_emission);
         TextView occupantsDisplay = (TextView) findViewById(R.id.utility_result_occupants);
 
-        emissionsDisplay.setText(round(newUtilities.getDailyCO2EmissionsInSpecifiedUnits(),2) + " Specify Units");
+        emissionsDisplay.setText(round(newUtilities.getTotalCarbonEmissionsInSpecifiedUnits(),2) + newUtilities.getSpecifiedUnits());
         occupantsDisplay.setText(newUtilities.getNumberOfOccupants() + "");
     }
 
@@ -73,7 +73,7 @@ public class UtilityResultActivity extends AppCompatActivity {
         }
 
         TextView emissionsDisplay = (TextView) findViewById(R.id.utility_result_per_day_emissions);
-        emissionsDisplay.setText(round(newUtilities.getDailyCO2EmissionsInSpecifiedUnits(),2) + " Specify Units");;
+        emissionsDisplay.setText(round(newUtilities.getDailyCO2EmissionsInSpecifiedUnits(),2) + newUtilities.getSpecifiedUnits());;
     }
 
     private void fillPerPersonTexts() {
@@ -86,7 +86,7 @@ public class UtilityResultActivity extends AppCompatActivity {
         }
 
         TextView emissionsDisplay = (TextView) findViewById(R.id.utility_result_per_person_emissions);
-        emissionsDisplay.setText(round(newUtilities.getTotalCarbonEmissionsInSpecifiedUnits(),2) + " Specify Units");
+        emissionsDisplay.setText(round(newUtilities.getTotalCarbonEmissionsInSpecifiedUnits(),2) + newUtilities.getSpecifiedUnits());
     }
 
     public static double round(double value, int places) {

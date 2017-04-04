@@ -209,7 +209,7 @@ public class JourneyAddActivity extends AppCompatActivity implements NavigationV
         if (isRouteSelected && isVehicleSelected){
             carbonEmission = newJourney.getCo2EmissionInSpecifiedUnits();
             String value = String.format("%." + 2 + "f", carbonEmission);
-            footprintDisplay.setText(value + " Specify Unitss" + "");
+            footprintDisplay.setText(value + newJourney.getSpecifiedUnits() + "");
         }
     }
 

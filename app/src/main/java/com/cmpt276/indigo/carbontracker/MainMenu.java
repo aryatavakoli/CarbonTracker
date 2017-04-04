@@ -39,12 +39,12 @@ public class MainMenu extends Activity {
         super.onPause();
         SavePreferences(CHECK_BOX_STATUS, checkBox.isChecked());
     }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        checkBox.setChecked(LoadPreferences());
-    }
+//
+//    @Override
+//    protected void onResume() {
+//        super.onResume();
+//        checkBox.setChecked(LoadPreferences());
+//    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,7 +85,8 @@ public class MainMenu extends Activity {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 Log.d("Should be True", " " + isChecked);
                 SavePreferences(CHECK_BOX_STATUS,isChecked);
-                UtilityModel.setUnits(UtilityModel.Units.BREATHS);
+                    UtilityModel.setUnits(UtilityModel.Units.BREATHS);
+
             }
         });
     }

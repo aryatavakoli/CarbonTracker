@@ -109,6 +109,15 @@ public class JourneyModel implements CarbonFootprintComponent{
         return Co2EmissionInSpecifiedUnits;
     }
 
+    public String getSpecifiedUnits()
+    {
+        if(units == Units.BREATHS)
+        {
+            return " Breaths/Day";
+        }
+        return " Kg";
+    }
+
     //error handling
     public void setCo2EmissionInSpecifiedUnits(double co2EmissionInSpecifiedUnits){
         if(co2EmissionInSpecifiedUnits < 0){
