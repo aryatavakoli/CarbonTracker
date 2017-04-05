@@ -171,4 +171,17 @@
     <string name="as_written_on_bill">"Como está escrito en la factura"</string>
     <string name="company_utility_add">"Empresa:"</string>
     <string name="bill_name_utility_add">"Bill Nombre:"</string>
+    <string name="add_image">Añadir imagen</string>
+    <string name="title_activity_carbon_footprint_pie_graphs_menu">Gráficos de pastel</string>
+    <string name="cancel_bottom_nav">Cancelar</string>
+    <string name="add_bottom_nav">Añadir</string>
+    <string name="edit_bottom_nav">Editar</string>
+    <string name="cancel_bottom_nav_menu">Cancelar</string>
+    <string name="add_bottom_nav_menu">Añadir</string>
+    <string name="delete_bottom_nav_menu">Borrar</string>
+    <string name="select_bottom_nav_menu">Seleccionar</string>
+    <string name="add_bottom_nav_menu_component">Añadir</string>
+    <string name="edit_bottom_nav_menu_component">Editar</string>
+    <string name="cancel_bottom_nav_menu_update">Cancelar</string>
+    <string name="add_bottom_nav_menu_update">Añadir</string>
 </resources>

@@ -172,6 +172,16 @@
     <string name="company_utility_add">Company:</string>
     <string name="bill_name_utility_add">Bill Name:</string>
     <string name="add_image">Add Image</string>
-    <string name="title_activity_carbon_footprint_pie_graphs_menu">Pie Graphs
-    </string>
+    <string name="title_activity_carbon_footprint_pie_graphs_menu">Pie Graphs</string>
+    <string name="cancel_bottom_nav">Cancel</string>
+    <string name="add_bottom_nav">Add</string>
+    <string name="edit_bottom_nav">Edit</string>
+    <string name="cancel_bottom_nav_menu">Cancel</string>
+    <string name="add_bottom_nav_menu">Add</string>
+    <string name="delete_bottom_nav_menu">Delete</string>
+    <string name="select_bottom_nav_menu">Select</string>
+    <string name="add_bottom_nav_menu_component">Add</string>
+    <string name="edit_bottom_nav_menu_component">Edit</string>
+    <string name="cancel_bottom_nav_menu_update">Cancel</string>
+    <string name="add_bottom_nav_menu_update">Add</string>
 </resources>

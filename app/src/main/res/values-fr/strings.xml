@@ -171,4 +171,17 @@
     <string name="as_written_on_bill">"Tel qu'écrit sur la facture"</string>
     <string name="company_utility_add">"Entreprise:"</string>
     <string name="bill_name_utility_add">"Bill Nom:"</string>
+    <string name="add_image">Ajouter une image</string>
+    <string name="title_activity_carbon_footprint_pie_graphs_menu">Graphiques de tarte</string>
+    <string name="cancel_bottom_nav">Annuler</string>
+    <string name="add_bottom_nav">Ajouter</string>
+    <string name="edit_bottom_nav">modifier</string>
+    <string name="cancel_bottom_nav_menu">Annuler</string>
+    <string name="add_bottom_nav_menu">Ajouter</string>
+    <string name="delete_bottom_nav_menu">Effacer</string>
+    <string name="select_bottom_nav_menu">Sélectionner</string>
+    <string name="add_bottom_nav_menu_component">Ajouter</string>
+    <string name="edit_bottom_nav_menu_component">modifier</string>
+    <string name="cancel_bottom_nav_menu_update">Annuler</string>
+    <string name="add_bottom_nav_menu_update">Ajouter</string>
 </resources>
