@@ -39,12 +39,18 @@ public class MainMenu extends Activity {
         super.onPause();
         SavePreferences(CHECK_BOX_STATUS, checkBox.isChecked());
     }
-//
-//    @Override
-//    protected void onResume() {
-//        super.onResume();
-//        checkBox.setChecked(LoadPreferences());
-//    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        checkBox.setChecked(LoadPreferences());
+        if(LoadPreferences()) {
+            UtilityModel.setUnits(UtilityModel.Units.BREATHS);
+        }
+        else{
+            UtilityModel.setUnits(UtilityModel.Units.KILOGRAMS);
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
