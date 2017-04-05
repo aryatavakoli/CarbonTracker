@@ -6,7 +6,7 @@
         android:id="@+id/action_cancel"
         android:enabled="true"
         android:icon="@drawable/ic_cancel"
-        android:title="Cancel"
+        android:title="@string/cancel_bottom_nav"
         android:showAsAction="ifRoom"
         />
 
@@ -14,7 +14,7 @@
         android:id="@+id/action_add"
         android:enabled="true"
         android:icon="@drawable/ic_add"
-        android:title="Add"
+        android:title="@string/add_bottom_nav"
         android:showAsAction="ifRoom"
         />
 
@@ -22,7 +22,7 @@
         android:id="@+id/action_edit"
         android:enabled="true"
         android:icon="@drawable/ic_edit"
-        android:title="Edit"
+        android:title="@string/edit_bottom_nav"
         android:showAsAction="ifRoom"
         />
 
