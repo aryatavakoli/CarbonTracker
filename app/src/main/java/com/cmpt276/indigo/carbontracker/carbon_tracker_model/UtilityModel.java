@@ -88,7 +88,7 @@ public class UtilityModel implements CarbonFootprintComponent {
         setIsDeleted(false);
         setStartDate(Calendar.getInstance());
         setEndDate(Calendar.getInstance());
-        setUnits(Units.KILOGRAMS);
+//        setUnits(Units.KILOGRAMS);
     }
 
     public UtilityModel(long id,
@@ -108,7 +108,7 @@ public class UtilityModel implements CarbonFootprintComponent {
         setStartDate(startDate);
         setEndDate(endDate);
         setIsDeleted(isDeleted);
-        setUnits(units);
+//        setUnits(units);
     }
 
     public long getId() {
