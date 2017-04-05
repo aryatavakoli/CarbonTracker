@@ -119,7 +119,7 @@ public class JourneyAddActivity extends AppCompatActivity implements NavigationV
         Menu menu = bottomNavigationView.getMenu();
         if(isEdit){
             MenuItem addItem = menu.findItem(R.id.action_add);
-            addItem.setTitle("Update");
+            addItem.setTitle(R.string.update_journey);
             addItem.setIcon(R.drawable.ic_update);
         }
         else{
