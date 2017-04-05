@@ -88,11 +88,11 @@ public class CarbonFootprintPieGraphsMenu extends AppCompatActivity {
         public CharSequence getPageTitle(int position) {
             switch (position) {
                 case 0:
-                    return "1 Day";
+                    return getString(R.string.one_day_pie_graph);
                 case 1:
-                    return "28 Days";
+                    return getString(R.string.twoeight_days_pie_graph);
                 case 2:
-                    return "365 Days";
+                    return getString(R.string.threesixfive_days_pie_graph);
             }
             return null;
         }

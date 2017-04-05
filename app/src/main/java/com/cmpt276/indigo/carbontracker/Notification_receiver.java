@@ -73,7 +73,7 @@ class Notification_receiver extends BroadcastReceiver{
                 .setWhen(System.currentTimeMillis())
                 .setSmallIcon(R.drawable.car)
 //                .setTicker("Hearty365")
-                .setContentTitle("Carbon Footprint")
+                .setContentTitle(context.getString(R.string.carbon_noti))
                 .setDefaults(Notification.DEFAULT_LIGHTS| Notification.DEFAULT_SOUND)
                 .setContentIntent(pendingIntent)
                 .setAutoCancel(true)
@@ -90,12 +90,12 @@ class Notification_receiver extends BroadcastReceiver{
                 }
            }
 
-            builder.setContentText("You entered " + journeysMadeToday+ " journeys today; want to enter more?");
+            builder.setContentText(context.getString(R.string.you_entered_noti) + journeysMadeToday+ context.getString(R.string.journeys_today_want_noti));
         }
         else{
             builder.setContentText(
-                    "You have not entered {hydro, natural gas} in over a month and a half;" +
-                            " want to enter one now?");
+                    context.getString(R.string.you_have_not_entered_noti) +
+                            context.getString(R.string.want_to_enter_noti));
         }
         notificationManager.notify(REQUEST_CODE,builder.build());
 
