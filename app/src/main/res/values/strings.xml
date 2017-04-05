@@ -200,4 +200,9 @@
     <string name="threesixfive_days_pie_graph">365 Days</string>
     <string name="twoeight_days_pie_graph">28 Days</string>
     <string name="days_utility">days</string>
+    <string name="carbon_noti">Carbon Footprint</string>
+    <string name="you_entered_noti">You entered</string>
+    <string name="journeys_today_want_noti">journeys today; want to enter more?</string>
+    <string name="want_to_enter_noti">want to enter one now?</string>
+    <string name="you_have_not_entered_noti">You have not entered {hydro, natural gas} in over a month and a half;</string>
 </resources>

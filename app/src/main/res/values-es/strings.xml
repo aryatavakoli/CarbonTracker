@@ -200,4 +200,9 @@
     <string name="threesixfive_days_pie_graph">365 dias</string>
     <string name="twoeight_days_pie_graph">28 dias</string>
     <string name="days_utility">días</string>
+    <string name="carbon_noti">Huella de carbono</string>
+    <string name="you_entered_noti">Entraste</string>
+    <string name="journeys_today_want_noti">Viajes de hoy; Quieres entrar más?</string>
+    <string name="want_to_enter_noti">Quieres entrar en una ahora?</string>
+    <string name="you_have_not_entered_noti">Usted no ha entrado en {hydro, gas natural} en más de un mes y medio;</string>
 </resources>
