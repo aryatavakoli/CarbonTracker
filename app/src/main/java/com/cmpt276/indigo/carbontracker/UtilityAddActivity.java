@@ -86,7 +86,7 @@ public class UtilityAddActivity extends AppCompatActivity implements NavigationV
         Menu menu = bottomNavigationView.getMenu();
         if(editing){
             MenuItem addItem = menu.findItem(R.id.action_add);
-            addItem.setTitle("Update");
+            addItem.setTitle(R.string.update_utility);
             addItem.setIcon(R.drawable.ic_update);
         }
         else{

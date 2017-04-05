@@ -85,7 +85,7 @@ public class TransportationAddActivity extends AppCompatActivity implements Navi
         Menu menu = bottomNavigationView.getMenu();
         if(editing){
             MenuItem addItem = menu.findItem(R.id.action_add);
-            addItem.setTitle("Update");
+            addItem.setTitle(R.string.update_transportation);
             addItem.setIcon(R.drawable.ic_update);
         }
         else{

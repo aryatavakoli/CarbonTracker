@@ -43,7 +43,7 @@ public class UtilityResultActivity extends AppCompatActivity {
         companyDisplay.setText(newUtilities.getCompanyName() + "");
 
         TextView daysDisplay = (TextView) findViewById(R.id.utility_result_billing_days);
-        daysDisplay.setText(newUtilities.calculateBillingPeriodInDays() + " days");
+        daysDisplay.setText(newUtilities.calculateBillingPeriodInDays() + getString(R.string.days_utility));
 
         TextView energyDisplay = (TextView) findViewById(R.id.utility_result__total_energy_consumption);
         if(newUtilities.getCompanyName() == UtilityModel.Company.BCHYDRO) {

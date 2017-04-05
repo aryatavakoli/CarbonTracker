@@ -184,4 +184,20 @@
     <string name="edit_bottom_nav_menu_component">modifier</string>
     <string name="cancel_bottom_nav_menu_update">Annuler</string>
     <string name="add_bottom_nav_menu_update">Ajouter</string>
+    <string name="update_utility">Mettre à jour</string>
+    <string name="update_transportation">Mettre à jour</string>
+    <string name="update_route">Mettre à jour</string>
+    <string name="update_journey">Mettre à jour</string>
+    <string name="import_nav_drawer">Importer</string>
+    <string name="gallery_nav_drawer">Galerie</string>
+    <string name="slideshow_nav_drawer">Diaporama</string>
+    <string name="electricity_pie_tab">Électricité</string>
+    <string name="natural_gas_pie_tab">Gaz naturel</string>
+    <string name="car__pie_tab">Voiture</string>
+    <string name="bus__pie_tab">Autobus</string>
+    <string name="skytrain__pie_tab">Skytrain</string>
+    <string name="one_day_pie_graph">Un jour</string>
+    <string name="threesixfive_days_pie_graph">365 jours</string>
+    <string name="twoeight_days_pie_graph">28 jours</string>
+    <string name="days_utility">journées</string>
 </resources>

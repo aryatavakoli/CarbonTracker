@@ -5,15 +5,15 @@
         <item
             android:id="@+id/nav_camera"
             android:icon="@drawable/bicycle"
-            android:title="Import" />
+            android:title="@string/import_nav_drawer" />
         <item
             android:id="@+id/nav_gallery"
             android:icon="@drawable/bus"
-            android:title="Gallery" />
+            android:title="@string/gallery_nav_drawer" />
         <item
             android:id="@+id/nav_slideshow"
             android:icon="@drawable/car"
-            android:title="Slideshow" />
+            android:title="@string/slideshow_nav_drawer" />
     </group>
 
 </menu>
