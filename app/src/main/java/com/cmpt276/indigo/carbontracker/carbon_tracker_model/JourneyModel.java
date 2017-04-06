@@ -25,7 +25,7 @@ public class JourneyModel implements CarbonFootprintComponent{
     private double Co2EmissionInSpecifiedUnits;
     private Calendar creationDate;
     private boolean isDeleted;
-    private Units units;
+    private static Units units;
 
     public JourneyModel(){
         setId(-1);
@@ -34,7 +34,7 @@ public class JourneyModel implements CarbonFootprintComponent{
         setCo2EmissionInSpecifiedUnits(0.0);
         setCreationDate(Calendar.getInstance());
         setIsDeleted(false);
-        setUnits(Units.KILOGRAMS);
+//        setUnits(Units.KILOGRAMS);
     }
 
     public JourneyModel(long id,
@@ -50,7 +50,7 @@ public class JourneyModel implements CarbonFootprintComponent{
         setCo2EmissionInSpecifiedUnits(Co2EmissionInSpecifiedUnits);
         setCreationDate(creationDate);
         setIsDeleted(isDeleted);
-        setUnits(units);
+//        setUnits(units);
     }
 
 
@@ -184,8 +184,8 @@ public class JourneyModel implements CarbonFootprintComponent{
         return units;
     }
 
-    public void setUnits(Units units) {
-        this.units = units;
+    public static void setUnits(Units units) {
+        JourneyModel.units = units;
     }
 
     @Override

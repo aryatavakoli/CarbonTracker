@@ -19,6 +19,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.CarbonFootprintComponentCollection;
+import com.cmpt276.indigo.carbontracker.carbon_tracker_model.JourneyModel;
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.UtilityModel;
 
 import java.io.InputStream;
@@ -46,9 +47,11 @@ public class MainMenu extends Activity {
         checkBox.setChecked(LoadPreferences());
         if(LoadPreferences()) {
             UtilityModel.setUnits(UtilityModel.Units.BREATHS);
+            JourneyModel.setUnits(JourneyModel.Units.BREATHS);
         }
         else{
             UtilityModel.setUnits(UtilityModel.Units.KILOGRAMS);
+            JourneyModel.setUnits(JourneyModel.Units.KILOGRAMS);
         }
     }
 
@@ -93,9 +96,11 @@ public class MainMenu extends Activity {
                 SavePreferences(CHECK_BOX_STATUS,isChecked);
                 if(isChecked) {
                     UtilityModel.setUnits(UtilityModel.Units.BREATHS);
+                    JourneyModel.setUnits(JourneyModel.Units.BREATHS);
                 }
                 else{
                     UtilityModel.setUnits(UtilityModel.Units.KILOGRAMS);
+                    JourneyModel.setUnits(JourneyModel.Units.KILOGRAMS);
                 }
 
             }
