@@ -73,6 +73,7 @@ public class CarbonFootprintDailyPieGraph extends Fragment {
                     (float)totalSkytrainEmissionsToday,
                     (float)totalCarEmissionsToday,
                     pieEntries);
+
                 createGraph(rootView, pieEntries);
             }
         };

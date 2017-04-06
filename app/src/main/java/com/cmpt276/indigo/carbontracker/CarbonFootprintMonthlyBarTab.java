@@ -1,6 +1,8 @@
 package com.cmpt276.indigo.carbontracker;
 
 
+import android.graphics.Color;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,6 +14,7 @@ import com.cmpt276.indigo.carbontracker.carbon_tracker_model.JourneyModel;
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.TransportationModel;
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.UtilityModel;
 import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.components.LimitLine;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
@@ -106,6 +109,7 @@ public class CarbonFootprintMonthlyBarTab extends Fragment {
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setValueFormatter(new IndexAxisValueFormatter(barLabels));
 
+
         //Yaxis properties
         YAxis yAxis = mChart.getAxisLeft();
         mChart.getAxisRight().setEnabled(false);
@@ -120,6 +124,20 @@ public class CarbonFootprintMonthlyBarTab extends Fragment {
         dataSets.add(set1);
 
         BarData data = new BarData(dataSets);
+
+        LimitLine limitLine = new LimitLine((float) AVERAGE_DAILY_CO2_PER_PERSON_IN_KG, "Average Canadian consumption");
+        LimitLine limitLine2 = new LimitLine((float) AVERAGE_DAILY_CO2_PER_PERSON_TO_MEET_PARIS_ACCORD, "Paris Accord Goal");
+        limitLine.setLineWidth(1f);
+        limitLine.setTextSize(10f);
+        limitLine.setTextColor(Color.RED);
+        limitLine.setLineColor(Color.RED);
+
+        limitLine2.setLineWidth(1f);
+        limitLine2.setTextSize(10f);
+        limitLine2.setTextColor(Color.GREEN);
+        limitLine2.setLineColor(Color.GREEN);
+        yAxis.addLimitLine(limitLine);
+        yAxis.addLimitLine(limitLine2);
 
         mChart.setData(data);
         mChart.setFitBars(true);
@@ -213,5 +231,14 @@ public class CarbonFootprintMonthlyBarTab extends Fragment {
             }
         }
         return totalCarEmissions;
+    }
+
+    @NonNull
+    private LimitLine getLimitLineAt(int xIndex) {
+        LimitLine ll = new LimitLine(xIndex); // set where the line should be drawn
+        ll.setLineColor(Color.BLACK);
+        ll.setLineWidth(1);
+        ll.setLabel("Banner Period");
+        return ll;
     }
 }
