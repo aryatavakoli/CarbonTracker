@@ -10,6 +10,7 @@ import android.widget.CompoundButton;
 
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.CarbonFootprintComponentCollection;
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.JourneyModel;
+import com.cmpt276.indigo.carbontracker.carbon_tracker_model.RouteModel;
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.TransportationModel;
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.UtilityModel;
 import com.github.mikephil.charting.charts.PieChart;
@@ -32,6 +33,8 @@ public class CarbonFootprintYearlyPieTab extends Fragment {
     public static final double MIN_PERCENTAGE = 0.01;
     ArrayList<JourneyModel> journeys;
     ArrayList<UtilityModel> utilities;
+    ArrayList<TransportationModel> transportations;
+    ArrayList<RouteModel> routes;
     Calendar last365 = Calendar.getInstance();
     Calendar tomorrow = Calendar.getInstance();
     Calendar today = Calendar.getInstance();
@@ -47,6 +50,8 @@ public class CarbonFootprintYearlyPieTab extends Fragment {
 
         journeys = carbonInterface.getJournies(getActivity());
         utilities = carbonInterface.getUtilities(getActivity());
+        routes = carbonInterface.getRoutes(getActivity());
+        transportations = carbonInterface.getVehicles(getActivity());
         last365.add(Calendar.DAY_OF_MONTH,-365);
         tomorrow.add(Calendar.DAY_OF_MONTH,1);
 
@@ -147,12 +152,16 @@ public class CarbonFootprintYearlyPieTab extends Fragment {
                 pieEntries.add(new PieEntry(naturalGas, "Natural Gas"));
             }
             if (car / total > MIN_PERCENTAGE) {
-                for (int i = 0; i < journeys.size(); i++) {
-                    if (journeys.get(i).getCreationDate().after(last365) && journeys.get(i).getCreationDate().before(tomorrow)) {
-                        String carName = journeys.get(i).getTransportationModel().getName();
-                        float carCo2 = (float) journeys.get(i).getCo2EmissionInSpecifiedUnits();
-                        pieEntries.add(new PieEntry(carCo2, carName));
+                for (TransportationModel t : transportations){
+                    float carCo2 = 0;
+                    String carName = t.getName();
+                    for(JourneyModel j : journeys){
+                        if (j.getCreationDate().after(last365) && j.getCreationDate().before(tomorrow) && j.getTransportationModel().equals(t)){
+                            carCo2 += (float) j.getCo2EmissionInSpecifiedUnits();
+                        }
                     }
+                    pieEntries.add(new PieEntry(carCo2,carName));
+                }
                 }
                 if (bus / total > MIN_PERCENTAGE) {
                     pieEntries.add(new PieEntry(bus, "Bus"));
@@ -162,7 +171,7 @@ public class CarbonFootprintYearlyPieTab extends Fragment {
                 }
             }
         }
-    }
+
 
     private void populateGraphRoute(float electricity,
                                     float naturalGas,
@@ -181,13 +190,15 @@ public class CarbonFootprintYearlyPieTab extends Fragment {
                 pieEntries.add(new PieEntry(naturalGas, "Natural Gas"));
             }
             if (route / total > MIN_PERCENTAGE) {
-                for (int i = 0; i < journeys.size(); i++) {
-                    //TODO: CREATE ROUTE STUFF HERE
-                    if (journeys.get(i).getCreationDate().after(last365) && journeys.get(i).getCreationDate().before(tomorrow)) {
-                        String routeName = journeys.get(i).getRouteModel().getName();
-                        float routeCo2 = (float) 5; // sample
-                        pieEntries.add(new PieEntry(routeCo2, routeName));
+                for (RouteModel r : routes){
+                    float routeCo2 = 0;
+                    String routeName = r.getName();
+                    for(JourneyModel j : journeys){
+                        if (j.getCreationDate().after(last365) && j.getCreationDate().before(tomorrow) && j.getRouteModel().equals(r)){
+                            routeCo2 += (float) j.getCo2EmissionInSpecifiedUnits();
+                        }
                     }
+                    pieEntries.add(new PieEntry(routeCo2,routeName));
                 }
             }
 

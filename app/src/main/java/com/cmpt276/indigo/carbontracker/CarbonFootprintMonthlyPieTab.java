@@ -11,6 +11,7 @@ import android.widget.CompoundButton;
 
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.CarbonFootprintComponentCollection;
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.JourneyModel;
+import com.cmpt276.indigo.carbontracker.carbon_tracker_model.RouteModel;
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.TransportationModel;
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.UtilityModel;
 import com.github.mikephil.charting.charts.PieChart;
@@ -31,6 +32,8 @@ public class CarbonFootprintMonthlyPieTab extends Fragment {
     public static final int NUMBEROFDAYS = 28;
     public static final double MIN_PERCENTAGE = 0.01;
     ArrayList<JourneyModel> journeys;
+    ArrayList<TransportationModel> transportations;
+    ArrayList<RouteModel> routes;
     ArrayList<UtilityModel> utilities;
     CarbonFootprintComponentCollection carbonInterface;
     ArrayList<JourneyModel> journey28;
@@ -46,6 +49,8 @@ public class CarbonFootprintMonthlyPieTab extends Fragment {
         carbonInterface = CarbonFootprintComponentCollection.getInstance();
 
         journeys = carbonInterface.getJournies(getActivity());
+        routes = carbonInterface.getRoutes(getActivity());
+        transportations = carbonInterface.getVehicles(getActivity());
         utilities = carbonInterface.getUtilities(getActivity());
         last28.add(Calendar.DAY_OF_MONTH,-28);
         tomorrow.add(Calendar.DAY_OF_MONTH,1);
@@ -145,13 +150,17 @@ public class CarbonFootprintMonthlyPieTab extends Fragment {
                 pieEntries.add(new PieEntry(naturalGas, "Natural Gas"));
             }
             if(car / total > MIN_PERCENTAGE) {
-                for (int i = 0; i < journeys.size(); i++){
-                    if (journeys.get(i).getCreationDate().after(last28) && journeys.get(i).getCreationDate().before(tomorrow)){
-                        String carName = journeys.get(i).getTransportationModel().getName();
-                        float carCo2 = (float) journeys.get(i).getCo2EmissionInSpecifiedUnits();
-                        pieEntries.add(new PieEntry(carCo2,carName));
+                for (TransportationModel t : transportations){
+                    float carCo2 = 0;
+                    String carName = t.getName();
+                    for(JourneyModel j : journeys){
+                        if (j.getCreationDate().after(last28) && j.getCreationDate().before(tomorrow) && j.getTransportationModel().equals(t)){
+                            carCo2 += (float) j.getCo2EmissionInSpecifiedUnits();
+                        }
                     }
+                    pieEntries.add(new PieEntry(carCo2,carName));
                 }
+
             }
             if(bus / total > MIN_PERCENTAGE) {
                 pieEntries.add(new PieEntry(bus, "Bus"));
@@ -180,11 +189,16 @@ public class CarbonFootprintMonthlyPieTab extends Fragment {
                 pieEntries.add(new PieEntry(naturalGas, "Natural Gas"));
             }
             if(route / total > MIN_PERCENTAGE) {
-                for (int i = 0; i < journeys.size(); i++){
-                    String routeName = journeys.get(i).getRouteModel().getName();
-                    //TODO: CREATE ROUTE STUFF HERE
-                    //float routeCo2 = (float) journeys.get(i).getCo2EmissionInSpecifiedUnits();
-                    pieEntries.add(new PieEntry(5,routeName));
+                for (RouteModel r : routes){
+                    float routeCo2 = 0;
+                    String routeName = r.getName();
+                    for(JourneyModel j : journeys){
+                        if (j.getCreationDate().after(last28) && j.getCreationDate().before(tomorrow) && j.getRouteModel().equals(r)){
+                            routeCo2 += (float) j.getCo2EmissionInSpecifiedUnits();
+                        }
+                    }
+                    pieEntries.add(new PieEntry(routeCo2,routeName));
+
                 }
             }
 

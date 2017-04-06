@@ -14,6 +14,7 @@ import android.widget.DatePicker;
 
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.CarbonFootprintComponentCollection;
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.JourneyModel;
+import com.cmpt276.indigo.carbontracker.carbon_tracker_model.RouteModel;
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.UtilityModel;
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.TransportationModel;
 import com.github.mikephil.charting.charts.PieChart;
@@ -34,6 +35,8 @@ import java.util.Calendar;
 public class CarbonFootprintDailyPieGraph extends Fragment {
     public static final double MIN_PERCENTAGE = 0.01;
     ArrayList<JourneyModel> journeys;
+    ArrayList<RouteModel> routes;
+    ArrayList<TransportationModel> transportations;
     ArrayList<UtilityModel> utilities;
     CarbonFootprintComponentCollection carbonInterface;
 
@@ -42,7 +45,7 @@ public class CarbonFootprintDailyPieGraph extends Fragment {
                              Bundle savedInstanceState) {
 
         final View rootView = inflater.inflate(R.layout.activity_carbon_footprint_daily_pie_tab, container, false);
-        final CheckBox checkBox = (CheckBox) rootView.findViewById(R.id.daily_pie_graph_checkBox);
+        final CheckBox checkBox = (CheckBox) rootView.findViewById(R.id.dailyGraph_chechBox);
         checkBox.setEnabled(false);
 
         final Calendar myCalendar = Calendar.getInstance();
@@ -65,6 +68,8 @@ public class CarbonFootprintDailyPieGraph extends Fragment {
                 carbonInterface = CarbonFootprintComponentCollection.getInstance();
                 journeys = carbonInterface.getJournies(getActivity());
                 utilities = carbonInterface.getUtilities(getActivity());
+                routes = carbonInterface.getRoutes(getActivity());
+                transportations = carbonInterface.getVehicles(getActivity());
 
                 final double totalElectrcityEmissionsToday = getTotalElectrcityEmissionsToday(utilities,myCalendar);
                 final double totalNaturalGasEmissionsToday = getTotalNaturalGasEmissionsToday(utilities,myCalendar);
@@ -171,12 +176,15 @@ public class CarbonFootprintDailyPieGraph extends Fragment {
                 pieEntries.add(new PieEntry(naturalGas, "Natural Gas"));
             }
             if(car / total > MIN_PERCENTAGE) {
-                for (int i = 0; i < journeys.size(); i++){
-                    if (isSameDay(journeys.get(i).getCreationDate(), today)){
-                        String carName = journeys.get(i).getTransportationModel().getName();
-                        float carCo2 = (float) journeys.get(i).getCo2EmissionInSpecifiedUnits();
-                        pieEntries.add(new PieEntry(carCo2,carName));
+                for (TransportationModel t : transportations){
+                    float carCo2 = 0;
+                    String carName = t.getName();
+                    for(JourneyModel j : journeys){
+                        if (isSameDay(j.getCreationDate(), today) && j.getTransportationModel().equals(t)){
+                        carCo2 += (float) j.getCo2EmissionInSpecifiedUnits();
+                          }
                     }
+                    pieEntries.add(new PieEntry(carCo2,carName));
                 }
             }
             if(bus / total > MIN_PERCENTAGE) {
@@ -207,14 +215,19 @@ public class CarbonFootprintDailyPieGraph extends Fragment {
                 pieEntries.add(new PieEntry(naturalGas, "Natural Gas"));
             }
             if(route / total > MIN_PERCENTAGE) {
-                for (int i = 0; i < journeys.size(); i++){
-                    String routeName = journeys.get(i).getRouteModel().getName();
-                    //TODO: CREATE ROUTE STUFF HERE
-                    //float routeCo2 = (float) journeys.get(i).getCo2EmissionInSpecifiedUnits();
-                    pieEntries.add(new PieEntry(5,routeName));
-                    pieEntries.add(new PieEntry(15,routeName));
+                for (RouteModel r : routes){
+                    float routeCo2 = 0;
+                    String routeName = r.getName();
+                    for(JourneyModel j : journeys){
+                        if (isSameDay(j.getCreationDate(), today) && j.getRouteModel().equals(r)){
+                            routeCo2 += (float) j.getCo2EmissionInSpecifiedUnits();
+                        }
+                    }
+                    pieEntries.add(new PieEntry(routeCo2,routeName));
                 }
-            }
+
+                }
+
 
             if(bus / total > MIN_PERCENTAGE) {
                 pieEntries.add(new PieEntry(bus, "Bus"));
