@@ -75,6 +75,7 @@ public class CarbonFootprintMonthlyPieTab extends Fragment {
                 totalBusEmissions,
                 totalSkytrainEmissions,
                 totalCarEmissions,
+                journeys,
                 pieEntries
         );
 
@@ -89,13 +90,16 @@ public class CarbonFootprintMonthlyPieTab extends Fragment {
         pieChart.invalidate();
     }
 
+    // Carbon emssions of all Transportation mode = Carbon Emission of Route
     private void populateGraph(float electricity,
                                float naturalGas,
                                float bus,
                                float skytrain,
                                float car,
+                               ArrayList<JourneyModel> journeys,
                                ArrayList<PieEntry> pieEntries) {
         float total = electricity + naturalGas + bus + skytrain + car;
+        float route = car + bus +skytrain;
         if(total > 1e-6) {
             if(electricity / total > MIN_PERCENTAGE) {
                 pieEntries.add(new PieEntry(electricity, "Electricity"));
@@ -104,11 +108,23 @@ public class CarbonFootprintMonthlyPieTab extends Fragment {
                 pieEntries.add(new PieEntry(naturalGas, "Natural Gas"));
             }
             if(car / total > MIN_PERCENTAGE) {
-                pieEntries.add(new PieEntry(car, "Car"));
+                // TODO: FILL HERE, GET EMISSION OF EVERY INDIVIDUAL CAR
+                for (int i = 0; i < journeys.size(); i++){
+                    String name = journeys.get(i).getTransportationModel().getName();
+                    float co2 = (float) journeys.get(i).getCo2EmissionInSpecifiedUnits();
+                    pieEntries.add(new PieEntry(co2,name));
+                }
             }
+//            if (route/total > MIN_PERCENTAGE) {
+//                for (JourneyModel j : journeys) {
+//                    // TODO: FILL HERE, GET EMISSION OF EVERY INDIVIDUAL ROUTE
+//                    //pieEntries.add(new PieEntry(bus, "Bus"));
+//                }
+//            }
             if(bus / total > MIN_PERCENTAGE) {
                 pieEntries.add(new PieEntry(bus, "Bus"));
             }
+
             if(skytrain / total > MIN_PERCENTAGE) {
                 pieEntries.add(new PieEntry(skytrain, "Skytrain"));
             }
@@ -178,4 +194,6 @@ public class CarbonFootprintMonthlyPieTab extends Fragment {
         }
         return totalCarEmissions;
     }
-}
+
+
+    }
