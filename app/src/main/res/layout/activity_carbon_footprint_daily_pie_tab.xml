@@ -11,6 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/choose_date"
+        android:theme="@style/GreenButton"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
     <com.github.mikephil.charting.charts.PieChart
@@ -18,4 +19,13 @@
         android:layout_height="match_parent"
         android:id="@+id/daily_pie_graph">
     </com.github.mikephil.charting.charts.PieChart>
+
+    <CheckBox
+        android:id="@+id/dailyGraph_chechBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/refresh_on_date_pick"
+        android:layout_marginStart="13dp"
+        android:layout_toEndOf="@+id/refresh_on_date_pick"
+        android:text="Organize By Route" />
 </RelativeLayout>

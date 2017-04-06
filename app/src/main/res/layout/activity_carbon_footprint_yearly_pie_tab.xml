@@ -2,10 +2,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-
     <com.github.mikephil.charting.charts.PieChart
         android:id="@+id/yearly_pie_graph"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+
+    <CheckBox
+        android:id="@+id/yearly_pie_graph_checkBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="22dp"
+        android:text="Organize By Route"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>
