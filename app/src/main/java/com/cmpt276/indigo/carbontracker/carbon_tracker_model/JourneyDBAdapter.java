@@ -28,15 +28,23 @@ public class JourneyDBAdapter {
     public static final String KEY_CO2_EMISSION = "co2_emission";
     public static final String KEY_CREATE_DATE = "create_date";
     public static final String KEY_IS_DELETED = "is_deleted";
+    public static final String KEY_UNITS = "units";
 
     public static final int COL_TRANSPORTATION_ID = 1;
     public static final int COL_ROUTE_id = 2;
     public static final int COL_CO2_EMISSION = 3;
     public static final int COL_CREATE_DATE = 4;
     public static final int COL_IS_DELETED = 5;
+    public static final int COL_UNITS = 6;
 
     public static final String[] ALL_KEYS = new String[] {
-            KEY_ROWID, KEY_TRANSPORTATION_ID, KEY_ROUTE_id, KEY_CO2_EMISSION, KEY_CREATE_DATE, KEY_IS_DELETED
+            KEY_ROWID,
+            KEY_TRANSPORTATION_ID,
+            KEY_ROUTE_id,
+            KEY_CO2_EMISSION,
+            KEY_CREATE_DATE,
+            KEY_IS_DELETED,
+            KEY_UNITS
     };
 
     // DB info: it's name, and the table we are using (just one).
@@ -52,7 +60,8 @@ public class JourneyDBAdapter {
                     + KEY_ROUTE_id + " integer not null, "
                     + KEY_CO2_EMISSION + " double not null, "
                     + KEY_CREATE_DATE + " date not null, "
-                    + KEY_IS_DELETED + " boolean not null"
+                    + KEY_IS_DELETED + " boolean not null,"
+                    + KEY_UNITS + " Units not null"
                     + ");";
 
     // Context of application who uses us.
@@ -91,9 +100,10 @@ public class JourneyDBAdapter {
         ContentValues initialValues = new ContentValues();
         initialValues.put(KEY_TRANSPORTATION_ID, journey.getTransportationModel().getId());
         initialValues.put(KEY_ROUTE_id, journey.getRouteModel().getId());
-        initialValues.put(KEY_CO2_EMISSION, journey.getCo2Emission());
+        initialValues.put(KEY_CO2_EMISSION, journey.getCo2EmissionInSpecifiedUnits());
         initialValues.put(KEY_CREATE_DATE, journey.getCreationDateString());
         initialValues.put(KEY_IS_DELETED, journey.getIsDeleted());
+        initialValues.put(KEY_UNITS, JourneyModel.UnitsToInt(journey.getUnits()));
         // Insert it into the database.
         journey.setId(db.insert(DATABASE_TABLE, null, initialValues));
         return journey.getId();
@@ -121,7 +131,8 @@ public class JourneyDBAdapter {
         long id = (long) cursor.getInt(JourneyDBAdapter.COL_ROWID);
         long transportationID = (long)cursor.getInt(JourneyDBAdapter.COL_TRANSPORTATION_ID);
         long routeID = (long)cursor.getInt(JourneyDBAdapter.COL_ROUTE_id);
-        float co2Emission = cursor.getFloat(JourneyDBAdapter.COL_CO2_EMISSION);
+        double co2Emission = cursor.getDouble(JourneyDBAdapter.COL_CO2_EMISSION);
+        JourneyModel.Units units = JourneyModel.IntToUnits(cursor.getInt(JourneyDBAdapter.COL_UNITS));
         Calendar createDate = Calendar.getInstance();
         SimpleDateFormat formatter = new SimpleDateFormat(UtilityModel.DATE_FORMAT);
         try
@@ -139,7 +150,14 @@ public class JourneyDBAdapter {
         if(routeModel == null) {
             throw new IllegalArgumentException("Route could not be found in database");
         }
-        return new JourneyModel(id, transportationModel, routeModel, co2Emission, createDate, isDeleted);
+        return new JourneyModel(
+                id,
+                transportationModel,
+                routeModel,
+                co2Emission,
+                createDate,
+                isDeleted,
+                units);
     }
 
     public ArrayList<JourneyModel> getAllJournies() {
@@ -207,9 +225,10 @@ public class JourneyDBAdapter {
         ContentValues newValues = new ContentValues();
         newValues.put(KEY_TRANSPORTATION_ID, journey.getTransportationModel().getId());
         newValues.put(KEY_ROUTE_id, journey.getRouteModel().getId());
-        newValues.put(KEY_CO2_EMISSION, journey.getCo2Emission());
+        newValues.put(KEY_CO2_EMISSION, journey.getCo2EmissionInSpecifiedUnits());
         newValues.put(KEY_CREATE_DATE, journey.getCreationDateString());
         newValues.put(KEY_IS_DELETED, journey.getIsDeleted());
+        newValues.put(KEY_UNITS, JourneyModel.UnitsToInt(journey.getUnits()));
         // Insert it into the database.
         return db.update(DATABASE_TABLE, newValues, where, null) != 0;
     }

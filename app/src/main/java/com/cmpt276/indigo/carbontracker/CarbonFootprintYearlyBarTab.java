@@ -61,7 +61,7 @@ public class CarbonFootprintYearlyBarTab extends Fragment {
         for (JourneyModel j : journeys){
             Calendar c = j.getCreationDate();
             if (c.get(Calendar.YEAR) == today.get(Calendar.YEAR) && (c.get(Calendar.MONTH) == i)){
-                totalJourneyCo2 = totalJourneyCo2 + j.getCo2Emission();
+                totalJourneyCo2 = totalJourneyCo2 + j.getCo2EmissionInSpecifiedUnits();
             }
 
         }
@@ -69,7 +69,7 @@ public class CarbonFootprintYearlyBarTab extends Fragment {
         for (UtilityModel u : utilities){
             Calendar c = Calendar.getInstance();
             if ( u.getStartDate().get(Calendar.MONTH) == i && c.get(Calendar.YEAR) == today.get(Calendar.YEAR)){
-                totalUtilityCo2 = totalUtilityCo2 + u.calculateDailyCO2EmissionsInKg();
+                totalUtilityCo2 = totalUtilityCo2 + u.getDailyCO2EmissionsInSpecifiedUnits();
             }
         }
 
