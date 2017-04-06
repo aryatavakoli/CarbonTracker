@@ -8,6 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.DatePicker;
 
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.CarbonFootprintComponentCollection;
@@ -40,6 +42,8 @@ public class CarbonFootprintDailyPieGraph extends Fragment {
                              Bundle savedInstanceState) {
 
         final View rootView = inflater.inflate(R.layout.activity_carbon_footprint_daily_pie_tab, container, false);
+        final CheckBox checkBox = (CheckBox) rootView.findViewById(R.id.daily_pie_graph_checkBox);
+        checkBox.setEnabled(false);
 
         final Calendar myCalendar = Calendar.getInstance();
 
@@ -54,25 +58,60 @@ public class CarbonFootprintDailyPieGraph extends Fragment {
                 myCalendar.set(Calendar.MONTH, monthOfYear);
                 myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
                 displayDate(txt, myCalendar);
+                checkBox.setEnabled(true);
+                checkBox.setChecked(false);
                 pieEntries.clear();
 
-            carbonInterface = CarbonFootprintComponentCollection.getInstance();
-            journeys = carbonInterface.getJournies(getActivity());
-            utilities = carbonInterface.getUtilities(getActivity());
+                carbonInterface = CarbonFootprintComponentCollection.getInstance();
+                journeys = carbonInterface.getJournies(getActivity());
+                utilities = carbonInterface.getUtilities(getActivity());
 
-            double totalElectrcityEmissionsToday = getTotalElectrcityEmissionsToday(utilities,myCalendar);
-            double totalNaturalGasEmissionsToday = getTotalNaturalGasEmissionsToday(utilities,myCalendar);
-            double totalBusEmissionsToday = getTotalBusEmissionsToday(journeys,myCalendar);
-            double totalSkytrainEmissionsToday = getTotalSkytrainEmissionsToday(journeys,myCalendar);
-            double totalCarEmissionsToday = getTotalCarEmissionsToday(journeys,myCalendar);
+                final double totalElectrcityEmissionsToday = getTotalElectrcityEmissionsToday(utilities,myCalendar);
+                final double totalNaturalGasEmissionsToday = getTotalNaturalGasEmissionsToday(utilities,myCalendar);
+                final double totalBusEmissionsToday = getTotalBusEmissionsToday(journeys,myCalendar);
+                final double totalSkytrainEmissionsToday = getTotalSkytrainEmissionsToday(journeys,myCalendar);
+                final double totalCarEmissionsToday = getTotalCarEmissionsToday(journeys,myCalendar);
 
-            populateGraph(
-                    (float)totalElectrcityEmissionsToday,
-                    (float)totalNaturalGasEmissionsToday,
-                    (float)totalBusEmissionsToday,
-                    (float)totalSkytrainEmissionsToday,
-                    (float)totalCarEmissionsToday,
-                    pieEntries);
+                populateGraphCar(
+                        (float) totalElectrcityEmissionsToday,
+                        (float) totalNaturalGasEmissionsToday,
+                        (float) totalBusEmissionsToday,
+                        (float) totalSkytrainEmissionsToday,
+                        (float) totalCarEmissionsToday,
+                        myCalendar,
+                        journeys,
+                        pieEntries);
+
+                checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                        pieEntries.clear();
+                        if (isChecked) {
+                            populateGraphRoute(
+                                    (float) totalElectrcityEmissionsToday,
+                                    (float) totalNaturalGasEmissionsToday,
+                                    (float) totalBusEmissionsToday,
+                                    (float) totalSkytrainEmissionsToday,
+                                    (float) totalCarEmissionsToday,
+                                    myCalendar,
+                                    journeys,
+                                    pieEntries);
+                        }
+                        else {
+                            populateGraphCar(
+                                    (float) totalElectrcityEmissionsToday,
+                                    (float) totalNaturalGasEmissionsToday,
+                                    (float) totalBusEmissionsToday,
+                                    (float) totalSkytrainEmissionsToday,
+                                    (float) totalCarEmissionsToday,
+                                    myCalendar,
+                                    journeys,
+                                    pieEntries);
+                        }
+
+                        createGraph(rootView, pieEntries);
+                    }
+                });
 
                 createGraph(rootView, pieEntries);
             }
@@ -114,13 +153,16 @@ public class CarbonFootprintDailyPieGraph extends Fragment {
         pieChart.invalidate();
     }
 
-    private void populateGraph(float electricity,
-                               float naturalGas,
-                               float bus,
-                               float skytrain,
-                               float car,
-                               ArrayList<PieEntry> pieEntries) {
+    private void populateGraphCar(float electricity,
+                                  float naturalGas,
+                                  float bus,
+                                  float skytrain,
+                                  float car,
+                                  Calendar today,
+                                  ArrayList<JourneyModel> journeys,
+                                  ArrayList<PieEntry> pieEntries) {
         float total = electricity + naturalGas + bus + skytrain + car;
+        float route = car + bus +skytrain;
         if(total > 1e-6) {
             if(electricity / total > MIN_PERCENTAGE) {
                 pieEntries.add(new PieEntry(electricity, "Electricity"));
@@ -129,11 +171,55 @@ public class CarbonFootprintDailyPieGraph extends Fragment {
                 pieEntries.add(new PieEntry(naturalGas, "Natural Gas"));
             }
             if(car / total > MIN_PERCENTAGE) {
-                pieEntries.add(new PieEntry(car, "Car"));
+                for (int i = 0; i < journeys.size(); i++){
+                    if (isSameDay(journeys.get(i).getCreationDate(), today)){
+                        String carName = journeys.get(i).getTransportationModel().getName();
+                        float carCo2 = (float) journeys.get(i).getCo2EmissionInSpecifiedUnits();
+                        pieEntries.add(new PieEntry(carCo2,carName));
+                    }
+                }
             }
             if(bus / total > MIN_PERCENTAGE) {
                 pieEntries.add(new PieEntry(bus, "Bus"));
             }
+
+            if(skytrain / total > MIN_PERCENTAGE) {
+                pieEntries.add(new PieEntry(skytrain, "Skytrain"));
+            }
+        }
+    }
+
+    private void populateGraphRoute(float electricity,
+                                    float naturalGas,
+                                    float bus,
+                                    float skytrain,
+                                    float car,
+                                    Calendar today,
+                                    ArrayList<JourneyModel> journeys,
+                                    ArrayList<PieEntry> pieEntries) {
+        float total = electricity + naturalGas + bus + skytrain + car;
+        float route = car + bus +skytrain;
+        if(total > 1e-6) {
+            if(electricity / total > MIN_PERCENTAGE) {
+                pieEntries.add(new PieEntry(electricity, "Electricity"));
+            }
+            if(naturalGas / total > MIN_PERCENTAGE) {
+                pieEntries.add(new PieEntry(naturalGas, "Natural Gas"));
+            }
+            if(route / total > MIN_PERCENTAGE) {
+                for (int i = 0; i < journeys.size(); i++){
+                    String routeName = journeys.get(i).getRouteModel().getName();
+                    //TODO: CREATE ROUTE STUFF HERE
+                    //float routeCo2 = (float) journeys.get(i).getCo2EmissionInSpecifiedUnits();
+                    pieEntries.add(new PieEntry(5,routeName));
+                    pieEntries.add(new PieEntry(15,routeName));
+                }
+            }
+
+            if(bus / total > MIN_PERCENTAGE) {
+                pieEntries.add(new PieEntry(bus, "Bus"));
+            }
+
             if(skytrain / total > MIN_PERCENTAGE) {
                 pieEntries.add(new PieEntry(skytrain, "Skytrain"));
             }
@@ -151,9 +237,9 @@ public class CarbonFootprintDailyPieGraph extends Fragment {
                 }
             }
         }
-            Log.d("Hello", "Emission: " + totalElectrcityEmissionsToday);
-            return totalElectrcityEmissionsToday;
-        }
+        Log.d("Hello", "Emission: " + totalElectrcityEmissionsToday);
+        return totalElectrcityEmissionsToday;
+    }
 
 
     private float getTotalNaturalGasEmissionsToday(ArrayList<UtilityModel> utilities, Calendar today) {
@@ -210,7 +296,7 @@ public class CarbonFootprintDailyPieGraph extends Fragment {
         if (cal1 == null || cal2 == null)
             return false;
         return (//cal1.get(Calendar.ERA) == cal2.get(Calendar.ERA)
-                 cal1.get(Calendar.YEAR) == cal2.get(Calendar.YEAR)
-                && cal1.get(Calendar.DAY_OF_YEAR) == cal2.get(Calendar.DAY_OF_YEAR));
+                cal1.get(Calendar.YEAR) == cal2.get(Calendar.YEAR)
+                        && cal1.get(Calendar.DAY_OF_YEAR) == cal2.get(Calendar.DAY_OF_YEAR));
     }
 }
