@@ -86,7 +86,7 @@ public class UtilityAddActivity extends AppCompatActivity implements NavigationV
         Menu menu = bottomNavigationView.getMenu();
         if(editing){
             MenuItem addItem = menu.findItem(R.id.action_add);
-            addItem.setTitle("Update");
+            addItem.setTitle(R.string.update_utility);
             addItem.setIcon(R.drawable.ic_update);
         }
         else{
@@ -253,7 +253,7 @@ public class UtilityAddActivity extends AppCompatActivity implements NavigationV
         }
         int occupants = Integer.parseInt(editTextPeople.getText().toString());
 
-        return new UtilityModel(-1, company, name, energy, occupants, startCalendar, endCalendar, false);
+        return new UtilityModel(-1, company, name, energy, occupants, startCalendar, endCalendar, false, UtilityModel.Units.KILOGRAMS);
     }
 
     boolean addUtility(UtilityModel utility){

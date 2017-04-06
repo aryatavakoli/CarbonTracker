@@ -145,7 +145,7 @@ public class CarbonFootprintDailyPieGraph extends Fragment {
             if (isSameDay(utility.getStartDate(), today)) {
                 Log.d("Hello", "Emission true");
                 if (utility.getCompanyName() == UtilityModel.Company.BCHYDRO) {
-                    float total_emission = (float) (utility.calculateDailyCO2EmissionsInKg());
+                    float total_emission = (float) (utility.getDailyCO2EmissionsInSpecifiedUnits());
                     totalElectrcityEmissionsToday += total_emission;
                 }
             }
@@ -160,7 +160,7 @@ public class CarbonFootprintDailyPieGraph extends Fragment {
         for (UtilityModel utility : utilities) {
             if (isSameDay(utility.getStartDate(), today)) {
                 if (utility.getCompanyName() == UtilityModel.Company.FORTISBC) {
-                    float total_emission = (float) (utility.calculateDailyCO2EmissionsInKg());
+                    float total_emission = (float) (utility.getDailyCO2EmissionsInSpecifiedUnits());
                     totalNaturalGasEmissionsToday += total_emission;
                 }
             }
@@ -174,7 +174,7 @@ public class CarbonFootprintDailyPieGraph extends Fragment {
         for (JourneyModel journey : journeys) {
             if (isSameDay(journey.getCreationDate(), today)) {
                 if (journey.getTransportationModel().getTransportaionMode() == TransportationModel.TransportationMode.BUS) {
-                    totalBusEmissionsToday = totalBusEmissionsToday + journey.getCo2Emission();
+                    totalBusEmissionsToday = totalBusEmissionsToday + journey.getCo2EmissionInSpecifiedUnits();
                 }
             }
         }
@@ -186,7 +186,7 @@ public class CarbonFootprintDailyPieGraph extends Fragment {
         for (JourneyModel journey : journeys) {
             if (isSameDay(journey.getCreationDate(), today)) {
                 if (journey.getTransportationModel().getTransportaionMode() == TransportationModel.TransportationMode.SKYTRAIN) {
-                    totalSkytrainEmissionsToday = totalSkytrainEmissionsToday + journey.getCo2Emission();
+                    totalSkytrainEmissionsToday = totalSkytrainEmissionsToday + journey.getCo2EmissionInSpecifiedUnits();
                 }
             }
         }
@@ -198,7 +198,7 @@ public class CarbonFootprintDailyPieGraph extends Fragment {
         for (JourneyModel journey : journeys) {
             if (isSameDay(journey.getCreationDate(), today)) {
                 if (journey.getTransportationModel().getTransportaionMode() == TransportationModel.TransportationMode.CAR) {
-                    totalCarEmissionsToday = totalCarEmissionsToday + journey.getCo2Emission();
+                    totalCarEmissionsToday = totalCarEmissionsToday + journey.getCo2EmissionInSpecifiedUnits();
                 }
             }
         }

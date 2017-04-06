@@ -11,36 +11,68 @@ public class JourneyModel implements CarbonFootprintComponent{
     public static final double CO2_PER_KM_BUS = 0.0089;
     public static final double CO2_PER_KM_SKYTRAIN = 0.0087;
     public static final double CO2_PER_KM_PEDESTRIAN = 0.0;
+    public static final double CO2_HUMAN_BREATHS_IN_KG_PER_DAY = 0.850;
     public static final String DATE_FORMAT = "yyyy-MMM-dd";
+
+    public enum Units{
+        KILOGRAMS,
+        BREATHS
+    }
 
     private long id;
     private TransportationModel transportationModel;
     private RouteModel routeModel;
-    private double co2Emission;
+    private double Co2EmissionInSpecifiedUnits;
     private Calendar creationDate;
     private boolean isDeleted;
+    private static Units units;
 
     public JourneyModel(){
         setId(-1);
         setTransportationModel(null);
         setRouteModel(null);
-        setCo2Emission(0.0);
+        setCo2EmissionInSpecifiedUnits(0.0);
         setCreationDate(Calendar.getInstance());
         setIsDeleted(false);
+//        setUnits(Units.KILOGRAMS);
     }
 
     public JourneyModel(long id,
                         TransportationModel vehicle,
                         RouteModel route,
-                        float co2Emission,
+                        double Co2EmissionInSpecifiedUnits,
                         Calendar creationDate,
-                        boolean isDeleted){
+                        boolean isDeleted,
+                        Units units){
         setId(id);
         setTransportationModel(vehicle);
         setRouteModel(route);
-        setCo2Emission(co2Emission);
+        setCo2EmissionInSpecifiedUnits(Co2EmissionInSpecifiedUnits);
         setCreationDate(creationDate);
         setIsDeleted(isDeleted);
+//        setUnits(units);
+    }
+
+
+    public static Units IntToUnits(int number) {
+        if(number == 0){
+            return Units.KILOGRAMS;
+        }
+        else if(number == 1) {
+            return Units.BREATHS;
+        }
+        return Units.KILOGRAMS;
+    }
+
+
+    public static int UnitsToInt(Units units) {
+        if(units == Units.KILOGRAMS){
+            return 0;
+        }
+        else if(units == Units.BREATHS) {
+            return 1;
+        }
+        return -1;
     }
 
     public Calendar getCreationDate() {
@@ -67,17 +99,31 @@ public class JourneyModel implements CarbonFootprintComponent{
         this.transportationModel = transportationModel;
     }
 
-    public double getCo2Emission(){
-        calculateEmissions();
-        return co2Emission;
+    public double getCo2EmissionInSpecifiedUnits(){
+        if (units ==  Units.KILOGRAMS) {
+            Co2EmissionInSpecifiedUnits = calculateEmissionsInKg();
+        }
+        else if(units == Units.BREATHS){
+            Co2EmissionInSpecifiedUnits = calculateEmissionsInKg() / CO2_HUMAN_BREATHS_IN_KG_PER_DAY;
+        }
+        return Co2EmissionInSpecifiedUnits;
+    }
+
+    public String getSpecifiedUnits()
+    {
+        if(units == Units.BREATHS)
+        {
+            return " Breaths/Day";
+        }
+        return " Kg";
     }
 
     //error handling
-    public void setCo2Emission(double co2Emission){
-        if(co2Emission < 0){
+    public void setCo2EmissionInSpecifiedUnits(double co2EmissionInSpecifiedUnits){
+        if(co2EmissionInSpecifiedUnits < 0){
             throw new IllegalArgumentException("CO2 emission cannot be negative.");
         }
-        this.co2Emission = co2Emission;
+        this.Co2EmissionInSpecifiedUnits = co2EmissionInSpecifiedUnits;
     }
 
     public long getId() {
@@ -90,7 +136,7 @@ public class JourneyModel implements CarbonFootprintComponent{
 
     //parameters/arguments must be in kilometers
     //Calcualtes Carbonfootprint
-    public void calculateEmissions() {
+    public double calculateEmissionsInKg() {
 
         double totalFootprint = 0;
         if(transportationModel != null && routeModel != null){
@@ -125,12 +171,21 @@ public class JourneyModel implements CarbonFootprintComponent{
                 totalFootprint =  routeModel.getTotalDistance() * CO2_PER_KM_SKYTRAIN ; //user chooses skytrain
             }
         }
-        co2Emission = totalFootprint;
+        Co2EmissionInSpecifiedUnits = totalFootprint;
+        return  totalFootprint;
     }
 
     public String getCreationDateString(){
         SimpleDateFormat formatter = new SimpleDateFormat(DATE_FORMAT);
         return formatter.format(getCreationDate().getTime());
+    }
+
+    public Units getUnits() {
+        return units;
+    }
+
+    public static void setUnits(Units units) {
+        JourneyModel.units = units;
     }
 
     @Override

@@ -99,19 +99,19 @@ public class CarbonFootprintYearlyPieTab extends Fragment {
         float total = electricity + naturalGas + bus + skytrain + car;
         if(total > 1e-6) {
             if(electricity / total > MIN_PERCENTAGE) {
-                pieEntries.add(new PieEntry(electricity, "Electricity"));
+                pieEntries.add(new PieEntry(electricity, getString(R.string.electricity_pie_tab)));
             }
             if(naturalGas / total > MIN_PERCENTAGE) {
-                pieEntries.add(new PieEntry(naturalGas, "Natural Gas"));
+                pieEntries.add(new PieEntry(naturalGas, getString(R.string.natural_gas_pie_tab)));
             }
             if(car / total > MIN_PERCENTAGE) {
-                pieEntries.add(new PieEntry(car, "Car"));
+                pieEntries.add(new PieEntry(car, getString(R.string.car__pie_tab)));
             }
             if(bus / total > MIN_PERCENTAGE) {
-                pieEntries.add(new PieEntry(bus, "Bus"));
+                pieEntries.add(new PieEntry(bus, getString(R.string.bus__pie_tab)));
             }
             if(skytrain / total > MIN_PERCENTAGE) {
-                pieEntries.add(new PieEntry(skytrain, "Skytrain"));
+                pieEntries.add(new PieEntry(skytrain, getString(R.string.skytrain__pie_tab)));
             }
         }
     }
@@ -123,7 +123,7 @@ public class CarbonFootprintYearlyPieTab extends Fragment {
         for (UtilityModel utility : utilities){
             if (utility.getStartDate().before(tomorrow) && utility.getStartDate().after(last365)) {
                 if (utility.getCompanyName() == UtilityModel.Company.BCHYDRO) {
-                    float total_emission = (float) (utility.getNumberOfOccupants() * utility.getTotalEmissionsPerOccupant());
+                    float total_emission = (float) (utility.getNumberOfOccupants() * utility.getTotalEmissionsPerOccupantInSpecifiedUnits());
                     totalElectrcity = totalElectrcity + total_emission;
                 }
             }
@@ -136,7 +136,7 @@ public class CarbonFootprintYearlyPieTab extends Fragment {
         for (UtilityModel utility : utilities) {
             if (utility.getStartDate().before(tomorrow) && utility.getStartDate().after(last365)) {
                 if (utility.getCompanyName() == UtilityModel.Company.FORTISBC) {
-                    float total_emission = (float) (utility.getNumberOfOccupants() * utility.getTotalEmissionsPerOccupant());
+                    float total_emission = (float) (utility.getNumberOfOccupants() * utility.getTotalEmissionsPerOccupantInSpecifiedUnits());
                     totalNaturalGasEmissions = totalNaturalGasEmissions + total_emission;
                 }
             }
@@ -149,7 +149,7 @@ public class CarbonFootprintYearlyPieTab extends Fragment {
         for (JourneyModel journey : journeys) {
             if (journey.getCreationDate().after(last365) && journey.getCreationDate().before(tomorrow)) {
                 if (journey.getTransportationModel().getTransportaionMode() == TransportationModel.TransportationMode.BUS) {
-                    totalBusEmissions = totalBusEmissions + journey.getCo2Emission();
+                    totalBusEmissions = totalBusEmissions + journey.getCo2EmissionInSpecifiedUnits();
                 }
             }
         }
@@ -161,7 +161,7 @@ public class CarbonFootprintYearlyPieTab extends Fragment {
         for (JourneyModel journey : journeys) {
             if (journey.getCreationDate().after(last365) && journey.getCreationDate().before(tomorrow)) {
                 if (journey.getTransportationModel().getTransportaionMode() == TransportationModel.TransportationMode.SKYTRAIN) {
-                    totalSkytrainEmissions = totalSkytrainEmissions + journey.getCo2Emission();
+                    totalSkytrainEmissions = totalSkytrainEmissions + journey.getCo2EmissionInSpecifiedUnits();
                 }
             }
         }
@@ -174,7 +174,7 @@ public class CarbonFootprintYearlyPieTab extends Fragment {
         for (JourneyModel journey : journeys) {
             if (journey.getCreationDate().after(last365) && journey.getCreationDate().before(tomorrow)) {
                 if (journey.getTransportationModel().getTransportaionMode() == TransportationModel.TransportationMode.CAR) {
-                    totalCarEmissions = totalCarEmissions + journey.getCo2Emission();
+                    totalCarEmissions = totalCarEmissions + journey.getCo2EmissionInSpecifiedUnits();
                 }
             }
         }

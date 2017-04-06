@@ -91,7 +91,7 @@ public class RouteAddActivity extends AppCompatActivity implements NavigationVie
         Menu menu = bottomNavigationView.getMenu();
         if(editing){
             MenuItem addItem = menu.findItem(R.id.action_add);
-            addItem.setTitle("Update");
+            addItem.setTitle(R.string.update_route);
             addItem.setIcon(R.drawable.ic_update);
         }
         else{

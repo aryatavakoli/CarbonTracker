@@ -36,6 +36,7 @@ public class UtilityResultActivity extends AppCompatActivity {
     }
 
     private void fillBillInformation() {
+
         TextView nameDisplay = (TextView) findViewById(R.id.utility_result_name);
         nameDisplay.setText(newUtilities.getName() + "");
 
@@ -43,7 +44,7 @@ public class UtilityResultActivity extends AppCompatActivity {
         companyDisplay.setText(newUtilities.getCompanyName() + "");
 
         TextView daysDisplay = (TextView) findViewById(R.id.utility_result_billing_days);
-        daysDisplay.setText(newUtilities.calculateBillingPeriodInDays() + " days");
+        daysDisplay.setText(newUtilities.calculateBillingPeriodInDays() + getString(R.string.days_utility));
 
         TextView energyDisplay = (TextView) findViewById(R.id.utility_result__total_energy_consumption);
         if(newUtilities.getCompanyName() == UtilityModel.Company.BCHYDRO) {
@@ -53,26 +54,26 @@ public class UtilityResultActivity extends AppCompatActivity {
             energyDisplay.setText(round(newUtilities.getTotalEnergyConsumptionInGJ(),2) + " GJ");
         }
 
-        newUtilities.calculateTotalEmissions();
         TextView emissionsDisplay = (TextView) findViewById(R.id.utility_result_total_emission);
-        emissionsDisplay.setText(round(newUtilities.getTotalCO2EmissionsInKg(),2) + " Kg");
-
         TextView occupantsDisplay = (TextView) findViewById(R.id.utility_result_occupants);
+
+        emissionsDisplay.setText(round(newUtilities.getTotalCarbonEmissionsInSpecifiedUnits(),2) + newUtilities.getSpecifiedUnits());
         occupantsDisplay.setText(newUtilities.getNumberOfOccupants() + "");
     }
 
 
     private void fillPerDayUsageTexts() {
+
         TextView energyDisplay = (TextView) findViewById(R.id.utility_result_per_day_energy_consumption);
         if (newUtilities.getCompanyName() == UtilityModel.Company.BCHYDRO) {
             energyDisplay.setText(round(newUtilities.calculateDailyEnergyConsumptionInKWh(),2) + " KWh");
         }
         else{
-            energyDisplay.setText(newUtilities.calculateDailyEnergyConsumptionInGJ() + " GJ");
+            energyDisplay.setText(round(newUtilities.calculateDailyEnergyConsumptionInGJ(),2) + " GJ");
         }
 
         TextView emissionsDisplay = (TextView) findViewById(R.id.utility_result_per_day_emissions);
-        emissionsDisplay.setText(round(newUtilities.calculateDailyCO2EmissionsInKg(),2) + " Kg");
+        emissionsDisplay.setText(round(newUtilities.getDailyCO2EmissionsInSpecifiedUnits(),2) + newUtilities.getSpecifiedUnits());;
     }
 
     private void fillPerPersonTexts() {
@@ -84,9 +85,8 @@ public class UtilityResultActivity extends AppCompatActivity {
             energyDisplay.setText(round(newUtilities.getTotalEnergyConsumptionPerOccupantInGJ(),2) + " GJ");
         }
 
-
         TextView emissionsDisplay = (TextView) findViewById(R.id.utility_result_per_person_emissions);
-        emissionsDisplay.setText(round(newUtilities.getTotalEmissionsPerOccupant(),2) + " Kg");
+        emissionsDisplay.setText(round(newUtilities.getTotalCarbonEmissionsInSpecifiedUnits(),2) + newUtilities.getSpecifiedUnits());
     }
 
     public static double round(double value, int places) {
