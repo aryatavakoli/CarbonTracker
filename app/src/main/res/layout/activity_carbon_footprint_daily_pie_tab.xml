@@ -21,7 +21,7 @@
     </com.github.mikephil.charting.charts.PieChart>
 
     <CheckBox
-        android:id="@+id/checkBox"
+        android:id="@+id/daily_pie_graph_checkBox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/refresh_on_date_pick"
