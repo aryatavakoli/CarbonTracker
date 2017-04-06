@@ -39,7 +39,7 @@ public class CarbonFootprintDailyPieGraph extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        final View rootView = inflater.inflate(R.layout.activity_carbon_footprint_daily_tab, container, false);
+        final View rootView = inflater.inflate(R.layout.activity_carbon_footprint_daily_pie_tab, container, false);
 
         final Calendar myCalendar = Calendar.getInstance();
 
