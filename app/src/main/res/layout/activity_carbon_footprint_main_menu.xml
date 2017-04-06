@@ -6,34 +6,17 @@
     android:layout_height="match_parent"
     tools:context="com.cmpt276.indigo.carbontracker.CarbonFootprintMainMenu">
 
+    <include
+        layout="@layout/carbon_footprint_main_menu_app_bar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
-    <Button
-        android:id="@+id/carbon_footprint_main_menu_journey_btn"
+    <android.support.design.widget.NavigationView
+        android:id="@+id/nav_view"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/carbon_footprint_main_menu_periodic_data_btn"
-        android:layout_alignStart="@+id/carbon_footprint_main_menu_periodic_data_btn"
-        android:layout_marginBottom="62dp"
-        android:text="@string/journey_footprint"
-        android:theme="@style/GreenButton" />
-
-    <Button
-        android:id="@+id/carbon_footprint_main_menu_periodic_data_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/periodic_emissions"
-        android:layout_marginBottom="210dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:theme="@style/GreenButton"/>
-
-    <Button
-        android:id="@+id/carbon_footprint_main_menu_periodic_pie_graph_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="91dp"
-        android:text="Periodic Pie Graphs"
-        android:theme="@style/GreenButton"/>
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:fitsSystemWindows="true"
+        app:headerLayout="@layout/nav_header"
+        app:menu="@menu/nav_drawer" />
 </RelativeLayout>
