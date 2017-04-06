@@ -3,17 +3,33 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_camera"
+            android:id="@+id/nav_home"
+            android:icon="@drawable/ic_home"
+            android:title="Home" />
+        <item
+            android:id="@+id/nav_back"
+            android:icon="@drawable/ic_back"
+            android:title="Back" />
+        <item
+            android:id="@+id/nav_carbon_footprint"
+            android:icon="@drawable/utility"
+            android:title="Carbon Footprint" />
+        <item
+            android:id="@+id/nav_journey_list"
+            android:icon="@drawable/ic_back"
+            android:title="Journey List" />
+        <item
+            android:id="@+id/nav_transportation_list"
             android:icon="@drawable/bicycle"
-            android:title="@string/import_nav_drawer" />
+            android:title="Transportation List" />
         <item
-            android:id="@+id/nav_gallery"
-            android:icon="@drawable/bus"
-            android:title="@string/gallery_nav_drawer" />
+            android:id="@+id/nav_route_list"
+            android:icon="@drawable/route"
+            android:title="Route List" />
         <item
-            android:id="@+id/nav_slideshow"
-            android:icon="@drawable/car"
-            android:title="@string/slideshow_nav_drawer" />
+            android:id="@+id/nav_utility_list"
+            android:icon="@drawable/utility"
+            android:title="Utility List" />
     </group>
 
 </menu>

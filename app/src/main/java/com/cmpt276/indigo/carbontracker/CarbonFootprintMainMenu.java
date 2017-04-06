@@ -1,5 +1,6 @@
 package com.cmpt276.indigo.carbontracker;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -53,5 +54,9 @@ public class CarbonFootprintMainMenu extends AppCompatActivity {
                 startActivity(intent );
             }
         });
+    }
+
+    public static Intent makeIntent(Context packageContext) {
+        return new Intent(packageContext, CarbonFootprintMainMenu.class);
     }
 }
