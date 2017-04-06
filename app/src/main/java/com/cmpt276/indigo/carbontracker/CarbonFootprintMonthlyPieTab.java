@@ -87,8 +87,18 @@ public class CarbonFootprintMonthlyPieTab extends Fragment {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 pieEntries.clear();
                 if(isChecked) {
-
                     populateGraphRoute(
+                            totalElectrcityEmissions,
+                            totalNaturalGasEmissions,
+                            totalBusEmissions,
+                            totalSkytrainEmissions,
+                            totalCarEmissions,
+                            journeys,
+                            pieEntries
+                    );
+                }
+                else {
+                    populateGraphCar(
                             totalElectrcityEmissions,
                             totalNaturalGasEmissions,
                             totalBusEmissions,
@@ -136,20 +146,13 @@ public class CarbonFootprintMonthlyPieTab extends Fragment {
             }
             if(car / total > MIN_PERCENTAGE) {
                 for (int i = 0; i < journeys.size(); i++){
-                    String carName = journeys.get(i).getTransportationModel().getName();
-                    float carCo2 = (float) journeys.get(i).getCo2EmissionInSpecifiedUnits();
-                    pieEntries.add(new PieEntry(carCo2,carName));
+                    if (journeys.get(i).getCreationDate().after(last28) && journeys.get(i).getCreationDate().before(tomorrow)){
+                        String carName = journeys.get(i).getTransportationModel().getName();
+                        float carCo2 = (float) journeys.get(i).getCo2EmissionInSpecifiedUnits();
+                        pieEntries.add(new PieEntry(carCo2,carName));
+                    }
                 }
             }
-            if(car / total > MIN_PERCENTAGE) {
-                for (int i = 0; i < journeys.size(); i++){
-                    // TODO: DO ROUTE STUFF HERE
-                    String carName = journeys.get(i).getTransportationModel().getName();
-                    float carCo2 = (float) journeys.get(i).getCo2EmissionInSpecifiedUnits();
-                    pieEntries.add(new PieEntry(carCo2,carName));
-                }
-            }
-
             if(bus / total > MIN_PERCENTAGE) {
                 pieEntries.add(new PieEntry(bus, "Bus"));
             }
@@ -179,6 +182,7 @@ public class CarbonFootprintMonthlyPieTab extends Fragment {
             if(route / total > MIN_PERCENTAGE) {
                 for (int i = 0; i < journeys.size(); i++){
                     String routeName = journeys.get(i).getRouteModel().getName();
+                    //TODO: CREATE ROUTE STUFF HERE
                     //float routeCo2 = (float) journeys.get(i).getCo2EmissionInSpecifiedUnits();
                     pieEntries.add(new PieEntry(5,routeName));
                 }
@@ -194,7 +198,7 @@ public class CarbonFootprintMonthlyPieTab extends Fragment {
         }
     }
 
-    //TODO: Modify these to get PIE chart data
+
     public float getTotalElectrcityEmissions(ArrayList<UtilityModel> utilities) {
         float totalElectrcity = 0;//sample data
         for (UtilityModel utility : utilities){
