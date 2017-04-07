@@ -140,12 +140,13 @@
         <activity
             android:name=".CarbonFootprintPieGraphsMenu"
             android:label="@string/title_activity_carbon_footprint_pie_graphs_menu"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:parentActivityName=".CarbonFootprintMainMenu">
+            android:parentActivityName=".CarbonFootprintMainMenu"
+            android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.cmpt276.indigo.carbontracker.CarbonFootprintMainMenu" />
         </activity>
+        <activity android:name=".AboutActivity"></activity>
     </application>
 
 </manifest>

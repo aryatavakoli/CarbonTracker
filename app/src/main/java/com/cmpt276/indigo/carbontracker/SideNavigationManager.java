@@ -39,6 +39,9 @@ public class SideNavigationManager {
         else if (id == R.id.nav_utility_list) {
             switchToUtilityList(activity);
         }
+        else if (id == R.id.nav_about) {
+            switchToAboutUs(activity);
+        }
         DrawerLayout drawer = (DrawerLayout) activity.findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
@@ -115,5 +118,12 @@ public class SideNavigationManager {
             return;
         }
         activity.startActivity(UtilityAddActivity.makeIntentForNewUtility(activity));
+    }
+
+    private static void switchToAboutUs(AppCompatActivity activity){
+        if(activity instanceof AboutActivity){
+            return;
+        }
+        activity.startActivity(AboutActivity.makeIntentForAbout(activity));
     }
 }
