@@ -3,7 +3,11 @@ package com.cmpt276.indigo.carbontracker;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,6 +32,9 @@ public class BlankFragment2 extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+
+    private BlankFragment2.SectionsPagerAdapter mSectionsPagerAdapter;
+    private ViewPager mViewPager;
 
     public BlankFragment2() {
         // Required empty public constructor
@@ -64,7 +71,57 @@ public class BlankFragment2 extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_blank_fragment3, container, false);
+        View view = inflater.inflate(R.layout.fragment_blank_fragment3, container, false);
+        setupPage(view);
+        return view;
+    }
+
+    private void setupPage(View view){
+        // Set up the ViewPager with the sections adapter.
+        mSectionsPagerAdapter = new SectionsPagerAdapter(getFragmentManager());
+        mViewPager = (ViewPager) view.findViewById(R.id.container);
+        mViewPager.setAdapter(mSectionsPagerAdapter);
+
+        TabLayout tabLayout = (TabLayout) view.findViewById(R.id.tabs);
+        tabLayout.setupWithViewPager(mViewPager);
+    }
+
+    public class SectionsPagerAdapter extends FragmentPagerAdapter {
+
+        SectionsPagerAdapter(FragmentManager fm) {
+            super(fm);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            switch (position)
+            {
+                case 0:
+                    return new CarbonFootprintMonthlyBarTab();
+                case 1:
+                    return new CarbonFootprintYearlyBarTab();
+
+                default:
+                    return null;
+            }
+        }
+
+        @Override
+        public int getCount() {
+            // Show 3 total pages.
+            return 2;
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            switch (position) {
+                case 0:
+                    return getString(R.string.four_weeks);
+                case 1:
+                    return getString(R.string.one_year);
+            }
+            return null;
+        }
     }
 
     // TODO: Rename method, update argument and hook method into UI event
