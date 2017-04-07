@@ -222,4 +222,6 @@
     <string name="pie_graph_nav">Diagramme circulaire</string>
     <string name="utility_list">Liste des utilités</string>
     <string name="convert_kg_of_co2_to_human_breaths_day">"Convertir Kg de CO2 en souffles humains / Jour"</string>
+    <string name="this_transportation_already_exist">Ce transport existe déjà.</string>
+
 </resources>

@@ -222,4 +222,6 @@
     <string name="pie_graph_nav">Gráfico de torta</string>
     <string name="utility_list">Lista de utilidades</string>
     <string name="convert_kg_of_co2_to_human_breaths_day">"Convertir Kg de CO2 en Aliento Humano / Día"</string>
+    <string name="this_transportation_already_exist">Este transporte ya existe.</string>
+
 </resources>
