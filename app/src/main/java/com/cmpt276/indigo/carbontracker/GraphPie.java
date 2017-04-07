@@ -16,12 +16,12 @@ import android.view.ViewGroup;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link BlankFragment3.OnFragmentInteractionListener} interface
+ * {@link GraphPie.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link BlankFragment3#newInstance} factory method to
+ * Use the {@link GraphPie#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class BlankFragment3 extends Fragment {
+public class GraphPie extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -40,7 +40,7 @@ public class BlankFragment3 extends Fragment {
      */
     private ViewPager mViewPager;
 
-    public BlankFragment3() {
+    public GraphPie() {
         // Required empty public constructor
     }
 
@@ -50,11 +50,11 @@ public class BlankFragment3 extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment BlankFragment3.
+     * @return A new instance of fragment GraphPie.
      */
     // TODO: Rename and change types and number of parameters
-    public static BlankFragment3 newInstance(String param1, String param2) {
-        BlankFragment3 fragment = new BlankFragment3();
+    public static GraphPie newInstance(String param1, String param2) {
+        GraphPie fragment = new GraphPie();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -75,7 +75,7 @@ public class BlankFragment3 extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_blank_3, container, false);
+        View view = inflater.inflate(R.layout.fragment_bar_graph, container, false);
         setupPage(view);
         return view;
     }

@@ -3,25 +3,31 @@ package com.cmpt276.indigo.carbontracker;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.cmpt276.indigo.carbontracker.carbon_tracker_model.CarbonFootprintComponentCollection;
+import com.cmpt276.indigo.carbontracker.carbon_tracker_model.JourneyModel;
+import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.data.PieData;
+import com.github.mikephil.charting.data.PieDataSet;
+import com.github.mikephil.charting.data.PieEntry;
+import com.github.mikephil.charting.utils.ColorTemplate;
+
+import java.util.ArrayList;
 
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link BlankFragment2.OnFragmentInteractionListener} interface
+ * {@link GraphJourneyMenu.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link BlankFragment2#newInstance} factory method to
+ * Use the {@link GraphJourneyMenu#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class BlankFragment2 extends Fragment {
+public class GraphJourneyMenu extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -33,10 +39,10 @@ public class BlankFragment2 extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    private BlankFragment2.SectionsPagerAdapter mSectionsPagerAdapter;
-    private ViewPager mViewPager;
+    ArrayList<JourneyModel> journeys;
+    CarbonFootprintComponentCollection carbonInterface;
 
-    public BlankFragment2() {
+    public GraphJourneyMenu() {
         // Required empty public constructor
     }
 
@@ -46,11 +52,11 @@ public class BlankFragment2 extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment BlankFragment2.
+     * @return A new instance of fragment GraphJourneyMenu.
      */
     // TODO: Rename and change types and number of parameters
-    public static BlankFragment2 newInstance(String param1, String param2) {
-        BlankFragment2 fragment = new BlankFragment2();
+    public static GraphJourneyMenu newInstance(String param1, String param2) {
+        GraphJourneyMenu fragment = new GraphJourneyMenu();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -67,61 +73,36 @@ public class BlankFragment2 extends Fragment {
         }
     }
 
+    private void populateGraph(View view){
+        carbonInterface = CarbonFootprintComponentCollection.getInstance();
+        journeys = carbonInterface.getJournies(getActivity());
+        PieChart pieChart = (PieChart) view.findViewById(R.id.bar_graph);
+
+        ArrayList<String> pieEntriesLabels = new ArrayList<>();
+        ArrayList<PieEntry> pieEntries = new ArrayList<>();
+
+        for (int i = 0; i < journeys.size(); i++) {
+            pieEntriesLabels.add(journeys.get(i).getRouteModel().getName());
+            pieEntries.add(new PieEntry((float)journeys.get(i).getCo2EmissionInSpecifiedUnits(), pieEntriesLabels.get(i)));
+        }
+
+        PieDataSet dataSets = new PieDataSet(pieEntries,null);
+        PieData data = new PieData(dataSets);
+        dataSets.setColors(ColorTemplate.MATERIAL_COLORS);
+        pieChart.setDescription(null);
+        pieChart.setData(data);
+        pieChart.getLegend().setEnabled(false);
+        pieChart.animateY(2000);
+        pieChart.invalidate();
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_blank_fragment3, container, false);
-        setupPage(view);
+        View view = inflater.inflate(R.layout.fragment_graph_journey, container, false);
+        populateGraph(view);
         return view;
-    }
-
-    private void setupPage(View view){
-        // Set up the ViewPager with the sections adapter.
-        mSectionsPagerAdapter = new SectionsPagerAdapter(getFragmentManager());
-        mViewPager = (ViewPager) view.findViewById(R.id.container_bar_graph);
-        mViewPager.setAdapter(mSectionsPagerAdapter);
-
-        TabLayout tabLayout = (TabLayout) view.findViewById(R.id.tabs_bar_graph);
-        tabLayout.setupWithViewPager(mViewPager);
-    }
-
-    public class SectionsPagerAdapter extends FragmentPagerAdapter {
-
-        SectionsPagerAdapter(FragmentManager fm) {
-            super(fm);
-        }
-
-        @Override
-        public Fragment getItem(int position) {
-            switch (position)
-            {
-                case 0:
-                    return new CarbonFootprintMonthlyBarTab();
-                case 1:
-                    return new CarbonFootprintYearlyBarTab();
-
-                default:
-                    return null;
-            }
-        }
-
-        @Override
-        public int getCount() {
-            // Show 3 total pages.
-            return 2;
-        }
-
-        @Override
-        public CharSequence getPageTitle(int position) {
-            switch (position) {
-                case 0:
-                    return getString(R.string.four_weeks);
-                case 1:
-                    return getString(R.string.one_year);
-            }
-            return null;
-        }
     }
 
     // TODO: Rename method, update argument and hook method into UI event

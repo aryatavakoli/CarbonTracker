@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="com.cmpt276.indigo.carbontracker.BlankFragment2">
+    tools:context="com.cmpt276.indigo.carbontracker.GraphBar">
 
 <LinearLayout
     android:layout_width="match_parent"
