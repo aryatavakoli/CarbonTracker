@@ -5,31 +5,34 @@
         <item
             android:id="@+id/nav_home"
             android:icon="@drawable/ic_home"
-            android:title="Home" />
+            android:title="@string/home" />
         <item
             android:id="@+id/nav_back"
             android:icon="@drawable/ic_back"
-            android:title="Back" />
+            android:title="@string/back" />
         <item
             android:id="@+id/nav_carbon_footprint"
             android:icon="@drawable/utility"
-            android:title="Carbon Footprint" />
+            android:title="@string/carbon_footprint_graph" />
         <item
             android:id="@+id/nav_journey_list"
             android:icon="@drawable/ic_back"
-            android:title="Journey List" />
+            android:title="@string/journey_list" />
         <item
             android:id="@+id/nav_transportation_list"
             android:icon="@drawable/bicycle"
-            android:title="Transportation List" />
+            android:title="@string/transportation_list" />
         <item
             android:id="@+id/nav_route_list"
             android:icon="@drawable/route"
-            android:title="Route List" />
+            android:title="@string/route_list" />
         <item
             android:id="@+id/nav_utility_list"
             android:icon="@drawable/utility"
             android:title="Utility List" />
+        <item
+            android:id="@+id/nav_about"
+            android:title="@string/about_us" />
     </group>
 
 </menu>
