@@ -32,7 +32,10 @@ import android.widget.Toast;
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.CarbonFootprintComponentCollection;
 
 public class CarbonFootprintJourneyFootprintMenu extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, BlankFragment.OnFragmentInteractionListener, BlankFragment2.OnFragmentInteractionListener{
+        implements NavigationView.OnNavigationItemSelectedListener,
+        BlankFragment.OnFragmentInteractionListener,
+        BlankFragment2.OnFragmentInteractionListener,
+        BlankFragment3.OnFragmentInteractionListener{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,7 +93,7 @@ public class CarbonFootprintJourneyFootprintMenu extends AppCompatActivity
                         replaceFragment(new BlankFragment2());
                         break;
                     case R.id.action_pie_graph:
-
+                        replaceFragment(new BlankFragment3());
                         break;
                 }
                 return true;
