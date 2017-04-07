@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Carbon Tracker</string>
+    <string name="app_name">CO₂ Footprint</string>
     <string name="title_activity_transportation_select_actvitiy">Select Transportation</string>
     <string name="title_activity_carbon_foot_print">Carbon Footprint</string>
     <string name="title_activity_transportation_add_actvitiy">Add Transportation</string>
