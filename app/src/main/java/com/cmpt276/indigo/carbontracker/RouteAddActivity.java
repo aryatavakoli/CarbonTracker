@@ -51,8 +51,6 @@ public class RouteAddActivity extends AppCompatActivity implements NavigationVie
         setContentView(R.layout.activity_route_add);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-//        getSupportActionBar().setDisplayShowHomeEnabled(true);
         carbonFootprintInterface = CarbonFootprintComponentCollection.getInstance();
         populateUIFromIntent();
         calculate();
@@ -169,7 +167,6 @@ public class RouteAddActivity extends AppCompatActivity implements NavigationVie
 
     private void onAddClick() {
         EditText editTextName = (EditText) findViewById(R.id.add_route_editText_nickname);
-
         if (editTextName.getText().toString().length() == 0) {
             Toast.makeText(RouteAddActivity.this, R.string.please_enter_a_route_name, Toast.LENGTH_SHORT)
                     .show();
@@ -177,21 +174,25 @@ public class RouteAddActivity extends AppCompatActivity implements NavigationVie
 
         }
 
+        double highway = 0.0;
+        double city = 0.0;
         EditText editTextHighway = (EditText) findViewById(R.id.add_route_editText_highway_distance);
-
-        if (editTextHighway.getText().toString().length() == 0) {
-            Toast.makeText(RouteAddActivity.this, R.string.please_enter_a_highway_distance, Toast.LENGTH_SHORT)
-                    .show();
-            return;
-
+        String highwayText = editTextHighway.getText().toString();
+        if (highwayText.length() > 0) {
+            highway = Double.parseDouble(highwayText);
         }
 
         EditText editTextCity = (EditText) findViewById(R.id.add_route_editText_city_distance);
-        if (editTextCity.getText().toString().length() == 0) {
-            Toast.makeText(RouteAddActivity.this, R.string.please_enter_a_city_distance, Toast.LENGTH_SHORT)
+        String cityText = editTextCity.getText().toString();
+        if (editTextCity.getText().toString().length() > 0) {
+            city = Double.parseDouble(cityText);
+        }
+        if(city == 0.0 && highway == 0.0){
+            Toast.makeText(RouteAddActivity.this, R.string.highway_city_not_zero, Toast.LENGTH_SHORT)
                     .show();
             return;
         }
+
         RouteModel newRoute = createRoute();
 
         if (editing) {
@@ -222,10 +223,18 @@ public class RouteAddActivity extends AppCompatActivity implements NavigationVie
         String name = editTextName.getText().toString();
 
         EditText editTextHighway = (EditText) findViewById(R.id.add_route_editText_highway_distance);
-        double highway = Double.parseDouble(editTextHighway.getText().toString());
+        String highwayText = editTextHighway.getText().toString();
+        double highway = 0.0;
+        if(highwayText.length() > 0) {
+            highway = Double.parseDouble(highwayText);
+        }
 
         EditText editTextCity = (EditText) findViewById(R.id.add_route_editText_city_distance);
-        double city = Double.parseDouble(editTextCity.getText().toString());
+        String cityText = editTextCity.getText().toString();
+        double city = 0.0;
+        if(cityText.length() > 0) {
+            city = Double.parseDouble(cityText);
+        }
         RouteModel newRoute = new RouteModel();
         newRoute.setName(name);
         newRoute.setHighwayDistance(highway);

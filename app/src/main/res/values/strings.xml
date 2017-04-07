@@ -62,7 +62,7 @@
     <string name="engine_displacement">Engine Displacement:</string>
     <string name="view_journey">view journey</string>
     <string name="creation_id">ID</string>
-    <string name="select_date">select date</string>
+    <string name="select_date">Select Date</string>
     <string name="title_activity_utility_select">Select Utiltity Bill</string>
     <string name="utlity_add">Add Utility Bill</string>
     <string name="transportation">Transportation</string>
@@ -81,6 +81,7 @@
     <string name="please_select_route_and_transportation">Please select Route and Transportation</string>
     <string name="this_journey_already_exists">This Journey already exists.</string>
     <string name="route_deleted">Route Deleted!</string>
+    <string name="highway_city_not_zero">Highway or city should be non-zero.</string>
     <string name="please_enter_a_route_name">Please enter a route name.</string>
     <string name="please_enter_a_highway_distance">Please enter a highway distance.</string>
     <string name="please_enter_a_city_distance">Please enter a city distance.</string>
@@ -214,4 +215,7 @@
     <string name="back">Back</string>
     <string name="carbon_footprint_graph">Carbon Footprint</string>
     <string name="About_us">About us</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
