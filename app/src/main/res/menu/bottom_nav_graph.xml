@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/action_journey_footprint"
+        android:enabled="true"
+        android:icon="@drawable/ic_footprint"
+        android:title="@string/footprint_nav"
+        android:showAsAction="ifRoom"
+        />
+
+    <item
+        android:id="@+id/action_bar_graph"
+        android:enabled="true"
+        android:icon="@drawable/ic_bar_graph"
+        android:title="@string/bar_graph_nav"
+        android:showAsAction="ifRoom"
+        />
+
+    <item
+        android:id="@+id/action_pie_graph"
+        android:enabled="true"
+        android:icon="@drawable/ic_pie_graph"
+        android:title="@string/pie_graph_nav"
+        android:showAsAction="ifRoom"
+        />
+</menu>

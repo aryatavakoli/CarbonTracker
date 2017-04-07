@@ -247,7 +247,7 @@ public class TransportationAddActivity extends AppCompatActivity implements Navi
         }
         catch(DuplicateComponentException e){
             if(!editing) {
-                Toast.makeText(TransportationAddActivity.this, "This transportation already exist.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(TransportationAddActivity.this, R.string.this_transportation_already_exist, Toast.LENGTH_SHORT).show();
             }
             return false;
         }

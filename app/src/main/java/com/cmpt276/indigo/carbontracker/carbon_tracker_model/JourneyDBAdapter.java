@@ -61,7 +61,7 @@ public class JourneyDBAdapter {
                     + KEY_CO2_EMISSION + " double not null, "
                     + KEY_CREATE_DATE + " date not null, "
                     + KEY_IS_DELETED + " boolean not null,"
-                    + KEY_UNITS + " Units not null"
+                    + KEY_UNITS + " integer not null"
                     + ");";
 
     // Context of application who uses us.

@@ -1,6 +1,5 @@
 package com.cmpt276.indigo.carbontracker;
 
-import android.content.Context;
 import android.content.Intent;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -58,10 +57,10 @@ public class SideNavigationManager {
     }
 
     private static void switchToCarbonFootprint(AppCompatActivity activity) {
-        if(activity instanceof CarbonFootprintMainMenu){
+        if(activity instanceof CarbonFootprintJourneyFootprintMenu){
             return;
         }
-        activity.startActivity(CarbonFootprintMainMenu.makeIntent(activity));
+        activity.startActivity(CarbonFootprintJourneyFootprintMenu.makeIntent(activity));
     }
 
     private static void switchToJourneyList(AppCompatActivity activity) {
