@@ -81,6 +81,7 @@
     <string name="please_select_route_and_transportation">Please select Route and Transportation</string>
     <string name="this_journey_already_exists">This Journey already exists.</string>
     <string name="route_deleted">Route Deleted!</string>
+    <string name="highway_city_not_zero">Highway or city should be non-zero.</string>
     <string name="please_enter_a_route_name">Please enter a route name.</string>
     <string name="please_enter_a_highway_distance">Please enter a highway distance.</string>
     <string name="please_enter_a_city_distance">Please enter a city distance.</string>
