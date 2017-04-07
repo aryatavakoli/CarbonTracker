@@ -147,8 +147,8 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainMenu.this, CarbonFootprintMainMenu.class);
-                startActivity(intent);
+            Intent intent = new Intent(MainMenu.this, CarbonFootprintJourneyFootprintMenu.class);
+            startActivity(intent);
             }
         });
     }

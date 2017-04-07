@@ -6,6 +6,7 @@ package com.cmpt276.indigo.carbontracker;
  */
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.annotation.NonNull;
@@ -156,5 +157,9 @@ public class CarbonFootprintJourneyFootprintMenu extends AppCompatActivity
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         return SideNavigationManager.handleSideNavigationSelection(this, item);
+    }
+
+    public static Intent makeIntent(Context packageContext) {
+        return new Intent(packageContext, CarbonFootprintJourneyFootprintMenu.class);
     }
 }

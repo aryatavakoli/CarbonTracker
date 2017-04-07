@@ -108,24 +108,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.cmpt276.indigo.carbontracker.UtilitySelectActivity" />
         </activity>
-        <activity
-            android:name=".CarbonFootprintBarGraphsMenu"
-            android:label="@string/emissions_by_period"
-            android:parentActivityName=".CarbonFootprintMainMenu"
-            android:theme="@style/AppTheme.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.cmpt276.indigo.carbontracker.CarbonFootprintMainMenu" />
-        </activity>
-        <activity
-            android:name=".CarbonFootprintMainMenu"
-            android:label="@string/data_menu_title"
-            android:parentActivityName=".MainMenu"
-            android:theme="@style/AppTheme.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.cmpt276.indigo.carbontracker.MainMenu" />
-        </activity>
 
         <receiver android:name=".Notification_receiver" />
 
@@ -137,15 +119,6 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.cmpt276.indigo.carbontracker.TransportationAddActivity" />
-        </activity>
-        <activity
-            android:name=".CarbonFootprintPieGraphsMenu"
-            android:label="@string/title_activity_carbon_footprint_pie_graphs_menu"
-            android:parentActivityName=".CarbonFootprintMainMenu"
-            android:theme="@style/AppTheme.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.cmpt276.indigo.carbontracker.CarbonFootprintMainMenu" />
         </activity>
         <activity android:name=".AboutActivity"
             android:label="@string/About_us"
