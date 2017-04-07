@@ -205,4 +205,21 @@
     <string name="journeys_today_want_noti">Viajes de hoy; Quieres entrar más?</string>
     <string name="want_to_enter_noti">Quieres entrar en una ahora?</string>
     <string name="you_have_not_entered_noti">Usted no ha entrado en {hydro, gas natural} en más de un mes y medio;</string>
+    <string name="title_activity_about">Acerca deActivity</string>
+    <string name="about_us">Sobre nosotros</string>
+    <string name="route_list">Lista de rutas</string>
+    <string name="transportation_list">Lista de transporte</string>
+    <string name="journey_list">Lista de viaje</string>
+    <string name="home">Casa</string>
+    <string name="back">Espalda</string>
+    <string name="carbon_footprint_graph">Huella de carbono</string>
+    <string name="About_us">Sobre nosotros</string>
+    <string name="organize_by_route">Organizar por ruta</string>
+    <string name="organize_by_route_yearly">Organizar por ruta</string>
+    <string name="organize_by_route_monthly">Organizar por ruta</string>
+    <string name="footprint_nav">Huella</string>
+    <string name="bar_graph_nav">Gráfico de barras</string>
+    <string name="pie_graph_nav">Gráfico de torta</string>
+    <string name="utility_list">Lista de utilidades</string>
+    <string name="convert_kg_of_co2_to_human_breaths_day">"Convertir Kg de CO2 en Aliento Humano / Día"</string>
 </resources>

@@ -215,7 +215,18 @@
     <string name="back">Back</string>
     <string name="carbon_footprint_graph">Carbon Footprint</string>
     <string name="About_us">About us</string>
+    <string name="organize_by_route">Organize By Route</string>
+    <string name="organize_by_route_yearly">Organize By Route</string>
+    <string name="organize_by_route_monthly">Organize By Route</string>
+    <string name="footprint_nav">Footprint</string>
+    <string name="bar_graph_nav">Bar Graph</string>
+    <string name="pie_graph_nav">Pie Graph</string>
+    <string name="utility_list">Utility List</string>
+    <string name="convert_kg_of_co2_to_human_breaths_day">Convert Kg of CO2 to Human Breaths/Day</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+
 </resources>

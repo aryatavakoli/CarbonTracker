@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="22dp"
-        android:text="Organize By Route"
+        android:text="@string/organize_by_route_yearly"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
 

@@ -27,5 +27,5 @@
         android:layout_alignBottom="@+id/refresh_on_date_pick"
         android:layout_marginStart="13dp"
         android:layout_toEndOf="@+id/refresh_on_date_pick"
-        android:text="Organize By Route" />
+        android:text="@string/organize_by_route" />
 </RelativeLayout>
