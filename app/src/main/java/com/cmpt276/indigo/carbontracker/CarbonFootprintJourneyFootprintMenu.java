@@ -37,6 +37,11 @@ public class CarbonFootprintJourneyFootprintMenu extends AppCompatActivity
         BlankFragment2.OnFragmentInteractionListener,
         BlankFragment3.OnFragmentInteractionListener{
 
+    Fragment jouneryGraphFragment;
+    Fragment barChartFragment;
+    Fragment pieChartFragment;
+    Fragment currentFragment;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,20 +61,36 @@ public class CarbonFootprintJourneyFootprintMenu extends AppCompatActivity
     }
 
     private void addFragment(Bundle savedInstanceState){
+        jouneryGraphFragment = new BlankFragment();
+        barChartFragment = new BlankFragment2();
+        pieChartFragment = new BlankFragment3();
+        currentFragment = jouneryGraphFragment;
         if (findViewById(R.id.nav_carbon_footprint) != null) {
             if (savedInstanceState != null)
                 return;
 
             FragmentManager manager = getSupportFragmentManager();
             FragmentTransaction transaction = manager.beginTransaction();
-            transaction.add(R.id.nav_carbon_footprint, new BlankFragment());
+            transaction.add(R.id.nav_carbon_footprint, jouneryGraphFragment);
+            transaction.add(R.id.nav_carbon_footprint, barChartFragment);
+            transaction.add(R.id.nav_carbon_footprint, pieChartFragment);
+            transaction.hide(barChartFragment);
+            transaction.hide(pieChartFragment);
             transaction.commit();
         }
     }
 
     private void replaceFragment(Fragment fragment){
-        FragmentManager fm = getSupportFragmentManager();
-        fm.beginTransaction().replace(R.id.nav_carbon_footprint, fragment).commit();
+        FragmentManager manager = getSupportFragmentManager();
+        FragmentTransaction transaction = manager.beginTransaction();
+        transaction.hide(currentFragment);
+        transaction.show(fragment);
+        transaction.commit();
+        currentFragment = fragment;
+        //fm.beginTransaction().remove(currentFragment).commit();
+        //fm.beginTransaction().add(R.id.nav_carbon_footprint, fragment).commit();
+        //currentFragment = fragment;
+        //fm.beginTransaction().replace(R.id.nav_carbon_footprint, fragment).commit();
     }
 
 
@@ -87,13 +108,13 @@ public class CarbonFootprintJourneyFootprintMenu extends AppCompatActivity
                 switch(item.getItemId())
                 {
                     case R.id.action_journey_footprint:
-                        replaceFragment(new BlankFragment());
+                        replaceFragment(jouneryGraphFragment);
                         break;
                     case R.id.action_bar_graph:
-                        replaceFragment(new BlankFragment2());
+                        replaceFragment(barChartFragment);
                         break;
                     case R.id.action_pie_graph:
-                        replaceFragment(new BlankFragment3());
+                        replaceFragment(pieChartFragment);
                         break;
                 }
                 return true;

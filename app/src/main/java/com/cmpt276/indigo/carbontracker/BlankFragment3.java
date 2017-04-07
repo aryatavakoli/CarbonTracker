@@ -84,10 +84,10 @@ public class BlankFragment3 extends Fragment {
         mSectionsPagerAdapter = new SectionsPagerAdapter(getFragmentManager());
 
         // Set up the ViewPager with the sections adapter.
-        mViewPager = (ViewPager) view.findViewById(R.id.container);
+        mViewPager = (ViewPager) view.findViewById(R.id.container_pie_graph);
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
-        TabLayout tabLayout = (TabLayout) view.findViewById(R.id.tabs);
+        TabLayout tabLayout = (TabLayout) view.findViewById(R.id.tabs_pie_graph);
         tabLayout.setupWithViewPager(mViewPager);
     }
 
