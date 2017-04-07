@@ -13,26 +13,6 @@
     tools:context="com.cmpt276.indigo.carbontracker.JourneyAddActivity"
     tools:showIn="@layout/journey_add_app_bar">
 
-    <Button
-        android:text="@string/title_activity_transportation_select_actvitiy"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/journey_menu_select_transport_btn"
-        android:layout_marginTop="37dp"
-        android:theme="@style/GreenButton"
-        android:layout_below="@+id/tableLayout2"
-        android:layout_centerHorizontal="true" />
-
-    <Button
-        android:text="@string/title_activity_route_select"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
-        android:id="@+id/journey_menu_select_route_btn"
-        android:theme="@style/GreenButton"
-        android:layout_below="@+id/journey_menu_select_transport_btn"
-        android:layout_centerHorizontal="true" />
-
     <TableLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -109,13 +89,39 @@
     </TableLayout>
 
     <Button
-        android:text="@string/select_date"
-        android:layout_width="wrap_content"
+        android:id="@+id/journey_menu_select_transport_btn"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="29dp"
-        android:id="@+id/journey_menu_select_date_btn"
+        android:layout_below="@+id/tableLayout2"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="37dp"
+        android:text="@string/title_activity_transportation_select_actvitiy"
         android:theme="@style/GreenButton"
+        android:textAllCaps="false"/>
+
+    <Button
+        android:id="@+id/journey_menu_select_route_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/journey_menu_select_transport_btn"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="25dp"
+        android:text="@string/title_activity_route_select"
+        android:theme="@style/GreenButton"
+        android:textAllCaps="false"/>
+
+    <Button
+        android:id="@+id/journey_menu_select_date_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/journey_menu_select_route_btn"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="29dp"
+        android:text="@string/select_date"
+        android:theme="@style/GreenButton"
+        android:textAllCaps="false"/>
 
 </RelativeLayout>
