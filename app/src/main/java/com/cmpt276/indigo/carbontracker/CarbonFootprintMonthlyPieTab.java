@@ -90,6 +90,7 @@ public class CarbonFootprintMonthlyPieTab extends Fragment {
         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+//                if the route mode is selected
                 pieEntries.clear();
                 if(isChecked) {
                     populateGraphRoute(
@@ -103,6 +104,7 @@ public class CarbonFootprintMonthlyPieTab extends Fragment {
                     );
                 }
                 else {
+//                    default is the car mode
                     populateGraphCar(
                             totalElectrcityEmissions,
                             totalNaturalGasEmissions,
@@ -191,6 +193,7 @@ public class CarbonFootprintMonthlyPieTab extends Fragment {
                 pieEntries.add(new PieEntry(naturalGas, "Natural Gas"));
             }
             if(route / total > MIN_PERCENTAGE) {
+//                get all the routes that are in the journey and calculate co2 for each
                 for (RouteModel r : routes){
                     float routeCo2 = 0;
                     String routeName = r.getName();
@@ -254,7 +257,7 @@ public class CarbonFootprintMonthlyPieTab extends Fragment {
     }
 
     public double getTotalSkytrainEmissions(ArrayList<JourneyModel> journeys) {
-        double totalSkytrainEmissions = 0;//sample
+        double totalSkytrainEmissions = 0;//calculating all the skytrain co2 emissions
         for (JourneyModel journey : journeys) {
             if (journey.getCreationDate().after(last28) && journey.getCreationDate().before(tomorrow)) {
                 if (journey.getTransportationModel().getTransportaionMode() == TransportationModel.TransportationMode.SKYTRAIN) {
@@ -267,7 +270,7 @@ public class CarbonFootprintMonthlyPieTab extends Fragment {
 
 
     public double getTotalCarEmissions(ArrayList<JourneyModel> journeys) {
-        double totalCarEmissions = 0; //
+        double totalCarEmissions = 0; //calculating all the car co2 emissions
         for (JourneyModel journey : journeys) {
             if (journey.getCreationDate().after(last28) && journey.getCreationDate().before(tomorrow)) {
                 if (journey.getTransportationModel().getTransportaionMode() == TransportationModel.TransportationMode.CAR) {
