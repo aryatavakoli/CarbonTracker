@@ -59,6 +59,7 @@ public class UtilitySelectActivity extends AppCompatActivity implements Navigati
         navigationView.setNavigationItemSelectedListener(this);
         carbonFootprintInterface = CarbonFootprintComponentCollection.getInstance();
         createListView();
+        MainMenu.setupMargin(this, R.id.content_utility_select);
     }
 
     private void setupList(){
