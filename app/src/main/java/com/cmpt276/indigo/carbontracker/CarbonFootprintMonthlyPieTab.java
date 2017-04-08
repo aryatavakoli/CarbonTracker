@@ -52,7 +52,7 @@ public class CarbonFootprintMonthlyPieTab extends Fragment {
         routes = carbonInterface.getRoutes(getActivity());
         transportations = carbonInterface.getVehicles(getActivity());
         utilities = carbonInterface.getUtilities(getActivity());
-        last28.add(Calendar.DAY_OF_MONTH,-28);
+        last28.add(Calendar.DAY_OF_MONTH,-NUMBEROFDAYS);
         tomorrow.add(Calendar.DAY_OF_MONTH,1);
 
         createGraph(rootView,journeys,utilities);
