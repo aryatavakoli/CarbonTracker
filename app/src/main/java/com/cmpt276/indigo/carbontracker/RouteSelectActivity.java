@@ -62,14 +62,10 @@ public class RouteSelectActivity extends AppCompatActivity implements Navigation
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
-        //Allows for back button
-        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        //getSupportActionBar().setDisplayShowHomeEnabled(true);
         carbonFootprintInterface = CarbonFootprintComponentCollection.getInstance();
-        //startAddActivity();
         createListView();
         setupEditRouteLongPress();
+        MainMenu.setupMargin(this, R.id.content_route_select);
     }
 
     private void setupList(){

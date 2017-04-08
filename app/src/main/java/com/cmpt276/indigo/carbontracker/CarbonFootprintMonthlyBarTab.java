@@ -28,18 +28,16 @@ import java.util.ArrayList;
 
 /**
  * Created by Arya on 2017-03-16.
- * Implements Daily monthly Graph Tab
+ * Implements monthly Graph Tab
  */
 //change this
 public class CarbonFootprintMonthlyBarTab extends Fragment {
     public static final int NUMBEROFDAYS = 28;
-    public static final double AVERAGE_DAILY_CO2_PER_PERSON_IN_KG = 56.44; //20.6 metric tonnes per capita / 365
-    public static final double AVERAGE_DAILY_CO2_PER_PERSON_TO_MEET_PARIS_ACCORD = 50.63; //18.48 metric tonnes per capita / 365
+    public static final double AVERAGE_MONTLY_CO2_PER_PERSON_IN_KG = 56.4; //20.6 metric tonnes per capita / 365
+    public static final double AVERAGE_MONTHLY_CO2_PER_PERSON_TO_MEET_PARIS_ACCORD = 50.6; //18.48 metric tonnes per capita / 365
     ArrayList<JourneyModel> journeys;
     ArrayList<UtilityModel> utilities;
     CarbonFootprintComponentCollection carbonInterface;
-    ArrayList<JourneyModel> journey28;
-    ArrayList<UtilityModel> utility28;
     Calendar today = Calendar.getInstance();
     Calendar last28 = Calendar.getInstance();
     Calendar tomorrow = Calendar.getInstance();
@@ -57,7 +55,7 @@ public class CarbonFootprintMonthlyBarTab extends Fragment {
 
         journeys = carbonInterface.getJournies(getActivity());
         utilities = carbonInterface.getUtilities(getActivity());
-        last28.add(Calendar.DAY_OF_MONTH,-28);
+        last28.add(Calendar.DAY_OF_MONTH,-NUMBEROFDAYS);
         tomorrow.add(Calendar.DAY_OF_MONTH,1);
 
 
@@ -125,8 +123,8 @@ public class CarbonFootprintMonthlyBarTab extends Fragment {
 
         BarData data = new BarData(dataSets);
 
-        LimitLine limitLine = new LimitLine((float) AVERAGE_DAILY_CO2_PER_PERSON_IN_KG, "Average Canadian consumption");
-        LimitLine limitLine2 = new LimitLine((float) AVERAGE_DAILY_CO2_PER_PERSON_TO_MEET_PARIS_ACCORD, "Paris Accord Goal");
+        LimitLine limitLine = new LimitLine((float) AVERAGE_MONTLY_CO2_PER_PERSON_IN_KG, "Average Canadian consumption");
+        LimitLine limitLine2 = new LimitLine((float) AVERAGE_MONTHLY_CO2_PER_PERSON_TO_MEET_PARIS_ACCORD, "Paris Accord Goal");
         limitLine.setLineWidth(1f);
         limitLine.setTextSize(10f);
         limitLine.setTextColor(Color.RED);

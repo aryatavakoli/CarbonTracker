@@ -13,33 +13,41 @@
     tools:context="com.cmpt276.indigo.carbontracker.MainMenu"
     tools:showIn="@layout/main_menu_app_bar">
 
-    <Button
-        android:text="@string/view_carbon_footprint"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/main_menu_carbonfootprint_btn"
-        android:theme="@style/GreenButton"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
 
     <Button
-        android:text="@string/view_journey"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:id="@+id/main_menu_view_journey_btn"
-        android:theme="@style/GreenButton"
-        android:layout_marginBottom="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_above="@+id/main_menu_carbonfootprint_btn"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:text="@string/view_journey"
+        android:textAllCaps="false"
+        android:theme="@style/GreenButton"
+        android:layout_marginLeft="@dimen/bottom_left_margin"
+        />
 
     <Button
-        android:text="@string/view_utilities"
-        android:layout_width="wrap_content"
+        android:id="@+id/main_menu_carbonfootprint_btn"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/main_menu_create_utilities_btn"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:text="@string/view_carbon_footprint"
+        android:textAllCaps="false"
         android:theme="@style/GreenButton"
+        android:layout_marginLeft="@dimen/bottom_left_margin"/>
+
+    <Button
+        android:id="@+id/main_menu_create_utilities_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/main_menu_carbonfootprint_btn"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:text="@string/view_utilities"
+        android:textAllCaps="false"
+        android:theme="@style/GreenButton"
+        android:layout_marginLeft="@dimen/bottom_left_margin"
+    />
 
     <CheckBox
         android:id="@+id/main_menu_checkbox"
@@ -48,6 +56,7 @@
         android:text="@string/convert_kg_of_co2_to_human_breaths_day"
         android:layout_below="@+id/main_menu_create_utilities_btn"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="37dp" />
+        android:layout_marginTop="37dp"
+        />
 
 </RelativeLayout>

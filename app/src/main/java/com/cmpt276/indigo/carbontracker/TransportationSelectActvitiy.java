@@ -58,6 +58,7 @@ public class TransportationSelectActvitiy extends AppCompatActivity implements N
         navigationView.setNavigationItemSelectedListener(this);
         carbonFootprintInterface = CarbonFootprintComponentCollection.getInstance();
         createListView();
+        MainMenu.setupMargin(this, R.id.content_transportation_select);
     }
 
     private void setupList(){

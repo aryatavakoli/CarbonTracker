@@ -27,10 +27,15 @@ public class TransportationImageSelect extends AppCompatActivity implements Navi
 
     private static Map<Integer, String> getImageMaps(){
         Map<Integer, String> maps = new HashMap<>();
-        maps.put(R.mipmap.ic_transportation_bike, "transportation_bike");
-        maps.put(R.mipmap.ic_transportation_bus, "transportation_bus");
-        maps.put(R.mipmap.ic_transportation_sedan, "transportation_sedan");
-        maps.put(R.mipmap.ic_transportation_suv, "transportation_suv");
+        maps.put(R.drawable.car, "transportation_car");
+        maps.put(R.drawable.car2, "transportation_car2");
+        maps.put(R.drawable.car3, "transportation_car3");
+        maps.put(R.drawable.car5, "transportation_car5");
+        maps.put(R.drawable.car6, "transportation_car6");
+        maps.put(R.drawable.bus, "transportation_bus");
+        maps.put(R.drawable.bicycle2, "transportation_bicycle2");
+        maps.put(R.drawable.skytrain, "transportation_skytrain");
+        maps.put(R.drawable.walk, "transportation_walk");
         return maps;
     }
 

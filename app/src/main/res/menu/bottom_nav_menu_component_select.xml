@@ -3,17 +3,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/action_select"
-        android:enabled="true"
-        android:icon="@drawable/ic_select"
-        android:title="@string/select_bottom_nav_menu"
-        />
-
-    <item
         android:id="@+id/action_add"
         android:enabled="true"
         android:icon="@drawable/ic_add"
         android:title="@string/add_bottom_nav_menu_component"
+        />
+
+    <item
+        android:id="@+id/action_select"
+        android:enabled="true"
+        android:icon="@drawable/ic_select"
+        android:title="@string/select_bottom_nav_menu"
         />
 
     <item

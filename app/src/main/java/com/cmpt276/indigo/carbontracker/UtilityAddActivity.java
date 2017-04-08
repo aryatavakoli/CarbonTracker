@@ -61,6 +61,7 @@ public class UtilityAddActivity extends AppCompatActivity implements NavigationV
         gettingDate(R.id.StartDatebtn, startCalendar);
         gettingDate(R.id.endDateBtn, endCalendar);
         setupBottomNavigation();
+        MainMenu.setupMargin(this, R.id.content_utility_add);
     }
 
     private void setupBottomNavigation(){

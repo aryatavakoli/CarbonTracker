@@ -60,6 +60,7 @@ public class TransportationAddActivity extends AppCompatActivity implements Navi
         populateUIFromIntent();
         setupBottomNavigation();
         imageName = "";
+        MainMenu.setupMargin(this, R.id.content_transportation_add);
     }
 
     private void setupBottomNavigation(){

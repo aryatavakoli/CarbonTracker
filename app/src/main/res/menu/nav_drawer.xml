@@ -32,7 +32,7 @@
             android:title="@string/utility_list" />
         <item
             android:id="@+id/nav_about"
-            android:title="@string/about_us" />
+            android:title="@string/about" />
     </group>
 
 </menu>

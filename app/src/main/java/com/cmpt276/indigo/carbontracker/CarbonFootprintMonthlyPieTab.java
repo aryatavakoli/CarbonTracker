@@ -52,7 +52,7 @@ public class CarbonFootprintMonthlyPieTab extends Fragment {
         routes = carbonInterface.getRoutes(getActivity());
         transportations = carbonInterface.getVehicles(getActivity());
         utilities = carbonInterface.getUtilities(getActivity());
-        last28.add(Calendar.DAY_OF_MONTH,-28);
+        last28.add(Calendar.DAY_OF_MONTH,-NUMBEROFDAYS);
         tomorrow.add(Calendar.DAY_OF_MONTH,1);
 
         createGraph(rootView,journeys,utilities);
@@ -125,8 +125,10 @@ public class CarbonFootprintMonthlyPieTab extends Fragment {
         PieDataSet dataSets = new PieDataSet(pieEntries, null);
         PieData data = new PieData(dataSets);
         dataSets.setColors(ColorTemplate.MATERIAL_COLORS);
+        dataSets.setValueTextSize(20f);
         pieChart.setDescription(null);
         pieChart.setData(data);
+        pieChart.setEntryLabelTextSize(20f);
         pieChart.getLegend().setEnabled(false);
         pieChart.animateY(2000);
         pieChart.invalidate();
