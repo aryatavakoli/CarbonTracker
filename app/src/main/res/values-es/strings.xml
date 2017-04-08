@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">"Rastreador de carbono"</string>
+    <string name="app_name">"Huella de CO₂"</string>
     <string name="title_activity_transportation_select_actvitiy">"Seleccionar Transporte"</string>
     <string name="title_activity_carbon_foot_print">"Huella de carbono"</string>
     <string name="title_activity_transportation_add_actvitiy">"Añadir Transporte"</string>
