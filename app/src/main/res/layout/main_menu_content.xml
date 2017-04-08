@@ -23,7 +23,8 @@
         android:text="@string/view_journey"
         android:textAllCaps="false"
         android:theme="@style/GreenButton"
-        android:layout_marginLeft="@dimen/bottom_left_margin"
+        android:drawableLeft="@drawable/ic_journey"
+        android:layout_marginLeft="@dimen/main_menu_bottom_left_margin"
         />
 
     <Button
@@ -35,7 +36,8 @@
         android:text="@string/view_carbon_footprint"
         android:textAllCaps="false"
         android:theme="@style/GreenButton"
-        android:layout_marginLeft="@dimen/bottom_left_margin"/>
+        android:drawableLeft="@drawable/ic_footprint"
+        android:layout_marginLeft="@dimen/main_menu_bottom_left_margin"/>
 
     <Button
         android:id="@+id/main_menu_create_utilities_btn"
@@ -46,7 +48,8 @@
         android:text="@string/view_utilities"
         android:textAllCaps="false"
         android:theme="@style/GreenButton"
-        android:layout_marginLeft="@dimen/bottom_left_margin"
+        android:drawableLeft="@drawable/ic_utility_bill"
+        android:layout_marginLeft="@dimen/main_menu_bottom_left_margin"
     />
 
     <CheckBox

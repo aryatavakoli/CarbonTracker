@@ -11,4 +11,5 @@
     <dimen name="about_item_text">18sp</dimen>
     <dimen name="about_item_top_margin">20dp</dimen>
     <dimen name="bottom_left_margin">50dp</dimen>
+    <dimen name="main_menu_bottom_left_margin">140dp</dimen>
 </resources>

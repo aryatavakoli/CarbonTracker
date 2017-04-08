@@ -9,7 +9,7 @@
     <string name="title_activity_result_actvitiy">Your Carbon Footprint</string>
     <string name="main_menu">Main Menu</string>
     <string name="create_journey">Create a New Journey</string>
-    <string name="view_carbon_footprint">View CO₂ Data</string>
+    <string name="view_carbon_footprint">View CO₂ Footprint</string>
     <string name="total_carbon_footprint">Total Carbon Footprint</string>
     <string name="route_name">Route Name:</string>
     <string name="nickname">Nickname</string>

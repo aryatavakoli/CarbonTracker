@@ -99,6 +99,7 @@
         android:layout_marginTop="37dp"
         android:text="@string/title_activity_transportation_select_actvitiy"
         android:theme="@style/GreenButton"
+        android:drawableLeft="@drawable/ic_transportation"
         android:textAllCaps="false"/>
 
     <Button
@@ -111,6 +112,7 @@
         android:layout_marginTop="25dp"
         android:text="@string/title_activity_route_select"
         android:theme="@style/GreenButton"
+        android:drawableLeft="@drawable/ic_route"
         android:textAllCaps="false"/>
 
     <Button
@@ -123,6 +125,7 @@
         android:layout_marginTop="29dp"
         android:text="@string/select_date"
         android:theme="@style/GreenButton"
+        android:drawableLeft="@drawable/ic_date"
         android:textAllCaps="false"/>
 
 </RelativeLayout>
