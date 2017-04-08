@@ -235,7 +235,7 @@
     <string name="sfu_cs_homepage"><a href="https://www.sfu.ca/computing.html">SFU CS Homepage</a></string>
     <string name="image_resources"><a href="http://www.freepik.com">Image Resources</a></string>
     <string name="this_transportation_already_exist">This transportation already exist.</string>
-
+    <string name="about_about">About:</string>
 
 
 </resources>
