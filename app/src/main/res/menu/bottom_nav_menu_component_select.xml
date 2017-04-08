@@ -3,10 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/action_add"
+        android:id="@+id/action_edit"
         android:enabled="true"
-        android:icon="@drawable/ic_add"
-        android:title="@string/add_bottom_nav_menu_component"
+        android:icon="@drawable/ic_edit"
+        android:title="@string/edit_bottom_nav_menu_component"
         />
 
     <item
@@ -17,10 +17,10 @@
         />
 
     <item
-        android:id="@+id/action_edit"
+        android:id="@+id/action_add"
         android:enabled="true"
-        android:icon="@drawable/ic_edit"
-        android:title="@string/edit_bottom_nav_menu_component"
+        android:icon="@drawable/ic_add"
+        android:title="@string/add_bottom_nav_menu_component"
         />
 
 </menu>
