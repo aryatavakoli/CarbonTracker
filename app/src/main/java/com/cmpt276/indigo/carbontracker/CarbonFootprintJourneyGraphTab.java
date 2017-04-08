@@ -47,8 +47,10 @@ public class CarbonFootprintJourneyGraphTab extends Fragment {
         PieDataSet dataSets = new PieDataSet(pieEntries,null);
         PieData data = new PieData(dataSets);
         dataSets.setColors(ColorTemplate.MATERIAL_COLORS);
+        dataSets.setValueTextSize(20f);
         pieChart.setDescription(null);
         pieChart.setData(data);
+        pieChart.setEntryLabelTextSize(20f);
         pieChart.getLegend().setEnabled(false);
         pieChart.animateY(2000);
         pieChart.invalidate();

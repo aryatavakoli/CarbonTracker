@@ -46,7 +46,7 @@ class Notification_receiver extends BroadcastReceiver{
             Log.i("utility staaaaaaaaaart",utility.getStartDateString());
             Log.i("utility eeeeeeeeeeend",utility.getEndDateString());
             Log.i("4555555555555555",last45Days.getTime() + "");
-            if (utility.getStartDate().after(last45Days.getTime()) && utility.getEndDate().before(today.getTime())){
+            if (utility.getStartDate().after(last45Days) && utility.getEndDate().before(today)){
                 utilityAddedRecently = true;
             }
         }
@@ -78,7 +78,7 @@ class Notification_receiver extends BroadcastReceiver{
                 .setContentIntent(pendingIntent)
                 .setAutoCancel(true)
                 .setContentInfo("Info");
-        if (utilityAddedRecently == false){
+        if (utilityAddedRecently){
             Calendar today = Calendar.getInstance();
             int journeysMadeToday = 0;
             Log.i("jooooourneyyyyy size",journeys.size() + "");
@@ -98,8 +98,6 @@ class Notification_receiver extends BroadcastReceiver{
                             context.getString(R.string.want_to_enter_noti));
         }
         notificationManager.notify(REQUEST_CODE,builder.build());
-
-
 
     }
 

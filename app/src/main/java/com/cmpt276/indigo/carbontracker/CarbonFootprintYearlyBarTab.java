@@ -31,8 +31,8 @@ import java.util.Calendar;
 
 public class CarbonFootprintYearlyBarTab extends Fragment {
     public static final int NUMBEROFMONTHS = 12;
-    public static final double AVERAGE_DAILY_CO2_PER_PERSON_IN_KG = 56.44; //20.6 metric tonnes per capita / 365
-    public static final double AVERAGE_DAILY_CO2_PER_PERSON_TO_MEET_PARIS_ACCORD = 50.63; //18.48 metric tonnes per capita / 365
+    public static final double AVERAGE_YEARLY_CO2_PER_PERSON_IN_KG = 564;
+    public static final double AVERAGE_YEARLY_CO2_PER_PERSON_TO_MEET_PARIS_ACCORD = 506;
     ArrayList<JourneyModel> journeys;
     ArrayList<UtilityModel> utilities;
     Calendar today = Calendar.getInstance();
@@ -138,8 +138,8 @@ public class CarbonFootprintYearlyBarTab extends Fragment {
         BarData data = new BarData(dataSets);
 
 
-        LimitLine limitLine = new LimitLine((float) AVERAGE_DAILY_CO2_PER_PERSON_IN_KG, "Average Canadian consumption");
-        LimitLine limitLine2 = new LimitLine((float) AVERAGE_DAILY_CO2_PER_PERSON_TO_MEET_PARIS_ACCORD, "Paris Accord Goal");
+        LimitLine limitLine = new LimitLine((float) AVERAGE_YEARLY_CO2_PER_PERSON_IN_KG, "Average Canadian consumption");
+        LimitLine limitLine2 = new LimitLine((float) AVERAGE_YEARLY_CO2_PER_PERSON_TO_MEET_PARIS_ACCORD, "Paris Accord Goal");
         limitLine.setLineWidth(1f);
         limitLine.setTextSize(10f);
         limitLine.setTextColor(Color.RED);

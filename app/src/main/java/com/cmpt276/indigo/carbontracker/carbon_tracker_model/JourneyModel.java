@@ -1,5 +1,7 @@
 package com.cmpt276.indigo.carbontracker.carbon_tracker_model;
 
+import com.cmpt276.indigo.carbontracker.R;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Objects;

@@ -205,4 +205,23 @@
     <string name="journeys_today_want_noti">"Les voyages aujourd'hui; Voulez-vous entrer plus?"</string>
     <string name="want_to_enter_noti">Voulez-vous entrer un maintenant?</string>
     <string name="you_have_not_entered_noti">"Vous n'avez pas entré dans {hydro, gaz naturel} depuis plus d'un mois et demi;"</string>
+    <string name="title_activity_about">"À propos de l'activité"</string>
+    <string name="about_us">À propos de nous</string>
+    <string name="route_list">"Liste d'itinéraire"</string>
+    <string name="transportation_list">Liste des transports</string>
+    <string name="journey_list">Liste des voyages</string>
+    <string name="home">Accueil</string>
+    <string name="back">Arrière</string>
+    <string name="carbon_footprint_graph">Empreinte carbone</string>
+    <string name="About_us">À propos de nous</string>
+    <string name="organize_by_route">Organiser par route</string>
+    <string name="organize_by_route_yearly">Organiser par route</string>
+    <string name="organize_by_route_monthly">Organiser par route</string>
+    <string name="footprint_nav">Empreinte</string>
+    <string name="bar_graph_nav">Graphique de bar</string>
+    <string name="pie_graph_nav">Diagramme circulaire</string>
+    <string name="utility_list">Liste des utilités</string>
+    <string name="convert_kg_of_co2_to_human_breaths_day">"Convertir Kg de CO2 en souffles humains / Jour"</string>
+    <string name="this_transportation_already_exist">Ce transport existe déjà.</string>
+
 </resources>
