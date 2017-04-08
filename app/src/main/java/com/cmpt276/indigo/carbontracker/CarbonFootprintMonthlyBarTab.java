@@ -229,6 +229,7 @@ public class CarbonFootprintMonthlyBarTab extends Fragment {
             }
         }
         return totalCarEmissions;
+//        return value
     }
 
     @NonNull
