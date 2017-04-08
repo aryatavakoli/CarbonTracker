@@ -115,11 +115,11 @@ public class CarbonFootprintComponentCollection {
             routeDBAdapter.close();
         }
         else if (component instanceof JourneyModel){
-            //TODO: edit database entries
-            int index = journies.indexOf((JourneyModel)component);
-            if (index > -1) {
-                journies.set(index, (JourneyModel) component);
-            }
+            JourneyModel journeyModel = (JourneyModel) component;
+            JourneyDBAdapter journeyDBAdapter = new JourneyDBAdapter((context));
+            journeyDBAdapter.open();
+            journeyDBAdapter.updateRow(journeyModel);
+            journeyDBAdapter.close();
         }
         else if (component instanceof UtilityModel){
             UtilityModel utilityModel = (UtilityModel) component;

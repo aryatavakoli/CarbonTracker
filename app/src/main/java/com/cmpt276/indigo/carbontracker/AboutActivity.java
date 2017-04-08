@@ -9,8 +9,10 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.text.method.LinkMovementMethod;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 public class AboutActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
@@ -27,6 +29,14 @@ public class AboutActivity extends AppCompatActivity implements NavigationView.O
         toggle.syncState();
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        setupHyperlinks();
+    }
+
+    private void setupHyperlinks() {
+        TextView sfuCs = (TextView) findViewById(R.id.sfuCStv);
+        sfuCs.setMovementMethod(LinkMovementMethod.getInstance());
+        TextView imageRes = (TextView) findViewById(R.id.imageRestv);
+        imageRes.setMovementMethod(LinkMovementMethod.getInstance());
     }
 
     public static Intent makeIntentForAbout(Context packageContext) {

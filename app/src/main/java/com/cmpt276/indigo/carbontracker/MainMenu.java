@@ -8,7 +8,9 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.preference.PreferenceManager;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.view.GravityCompat;
@@ -17,6 +19,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -24,6 +27,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.RelativeLayout;
 
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.CarbonFootprintComponentCollection;
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.JourneyModel;
@@ -87,7 +91,7 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
         utilitesCreateBtn();
         showNotification();
         setCheckboxCallBack();
-
+        getSoftButtonsBarSizePort(this);
     }
 
     private void SavePreferences(String key, Boolean bool){
@@ -231,6 +235,33 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         return SideNavigationManager.handleSideNavigationSelection(this, item);
+    }
+
+    public static void setupMargin(Activity activity, int contentID){
+        RelativeLayout r = (RelativeLayout)activity.findViewById(contentID);
+        CoordinatorLayout.LayoutParams params = new CoordinatorLayout.LayoutParams(
+                CoordinatorLayout.LayoutParams.MATCH_PARENT,
+                CoordinatorLayout.LayoutParams.MATCH_PARENT
+        );
+        int margin = MainMenu.getSoftButtonsBarSizePort(activity);
+        params.setMargins(0, margin, 0, margin);
+        r.setLayoutParams(params);
+    }
+
+    public static int getSoftButtonsBarSizePort(Activity activity) {
+        // getRealMetrics is only available with API 17 and +
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            DisplayMetrics metrics = new DisplayMetrics();
+            activity.getWindowManager().getDefaultDisplay().getMetrics(metrics);
+            int usableHeight = metrics.heightPixels;
+            activity.getWindowManager().getDefaultDisplay().getRealMetrics(metrics);
+            int realHeight = metrics.heightPixels;
+            if (realHeight > usableHeight)
+                return realHeight - usableHeight;
+            else
+                return 0;
+        }
+        return 0;
     }
 }
 

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Carbon Tracker</string>
+    <string name="app_name">CO₂ Footprint</string>
     <string name="title_activity_transportation_select_actvitiy">Select Transportation</string>
     <string name="title_activity_carbon_foot_print">Carbon Footprint</string>
     <string name="title_activity_transportation_add_actvitiy">Add Transportation</string>
@@ -207,7 +207,7 @@
     <string name="want_to_enter_noti">want to enter one now?</string>
     <string name="you_have_not_entered_noti">You have not entered {hydro, natural gas} in over a month and a half;</string>
     <string name="title_activity_about">AboutActivity</string>
-    <string name="about_us">About us</string>
+    <string name="about">About us</string>
     <string name="route_list">Route List</string>
     <string name="transportation_list">Transportation List</string>
     <string name="journey_list">Journey List</string>
@@ -215,7 +215,13 @@
     <string name="back">Back</string>
     <string name="carbon_footprint_graph">Carbon Footprint</string>
     <string name="About_us">About us</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="group_name">Group Name:</string>
+    <string name="indigo">Indigo</string>
+    <string name="creation_year">Creation Year</string>
+    <string name="year_2017">2017</string>
+    <string name="app_version_1_0">1.0</string>
+    <string name="app_version">App Version</string>
+    <string name="sfu_cs_homepage"><a href="https://www.sfu.ca/computing.html">SFU CS Homepage</a></string>
+    <string name="image_resources"><a href="http://www.freepik.com">Image Resources</a></string>
 </resources>

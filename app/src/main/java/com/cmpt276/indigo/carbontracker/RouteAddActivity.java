@@ -64,6 +64,7 @@ public class RouteAddActivity extends AppCompatActivity implements NavigationVie
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         setupBottomNavigation();
+        MainMenu.setupMargin(this, R.id.content_route_add);
     }
 
     private void setupBottomNavigation(){

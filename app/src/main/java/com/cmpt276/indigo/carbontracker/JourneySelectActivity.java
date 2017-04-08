@@ -6,6 +6,7 @@ import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -17,6 +18,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.CarbonFootprintComponentCollection;
 import com.cmpt276.indigo.carbontracker.carbon_tracker_model.JourneyModel;
@@ -59,6 +61,7 @@ public class JourneySelectActivity extends AppCompatActivity implements Navigati
         navigationView.setNavigationItemSelectedListener(this);
         carbonFootprintInterface = CarbonFootprintComponentCollection.getInstance();
         createListView();
+        MainMenu.setupMargin(this, R.id.content_journey_select);
     }
 
     private void setBottomNavigationItemsStatus() {
