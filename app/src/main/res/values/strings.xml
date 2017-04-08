@@ -207,7 +207,7 @@
     <string name="want_to_enter_noti">want to enter one now?</string>
     <string name="you_have_not_entered_noti">You have not entered {hydro, natural gas} in over a month and a half;</string>
     <string name="title_activity_about">AboutActivity</string>
-    <string name="about">About us</string>
+    <string name="about">About</string>
     <string name="route_list">Route List</string>
     <string name="transportation_list">Transportation List</string>
     <string name="journey_list">Journey List</string>
@@ -235,7 +235,7 @@
     <string name="sfu_cs_homepage"><a href="https://www.sfu.ca/computing.html">SFU CS Homepage</a></string>
     <string name="image_resources"><a href="http://www.freepik.com">Image Resources</a></string>
     <string name="this_transportation_already_exist">This transportation already exist.</string>
-
+    <string name="co_footprint">CO₂ Footprint</string>
 
 
 </resources>
