@@ -16,7 +16,7 @@
             android:title="@string/carbon_footprint_graph" />
         <item
             android:id="@+id/nav_journey_list"
-            android:icon="@drawable/ic_back"
+            android:icon="@drawable/ic_journey"
             android:title="@string/journey_list" />
         <item
             android:id="@+id/nav_transportation_list"
@@ -32,6 +32,7 @@
             android:title="@string/utility_list" />
         <item
             android:id="@+id/nav_about"
+            android:icon="@drawable/ic_info"
             android:title="@string/about" />
     </group>
 
