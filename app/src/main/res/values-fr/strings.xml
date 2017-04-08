@@ -223,5 +223,15 @@
     <string name="utility_list">Liste des utilités</string>
     <string name="convert_kg_of_co2_to_human_breaths_day">"Convertir Kg de CO2 en souffles humains / Jour"</string>
     <string name="this_transportation_already_exist">Ce transport existe déjà.</string>
+    <string name="group_name">Nom de groupe:</string>
+    <string name="indigo">Indigo</string>
+    <string name="creation_year">Année de création</string>
+    <string name="year_2017">2017</string>
+    <string name="app_version_1_0">1.0</string>
+    <string name="app_version">"Version de l'application"</string>
+    <string name="sfu_cs_homepage"><a href="https://www.sfu.ca/computing.html">SFU CS Homepage</a></string>
+    <string name="image_resources"><a href="http://www.freepik.com">"Ressources d'image"</a></string>
+    <string name="co_footprint">Empreinte de CO₂</string>
+    <string name="about">À propos de nous</string>
 
 </resources>
