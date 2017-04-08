@@ -31,7 +31,7 @@ public class CarbonFootprintJourneyGraphTab extends Fragment {
         View rootView = inflater.inflate(R.layout.activity_carbon_footprint_journey_graph, container, false);
 
         carbonInterface = CarbonFootprintComponentCollection.getInstance();
-
+//creating a pie graph with all the journeys of all time in it
         journeys = carbonInterface.getJournies(getActivity());
 
         PieChart pieChart = (PieChart) rootView.findViewById(R.id.bar_graph);

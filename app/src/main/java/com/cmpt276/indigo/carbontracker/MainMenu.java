@@ -54,9 +54,11 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
 
     @Override
     protected void onResume() {
+//        check box for human relatable mode
         super.onResume();
         checkBox.setChecked(LoadPreferences());
         if(LoadPreferences()) {
+//            if breath mode is selected
             UtilityModel.setUnits(UtilityModel.Units.BREATHS);
             JourneyModel.setUnits(JourneyModel.Units.BREATHS);
         }
@@ -128,6 +130,7 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
     }
 
     private void showNotification() {
+//        show notification at 21:00 every night
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
         calendar.set(Calendar.HOUR_OF_DAY, 21);

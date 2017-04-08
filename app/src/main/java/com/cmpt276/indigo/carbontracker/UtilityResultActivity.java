@@ -23,6 +23,7 @@ public class UtilityResultActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+//        outputting all the utility information in one activity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_utility_result);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

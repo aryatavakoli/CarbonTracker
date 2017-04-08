@@ -41,11 +41,9 @@ class Notification_receiver extends BroadcastReceiver{
         carbonFootprintInterface = CarbonFootprintComponentCollection.getInstance();
         journeys = carbonFootprintInterface.getJournies(context);
         utilities = carbonFootprintInterface.getUtilities(context);
-        Log.i("utility siiiiiiiize",utilities.size() + "");
+
         for (UtilityModel utility : utilities){
-            Log.i("utility staaaaaaaaaart",utility.getStartDateString());
-            Log.i("utility eeeeeeeeeeend",utility.getEndDateString());
-            Log.i("4555555555555555",last45Days.getTime() + "");
+//            check if any utility was added in the last 45 days
             if (utility.getStartDate().after(last45Days) && utility.getEndDate().before(today)){
                 utilityAddedRecently = true;
             }
@@ -56,8 +54,10 @@ class Notification_receiver extends BroadcastReceiver{
                 context.NOTIFICATION_SERVICE);
         Intent repeating_intent;
         if(utilityAddedRecently){
+//            go to journey activity
         repeating_intent = new Intent(context,JourneyAddActivity.class);}
         else{
+//            go to add utility activity
             repeating_intent = new Intent(context,UtilityAddActivity.class);
         }
         repeating_intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -69,10 +69,10 @@ class Notification_receiver extends BroadcastReceiver{
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context);
 
         builder.setAutoCancel(true)
+//                setting notification appearance
                 .setDefaults(Notification.DEFAULT_ALL)
                 .setWhen(System.currentTimeMillis())
                 .setSmallIcon(R.drawable.car)
-//                .setTicker("Hearty365")
                 .setContentTitle(context.getString(R.string.carbon_noti))
                 .setDefaults(Notification.DEFAULT_LIGHTS| Notification.DEFAULT_SOUND)
                 .setContentIntent(pendingIntent)
@@ -81,10 +81,10 @@ class Notification_receiver extends BroadcastReceiver{
         if (utilityAddedRecently){
             Calendar today = Calendar.getInstance();
             int journeysMadeToday = 0;
-            Log.i("jooooourneyyyyy size",journeys.size() + "");
             for (JourneyModel journey : journeys){
-                Log.i("journey daaaaaaate",journey.getCreationDateString());
+
                 if (isSameDay( journey.getCreationDate(), today)){
+//                    counting the number of journies created today
                     journeysMadeToday ++;
 
                 }
@@ -93,6 +93,7 @@ class Notification_receiver extends BroadcastReceiver{
             builder.setContentText(context.getString(R.string.you_entered_noti) + journeysMadeToday+ context.getString(R.string.journeys_today_want_noti));
         }
         else{
+//            if have not added any utility in the past 45 days
             builder.setContentText(
                     context.getString(R.string.you_have_not_entered_noti) +
                             context.getString(R.string.want_to_enter_noti));
@@ -103,6 +104,7 @@ class Notification_receiver extends BroadcastReceiver{
 
 
     public boolean isSameDay(Calendar cal1, Calendar cal2) {
+//        checks if 2 dates are equal
         if (cal1 == null || cal2 == null)
             return false;
         return (//cal1.get(Calendar.ERA) == cal2.get(Calendar.ERA)
